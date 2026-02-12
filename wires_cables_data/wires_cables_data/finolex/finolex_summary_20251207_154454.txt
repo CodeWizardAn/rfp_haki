@@ -1,0 +1,23 @@
+======================================================================
+FINOLEX PRODUCT EXTRACTION SUMMARY
+======================================================================
+
+Total Products: 164
+Total Cables: 137
+Total Wires: 27
+
+Categories:
+  - FR Cable: 36
+  - Control Cable: 25
+  - Power Cable-LT: 24
+  - Flexible Cable: 18
+  - Multi-core Wire: 15
+  - Housing Wire: 12
+  - Submersible Cable: 12
+  - Agricultural Cable: 10
+  - Power Cable-HT: 8
+  - Solar Cable: 4
+
+Extraction Date: 2025-12-07 15:44:54
+Source: https://www.finolex.com/ProductPage/Cat/Wires-and-cables
+======================================================================

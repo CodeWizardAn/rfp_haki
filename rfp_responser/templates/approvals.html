@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFP Responser - Approvals</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📋 RFP Responser</h1>
+            <ul class="nav-links">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/bids">Bids</a></li>
+                <li><a href="/create-bid">Create Bid</a></li>
+                <li><a href="/approvals" class="active">Approvals</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>Pending Approvals</h2>
+        </section>
+
+        <section class="approvals-list">
+            <div id="pending-approvals">
+                <p>Loading...</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3>Recent Approval Actions</h3>
+            <div id="recent-actions">
+                <p>Loading...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        async function loadPendingApprovals() {
+            try {
+                const res = await fetch('/api/bids?status=SUBMITTED_FOR_REVIEW');
+                const data = await res.json();
+                
+                const container = document.getElementById('pending-approvals');
+                if (data.bids && data.bids.length > 0) {
+                    container.innerHTML = data.bids.map(bid => `
+                        <div class="approval-card">
+                            <div class="approval-header">
+                                <h4>${bid.bid_id}</h4>
+                                <span class="bid-status status-submitted_for_review">Pending Review</span>
+                            </div>
+                            <div class="approval-details">
+                                <p><strong>Vendor:</strong> ${bid.vendor_name || 'N/A'}</p>
+                                <p><strong>RFP:</strong> ${bid.rfp_id || 'N/A'}</p>
+                                <p><strong>Total:</strong> $${(bid.total_cost || 0).toLocaleString()}</p>
+                                <p><strong>Submitted:</strong> ${new Date(bid.last_modified || bid.created_date).toLocaleString()}</p>
+                            </div>
+                            <div class="approval-actions">
+                                <button class="btn btn-sm" onclick="viewBid('${bid.bid_id}')">View Details</button>
+                                <button class="btn btn-sm btn-success" onclick="quickApprove('${bid.bid_id}')">Approve</button>
+                                <button class="btn btn-sm btn-danger" onclick="quickReject('${bid.bid_id}')">Reject</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p class="no-data">No pending approvals</p>';
+                }
+            } catch (error) {
+                console.error('Error loading approvals:', error);
+                document.getElementById('pending-approvals').innerHTML = '<p class="error">Error loading approvals</p>';
+            }
+        }
+
+        async function loadRecentActions() {
+            try {
+                // Load recently approved/rejected bids
+                const [approvedRes, rejectedRes] = await Promise.all([
+                    fetch('/api/bids?status=APPROVED'),
+                    fetch('/api/bids?status=REJECTED')
+                ]);
+                
+                const approvedData = await approvedRes.json();
+                const rejectedData = await rejectedRes.json();
+                
+                const allActions = [
+                    ...(approvedData.bids || []).map(b => ({...b, action: 'approved'})),
+                    ...(rejectedData.bids || []).map(b => ({...b, action: 'rejected'}))
+                ].sort((a, b) => new Date(b.last_modified || b.created_date) - new Date(a.last_modified || a.created_date))
+                 .slice(0, 10);
+
+                const container = document.getElementById('recent-actions');
+                if (allActions.length > 0) {
+                    container.innerHTML = `
+                        <table class="actions-table">
+                            <thead>
+                                <tr>
+                                    <th>Bid ID</th>
+                                    <th>Vendor</th>
+                                    <th>Action</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${allActions.map(a => `
+                                    <tr>
+                                        <td><a href="/bids/${a.bid_id}">${a.bid_id}</a></td>
+                                        <td>${a.vendor_name || 'N/A'}</td>
+                                        <td><span class="action-badge ${a.action}">${a.action.toUpperCase()}</span></td>
+                                        <td>${new Date(a.last_modified || a.created_date).toLocaleString()}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                } else {
+                    container.innerHTML = '<p class="no-data">No recent approval actions</p>';
+                }
+            } catch (error) {
+                console.error('Error loading recent actions:', error);
+            }
+        }
+
+        function viewBid(bidId) {
+            window.location.href = '/bids/' + bidId;
+        }
+
+        async function quickApprove(bidId) {
+            if (!confirm('Approve this bid?')) return;
+            try {
+                const res = await fetch('/api/bids/' + bidId + '/approve', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reviewer_id: 'USER' })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Bid approved');
+                    loadPendingApprovals();
+                    loadRecentActions();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error approving bid');
+            }
+        }
+
+        async function quickReject(bidId) {
+            const reason = prompt('Enter rejection reason:');
+            if (!reason) return;
+            try {
+                const res = await fetch('/api/bids/' + bidId + '/reject', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reviewer_id: 'USER', reason: reason })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Bid rejected');
+                    loadPendingApprovals();
+                    loadRecentActions();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error rejecting bid');
+            }
+        }
+
+        loadPendingApprovals();
+        loadRecentActions();
+    </script>
+</body>
+</html>

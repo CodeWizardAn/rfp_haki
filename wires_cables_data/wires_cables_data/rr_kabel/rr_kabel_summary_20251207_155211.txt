@@ -1,0 +1,18 @@
+======================================================================
+RR KABEL PRODUCT EXTRACTION SUMMARY
+======================================================================
+
+Total Products: 166
+Total Cables: 154
+Total Wires: 12
+
+Categories:
+  - Power Cable-LT: 78
+  - Control Cable: 25
+  - Flexible Cable: 18
+  - Power Cable-HT: 17
+  - House Wire: 12
+  - Submersible Cable: 12
+  - Solar Cable: 4
+
+Extraction Date: 2025-12-07 15:52:11

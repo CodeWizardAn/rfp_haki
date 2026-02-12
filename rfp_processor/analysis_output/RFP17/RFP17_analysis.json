@@ -1,0 +1,87 @@
+{
+  "rfp_id": "RFP17",
+  "analysis_timestamp": "2026-02-12T21:54:44.070102",
+  "source": {
+    "portal": "TenderBazaar",
+    "portal_id": "portal_2",
+    "url": "http://localhost:5002/rfp/RFP17",
+    "title": "Procurement of Electrical Equipment - RFP17",
+    "category": "Cable Management",
+    "organization": "National Highway Authority",
+    "deadline": "2026-03-09",
+    "estimated_value": "â‚¹478 Lakhs"
+  },
+  "extraction": {
+    "method": "PDFExtractionManager",
+    "total_pages": 2,
+    "total_words": 7984,
+    "total_chars": 49467,
+    "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n09-01-2026 19:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n09-01-2026 19:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n180 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+  },
+  "terms_analysis": {
+    "terms_matched": 8,
+    "matched_lines": 248,
+    "total_lines": 4283,
+    "unrecognized_count": 114,
+    "categories_found": [
+      "bid_timing",
+      "eligibility_criteria",
+      "linked_terms_document",
+      "organization_details",
+      "epbg_details",
+      "technical_specifications"
+    ]
+  },
+  "key_requirements": [
+    {
+      "field": "Bid End Date",
+      "value": "Thank You---",
+      "category": "bid_timing",
+      "section": null
+    },
+    {
+      "field": "Security Deposit",
+      "value": "2011 latest",
+      "category": "epbg_details",
+      "section": null
+    },
+    {
+      "field": "Quality Standard",
+      "value": "1984 latest)",
+      "category": "technical_specifications",
+      "section": null
+    },
+    {
+      "field": "Bidder",
+      "value": "The minimum average annual financial turnover of the bidder during the last",
+      "category": "organization_details",
+      "section": null
+    },
+    {
+      "field": "Experience",
+      "value": "The Bidder or its OEM {themselves or through reseller(s)} should have regularly,",
+      "category": "eligibility_criteria",
+      "section": null
+    },
+    {
+      "field": "Registration",
+      "value": "Empanelment Requirement:",
+      "category": "eligibility_criteria",
+      "section": null
+    },
+    {
+      "field": "Net Worth",
+      "value": "",
+      "category": "eligibility_criteria",
+      "section": null
+    },
+    {
+      "field": "Terms and Conditions",
+      "value": "or any other document. If buyer needs more items along with the main item, the",
+      "category": "linked_terms_document",
+      "section": null
+    }
+  ],
+  "identified_sections": [],
+  "validation": {}
+}

@@ -1,0 +1,81 @@
+# ── Python ──────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+*.whl
+
+# ── Environment / Secrets ──────────────────────
+.env
+.env.*
+!.env.example
+
+# ── IDEs ────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Node / Frontend ────────────────────────────
+haki-fmcg-frontend/node_modules/
+haki-fmcg-frontend/dist/
+haki-fmcg-frontend/.vite/
+.vite/
+
+# ── Databases ───────────────────────────────────
+*.db
+*.sqlite3
+*.sqlite
+
+# ── Vector Store (ChromaDB) ─────────────────────
+database/db_vector/
+
+# ── Uploads & Generated Files ──────────────────
+uploads/
+pdf_extraction/uploads/
+rfp_processor/analysis_output/uploads/
+rfp_responser/uploads/
+spec_comparer/uploads/
+
+# ── PDFs (user-uploaded, not source code) ───────
+*.pdf
+
+# ── RFP Documents (sample data) ────────────────
+RFPs/
+POA_docs/
+
+# ── Test / Cache ────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# ── Logs ────────────────────────────────────────
+*.log
+
+# ── OS files ────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Large JSON data files (>50MB) ───────────────
+rfp_terms_database_100k_new.json
+
+# ── Cache / Pickle ──────────────────────────────
+pdf_extraction/.cache/
+*.pickle
+
+# ── Misc ────────────────────────────────────────
+*.bak
+*.tmp

@@ -1,0 +1,12 @@
+======================================================================
+HAVELLS PRODUCT EXTRACTION SUMMARY
+======================================================================
+
+Total Products: 33
+Total Cables: 33
+Total Wires: 0
+
+Categories:
+  - Flexible Cable: 33
+
+Extraction Date: 2025-12-07 15:47:59

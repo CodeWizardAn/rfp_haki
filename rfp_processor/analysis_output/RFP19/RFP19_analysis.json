@@ -1,0 +1,53 @@
+{
+  "rfp_id": "RFP19",
+  "analysis_timestamp": "2026-02-12T21:54:50.084764",
+  "source": {
+    "portal": "BidConnect",
+    "portal_id": "portal_4",
+    "url": "http://localhost:5004/rfp/RFP19",
+    "title": "Procurement of Cable Management - RFP19",
+    "category": "Transformers",
+    "organization": "Industrial Development Corp",
+    "deadline": "2026-02-20",
+    "estimated_value": "â‚¹298 Lakhs"
+  },
+  "extraction": {
+    "method": "PDFExtractionManager",
+    "total_pages": 2,
+    "total_words": 4596,
+    "total_chars": 28617,
+    "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n21-01-2026 13:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n21-01-2026 13:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n120 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+  },
+  "terms_analysis": {
+    "terms_matched": 3,
+    "matched_lines": 87,
+    "total_lines": 1980,
+    "unrecognized_count": 62,
+    "categories_found": [
+      "linked_terms_document",
+      "bid_timing"
+    ]
+  },
+  "key_requirements": [
+    {
+      "field": "Bid End Date",
+      "value": "Thank You---",
+      "category": "bid_timing",
+      "section": null
+    },
+    {
+      "field": "Pre-Bid Meeting",
+      "value": "रणाम",
+      "category": "bid_timing",
+      "section": null
+    },
+    {
+      "field": "Terms and Conditions",
+      "value": "or any other document. If buyer needs more items along with the main item, the",
+      "category": "linked_terms_document",
+      "section": null
+    }
+  ],
+  "identified_sections": [],
+  "validation": {}
+}

@@ -1,0 +1,52 @@
+======================================================================
+  RFP ANALYSIS REPORT: RFP18
+======================================================================
+  Generated: 2026-02-12T21:54:47.035885
+
+  SOURCE INFORMATION
+  ----------------------------------------
+  Portal:       eProcure Central
+  Title:        Procurement of Cable Management - RFP18
+  Category:     Industrial Automation
+  Organization: National Highway Authority
+  Deadline:     2026-03-04
+  Est. Value:   â‚¹166 Lakhs
+
+  DOCUMENT EXTRACTION
+  ----------------------------------------
+  Method:  PDFExtractionManager
+  Pages:   2
+  Words:   5747
+  Chars:   36424
+
+  TERMS ANALYSIS
+  ----------------------------------------
+  Terms Matched:    4
+  Categories Found: linked_terms_document, technical_specifications, organization_details, bid_timing
+
+  KEY REQUIREMENTS / MATCHED TERMS
+  ----------------------------------------
+    • {'field': 'Bid End Date', 'value': 'Thank You---', 'category': 'bid_timing', 'section': None}
+    • {'field': 'Quality Standard', 'value': '1984 latest)', 'category': 'technical_specifications', 'section': None}
+    • {'field': 'Bidder', 'value': 'The bidder should not be under liquidation, court receivership or similar proceed', 'category': 'organization_details', 'section': None}
+    • {'field': 'Terms and Conditions', 'value': 'or any other document. If buyer needs more items along with the main item, the', 'category': 'linked_terms_document', 'section': None}
+
+  TEXT PREVIEW (first 500 chars)
+  ----------------------------------------
+  
+  --- PAGE 1 ---
+  बड
+  बड
+   
+   
+  ववरण
+  ववरण
+  /
+  /
+  Bid
+   
+   
+  Details
+  बड
+
+======================================================================

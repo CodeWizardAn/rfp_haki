@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFP Responser - All Bids</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📋 RFP Responser</h1>
+            <ul class="nav-links">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/bids" class="active">Bids</a></li>
+                <li><a href="/create-bid">Create Bid</a></li>
+                <li><a href="/approvals">Approvals</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>All Bids</h2>
+            <button class="btn btn-primary" onclick="goTo('/create-bid')">+ New Bid</button>
+        </section>
+
+        <section class="filters">
+            <select id="status-filter" onchange="loadBids()">
+                <option value="">All Status</option>
+                <option value="DRAFT">Draft</option>
+                <option value="SUBMITTED_FOR_REVIEW">Pending Review</option>
+                <option value="APPROVED">Approved</option>
+                <option value="REJECTED">Rejected</option>
+            </select>
+            <input type="text" id="search-input" placeholder="Search by bid ID or vendor..." onkeyup="filterBids()">
+        </section>
+
+        <section class="bid-table-container">
+            <table class="bid-table">
+                <thead>
+                    <tr>
+                        <th>Bid ID</th>
+                        <th>RFP ID</th>
+                        <th>Vendor</th>
+                        <th>Status</th>
+                        <th>Total Cost</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="bids-tbody">
+                    <tr><td colspan="7">Loading...</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        let allBids = [];
+
+        async function loadBids() {
+            try {
+                const status = document.getElementById('status-filter').value;
+                let url = '/api/bids';
+                if (status) {
+                    url += '?status=' + status;
+                }
+                
+                const res = await fetch(url);
+                const data = await res.json();
+                allBids = data.bids || [];
+                renderBids(allBids);
+            } catch (error) {
+                console.error('Error loading bids:', error);
+                document.getElementById('bids-tbody').innerHTML = '<tr><td colspan="7">Error loading bids</td></tr>';
+            }
+        }
+
+        function filterBids() {
+            const search = document.getElementById('search-input').value.toLowerCase();
+            const filtered = allBids.filter(bid => 
+                (bid.bid_id || '').toLowerCase().includes(search) ||
+                (bid.vendor_name || '').toLowerCase().includes(search)
+            );
+            renderBids(filtered);
+        }
+
+        function renderBids(bids) {
+            const tbody = document.getElementById('bids-tbody');
+            if (bids.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7">No bids found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = bids.map(bid => `
+                <tr>
+                    <td><a href="/bids/${bid.bid_id}">${bid.bid_id}</a></td>
+                    <td>${bid.rfp_id || 'N/A'}</td>
+                    <td>${bid.vendor_name || 'N/A'}</td>
+                    <td><span class="bid-status status-${(bid.status || 'draft').toLowerCase()}">${bid.status || 'DRAFT'}</span></td>
+                    <td>$${(bid.total_cost || 0).toLocaleString()}</td>
+                    <td>${new Date(bid.created_date).toLocaleDateString()}</td>
+                    <td class="actions">
+                        <button class="btn btn-sm" onclick="viewBid('${bid.bid_id}')">View</button>
+                        <button class="btn btn-sm btn-secondary" onclick="exportPdf('${bid.bid_id}')">PDF</button>
+                        <button class="btn btn-sm btn-secondary" onclick="exportExcel('${bid.bid_id}')">Excel</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function goTo(path) {
+            window.location.href = path;
+        }
+
+        function viewBid(bidId) {
+            window.location.href = '/bids/' + bidId;
+        }
+
+        function exportPdf(bidId) {
+            window.open('/api/bids/' + bidId + '/pdf', '_blank');
+        }
+
+        function exportExcel(bidId) {
+            window.open('/api/bids/' + bidId + '/excel', '_blank');
+        }
+
+        loadBids();
+    </script>
+</body>
+</html>

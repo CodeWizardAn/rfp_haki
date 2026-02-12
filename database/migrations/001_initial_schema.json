@@ -1,0 +1,14 @@
+{
+  "version": "001",
+  "name": "initial_schema",
+  "description": "Create initial database schema with Products, OEMs, RFPs, Matches, AgentLogs, and related tables",
+  "upgrade_sql": [
+    "-- Initial schema creation handled by SQLAlchemy create_all()",
+    "-- This migration serves as a version marker for the initial schema"
+  ],
+  "downgrade_sql": [
+    "-- Full schema drop handled by SQLAlchemy drop_all()",
+    "-- Manual rollback would require dropping all tables"
+  ],
+  "created_at": "2024-01-01T00:00:00"
+}

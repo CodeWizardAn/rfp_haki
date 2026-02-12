@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Management - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📦 Vendor Management System</h1>
+            <ul class="nav-links">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/vendors">Vendors</a></li>
+                <li><a href="/performance">Performance</a></li>
+                <li><a href="/ratings">Ratings</a></li>
+                <li><a href="/communications">Communications</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="dashboard">
+            <h2>Vendor Management Dashboard</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Vendors</h3>
+                    <p class="stat-value" id="total-vendors">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Vendors</h3>
+                    <p class="stat-value" id="active-vendors">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Average Rating</h3>
+                    <p class="stat-value" id="avg-rating">0/100</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Top Performer</h3>
+                    <p class="stat-value" id="top-performer">N/A</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Quick Actions</h3>
+                <button class="btn btn-primary" onclick="goTo('/vendors')">Manage Vendors</button>
+                <button class="btn btn-primary" onclick="goTo('/performance')">View Performance</button>
+                <button class="btn btn-primary" onclick="goTo('/ratings')">Check Ratings</button>
+                <button class="btn btn-primary" onclick="goTo('/communications')">Communications</button>
+            </div>
+
+            <div class="section">
+                <h3>Recent Activities</h3>
+                <div id="recent-activities" class="activity-list">
+                    <p>Loading...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        async function loadDashboard() {
+            try {
+                // Load vendors count
+                const vendorsRes = await fetch('/api/vendors');
+                const vendorsData = await vendorsRes.json();
+                document.getElementById('total-vendors').textContent = vendorsData.count;
+                
+                const activeCount = vendorsData.vendors.filter(v => v.status === 'ACTIVE').length;
+                document.getElementById('active-vendors').textContent = activeCount;
+
+                // Load top performers
+                const ratingsRes = await fetch('/api/ratings?top_n=1');
+                const ratingsData = await ratingsRes.json();
+                if (ratingsData.rankings && ratingsData.rankings.length > 0) {
+                    document.getElementById('top-performer').textContent = ratingsData.rankings[0].vendor_id;
+                }
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        function goTo(path) {
+            window.location.href = path;
+        }
+
+        loadDashboard();
+    </script>
+</body>
+</html>

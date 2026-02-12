@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ portal.name }} - E-Procurement Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; color: #333; }
+        
+        /* Header */
+        .header {
+            background: {{ portal.theme_color }};
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .header .logo { font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        .header .logo span.icon { font-size: 36px; }
+        .header .nav a { color: white; text-decoration: none; margin-left: 24px; font-size: 14px; opacity: 0.9; }
+        .header .nav a:hover { opacity: 1; text-decoration: underline; }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, {{ portal.theme_color }}dd, {{ portal.theme_color }}88);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .hero h2 { font-size: 22px; font-weight: 400; margin-bottom: 8px; }
+        .hero p { font-size: 14px; opacity: 0.85; }
+        
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        .stat { text-align: center; }
+        .stat .num { font-size: 28px; font-weight: 700; color: {{ portal.theme_color }}; }
+        .stat .label { font-size: 12px; color: #777; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Content */
+        .content { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .section-title { font-size: 20px; margin-bottom: 20px; color: {{ portal.theme_color }}; border-bottom: 2px solid {{ portal.theme_color }}33; padding-bottom: 8px; }
+        
+        /* RFP Cards */
+        .rfp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .rfp-card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid {{ portal.theme_color }};
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .rfp-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+        .rfp-card .rfp-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #222; }
+        .rfp-card .rfp-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .rfp-card .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .tag.category { background: {{ portal.theme_color }}15; color: {{ portal.theme_color }}; }
+        .tag.status-open { background: #d4edda; color: #155724; }
+        .tag.status-closing { background: #fff3cd; color: #856404; }
+        .rfp-card .details { font-size: 13px; color: #555; line-height: 1.8; }
+        .rfp-card .details strong { color: #333; }
+        .rfp-card .actions { margin-top: 16px; display: flex; gap: 10px; }
+        .btn {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .btn-primary { background: {{ portal.theme_color }}; color: white; }
+        .btn-primary:hover { filter: brightness(1.15); }
+        .btn-outline { border: 1px solid {{ portal.theme_color }}; color: {{ portal.theme_color }}; background: transparent; }
+        .btn-outline:hover { background: {{ portal.theme_color }}10; }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: #2c3e50;
+            color: #aaa;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span class="icon">{{ portal.logo_icon }}</span>
+            {{ portal.name }}
+        </div>
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/">Active Tenders</a>
+            <a href="/api/rfps">API</a>
+        </div>
+    </div>
+    
+    <div class="hero">
+        <h2>{{ portal.description }}</h2>
+        <p>Browse and download Request for Proposals (RFPs) for procurement opportunities</p>
+    </div>
+    
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="num">{{ rfps|length }}</div>
+            <div class="label">Active RFPs</div>
+        </div>
+        <div class="stat">
+            <div class="num">{{ rfps|selectattr("status", "equalto", "Open")|list|length }}</div>
+            <div class="label">Open</div>
+        </div>
+        <div class="stat">
+            <div class="num">{{ rfps|selectattr("status", "equalto", "Closing Soon")|list|length }}</div>
+            <div class="label">Closing Soon</div>
+        </div>
+    </div>
+    
+    <div class="content">
+        <h3 class="section-title">📄 Active Procurement Notices</h3>
+        <div class="rfp-grid">
+            {% for rfp in rfps %}
+            <div class="rfp-card">
+                <div class="rfp-title">{{ rfp.title }}</div>
+                <div class="rfp-meta">
+                    <span class="tag category">{{ rfp.category }}</span>
+                    {% if rfp.status == "Open" %}
+                    <span class="tag status-open">● Open</span>
+                    {% else %}
+                    <span class="tag status-closing">⏰ Closing Soon</span>
+                    {% endif %}
+                </div>
+                <div class="details">
+                    <strong>Organization:</strong> {{ rfp.organization }}<br>
+                    <strong>Location:</strong> {{ rfp.location }}<br>
+                    <strong>Published:</strong> {{ rfp.publish_date }}<br>
+                    <strong>Deadline:</strong> {{ rfp.deadline }}<br>
+                    <strong>Est. Value:</strong> {{ rfp.estimated_value }}
+                </div>
+                <div class="actions">
+                    <a href="/rfp/{{ rfp.rfp_id }}" class="btn btn-primary">View Details</a>
+                    <a href="/download/{{ rfp.rfp_id }}" class="btn btn-outline">⬇ Download PDF</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="footer">
+        &copy; 2026 {{ portal.name }} | E-Procurement Portal | Powered by Haki FMCG
+    </div>
+</body>
+</html>

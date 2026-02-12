@@ -1,0 +1,51 @@
+======================================================================
+  RFP ANALYSIS REPORT: RFP24
+======================================================================
+  Generated: 2026-02-12T21:54:50.615675
+
+  SOURCE INFORMATION
+  ----------------------------------------
+  Portal:       BidConnect
+  Title:        Procurement of FMCG Supplies - RFP24
+  Category:     Cables & Wires
+  Organization: Municipal Corporation
+  Deadline:     2026-02-27
+  Est. Value:   â‚¹304 Lakhs
+
+  DOCUMENT EXTRACTION
+  ----------------------------------------
+  Method:  PDFExtractionManager
+  Pages:   2
+  Words:   3010
+  Chars:   18681
+
+  TERMS ANALYSIS
+  ----------------------------------------
+  Terms Matched:    3
+  Categories Found: linked_terms_document, organization_details, bid_timing
+
+  KEY REQUIREMENTS / MATCHED TERMS
+  ----------------------------------------
+    • {'field': 'Bid End Date', 'value': 'Thank You---', 'category': 'bid_timing', 'section': None}
+    • {'field': 'Organisation', 'value': 'या', 'category': 'organization_details', 'section': None}
+    • {'field': 'Terms and Conditions', 'value': 'or any other document. If buyer needs more items along with the main item, the', 'category': 'linked_terms_document', 'section': None}
+
+  TEXT PREVIEW (first 500 chars)
+  ----------------------------------------
+  
+  --- PAGE 1 ---
+  बड
+  बड
+   
+   
+  ववरण
+  ववरण
+  /
+  /
+  Bid
+   
+   
+  Details
+  बड
+
+======================================================================

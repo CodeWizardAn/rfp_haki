@@ -1,0 +1,7 @@
+tender_category,preferred_standards,certification_required,international_acceptable,typical_price_weightage,quality_weightage,delivery_weightage,key_specifications
+Government Buildings,"IS 694, IS 1554, IS 10810 (FRLS mandatory)",BIS marking mandatory,Only with BIS compliance,30-40%,40-50%,10-20%,"Fire safety, BIS compliance, warranty"
+High-Rise Buildings,"IS 10810 (FRLS), IS 7098",BIS + Fire safety certificate,IEC 60332 with equivalence certificate,25-35%,50-60%,10-15%,"FRLS, halogen-free, smoke density"
+Power Utilities,"IS 8130, IS 9968, IS 5831",BIS + Type test reports,IEC standards with local testing,35-45%,40-50%,10-15%,"Voltage rating, conductor size, armoring"
+Industrial Projects,"IS 7098, IS 9968, IS 1554",BIS marking,Yes with equivalence,40-50%,30-40%,10-20%,"Load capacity, insulation type, environmental rating"
+International Projects (Export),"IEC 60227, IEC 60502, BS 6004","CE marking, UL listing (for US)",Primary requirement,45-55%,30-40%,10-15%,"International compliance, testing certificates"
+Solar Power Plants,"IS 9968, IS 13573",BIS + UV resistance certificate,IEC 60502 with UV testing,35-45%,40-50%,10-15%,"UV resistance, temperature rating, XLPE insulation"

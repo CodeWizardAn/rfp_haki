@@ -1,0 +1,153 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Testing and services pricing database for RFP response",
+    "last_updated": "2026-02-01",
+    "currency": "INR"
+  },
+  "services": [
+    {
+      "service_id": "TEST_CONDUCTOR_RES",
+      "service_name": "Conductor Resistance Test",
+      "description": "Measurement of DC resistance of conductor per IS 8130",
+      "price": 2500.00,
+      "unit": "per sample",
+      "turnaround_days": 3,
+      "category": "Routine Test",
+      "standard": "IS 8130",
+      "active": true
+    },
+    {
+      "service_id": "TEST_INSULATION_RES",
+      "service_name": "Insulation Resistance Test",
+      "description": "Measurement of insulation resistance at specified temperature",
+      "price": 3000.00,
+      "unit": "per sample",
+      "turnaround_days": 3,
+      "category": "Routine Test",
+      "standard": "IS 10810",
+      "active": true
+    },
+    {
+      "service_id": "TEST_HV",
+      "service_name": "High Voltage Test",
+      "description": "Applied voltage test to verify insulation integrity",
+      "price": 4500.00,
+      "unit": "per sample",
+      "turnaround_days": 2,
+      "category": "Routine Test",
+      "standard": "IS 694",
+      "active": true
+    },
+    {
+      "service_id": "TEST_SPARK",
+      "service_name": "Spark Test",
+      "description": "Online spark test during manufacturing",
+      "price": 1500.00,
+      "unit": "per lot",
+      "turnaround_days": 1,
+      "category": "Routine Test",
+      "standard": "IS 694",
+      "active": true
+    },
+    {
+      "service_id": "TEST_TENSILE",
+      "service_name": "Tensile Strength Test",
+      "description": "Mechanical testing of conductor and insulation",
+      "price": 3500.00,
+      "unit": "per sample",
+      "turnaround_days": 3,
+      "category": "Type Test",
+      "standard": "IS 5831",
+      "active": true
+    },
+    {
+      "service_id": "TEST_ELONGATION",
+      "service_name": "Elongation Test",
+      "description": "Measurement of elongation at break for insulation",
+      "price": 3500.00,
+      "unit": "per sample",
+      "turnaround_days": 3,
+      "category": "Type Test",
+      "standard": "IS 5831",
+      "active": true
+    },
+    {
+      "service_id": "TEST_AGEING",
+      "service_name": "Ageing Test",
+      "description": "Accelerated ageing test for insulation material",
+      "price": 8000.00,
+      "unit": "per sample",
+      "turnaround_days": 14,
+      "category": "Type Test",
+      "standard": "IS 10810",
+      "active": true
+    },
+    {
+      "service_id": "TEST_FLAME_IEC60332",
+      "service_name": "Flame Retardant Test (Single Cable)",
+      "description": "Vertical flame propagation test per IEC 60332-1",
+      "price": 15000.00,
+      "unit": "per sample",
+      "turnaround_days": 7,
+      "category": "Type Test",
+      "standard": "IEC 60332-1",
+      "active": true
+    },
+    {
+      "service_id": "TEST_FLAME_BUNDLE",
+      "service_name": "Flame Retardant Test (Cable Bundle)",
+      "description": "Vertical flame propagation test for cable bundles per IEC 60332-3",
+      "price": 25000.00,
+      "unit": "per test",
+      "turnaround_days": 10,
+      "category": "Type Test",
+      "standard": "IEC 60332-3",
+      "active": true
+    },
+    {
+      "service_id": "TEST_SMOKE_DENSITY",
+      "service_name": "Smoke Density Test",
+      "description": "Measurement of smoke density during combustion",
+      "price": 12000.00,
+      "unit": "per sample",
+      "turnaround_days": 7,
+      "category": "Type Test",
+      "standard": "IEC 61034",
+      "active": true
+    },
+    {
+      "service_id": "SVC_TPI",
+      "service_name": "Third Party Inspection",
+      "description": "Independent inspection and verification during manufacturing",
+      "price": 25000.00,
+      "unit": "per visit",
+      "turnaround_days": 5,
+      "category": "Inspection Service",
+      "standard": "N/A",
+      "active": true
+    },
+    {
+      "service_id": "SVC_FAT",
+      "service_name": "Factory Acceptance Test",
+      "description": "Complete FAT at manufacturer facility",
+      "price": 35000.00,
+      "unit": "per lot",
+      "turnaround_days": 3,
+      "category": "Acceptance Test",
+      "standard": "Per RFP Specs",
+      "active": true
+    },
+    {
+      "service_id": "SVC_TYPE_CERT",
+      "service_name": "Type Test Certification",
+      "description": "Complete type test report and certification from NABL lab",
+      "price": 35000.00,
+      "unit": "per product type",
+      "turnaround_days": 21,
+      "category": "Certification",
+      "standard": "NABL Accredited",
+      "active": true
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+
+--- Page 1 ---
+ 
+Page 1 of 6 
+ 
+Test report for a KEI 
+Industries Limited 
+4x70mm2 LSZH FR cable 
+to BS 6387:1994               
+Clause 11 
+ 
+Prepared for:  
+KEI Industries Ltd. 
+SP-919, 920, 922 RIICO 
+Industrial Area 
+Bhiwadi 
+Alwar 
+India 
+ 
+24 April 2013 
+ 
+ Test report number 285277 
+ 
+ 
+ 
+0578 
+
+--- Page 2 ---
+ 
+Test report for a KEI Industries Limited 4x70mm2 LSZH FR cable to 
+BS 6387:1994 Clause 11 
+ 
+ 
+ 
+ 
+Test report number 285277 
+Commercial in confidence 
+© BRE Global Ltd 2013  
+Page 2 of 6 
+ 
+Prepared on behalf of BRE Global by 
+Name Ewan MacDonald 
+Position Consultant 
+Signature 
+  
+ 
+Approved on behalf of BRE Global by 
+Name Dave Hoare 
+Position Senior Consultant 
+Date 24 April 2013 
+Signature 
+  
+ 
+BRE Global 
+Bucknalls Lane 
+Watford 
+Herts 
+WD25 9XX 
+T + 44 (0) 1923 664100 
+F + 44 (0) 1923 664994 
+E enquiries@breglobal.com 
+www.breglobal.com 
+ 
+BRE Global is not UKAS accredited to 
+make opinions and interpretation.  Any 
+opinions and interpretations included as 
+part of this report are clearly marked as 
+such. 
+ 
+ 
+This report may only be distributed in its entirety and in accordance with the terms and conditions of the contract. Test results relate 
+only to the items tested. We have no responsibility for the design, materials, workmanship or performance of the product or items 
+tested. This report does not constitute an approval, certification or endorsement of the product tested. 
+ 
+This report is made on behalf of BRE Global. By receiving the report and action on it, the client accepts that no individual is personally 
+liable in contract, tort or breach of statutory duty (including negligence). No third party has any right to rely on this report.  
+0578 
+
+--- Page 3 ---
+ 
+Test report for a KEI Industries Limited 4x70mm2 LSZH FR cable to 
+BS 6387:1994 Clause 11 
+ 
+ 
+ 
+ 
+Test report number 285277 
+Commercial in confidence 
+© BRE Global Ltd 2013  
+Page 3 of 6 
+ 
+1 Introduction 
+The requirement of the work was to determine the performance of a cable when it is subjected to 
+BS 6387:1994 Clause 11 - Resistance to fire characteristics [1]. 
+ 
+The client for this work was, KEI Industries Limited, Bhiwadi, Alwar, India.  The client’s work request is 
+given in BRE Global Quotation 285277 dated 18 February 2013.   
+ 
+ 
+--- Page 4 ---
+ 
+Test report for a KEI Industries Limited 4x70mm2 LSZH FR cable to 
+BS 6387:1994 Clause 11 
+ 
+ 
+ 
+ 
+Test report number 285277 
+Commercial in confidence 
+© BRE Global Ltd 2013  
+Page 4 of 6 
+ 
+2 Details of sample received and tests carried out 
+The sample tested was a 43.7mm diameter, 4 core cable comprising 4 off 70mm 2 insulated, stranded 
+copper conductor with mica glass tape, filler rods, glass binder tape, bedding, steel wire armour and a black 
+over sheath.  The over sheath had the following printed marking; 
+ 
+‘KEI 4Cx70 SQMM 600/1000V LSZH FR CABLE IEC 60502-1 BS 6387 CAT : CWZ 2013’ 
+ 
+The test specimen was supplied by the client and received on 26 February 2013.  BRE Global was not 
+involved in the sample selection process and therefore cannot comment upon the relationship between 
+samples supplied for test and the product supplied to market. 
+ 
+The client requested that the following clauses of BS 6387:1994 were undertaken: 
+ 
+Clause 11.1 - Fire alone (Category C)  
+Clause 11.2 - Fire with water (Category W) 
+Clause 11.3 - Fire with mechanical shock (Category Z) 
+ 
+and this report should be read in conjunction with it.  
+ 
+The tests were conducted between 13 March 2013 and 26 March 2013.  Prior to the tests being carried out, 
+the sample was conditioned as required by the test standard.    
+--- Page 5 ---
+ 
+Test report for a KEI Industries Limited 4x70mm2 LSZH FR cable to 
+BS 6387:1994 Clause 11 
+ 
+ 
+ 
+ 
+Test report number 285277 
+Commercial in confidence 
+© BRE Global Ltd 2013  
+Page 5 of 6 
+ 
+3 Test results 
+3.1 BS 6387:1994 Clause 11.1 Annex D.1 & D.2 - Resistance to fire alone 
+ 
+Cable type Test 
+category 
+Burner 
+Temp 
+(°C) 
+Test 
+duration 
+Test 
+Voltage 
+ 
+Comment Result 
+4x70mm2 C 962 180min 600/1000V No fuses ruptured or lamps 
+extinguished 
+Pass 
+  
+3.2 BS 6387:1994 Clause 11.2 Annex D.1 & D.3 - Resistance to fire with water 
+ 
+Cable type Test 
+category 
+Burner 
+Temp 
+(°C) 
+Test 
+duration 
+Test 
+Voltage 
+ 
+Comment Result 
+4x70mm2 W 670 30min 600/1000V No fuses ruptured or lamps 
+extinguished 
+Pass 
+ 
+3.3 BS 6387:1994 Clause 11.3 Annex D.1 & D.4 - Resistance to fire with mechanical 
+shock 
+ 
+Cable type Test 
+category 
+Burner 
+Temp 
+(°C) 
+Test 
+duration 
+Test 
+Voltage 
+ 
+Comment Result 
+4x70mm2 Z 961 15min 600/1000V No fuses ruptured or lamps 
+extinguished 
+Pass 
+--- Page 6 ---
+ 
+Test report for a KEI Industries Limited 4x70mm2 LSZH FR cable to 
+BS 6387:1994 Clause 11 
+ 
+ 
+==============REPORT ENDS============= 
+ 
+Test report number 285277 
+Commercial in confidence 
+© BRE Global Ltd 2013  
+Page 6 of 6 
+ 
+4 Conclusion 
+The BS 6387:1994 Clauses 11.1 to 11.3 has the following acceptance criteria: 
+‘When a cable sample is tested: 
+ no fuse shall be ruptured, 
+nor any lamp extinguished during the period of the test’. 
+ 
+The KEI Industries Limited 4x70mm 2 LSZH FR cable described in Section 2 of this report met the 
+requirements of BS 6387:1994 Clause 11.1 (Category C), Clause 11.2 (Category W) and Clause 11.3 
+(Category Z). 
+ 
+ 
+5 Reference 
+1. BS 6387:1994, ‘Performance requirements for cables to maintain circuit integrity under fire 
+conditions’, British Standards Institution, London 1994. 
+ 

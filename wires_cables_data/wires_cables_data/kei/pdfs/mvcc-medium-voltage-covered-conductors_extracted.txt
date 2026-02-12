@@ -1,0 +1,353 @@
+
+--- Page 1 ---
+MEDIUM VOLTAGE COVERED CONDUCTORS 
+MVCC
+CONDUCTORS
+INDIAINDIA
+2023-24
+Consumer  Validated
+
+--- Page 2 ---
+01
+BUILDING THE NATION...! PRESTIGIOUS PROJECTS WIRED BY KEI
+RAM MANDIR
+ WORLD'S TALLEST
+STATUE OF UNITY
+PARLIAMENT OF
+INDIA
+BULLET TRAIN
+INDIAN INSTITUTE
+OF TECHNOLOGY
+BOMBAY
+MUMBAI MONORAIL
+ MUMBAI NAGPUR
+SAMRUDDHI HIGHWAY
+WORLD’S
+LARGEST NARENDRA 
+MODI STADIUM
+ AIROLI-KATAI
+NAKA TUNNEL
+MUMBAI COASTAL
+ROAD MEGA PROJECT
+KONKAN RAILWAY
+PROJECT
+INDIA'S LONGEST
+BOGIBEEL BRIDGE
+BHIWADI 
+RAJASTHAN
+CHOPANKI 
+RAJASTHAN
+PATHREDI 
+RAJASTHAN
+RAKHOLI
+DADRA AND NAGAR 
+HAVELI
+CHINCHPADA 
+DADRA AND NAGAR 
+HAVELI
+STATE OF THE ART MANUFACTURING 5 UNITS 
+CMD’S MESSAGE
+MR. ANIL GUPTA
+Chairman & Managing Director
+KEI Industries Limited
+KEI Industries, an Indian MNC founded in 1968, is a global 
+leader in wire and cable solutions having an extensive range of 
+world-class products an d services. With multiple robust & 
+cutting edge manufacturing facilities and a vast network of more 
+than 30,000 channel partners, KEI serves clients in 65+ 
+countries, establishing itself as a one-stop-shop for 
+comprehensive wire and cable solutions. The company 
+achieved a turnover of INR 8000+ crore in the fiscal year 
+2023-24.
+As the world faces the pressing challenges of global warming 
+and climate change, KEI Industries is dedicated to leading the 
+way towards a sustainable and a carbon-neutral future. Our 
+dedication involves using clean gas and solar energy, alongside advanced air and water treatment 
+systems, to eliminate hazardous chemicals and ensure a safe, sustainable environment. Our diverse 
+array of products also reflects our strong commitment towards building an eco-friendly efficient
+surrounding. With an ongoing focus on innovation, KEI is positioned to lead in sustainability while meet-
+ing the demands of global consumers through using cutting-edge technologies, driving progress and 
+setting new standards for environmental responsibility.
+--- Page 3 ---
+In the domain of electrical engineering and power distribution systems, the term "medium voltage covered conductor (MVCC)" 
+typically denotes a type of electrical conductor designed for medium voltage applications, typically ranging between 11 kV and 
+33 kV. These conductors are insulated and covered to ensure safe and efficient power distribution.
+To enhance performance and safety, a covered conductor, such as those designated as medium voltage covered conductors 
+(MVCC), commonly features insulation or a protective covering made of cross-linked polyethene (XLPE). This insulation or 
+covering serves the critical purpose of shielding the conductor, thereby reducing the risk of electrical malfunctions and preventing 
+accidental contact with external elements.
+In overhead power distribution systems, covered conductors play a crucial role, particularly in various environmental conditions. 
+The insulation of the conductor acts as a protective barrier, shielding it from elements such as sunlight, moisture, and other 
+potential sources of damage.
+This type of covered conductor is often employed in areas where additional safety measures are necessary or where exposed 
+conductors pose potential hazards. By providing an extra layer of protection, covered conductors help ensure the reliability and 
+safety of the power distribution infrastructure.
+The design and materials used for covered conductors are influenced by several factors, including voltage level, intended 
+application, environmental conditions, and regulatory requirements.
+In medium voltage networks, these conductors are indispensable for ensuring the efficient and safe distribution of electrical 
+power.
+By carefully considering these factors and selecting appropriate designs and materials, We at KEI manufacture MVCC cable to 
+optimize the performance and reliability of the power distribution system while maintaining compliance with local regulations and 
+standards.
+This underscores the critical role that covered conductors play in the functioning of medium voltage networks and the broader 
+electrical infrastructure.
+MVCC cables: what are they?
+02
+
+--- Page 4 ---
+Applicable Standards
+These Cables are generally offered as per IEC: 61089, IS : 398 -2IEC: 61089, BS EN : 50182/50397.
+Conductor:
+ Longitudinally watertight stranded all aluminium alloy (AAAC), AL-7, AL-59, or AL-59 Aluminium Clad Steel (ACS).
+Shielding:
+ Semi Conducting Cross-Linked Polymer.
+Inner Covering:
+ Low-Density track resistance cross-linked Polyethylene (Without Carbon Black)
+Outer Covering:
+ High-density UV & track resistance Cross-linked Polyethylene
+Construction of MVCC
+UV Resistant & Track Resistant XLPE
+AAAC/AL 7/AL 59
+Longitudinal Water Blocking
+Semi Conductive Layer
+XLPE
+03 
+--- Page 5 ---
+XLPE
+UV Resistant & Track Resistant XLPE
+AL 59
+ACS
+Longitudinal Water Blocking
+Semi Conductive Layer
+04
+--- Page 6 ---
+Application of MVCC
+Medium voltage-covered conductors are used in a variety of electrical power 
+distribution system scenarios. The following are a few typical uses:
+Medium-voltage electricity is delivered from substations to residential, 
+commercial, and industrial areas via overhead power distribution lines, which 
+frequently use covered conductors.
+By shielding the conductors from the elements, the insulation lowers the 
+possibility of electrical failures brought on by exposure to pollutants, moisture, or 
+other impurities.
+Covered conductors can be used to increase the visual impact of power lines 
+and reduce the possibility of unintentional contact with live parts in urban and 
+suburban settings where aesthetics and safety are valued.
+Overhead Power Distribution Lines:
+Over an extended period, bare conductor performance may deteriorate in environments with elevated pollution, moisture, 
+or corrosive elements. The power distribution system's longevity is increased by covered conductors, which offer an extra 
+degree of defense against these types of environmental stresses.
+High Environmental Stress Areas:
+In places with a lot of vegetation, where there is a greater chance of branches or trees coming into contact with power 
+lines, covered conductors are appropriate. The insulation lessens the possibility of faults and outages caused by 
+vegetation
+Areas with Vegetation:
+Urban and Suburban Areas:
+Covered conductors offer an extra layer of defense against corrosion and environmental damage in coastal areas and 
+other harsh environmental regions where exposure to salt, humidity, and extreme weather is a concern.
+Coastal and Harsh Environments:
+Given their greater exposure to inclement weather, covered conductors may be recommended in mountainous or 
+high-altitude areas. The insulation aids in shielding the conductors from environmental hazards like snow and ice.
+High-Altitude Installations:
+05
+--- Page 7 ---
+Industrial facilities may use medium voltage-covered conductors to distribute power from the main substation to different areas 
+of the building. Harsh operating conditions and the presence of industrial chemicals are two things that the insulation helps 
+shield against
+Industrial Facilities:
+Cold Environments Hot Environments
+Forest Areas
+Covered conductors can be used for medium voltage interconnection within the power generation facility and for connecting 
+the facility to the larger electrical grid in renewable energy projects, such as solar or wind farms.
+Renewable Energy Projects:
+In electrified railway systems, where trains are powered by medium voltage, covered conductors may be used. Insulation 
+improves safety by reducing electrical interference.
+Railway Electrification:
+06
+
+--- Page 8 ---
+Advantage of MVCC over bare Conductor:
+In some applications, medium voltage-covered conductor cables are superior to bare conductors due to several benefits. 
+Here are a few main benefits:
+Improved safety is the main benefit of covered conductors. By preventing accidental contact with 
+live parts, the insulation or covering on the conductor lowers the risk of electric shock and other 
+safety hazards. This is especially crucial in suburban and urban settings where people and 
+property are close to power lines
+Improved Safety:
+The possibility of outages brought on by things like tree branches, animals, and 
+weather-related problems is decreased by the protective covering on medium 
+voltage-covered conductors. This can result in a power distribution system that is more 
+dependable, particularly in places with harsh environmental conditions.
+Lower Risk of Outages:
+The negative effects of power distribution systems on the environment are 
+reduced by covered conductors. By shielding the conductors from 
+environmental elements like pollution and corrosion, the insulation increases 
+their lifespan and lowers the need for upkeep and replacement.
+Reduced Environmental Impact:
+Covered conductors offer an extra layer of protection against corrosion in 
+harsh environmental settings, such as coastal areas where salt exposure is 
+a concern. This prolongs the lifespan of the cables and lowers the need for 
+maintenance.
+Corrosion Resistance:
+Electricity faults brought on by plants or animals coming into contact with the 
+conductors are less likely to occur when covered conductors are insulated. 
+Areas with thick vegetation or wildlife corridors should pay special attention 
+to this.
+Vegetation and Wildlife Protection:
+07
+
+--- Page 9 ---
+By providing protection from environmental elements, insulation on covered 
+conductors lowers the risk of electrical failures and disruptions. As a result, 
+downtime is decreased and system reliability is increased.
+Improved Reliability:
+Better aesthetics are a result of covered conductors in suburban and urban 
+settings. Power lines can be designed in a more aesthetically pleasing and 
+compact manner thanks to the insulation, all without sacrificing safety.
+Aesthetics and Urban Planning:
+In sensitive electronic environments or areas with a high concentration of 
+communication equipment, electromagnetic interference can be reduced 
+with the help of the conductor covering. In industrial settings or locations with 
+sophisticated technological infrastructure, this may be advantageous.
+Reduced Electromagnetic Interference (EMI):
+Decreased Maintenance Needs: Because insulation helps shield against wear 
+and tear and lengthens the lifespan of the cable, covered conductors may require 
+less maintenance than bare conductors
+Maintenance and Durability:
+Since covered conductors are less restricted by clearance requirements than 
+bare conductors, they provide greater routing and installation flexibility. In 
+some situations, this flexibility can make the design and installation process 
+easier.
+Flexibility in Routing
+An extra line of defense against unapproved tampering and vandalism is offered by 
+the insulation. This is particularly important in public areas where there is a chance 
+that power lines may be intentionally damaged.
+Protection Against Vandalism:
+Because covered conductors lessen the effect that power distribution 
+systems have on the local ecosystem, they may aid in complying with 
+environmental regulations. In areas that are sensitive to the environment, this 
+is especially crucial.
+Compliance with Environmental Regulations:
+08
+--- Page 10 ---
+Dimensions of MVCC
+Type
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+AAAC / AL-7 / AL -59
+Construction
+7 Strands
+7 Strands
+7 Strands
+7 Strands
+7 Strands
+7 Strands
+19 Strands
+19 Strands
+19 Strands
+19 Strands
+19 Strands
+19 Strands
+19 Strands
+Cross Section (Sq mm)
+50
+55
+70
+80
+90
+100
+120
+125
+148
+159
+160
+232
+241
+Type
+AL-59 ACS
+AL-59 ACS
+AL-59 ACS
+AL-59 ACS
+AL-59 ACS
+AL-59 ACS
+AL-59 ACS
+Construction
+AL-59
+6 Strands
+6 Strands
+6 Strands
+6 Strands
+26 Strands
+30 Strands
+30 Strands
+ACS
+1 Strands
+1 Strands
+1 Strands
+1 Strands
+7 Strands
+7 Strands
+7 Strands
+Cross Section (Sq mm)
+31.6
+52.88
+78.82
+104.98
+120
+160
+241
+Nominal Thickness
+As Per Requirement
+As Required to make Water Blocked 
+Arragement
+UOM
+11 KV 22 KV 33 KV
+Sq.mm
+mm
+mm
+mm
+mm
+0.3
+1.2
+1.1
+0.3
+1.32
+1.1
+0.4
+2.43
+1.2
+Aluminium Alloy Wire
+Extruded Longitudinal Water Blocking Layer
+Extruded Semi Conductive Layer
+Inner Insulation of XLPE Without Carbon Black
+Outer Insulaton with UV & Track Resistant XLPE
+Sr.NO Cable Attributes
+1
+2
+3
+4
+5
+09
+--- Page 11 ---
+Our Product Range
+Widest range of wires and cables from 1.1kV up to 400kV
+10
+Safety and Quality,
+                          Our Priority.
+--- Page 12 ---
+REGISTERED AND CORPORATE OFFICE:
+D-90, OKHLA INDUSTRIAL AREA PHASE-I, NEW DELHI-110020,  TEL: +91-11-26818840/8642/0242 FAX: 26817225, 26811959   
+Toll Free No: 1800 410 0000 E-MAIL: info@kei-ind.com    WEBSITE: www.kei-ind.com   CIN NO: L74899DL1992PLC051527
+THE POWER BEHIND THE POWER
+BRIDGING THE GAP ACROSS 60 DIFFERENT COUNTRIES
+Scan to reach other offices

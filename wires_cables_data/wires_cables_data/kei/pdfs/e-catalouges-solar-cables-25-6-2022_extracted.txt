@@ -1,0 +1,561 @@
+
+--- Page 1 ---
+REGISTERED AND CORPORATE OFFICE:
+D-90, OKHLA INDUSTRIAL AREA PHASE-I, NEW DELHI-110020,  TEL: +91-11-26818840/8642/0242 FAX: 26817225, 26811959   
+E-MAIL: info@kei-ind.com    WEBSITE: www.kei-ind.com   CIN NO: L74899DL1992PLC051527
+THE POWER BEHIND THE POWER
+BRIDGING THE GAP ACROSS 60 DIFFERENT COUNTRIES
+Scan to reach other offices
+CABLES FOR 
+PHOTOVOLTAICS
+(SOLAR CABLES) 
+* Spindle Hole size shall be minimum 80 mm and maximum 110 mm      
+* Eight wooden spools packed in one pallete shall be provided
+* F - Flange diameter, T - Traverse internal length, B - Barrel diameter      
+Packing Conductor size upto 10 sqmm in wooden ply spool & above 10 sqmm in wooden drums
+Thickness
+of
+insulation
+mm
+0.60
+0.60
+0.60
+0.60
+0.70
+0.70
+0.80
+0.80
+0.90
+1.00
+1.00
+1.20
+1.30
+1.40
+1.50
+Max. 
+conductor
+D.C resistance
+at 20
+0C
+Ohm/km
+13.70
+8.21
+5.09
+3.39
+1.95
+1.24
+0.80
+0.57
+0.39
+0.28
+0.21
+0.16
+0.13
+0.11
+0.08
+Approx.
+overall
+diameter
+4.60
+4.90
+5.40
+5.90
+7.10
+8.60
+10.30
+11.70
+13.70
+16.00
+17.70
+20.20
+22.20
+24.60
+27.70
+mm
+35
+45
+60
+80
+120
+180
+275
+370
+515
+710
+930
+1190
+1470
+1800
+2310
+Approx. 
+weight 
+of cable
+ Kg/km
+Current rating
+under continous
+operation 
+90
+0C & ambient
+temperature 
+at 400C
+Amp
+22
+30
+42
+52
+76
+95
+125
+159
+185
+239
+290
+335
+385
+440
+520
+Thickness
+of
+sheath
+mm
+0.80
+0.80
+0.80
+0.80
+0.80
+0.80
+0.90
+0.90
+1.00
+1.10
+1.10
+1.30
+1.40
+1.50
+1.60
+Cable
+Size
+sqmm
+1.5
+2.5
+4
+6
+10
+16
+25
+35
+50
+70
+95
+120
+150
+185
+240
+REQUIRED FEATURES 
+OF SOLAR CABLE
+Mechanical Features:
+• Resistant to impact, tear and abrasion
+• Minimum bending radius is 4 times the diameter
+• Safe pulling force - 50 N/sqmm
+• Mineral oil resistance will be according to EN 60811-2-1
+• Ozone resistance will be according to EN 50396 part 8.1.3 
+• Weathering-UV Resistance: according to HD 605/A1 or DIN 53367
+• Ammonia resistance is done for 30 days in saturated ammonia atmosphere (internal testing)
+• Very good resistance to oil and chemicals
+• Acidic & alkaline resistance will be according to EN 60811-2-1 (Oxal acid and sodium hydroxide)
+KEI/SCC/QCL/FEBRUARY/2023
+@keicables/keicables /keicables
+2023
+INDIAINDIA
+Consumer Validated
+--- Page 2 ---
+SOLAR POWER
+Rapid urbanisation and globalisation has given rise to 
+an increased demand for energy. The fast pace of 
+depletion of conventional sources of energy have 
+influenced us to find newer and sustainable solutions 
+to meet this increase in demand. In such a scenario, 
+renewable energy sources like wind and solar energy 
+are the need of the hour .
+Solar power generation has emerged as one of the 
+most rapidly growing renewable sources of electricity. 
+Solar energy is set to address the ever-growing need 
+for power across the world. It has a low impact on the 
+environment, serving as an ideal alternative to produce 
+electricity, while maintaining a lower carbon-footprint 
+and thereby helping preserve the nature. This has 
+opened new avenues of business for the cable and wire 
+manufacturing companies.
+In the recent years, there has been an increase in the number of solar power generation plants, in India and across 
+the world, which has in-turn created a higher demand for wires and cables. In response to this increase in demand, 
+KEI is helping the renewable energy industry harness the opportunity.
+KEI is proud to contribute to the renewable energy industry by supplying electrical solar cables to solar power 
+plants. With a sharp focus on technology and innovation, the Company aims at becoming one of the key environment 
+friendly technology companies of the country. To keep pace with the changing needs of the industry, it is important 
+to overcome challenges, identify opportunities for growth and provide future-proof solutions for the industry.
+--- Page 3 ---
+PROPERTIES 
+• A lifetime ‘Component’: lasts up to 30 years even under tough conditions
+• Used in extreme weather conditions (UV Resistance)
+• Halogen-free: low smoke emission and low toxicity during fire
+• Flame & fire retardant
+• Flexibility & stripability: for fast and easy installation
+• Easy installation: with color identification
+• Suitable to common connector types
+• TV, VDE, UTE and IMQ certified
+• One common factor for most of the photovoltaic power systems is outdoor
+ use, characterised by high temperature / high UV radiation
+Type of appliance: Cable for Photovoltaic Systems
+Standard: 2Pfg 1169/08.2007/BSEN 50618
+Marking: KEI, PV1-F, 0.6/1.0 kV, Cable size, year of manufacturing, TUV 2 Pfg 1169/08.2007 or BSEN 50618
+Cross Sectional area: 2.5 sqmm to 16 sqmm or as per customer requirement
+Maximum permissible voltage 2000 Vdc
+Conductor According to class 5 of IEC 60228/ DIN VDE 0295
+Lower ambient temperature: -40
+0C
+Upper ambient temperature: +900C
+Max. temperature at conductor: 1200C for 20000h
+SPECIFICATION
+--- Page 4 ---
+CONSTRUCTION
+KEI Solar Cables are manufactured with the following material:
+• Annealed tinned copper conductor-Class 5
+• Cross linked insulated halogen-free polyolefin compound
+• Cross linked halogen free polyolefin sheath compound
+Insulation-Extruded cross linked halogen-free
+polyolefin thermosetting insulation
+Sheath - Extruded cross linked halogen-free
+polyolefin thermosetting sheath
+Flexible stranded & circular (Class 5)
+tinned copper conductor
+Insulation-Extruded cross linked halogen-free
+polyolefin thermosetting insulation
+polyolefin thermosetting sheath
+Flexible stranded & circular (Class 5)
+tinned copper conductor
+
+--- Page 5 ---
+* Spindle Hole size shall be minimum 80 mm and maximum 110 mm      
+* Eight wooden spools packed in one pallete shall be provided
+* F - Flange diameter, T - Traverse internal length, B - Barrel diameter      
+Packing Conductor size upto 10 sqmm in wooden ply spool & above 10 sqmm in wooden drums
+Thickness
+of
+insulation
+mm
+0.60
+0.60
+0.60
+0.60
+0.70
+0.70
+0.80
+0.80
+0.90
+1.00
+1.00
+1.20
+1.30
+1.40
+1.50
+Max. 
+conductor
+D.C resistance
+at 20
+0C
+Ohm/km
+13.70
+8.21
+5.09
+3.39
+1.95
+1.24
+0.80
+0.57
+0.39
+0.28
+0.21
+0.16
+0.13
+0.11
+0.08
+Approx.
+overall
+diameter
+4.60
+4.90
+5.40
+5.90
+7.10
+8.60
+10.30
+11.70
+13.70
+16.00
+17.70
+20.20
+22.20
+24.60
+27.70
+mm
+35
+45
+60
+80
+120
+180
+275
+370
+515
+710
+930
+1190
+1470
+1800
+2310
+Approx. 
+weight 
+of cable
+ Kg/km
+Current rating
+under continous
+operation 
+90
+0C & ambient
+temperature 
+at 400C
+Amp
+22
+30
+42
+52
+76
+95
+125
+159
+185
+239
+290
+335
+385
+440
+520
+Thickness
+of
+sheath
+mm
+0.80
+0.80
+0.80
+0.80
+0.80
+0.80
+0.90
+0.90
+1.00
+1.10
+1.10
+1.30
+1.40
+1.50
+1.60
+Cable
+Size
+sqmm
+1.5
+2.5
+4
+6
+10
+16
+25
+35
+50
+70
+95
+120
+150
+185
+240
+REQUIRED FEATURES 
+OF SOLAR CABLE
+Mechanical Features:
+• Resistant to impact, tear and abrasion
+• Minimum bending radius is 4 times the diameter
+• Safe pulling force - 50 N/sqmm
+• Mineral oil resistance will be according to EN 60811-2-1
+• Ozone resistance will be according to EN 50396 part 8.1.3 
+• Weathering-UV Resistance: according to HD 605/A1 or DIN 53367
+• Ammonia resistance is done for 30 days in saturated ammonia atmosphere (internal testing)
+• Very good resistance to oil and chemicals
+• Acidic & alkaline resistance will be according to EN 60811-2-1 (Oxal acid and sodium hydroxide)
+KEI/SCC/QCL/NOVEMBER/2022
+--- Page 6 ---
+REGISTERED AND CORPORATE OFFICE:
+D-90, OKHLA INDUSTRIAL AREA PHASE-I, NEW DELHI-110020,  TEL: +91-11-26818840/8642/0242 FAX: 26817225, 26811959   
+E-MAIL: info@kei-ind.com    WEBSITE: www.kei-ind.com   CIN NO: L74899DL1992PLC051527
+THE POWER BEHIND THE POWER
+BRIDGING THE GAP ACROSS 60 DIFFERENT COUNTRIES
+Scan to reach other offices
+CABLES FOR 
+PHOTOVOLTAICS
+(SOLAR CABLES) 
+* Spindle Hole size shall be minimum 80 mm and maximum 110 mm      
+* Eight wooden spools packed in one pallete shall be provided
+* F - Flange diameter, T - Traverse internal length, B - Barrel diameter      
+Packing Conductor size upto 10 sqmm in wooden ply spool & above 10 sqmm in wooden drums
+Thickness
+of
+insulation
+mm
+0.60
+0.60
+0.60
+0.60
+0.70
+0.70
+0.80
+0.80
+0.90
+1.00
+1.00
+1.20
+1.30
+1.40
+1.50
+Max. 
+conductor
+D.C resistance
+at 20
+0C
+Ohm/km
+13.70
+8.21
+5.09
+3.39
+1.95
+1.24
+0.80
+0.57
+0.39
+0.28
+0.21
+0.16
+0.13
+0.11
+0.08
+Approx.
+overall
+diameter
+4.60
+4.90
+5.40
+5.90
+7.10
+8.60
+10.30
+11.70
+13.70
+16.00
+17.70
+20.20
+22.20
+24.60
+27.70
+mm
+35
+45
+60
+80
+120
+180
+275
+370
+515
+710
+930
+1190
+1470
+1800
+2310
+Approx. 
+weight 
+of cable
+ Kg/km
+Current rating
+under continous
+operation 
+90
+0C & ambient
+temperature 
+at 400C
+Amp
+22
+30
+42
+52
+76
+95
+125
+159
+185
+239
+290
+335
+385
+440
+520
+Thickness
+of
+sheath
+mm
+0.80
+0.80
+0.80
+0.80
+0.80
+0.80
+0.90
+0.90
+1.00
+1.10
+1.10
+1.30
+1.40
+1.50
+1.60
+Cable
+Size
+sqmm
+1.5
+2.5
+4
+6
+10
+16
+25
+35
+50
+70
+95
+120
+150
+185
+240
+REQUIRED FEATURES 
+OF SOLAR CABLE
+Mechanical Features:
+• Resistant to impact, tear and abrasion
+• Minimum bending radius is 4 times the diameter
+• Safe pulling force - 50 N/sqmm
+• Mineral oil resistance will be according to EN 60811-2-1
+• Ozone resistance will be according to EN 50396 part 8.1.3 
+• Weathering-UV Resistance: according to HD 605/A1 or DIN 53367
+• Ammonia resistance is done for 30 days in saturated ammonia atmosphere (internal testing)
+• Very good resistance to oil and chemicals
+• Acidic & alkaline resistance will be according to EN 60811-2-1 (Oxal acid and sodium hydroxide)
+KEI/SCC/QCL/FEBRUARY/2023
+@keicables/keicables /keicables
+2023
+INDIAINDIA
+Consumer Validated

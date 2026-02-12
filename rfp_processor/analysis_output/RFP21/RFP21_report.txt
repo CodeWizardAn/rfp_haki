@@ -1,0 +1,52 @@
+======================================================================
+  RFP ANALYSIS REPORT: RFP21
+======================================================================
+  Generated: 2026-02-12T21:54:42.091696
+
+  SOURCE INFORMATION
+  ----------------------------------------
+  Portal:       GovProcure India
+  Title:        Procurement of Industrial Automation - RFP21
+  Category:     Cables & Wires
+  Organization: Smart City Mission
+  Deadline:     2026-03-15
+  Est. Value:   â‚¹400 Lakhs
+
+  DOCUMENT EXTRACTION
+  ----------------------------------------
+  Method:  PDFExtractionManager
+  Pages:   2
+  Words:   4272
+  Chars:   26579
+
+  TERMS ANALYSIS
+  ----------------------------------------
+  Terms Matched:    4
+  Categories Found: linked_terms_document, technical_specifications, organization_details, bid_timing
+
+  KEY REQUIREMENTS / MATCHED TERMS
+  ----------------------------------------
+    • {'field': 'Bid End Date', 'value': 'Thank You---', 'category': 'bid_timing', 'section': None}
+    • {'field': 'Bidder', 'value': 'documents sought in the', 'category': 'organization_details', 'section': None}
+    • {'field': 'Warranty Period', 'value': '30 m', 'category': 'technical_specifications', 'section': None}
+    • {'field': 'Terms and Conditions', 'value': 'or any other document. If buyer needs more items along with the main item, the', 'category': 'linked_terms_document', 'section': None}
+
+  TEXT PREVIEW (first 500 chars)
+  ----------------------------------------
+  
+  --- PAGE 1 ---
+  बड
+  बड
+   
+   
+  ववरण
+  ववरण
+  /
+  /
+  Bid
+   
+   
+  Details
+  बड
+
+======================================================================

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spec Comparer Pro - RFP Product Matching</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🔌 Spec Comparer Pro</h1>
+            <p class="subtitle">Match RFP Requirements with Top OEM Products + Calculator & Recommendations</p>
+        </header>
+
+        <!-- Database Stats -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-icon">📦</span>
+                    <span class="stat-value" id="totalProducts">{{ total_products }}</span>
+                    <span class="stat-label">Total Products</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🏭</span>
+                    <span class="stat-value" id="oemCount">{{ oem_list|length }}</span>
+                    <span class="stat-label">OEM Brands</span>
+                </div>
+                <div class="stat-card oem-list">
+                    <span class="stat-icon">🏷️</span>
+                    <span class="stat-value oem-names">{{ oem_list|join(', ') }}</span>
+                    <span class="stat-label">Available OEMs</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Input Section -->
+        <section class="input-section">
+            <div class="input-tabs">
+                <button class="tab-btn active" data-tab="text">📝 Paste RFP Text</button>
+                <button class="tab-btn" data-tab="file">📄 Upload PDF</button>
+            </div>
+
+            <div class="tab-content active" id="text-tab">
+                <textarea id="rfpText" placeholder="Paste RFP specifications here...
+
+Example formats detected:
+• 2.5 sq mm 3 core copper FRLS wire
+• 4C x 6 sqmm XLPE armoured cable
+• 1.1kV 4 core 25 sqmm aluminium cable
+• IS 1554 compliant 2.5mm² copper PVC wire"></textarea>
+            </div>
+
+            <div class="tab-content" id="file-tab">
+                <div class="drop-zone" id="dropZone">
+                    <span class="drop-icon">📄</span>
+                    <span class="drop-text">Drop RFP PDF here or click to browse</span>
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                </div>
+                <div id="fileName" class="file-name"></div>
+            </div>
+
+            <!-- Analysis Options -->
+            <div class="analysis-options">
+                <h3>⚙️ Analysis Options:</h3>
+                <div class="option-checks">
+                    <label class="option-check">
+                        <input type="checkbox" id="includeCalculations" checked>
+                        <span>🧮 Voltage Drop & Power Calculations</span>
+                    </label>
+                    <label class="option-check">
+                        <input type="checkbox" id="includeRecommendations" checked>
+                        <span>🎯 Smart Recommendations</span>
+                    </label>
+                    <label class="option-check">
+                        <input type="checkbox" id="includeBudgetAnalysis" checked>
+                        <span>💰 Budget & Cost Analysis</span>
+                    </label>
+                    <label class="option-check">
+                        <input type="checkbox" id="includeOemComparison" checked>
+                        <span>🏭 OEM Comparison Summary</span>
+                    </label>
+                </div>
+                <div class="input-row">
+                    <div class="input-group-inline">
+                        <label>Cable Length (m):</label>
+                        <input type="number" id="cableLength" value="100" min="1" max="5000">
+                    </div>
+                    <div class="input-group-inline">
+                        <label>Application:</label>
+                        <select id="applicationSelect">
+                            <option value="auto">🔍 Auto-detect from RFP</option>
+                            <option value="residential">🏠 Residential</option>
+                            <option value="commercial">🏢 Commercial</option>
+                            <option value="industrial">🏭 Industrial</option>
+                            <option value="underground">🕳️ Underground</option>
+                            <option value="outdoor">☀️ Outdoor</option>
+                            <option value="high_rise">🏗️ High-Rise</option>
+                            <option value="hospital">🏥 Hospital</option>
+                            <option value="data_center">💻 Data Center</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button id="compareBtn" class="compare-btn">
+                <span class="btn-icon">🔍</span>
+                <span>Compare Specifications</span>
+            </button>
+        </section>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <span>Analyzing RFP and matching products...</span>
+        </div>
+
+        <!-- Results Section -->
+        <section id="results" class="results-section hidden">
+            <div class="results-header">
+                <h2>📊 Comparison Results</h2>
+                <span id="reqCount" class="req-count"></span>
+            </div>
+            <div id="oemSummary" class="oem-summary"></div>
+            <div id="comparisons" class="comparisons-container"></div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+cable_type,indian_standard,international_equivalent,price_per_meter_inr,price_per_meter_usd,vendor_examples
+1.5 sq mm PVC House Wire,IS 694 / IS 1554,IEC 60227,₹15-25,$0.18-0.30,"Polycab, Havells, KEI, Finolex"
+2.5 sq mm PVC Wire,IS 694 / IS 7098,BS 6004 / IEC 60227,₹20-35,$0.24-0.42,"Havells, Polycab, V-Guard"
+4 sq mm PVC Wire,IS 694,IEC 60227,₹32-50,$0.38-0.60,"Polycab, KEI, RR Kabel"
+2.5 sq mm FRLS Cable,IS 10810,IEC 60332 compliant,₹35-55,$0.42-0.66,"Finolex, Havells, Polycab FRLS"
+16 sq mm XLPE Cable,IS 9968 / IS 7098,IEC 60502,₹45-75,$0.54-0.90,"KEI, Polycab, Universal"
+25 sq mm Armoured Cable,IS 5831,BS 7846,₹85-150,$1.02-1.80,"KEI, Polycab, Gloster"
+95 sq mm 11kV XLPE,IS 8130,IEC 60502,₹450-850,$5.40-10.20,"Polycab, KEI, Universal Cables"
+Flexible Multi-strand Wire 1.5 sq mm,IS 694 / IS 1554,IEC 60227,₹18-28,$0.22-0.34,"RR Kabel, Havells, Finolex"

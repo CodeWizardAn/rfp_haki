@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFP Responser - Bid Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📋 RFP Responser</h1>
+            <ul class="nav-links">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/bids">Bids</a></li>
+                <li><a href="/create-bid">Create Bid</a></li>
+                <li><a href="/approvals">Approvals</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="page-header">
+            <div>
+                <a href="/bids" class="back-link">← Back to Bids</a>
+                <h2 id="bid-title">Bid Details</h2>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="exportPdf()">Export PDF</button>
+                <button class="btn btn-secondary" onclick="exportExcel()">Export Excel</button>
+            </div>
+        </section>
+
+        <section class="bid-detail">
+            <div class="detail-grid">
+                <div class="detail-card">
+                    <h3>Bid Information</h3>
+                    <div class="detail-row">
+                        <span class="label">Bid ID:</span>
+                        <span class="value" id="bid-id">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">RFP ID:</span>
+                        <span class="value" id="rfp-id">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Status:</span>
+                        <span class="value" id="bid-status">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Created:</span>
+                        <span class="value" id="created-date">-</span>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <h3>Vendor Information</h3>
+                    <div class="detail-row">
+                        <span class="label">Vendor ID:</span>
+                        <span class="value" id="vendor-id">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Vendor Name:</span>
+                        <span class="value" id="vendor-name">-</span>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <h3>Terms</h3>
+                    <div class="detail-row">
+                        <span class="label">Delivery Timeline:</span>
+                        <span class="value" id="delivery-timeline">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Payment Terms:</span>
+                        <span class="value" id="payment-terms">-</span>
+                    </div>
+                </div>
+
+                <div class="detail-card highlight">
+                    <h3>Total Cost</h3>
+                    <p class="total-cost" id="total-cost">$0</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Line Items</h3>
+                <table class="items-table">
+                    <thead>
+                        <tr>
+                            <th>Item ID</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                            <th>Unit Price</th>
+                            <th>Discount</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-tbody">
+                        <tr><td colspan="7">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section" id="approval-section">
+                <h3>Approval Status</h3>
+                <div id="approval-status">Loading...</div>
+            </div>
+
+            <div class="section actions-section" id="bid-actions">
+                <!-- Actions based on status -->
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        const bidId = '{{ bid_id }}';
+
+        async function loadBidDetails() {
+            try {
+                const res = await fetch('/api/bids/' + bidId);
+                if (!res.ok) {
+                    throw new Error('Bid not found');
+                }
+                const bid = await res.json();
+                
+                document.getElementById('bid-title').textContent = 'Bid: ' + bid.bid_id;
+                document.getElementById('bid-id').textContent = bid.bid_id;
+                document.getElementById('rfp-id').textContent = bid.rfp_id || 'N/A';
+                document.getElementById('bid-status').innerHTML = `<span class="bid-status status-${(bid.status || 'draft').toLowerCase()}">${bid.status || 'DRAFT'}</span>`;
+                document.getElementById('created-date').textContent = new Date(bid.created_date).toLocaleString();
+                document.getElementById('vendor-id').textContent = bid.vendor_id || 'N/A';
+                document.getElementById('vendor-name').textContent = bid.vendor_name || 'N/A';
+                document.getElementById('delivery-timeline').textContent = bid.delivery_timeline || 'N/A';
+                document.getElementById('payment-terms').textContent = bid.payment_terms || 'N/A';
+                document.getElementById('total-cost').textContent = '$' + (bid.total_cost || 0).toLocaleString();
+
+                // Render items
+                const items = bid.items || [];
+                const tbody = document.getElementById('items-tbody');
+                if (items.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7">No items</td></tr>';
+                } else {
+                    tbody.innerHTML = items.map(item => `
+                        <tr>
+                            <td>${item.item_id || '-'}</td>
+                            <td>${item.description || '-'}</td>
+                            <td>${item.quantity || 0}</td>
+                            <td>${item.unit || 'Unit'}</td>
+                            <td>$${(item.unit_price || 0).toLocaleString()}</td>
+                            <td>${item.discount_percent || 0}%</td>
+                            <td>$${(item.total || 0).toLocaleString()}</td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Render approval status
+                if (bid.approval_status) {
+                    renderApprovalStatus(bid.approval_status);
+                }
+
+                // Render actions based on status
+                renderActions(bid.status);
+            } catch (error) {
+                console.error('Error loading bid:', error);
+                document.getElementById('bid-title').textContent = 'Error loading bid';
+            }
+        }
+
+        function renderApprovalStatus(status) {
+            const container = document.getElementById('approval-status');
+            if (!status || !status.steps) {
+                container.innerHTML = '<p>No approval workflow started</p>';
+                return;
+            }
+            
+            container.innerHTML = status.steps.map(step => `
+                <div class="approval-step ${step.status}">
+                    <span class="step-level">${step.level}</span>
+                    <span class="step-status">${step.status}</span>
+                    ${step.reviewer ? `<span class="step-reviewer">by ${step.reviewer}</span>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function renderActions(status) {
+            const container = document.getElementById('bid-actions');
+            let html = '';
+            
+            if (status === 'DRAFT') {
+                html = `
+                    <button class="btn btn-primary" onclick="submitForApproval()">Submit for Approval</button>
+                    <button class="btn btn-secondary" onclick="editBid()">Edit Bid</button>
+                `;
+            } else if (status === 'SUBMITTED_FOR_REVIEW') {
+                html = `
+                    <button class="btn btn-success" onclick="approveBid()">Approve</button>
+                    <button class="btn btn-warning" onclick="requestRevision()">Request Revision</button>
+                    <button class="btn btn-danger" onclick="rejectBid()">Reject</button>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        async function submitForApproval() {
+            try {
+                const res = await fetch('/api/bids/' + bidId + '/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ submitter_id: 'USER', submitter_name: 'Current User' })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Bid submitted for approval');
+                    loadBidDetails();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error submitting bid');
+            }
+        }
+
+        async function approveBid() {
+            const comment = prompt('Enter approval comment (optional):');
+            try {
+                const res = await fetch('/api/bids/' + bidId + '/approve', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reviewer_id: 'USER', comment: comment })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Bid approved');
+                    loadBidDetails();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error approving bid');
+            }
+        }
+
+        async function rejectBid() {
+            const reason = prompt('Enter rejection reason:');
+            if (!reason) return;
+            try {
+                const res = await fetch('/api/bids/' + bidId + '/reject', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reviewer_id: 'USER', reason: reason })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Bid rejected');
+                    loadBidDetails();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error rejecting bid');
+            }
+        }
+
+        async function requestRevision() {
+            const details = prompt('Enter revision details:');
+            if (!details) return;
+            try {
+                const res = await fetch('/api/bids/' + bidId + '/request-revision', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reviewer_id: 'USER', revision_details: details })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Revision requested');
+                    loadBidDetails();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error requesting revision');
+            }
+        }
+
+        function editBid() {
+            window.location.href = '/edit-bid/' + bidId;
+        }
+
+        function exportPdf() {
+            window.open('/api/bids/' + bidId + '/pdf', '_blank');
+        }
+
+        function exportExcel() {
+            window.open('/api/bids/' + bidId + '/excel', '_blank');
+        }
+
+        loadBidDetails();
+    </script>
+</body>
+</html>

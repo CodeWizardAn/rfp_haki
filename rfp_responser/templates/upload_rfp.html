@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFP Responser - Upload RFP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📋 RFP Responser</h1>
+            <ul class="nav-links">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/upload-rfp" class="active">Upload RFP</a></li>
+                <li><a href="/bids">Bids</a></li>
+                <li><a href="/create-bid">Manual Bid</a></li>
+                <li><a href="/approvals">Approvals</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>Upload RFP Document</h2>
+            <p>Upload an RFP PDF to automatically extract requirements and generate a bid response</p>
+        </section>
+
+        <div class="upload-workflow">
+            <!-- Step 1: Upload -->
+            <div class="workflow-step" id="step-upload">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>Upload RFP Document</h3>
+                </div>
+                
+                <form id="upload-form" class="upload-form" enctype="multipart/form-data">
+                    <div class="upload-zone" id="upload-zone">
+                        <div class="upload-icon">📄</div>
+                        <p>Drag and drop your RFP PDF here</p>
+                        <p class="upload-or">or</p>
+                        <label class="btn btn-primary">
+                            Choose File
+                            <input type="file" id="rfp-file" name="file" accept=".pdf" style="display:none;">
+                        </label>
+                        <p class="file-info" id="file-info"></p>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Vendor Information</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="vendor-id">Vendor ID</label>
+                                <input type="text" id="vendor-id" name="vendor_id" value="VENDOR_001">
+                            </div>
+                            <div class="form-group">
+                                <label for="vendor-name">Vendor Name *</label>
+                                <input type="text" id="vendor-name" name="vendor_name" required placeholder="Your company name">
+                            </div>
+                            <div class="form-group">
+                                <label for="vendor-email">Email</label>
+                                <input type="email" id="vendor-email" name="email" placeholder="contact@company.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="vendor-phone">Phone</label>
+                                <input type="tel" id="vendor-phone" name="phone" placeholder="+91 XXXXX XXXXX">
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="vendor-address">Address</label>
+                                <textarea id="vendor-address" name="address" rows="2" placeholder="Company address"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="vendor-gstin">GSTIN</label>
+                                <input type="text" id="vendor-gstin" name="gstin" placeholder="22AAAAA0000A1Z5">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Processing Options</h4>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="use-agents" name="use_agents">
+                            <span>Use AI Agents for enhanced analysis</span>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.1rem;" id="process-btn">
+                            🚀 Process RFP and Generate Bid
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 2: Processing -->
+            <div class="workflow-step" id="step-processing" style="display: none;">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Processing RFP</h3>
+                </div>
+                
+                <div style="text-align: center; padding: 40px;">
+                    <div style="width: 60px; height: 60px; border: 4px solid #f0f0f0; border-top-color: #3498db; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 30px;"></div>
+                    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+                    
+                    <div id="processing-stages">
+                        <div class="stage" id="stage-extraction">⏳ Extracting PDF content...</div>
+                        <div class="stage" id="stage-parsing">⏳ Parsing RFP requirements...</div>
+                        <div class="stage" id="stage-matching">⏳ Matching to OEM products (Top 3)...</div>
+                        <div class="stage" id="stage-pricing">⏳ Calculating pricing...</div>
+                        <div class="stage" id="stage-forms">⏳ Auto-filling forms...</div>
+                        <div class="stage" id="stage-bid">⏳ Generating bid document...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Results -->
+            <div class="workflow-step" id="step-results" style="display: none;">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Results</h3>
+                </div>
+                
+                <div id="results-content">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+                
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
+                    <button class="btn btn-primary" id="btn-view-bid">View Generated Bid</button>
+                    <button class="btn btn-secondary" id="btn-download-pdf">Download PDF</button>
+                    <button class="btn btn-secondary" id="btn-download-excel">Download Excel</button>
+                    <button class="btn btn-secondary" id="btn-reset">Process Another RFP</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentWorkflow = null;
+
+        // File input handling
+        const fileInput = document.getElementById('rfp-file');
+        const uploadZone = document.getElementById('upload-zone');
+        const fileInfo = document.getElementById('file-info');
+
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                const file = this.files[0];
+                fileInfo.textContent = 'Selected: ' + file.name + ' (' + (file.size / 1024 / 1024).toFixed(2) + ' MB)';
+                uploadZone.style.borderColor = '#27ae60';
+                uploadZone.style.background = '#f0fff4';
+            }
+        });
+
+        // Drag and drop
+        uploadZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadZone.style.borderColor = '#3498db';
+            uploadZone.style.background = '#f8f9ff';
+        });
+
+        uploadZone.addEventListener('dragleave', function() {
+            uploadZone.style.borderColor = '#ddd';
+            uploadZone.style.background = '';
+        });
+
+        uploadZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadZone.style.borderColor = '#ddd';
+            uploadZone.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                const file = e.dataTransfer.files[0];
+                fileInfo.textContent = 'Selected: ' + file.name;
+                uploadZone.style.borderColor = '#27ae60';
+                uploadZone.style.background = '#f0fff4';
+            }
+        });
+
+        // Form submission
+        document.getElementById('upload-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select an RFP file');
+                return;
+            }
+
+            // Show processing step
+            document.getElementById('step-upload').style.display = 'none';
+            document.getElementById('step-processing').style.display = 'block';
+
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('vendor_id', document.getElementById('vendor-id').value);
+            formData.append('vendor_name', document.getElementById('vendor-name').value);
+            formData.append('email', document.getElementById('vendor-email').value);
+            formData.append('phone', document.getElementById('vendor-phone').value);
+            formData.append('address', document.getElementById('vendor-address').value);
+            formData.append('gstin', document.getElementById('vendor-gstin').value);
+            formData.append('use_agents', document.getElementById('use-agents').checked);
+
+            try {
+                const response = await fetch('/api/rfp/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                currentWorkflow = result;
+
+                if (result.success) {
+                    // Update stages to complete
+                    document.querySelectorAll('.stage').forEach(function(el) {
+                        el.textContent = '✅' + el.textContent.substring(1);
+                        el.style.color = '#27ae60';
+                    });
+
+                    setTimeout(function() {
+                        showResults(result);
+                    }, 500);
+                } else {
+                    throw new Error(result.error || 'Processing failed');
+                }
+            } catch (error) {
+                alert('Error processing RFP: ' + error.message);
+                document.getElementById('step-processing').style.display = 'none';
+                document.getElementById('step-upload').style.display = 'block';
+            }
+        });
+
+        function showResults(result) {
+            document.getElementById('step-processing').style.display = 'none';
+            document.getElementById('step-results').style.display = 'block';
+
+            const stages = result.result && result.result.stages ? result.result.stages : {};
+            const matching = stages.matching || {};
+            const pricing = stages.pricing || {};
+            const bidGen = stages.bid_generation || {};
+
+            let html = '<div style="display: grid; gap: 20px;">';
+            
+            // Summary
+            html += '<div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">';
+            html += '<h4 style="margin-bottom: 15px;">📊 Processing Summary</h4>';
+            html += '<p><strong>Workflow ID:</strong> ' + (result.workflow_id || 'N/A') + '</p>';
+            html += '<p><strong>Status:</strong> ' + (result.status || 'N/A') + '</p>';
+            html += '<p><strong>Requirements Found:</strong> ' + (matching.total_requirements || 0) + '</p>';
+            html += '<p><strong>Products Matched:</strong> ' + (matching.match_summary ? matching.match_summary.requirements_matched : 0) + '</p>';
+            html += '</div>';
+
+            // Top 3 Matches
+            html += '<div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">';
+            html += '<h4 style="margin-bottom: 15px;">🔍 Top 3 OEM Product Matches</h4>';
+            const matches = matching.matched_requirements || [];
+            if (matches.length > 0) {
+                matches.slice(0, 3).forEach(function(match, idx) {
+                    const top3 = match.top_3_matches || [];
+                    html += '<div style="margin-bottom: 15px; padding: 10px; background: white; border-radius: 5px;">';
+                    html += '<strong>Requirement ' + (idx + 1) + ':</strong> ' + (match.original_requirement ? match.original_requirement.original_text || 'N/A' : 'N/A');
+                    html += '<div style="display: flex; gap: 10px; margin-top: 10px;">';
+                    top3.forEach(function(p, i) {
+                        html += '<div style="flex: 1; padding: 10px; background: ' + (i === 0 ? '#fffde7' : '#f5f5f5') + '; border-radius: 5px; border-left: 3px solid ' + (i === 0 ? '#ffd700' : '#ddd') + ';">';
+                        html += '<div style="font-weight: bold;">#' + (i + 1) + ' ' + (p.oem || 'Unknown') + '</div>';
+                        html += '<div style="font-size: 0.9em;">' + (p.product_name || 'N/A') + '</div>';
+                        html += '<div style="color: #27ae60;">Match: ' + (p.match_score || 0) + '%</div>';
+                        html += '<div style="color: #3498db;">₹' + (p.price_per_meter || 0).toFixed(2) + '/m</div>';
+                        html += '</div>';
+                    });
+                    html += '</div></div>';
+                });
+            } else {
+                html += '<p>No matches found</p>';
+            }
+            html += '</div>';
+
+            // Pricing
+            html += '<div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">';
+            html += '<h4 style="margin-bottom: 15px;">💰 Pricing Summary</h4>';
+            html += '<p><strong>Subtotal:</strong> ₹' + (pricing.subtotal || 0).toLocaleString() + '</p>';
+            html += '<p><strong>GST (18%):</strong> ₹' + (pricing.tax_amount || 0).toLocaleString() + '</p>';
+            html += '<p><strong>Testing Costs:</strong> ₹' + (pricing.testing_costs || 0).toLocaleString() + '</p>';
+            html += '<p style="font-size: 1.2em; font-weight: bold; color: #2c3e50;"><strong>Total:</strong> ₹' + (pricing.total || 0).toLocaleString() + '</p>';
+            html += '</div>';
+
+            // Generated Documents
+            html += '<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 8px; color: white;">';
+            html += '<h4 style="margin-bottom: 15px; color: white;">📁 Generated Documents</h4>';
+            html += '<p><strong>Bid ID:</strong> ' + (bidGen.bid_id || 'N/A') + '</p>';
+            const docs = bidGen.documents || {};
+            if (docs.pdf) html += '<p>✅ PDF Generated</p>';
+            if (docs.excel) html += '<p>✅ Excel Generated</p>';
+            if (docs.json) html += '<p>✅ JSON Generated</p>';
+            html += '</div>';
+
+            html += '</div>';
+
+            document.getElementById('results-content').innerHTML = html;
+        }
+
+        // Button handlers
+        document.getElementById('btn-view-bid').addEventListener('click', function() {
+            if (currentWorkflow && currentWorkflow.result && currentWorkflow.result.stages && currentWorkflow.result.stages.bid_generation) {
+                const bidId = currentWorkflow.result.stages.bid_generation.bid_id;
+                if (bidId) {
+                    window.location.href = '/bids/' + bidId;
+                }
+            }
+        });
+
+        document.getElementById('btn-download-pdf').addEventListener('click', function() {
+            if (currentWorkflow && currentWorkflow.result && currentWorkflow.result.stages && currentWorkflow.result.stages.bid_generation) {
+                const docs = currentWorkflow.result.stages.bid_generation.documents;
+                if (docs && docs.pdf) {
+                    window.open(docs.pdf, '_blank');
+                }
+            }
+        });
+
+        document.getElementById('btn-download-excel').addEventListener('click', function() {
+            if (currentWorkflow && currentWorkflow.result && currentWorkflow.result.stages && currentWorkflow.result.stages.bid_generation) {
+                const docs = currentWorkflow.result.stages.bid_generation.documents;
+                if (docs && docs.excel) {
+                    window.open(docs.excel, '_blank');
+                }
+            }
+        });
+
+        document.getElementById('btn-reset').addEventListener('click', function() {
+            currentWorkflow = null;
+            document.getElementById('step-results').style.display = 'none';
+            document.getElementById('step-upload').style.display = 'block';
+            document.getElementById('upload-form').reset();
+            document.getElementById('file-info').textContent = '';
+            uploadZone.style.borderColor = '#ddd';
+            uploadZone.style.background = '';
+            document.querySelectorAll('.stage').forEach(function(el) {
+                el.textContent = '⏳' + el.textContent.substring(1);
+                el.style.color = '';
+            });
+        });
+    </script>
+</body>
+</html>

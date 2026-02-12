@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFP Responser - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📋 RFP Responser</h1>
+            <ul class="nav-links">
+                <li><a href="/" class="active">Dashboard</a></li>
+                <li><a href="/upload-rfp">Upload RFP</a></li>
+                <li><a href="/bids">Bids</a></li>
+                <li><a href="/create-bid">Manual Bid</a></li>
+                <li><a href="/approvals">Approvals</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>Dashboard</h2>
+            <p>Welcome to the RFP Bid Response System</p>
+        </section>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <div class="stat-info">
+                    <h3 id="total-bids">0</h3>
+                    <p>Total Bids</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-info">
+                    <h3 id="pending-bids">0</h3>
+                    <p>Pending Approval</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <h3 id="approved-bids">0</h3>
+                    <p>Approved</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏭</div>
+                <div class="stat-info">
+                    <h3 id="oem-products">22,028</h3>
+                    <p>OEM Products</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="actions-grid">
+                <a href="/upload-rfp" class="action-card action-primary">
+                    <span class="action-icon">📤</span>
+                    <h4>Upload RFP</h4>
+                    <p>Upload a new RFP PDF for automatic processing</p>
+                </a>
+                <a href="/create-bid" class="action-card">
+                    <span class="action-icon">✏️</span>
+                    <h4>Create Manual Bid</h4>
+                    <p>Create a bid response manually</p>
+                </a>
+                <a href="/bids" class="action-card">
+                    <span class="action-icon">📋</span>
+                    <h4>View All Bids</h4>
+                    <p>Browse and manage all bid responses</p>
+                </a>
+                <a href="/approvals" class="action-card">
+                    <span class="action-icon">✅</span>
+                    <h4>Approvals Queue</h4>
+                    <p>Review and approve pending bids</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Recent Bids -->
+        <section class="recent-bids">
+            <h3>Recent Bids</h3>
+            <div class="bids-table-wrapper">
+                <table class="bids-table">
+                    <thead>
+                        <tr>
+                            <th>Bid ID</th>
+                            <th>RFP Title</th>
+                            <th>Vendor</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-bids-body">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 40px; color: #666;">
+                                Loading recent bids...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- System Status -->
+        <section class="system-status">
+            <h3>System Status</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <span class="status-indicator status-online"></span>
+                    <span>PDF Extraction Module</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-indicator status-online"></span>
+                    <span>RFP Terms Matcher (7.7M+ terms)</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-indicator status-online"></span>
+                    <span>OEM Product Database (6 OEMs)</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-indicator status-online"></span>
+                    <span>Master Agent Orchestrator</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-indicator status-online"></span>
+                    <span>Bid Document Generator</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        // Load dashboard stats
+        async function loadDashboardStats() {
+            try {
+                const response = await fetch('/api/bids');
+                const bids = await response.json();
+                
+                document.getElementById('total-bids').textContent = bids.length || 0;
+                document.getElementById('pending-bids').textContent = bids.filter(b => b.status === 'pending').length || 0;
+                document.getElementById('approved-bids').textContent = bids.filter(b => b.status === 'approved').length || 0;
+                
+                // Load recent bids
+                const tbody = document.getElementById('recent-bids-body');
+                if (bids.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px; color: #666;">No bids yet. <a href="/upload-rfp">Upload an RFP</a> to get started!</td></tr>';
+                } else {
+                    tbody.innerHTML = bids.slice(0, 5).map(bid => `
+                        <tr>
+                            <td><strong>${bid.id || 'N/A'}</strong></td>
+                            <td>${bid.rfp_title || bid.title || 'Untitled'}</td>
+                            <td>${bid.vendor_name || 'N/A'}</td>
+                            <td>₹${(bid.total_amount || 0).toLocaleString()}</td>
+                            <td><span class="status-badge status-${bid.status || 'draft'}">${bid.status || 'draft'}</span></td>
+                            <td>${bid.created_at ? new Date(bid.created_at).toLocaleDateString() : 'N/A'}</td>
+                            <td><a href="/bids/${bid.id}" class="btn btn-sm">View</a></td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Failed to load dashboard stats:', error);
+            }
+        }
+
+        // Load stats on page load
+        document.addEventListener('DOMContentLoaded', loadDashboardStats);
+    </script>
+</body>
+</html>

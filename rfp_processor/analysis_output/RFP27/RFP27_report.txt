@@ -1,0 +1,53 @@
+======================================================================
+  RFP ANALYSIS REPORT: RFP27
+======================================================================
+  Generated: 2026-02-12T21:54:46.048415
+
+  SOURCE INFORMATION
+  ----------------------------------------
+  Portal:       TenderBazaar
+  Title:        Procurement of Industrial Automation - RFP27
+  Category:     Cables & Wires
+  Organization: Railway Procurement Division
+  Deadline:     2026-02-26
+  Est. Value:   â‚¹447 Lakhs
+
+  DOCUMENT EXTRACTION
+  ----------------------------------------
+  Method:  PDFExtractionManager
+  Pages:   2
+  Words:   3424
+  Chars:   21101
+
+  TERMS ANALYSIS
+  ----------------------------------------
+  Terms Matched:    5
+  Categories Found: eligibility_criteria, linked_terms_document, organization_details, epbg_details, bid_timing
+
+  KEY REQUIREMENTS / MATCHED TERMS
+  ----------------------------------------
+    • {'field': 'Bid End Date', 'value': 'Thank You---', 'category': 'bid_timing', 'section': None}
+    • {'field': 'Security Deposit', 'value': '2011 latest', 'category': 'epbg_details', 'section': None}
+    • {'field': 'Bidder', 'value': '', 'category': 'organization_details', 'section': None}
+    • {'field': 'Net Worth', 'value': '', 'category': 'eligibility_criteria', 'section': None}
+    • {'field': 'Terms and Conditions', 'value': 'or any other document. If buyer needs more items along with the main item, the', 'category': 'linked_terms_document', 'section': None}
+
+  TEXT PREVIEW (first 500 chars)
+  ----------------------------------------
+  
+  --- PAGE 1 ---
+  बड
+  बड
+   
+   
+  ववरण
+  ववरण
+  /
+  /
+  Bid
+   
+   
+  Details
+  बड
+
+======================================================================

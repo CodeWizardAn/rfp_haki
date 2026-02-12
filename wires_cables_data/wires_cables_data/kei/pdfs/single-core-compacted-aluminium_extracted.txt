@@ -1,0 +1,59 @@
+
+--- Page 1 ---
+COMPANY PROFILE 2007-2008
+“KEI” Single Core Compacted Aluminium & Copper Conductor, XLPE Insulated,
+Unarmoured & Armoured Cable AL & CU / XLPE / AL Wire / PVC Conforming to IS 7098 Part-2/1985
+Voltage Grade : 1.9 /3.3 kV (Unscreened) (E)
+Voltage Grade : 3.3 /3.3 kV (Unscreened) (UE) WEIGHT & DIMENSIONS
+Nom. Size of Nom. Unarmoured Cable Armoured Cable CURRENT RATING
+stranded Thickness Nom. Approx. Al. Cu. Nom. Nom. Min. Approx. Al. Cu. Allumiunium Copper.
+Class 2 of XLPE Thickness Overall Approx. Approx. Thickness dimension Thickness overall Approx. Approx In ground In air In ground In air
+Conductor Insulation of PVC Diameter W eight Weight of XLPE of Al. of PVC diameter W eight Weight at at at at
+as per for U/A Outer of of of insulation Wire Outersheath of Cable of Cable of Cable 30 OC4 0 OC3 0 OC4 0 OC
+IS 8130/ Cable Sheath Cable Cable Cable
+1984
+Sq.mm. mm mm mm Kg./Km Kg./Km mm mm mm mm Kg./Km Kg./Km Amps. Amps. Amps. Amps.
+25 2.2 1.8 15.0 235 385 2.5 1.4 1.24 17.5 340 490 97 104 120 135
+35 2.2 1.8 16.0 275 485 2.5 1.4 1.24 18.5 390 595 115 127 145 165
+50 2.2 1.8 17.0 325 605 2.5 1.4 1.40 20.0 460 740 136 153 170 195
+70 2.2 1.8 18.5 405 805 2.5 1.6 1.40 22.0 575 975 166 192 215 255
+95 2.2 2.0 20.5 515 1075 2.5 1.6 1.40 23.5 680 1240 198 237 255 315
+120 2.2 2.0 23.0 615 1320 2.5 1.6 1.40 26.0 795 1500 225 275 295 365
+150 2.2 2.0 23.5 695 1565 2.5 1.6 1.40 26.5 880 1750 253 317 330 420
+185 2.2 2.0 25.5 825 1910 2.5 1.6 1.40 28.5 1025 2115 285 362 375 485
+240 2.2 2.0 28.0 1010 2440 2.5 1.6 1.56 31.5 1255 2685 330 433 440 580
+300 2.2 2.0 30.0 1195 2990 2.5 1.6 1.56 33.5 1470 3265 373 504 495 665
+400 2.2 2.2 33.5 1495 3785 2.6 2.0 1.56 37.5 1845 4140 427 598 585 805
+500 2.4 2.2 37.0 1850 4790 2.8 2.0 1.56 40.5 2240 5180 485 694 630 900
+630 2.6 2.2 41.0 2305 6115 3.0 2.0 1.72 45.5 2790 6600 551 815 705 1030
+800 2.8 2.4 48.0 2940 7825 3.3 2.0 1.88 50.5 3430 8315 625 969 755 1060
+1000 3.0 2.6 52.5 3645 9765 3.5 2.5 2.04 57.5 4405 10525 692 1103 855 1225
+--- Page 2 ---
+KEI CABLES & WIRES
+“KEI” Single Core Compacted Aluminium & Copper Conductor, XLPE Insulated,
+Unarmoured & Armoured Cable AL & CU / XLPE / AL Wire / PVC Conforming to IS 7098 Part-2/1985
+Voltage Grade : 1.9 /3.3 kV (Screened) (E)
+Voltage Grade : 3.3 /3.3 kV (Screened) (UE) WEIGHT & DIMENSIONS
+Nom. Size of Nom. Unarmoured Cable Armoured Cable CURRENT RATING
+stranded Thickness Nom. Approx. Al. Cu. Nom. Min. Nom. Min. Approx. Al. Cu. Allumiunium Copper.
+Class 2 of XLPE Thickness Overall Approx. Approx. Thickness Thickness dimension Thickness overall Approx. Approx In ground In air In ground In air
+Conductor Insulation of PVC Diameter W eight Weight of XLPE of PVC of Al. of PVC diameter W eight Weight at at at at
+as per for U/A Outer of of of insulation Innersheath Wire Outersheath of Cable of Cable of Cable 30 OC4 0 OC3 0 OC4 0 OC
+IS 8130/ Cable Sheath Cable Cable Cable
+1984
+Sq.mm. mm mm mm Kg./Km Kg./Km mm mm mm mm mm Kg./Km Kg./Km Amps. Amps. Amps. Amps.
+25 2.2 1.8 17.0 300 450 2.5 0.3 1.6 1.40 21.5 520 665 97 104 120 135
+35 2.2 1.8 18.0 345 550 2.5 0.3 1.6 1.40 22.5 580 785 115 127 145 165
+50 2.2 2.0 19.5 420 695 2.5 0.3 1.6 1.40 23.5 645 925 136 153 170 195
+70 2.2 2.0 21.0 505 905 2.5 0.3 1.6 1.40 25.0 745 1150 166 192 215 255
+95 2.2 2.0 22.5 610 1165 2.5 0.3 1.6 1.40 27.0 870 1430 198 237 255 315
+120 2.2 2.0 25.0 715 1420 2.5 0.3 1.6 1.40 29.0 1000 1705 225 275 295 365
+150 2.2 2.0 25.5 795 1670 2.5 0.3 1.6 1.56 30.0 1115 1985 253 317 330 420
+185 2.2 2.0 27.5 930 2020 2.5 0.3 1.6 1.56 32.0 1270 2360 285 362 375 485
+240 2.2 2.0 30.0 1130 2560 2.5 0.4 2.0 1.56 35.5 1575 3005 330 433 440 580
+300 2.2 2.2 32.5 1355 3150 2.5 0.4 2.0 1.56 37.5 1810 3605 373 504 495 665
+400 2.2 2.2 35.5 1640 3930 2.6 0.4 2.0 1.72 41.0 2175 4465 427 598 585 805
+500 2.4 2.2 39.0 2010 4950 2.8 0.4 2.0 1.72 44.5 2610 5550 485 694 630 900
+630 2.6 2.4 43.5 2525 6330 3.0 0.5 2.0 1.88 49.0 3180 6990 551 815 705 1030
+800 2.8 2.6 50.0 3195 8075 3.3 0.5 2.5 2.04 55.5 4060 8945 625 969 755 1060
+1000 3.0 2.6 54.5 3865 9985 3.5 0.6 2.5 2.20 61.5 4950 11070 692 1103 855 1225

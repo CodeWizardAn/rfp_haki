@@ -1,0 +1,540 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "OEM product catalog for specification matching",
+    "last_updated": "2026-02-01",
+    "total_products": 15,
+    "conductor_grades_added": true
+  },
+  "products": [
+    {
+      "sku": "POL-PVC-1.5-R",
+      "name": "Polycab Optima Plus PVC Wire 1.5 sq mm",
+      "manufacturer": "Polycab",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 1.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 14,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "POL-PVC-2.5-R",
+      "name": "Polycab Optima Plus PVC Wire 2.5 sq mm",
+      "manufacturer": "Polycab",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 2.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 18,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "POL-PVC-4.0-R",
+      "name": "Polycab Optima Plus PVC Wire 4.0 sq mm",
+      "manufacturer": "Polycab",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Stranded",
+        "cross_section_sqmm": 4.0,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 26,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "POL-XLPE-4C16",
+      "name": "Polycab XLPE Armoured Cable 4Cx16 sq mm",
+      "manufacturer": "Polycab",
+      "category": "XLPE Armoured Cable",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Stranded",
+        "cross_section_sqmm": 16,
+        "number_of_cores": 4,
+        "insulation_type": "XLPE",
+        "armour_type": "Steel Wire Armoured",
+        "outer_sheath": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 68,
+        "temperature_rating_celsius": 90,
+        "flame_retardant": true,
+        "suitable_for": [
+          "Underground",
+          "Direct Burial",
+          "Industrial"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI",
+        "CPRI"
+      ],
+      "standards_compliance": [
+        "IS 7098",
+        "IS 1554"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "POL-FLEX-3C2.5",
+      "name": "Polycab Flexible Cable 3Cx2.5 sq mm",
+      "manufacturer": "Polycab",
+      "category": "Flexible Cable",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Flexible Stranded",
+        "cross_section_sqmm": 2.5,
+        "number_of_cores": 3,
+        "insulation_type": "PVC",
+        "outer_sheath": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 18,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "flexibility_class": "Class 5",
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 9968"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "HAV-LIFELINE-1.5",
+      "name": "Havells Lifeline Plus PVC Wire 1.5 sq mm",
+      "manufacturer": "Havells",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 1.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 14,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green",
+          "White"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "HAV-LIFELINE-2.5",
+      "name": "Havells Lifeline Plus PVC Wire 2.5 sq mm",
+      "manufacturer": "Havells",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 2.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 18,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green",
+          "White"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "HAV-XLPE-4C16",
+      "name": "Havells XLPE Armoured Cable 4Cx16 sq mm",
+      "manufacturer": "Havells",
+      "category": "XLPE Armoured Cable",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Stranded",
+        "cross_section_sqmm": 16,
+        "number_of_cores": 4,
+        "insulation_type": "XLPE",
+        "armour_type": "Steel Wire Armoured",
+        "outer_sheath": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 68,
+        "temperature_rating_celsius": 90,
+        "flame_retardant": true,
+        "suitable_for": [
+          "Underground",
+          "Direct Burial",
+          "Industrial"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI",
+        "CPRI"
+      ],
+      "standards_compliance": [
+        "IS 7098",
+        "IS 1554"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "KEI-HOMECAB-1.5",
+      "name": "KEI Homecab PVC Wire 1.5 sq mm",
+      "manufacturer": "KEI Industries",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 1.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 14,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "KEI-HOMECAB-2.5",
+      "name": "KEI Homecab PVC Wire 2.5 sq mm",
+      "manufacturer": "KEI Industries",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 2.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 18,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "KEI-XLPE-4C16",
+      "name": "KEI XLPE Armoured Cable 4Cx16 sq mm",
+      "manufacturer": "KEI Industries",
+      "category": "XLPE Armoured Cable",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Stranded",
+        "cross_section_sqmm": 16,
+        "number_of_cores": 4,
+        "insulation_type": "XLPE",
+        "armour_type": "Steel Wire Armoured",
+        "outer_sheath": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 68,
+        "temperature_rating_celsius": 90,
+        "flame_retardant": true,
+        "suitable_for": [
+          "Underground",
+          "Direct Burial",
+          "Industrial"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI",
+        "CPRI"
+      ],
+      "standards_compliance": [
+        "IS 7098",
+        "IS 1554"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "FIN-FR-1.5",
+      "name": "Finolex FR PVC Wire 1.5 sq mm",
+      "manufacturer": "Finolex",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 1.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 14,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "FIN-FR-2.5",
+      "name": "Finolex FR PVC Wire 2.5 sq mm",
+      "manufacturer": "Finolex",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 2.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 18,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "RRK-UNILAY-1.5",
+      "name": "RR Kabel Unilay PVC Wire 1.5 sq mm",
+      "manufacturer": "RR Kabel",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 1.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 14,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    },
+    {
+      "sku": "RRK-UNILAY-2.5",
+      "name": "RR Kabel Unilay PVC Wire 2.5 sq mm",
+      "manufacturer": "RR Kabel",
+      "category": "PVC Insulated Wire",
+      "specifications": {
+        "conductor_material": "Copper",
+        "conductor_type": "Solid/Stranded",
+        "cross_section_sqmm": 2.5,
+        "insulation_type": "PVC",
+        "rated_voltage": "1100V",
+        "current_rating_amps": 18,
+        "temperature_rating_celsius": 70,
+        "flame_retardant": true,
+        "color_options": [
+          "Red",
+          "Yellow",
+          "Blue",
+          "Black",
+          "Green"
+        ],
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity_percent": 99.97,
+        "conductor_standard": "IS 8130 / IEC 60228"
+      },
+      "certifications": [
+        "BIS",
+        "ISI"
+      ],
+      "standards_compliance": [
+        "IS 694",
+        "IS 8130"
+      ],
+      "datasheet_available": true
+    }
+  ]
+}

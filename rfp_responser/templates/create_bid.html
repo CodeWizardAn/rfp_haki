@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFP Responser - Create Bid</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📋 RFP Responser</h1>
+            <ul class="nav-links">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/bids">Bids</a></li>
+                <li><a href="/create-bid" class="active">Create Bid</a></li>
+                <li><a href="/approvals">Approvals</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>Create New Bid</h2>
+        </section>
+
+        <form id="bid-form" class="bid-form">
+            <div class="form-section">
+                <h3>Basic Information</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bid-id">Bid ID</label>
+                        <input type="text" id="bid-id" name="bid_id" placeholder="Auto-generated if empty">
+                    </div>
+                    <div class="form-group">
+                        <label for="rfp-id">RFP ID</label>
+                        <input type="text" id="rfp-id" name="rfp_id" placeholder="Enter RFP ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="template-id">Template</label>
+                        <select id="template-id" name="template_id">
+                            <option value="BID_STANDARD_001">Standard Bid</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="valid-days">Valid For (days)</label>
+                        <input type="number" id="valid-days" name="valid_days" value="30">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Vendor Information</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="vendor-id">Vendor ID</label>
+                        <input type="text" id="vendor-id" name="vendor_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="vendor-name">Vendor Name</label>
+                        <input type="text" id="vendor-name" name="vendor_name" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Line Items</h3>
+                <table class="items-table editable">
+                    <thead>
+                        <tr>
+                            <th>Item ID</th>
+                            <th>Description</th>
+                            <th>Product ID</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                            <th>Unit Price</th>
+                            <th>Discount %</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-tbody">
+                        <!-- Items added dynamically -->
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-secondary" onclick="addItem()">+ Add Item</button>
+            </div>
+
+            <div class="form-section">
+                <h3>Terms</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="delivery-timeline">Delivery Timeline</label>
+                        <input type="text" id="delivery-timeline" name="delivery_timeline" value="15 days">
+                    </div>
+                    <div class="form-group">
+                        <label for="payment-terms">Payment Terms</label>
+                        <input type="text" id="payment-terms" name="payment_terms" value="Net 30 days">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="goTo('/bids')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create Bid</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        let itemCount = 0;
+
+        function addItem() {
+            itemCount++;
+            const tbody = document.getElementById('items-tbody');
+            const tr = document.createElement('tr');
+            tr.id = 'item-row-' + itemCount;
+            tr.innerHTML = `
+                <td><input type="text" name="items[${itemCount}][item_id]" placeholder="ITEM_${itemCount}" value="ITEM_${itemCount}"></td>
+                <td><input type="text" name="items[${itemCount}][description]" placeholder="Description" required></td>
+                <td><input type="text" name="items[${itemCount}][product_id]" placeholder="Product ID"></td>
+                <td><input type="number" name="items[${itemCount}][quantity]" value="1" min="1" required></td>
+                <td><input type="text" name="items[${itemCount}][unit]" value="Unit"></td>
+                <td><input type="number" name="items[${itemCount}][unit_price]" value="0" step="0.01" min="0" required></td>
+                <td><input type="number" name="items[${itemCount}][discount_percent]" value="0" step="0.1" min="0" max="100"></td>
+                <td><button type="button" class="btn btn-sm btn-danger" onclick="removeItem(${itemCount})">Remove</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        function removeItem(id) {
+            const row = document.getElementById('item-row-' + id);
+            if (row) {
+                row.remove();
+            }
+        }
+
+        function goTo(path) {
+            window.location.href = path;
+        }
+
+        // Load templates
+        async function loadTemplates() {
+            try {
+                const res = await fetch('/api/templates');
+                const data = await res.json();
+                const select = document.getElementById('template-id');
+                select.innerHTML = data.templates.map(t => 
+                    `<option value="${t.template_id}">${t.name}</option>`
+                ).join('');
+            } catch (error) {
+                console.error('Error loading templates:', error);
+            }
+        }
+
+        // Form submission
+        document.getElementById('bid-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                bid_id: document.getElementById('bid-id').value || undefined,
+                rfp_id: document.getElementById('rfp-id').value,
+                template_id: document.getElementById('template-id').value,
+                valid_days: parseInt(document.getElementById('valid-days').value),
+                vendor_id: document.getElementById('vendor-id').value,
+                vendor_name: document.getElementById('vendor-name').value,
+                delivery_timeline: document.getElementById('delivery-timeline').value,
+                payment_terms: document.getElementById('payment-terms').value,
+                items: []
+            };
+
+            // Collect items
+            const rows = document.querySelectorAll('#items-tbody tr');
+            rows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                if (inputs.length >= 7) {
+                    formData.items.push({
+                        item_id: inputs[0].value,
+                        description: inputs[1].value,
+                        product_id: inputs[2].value,
+                        quantity: parseInt(inputs[3].value) || 1,
+                        unit: inputs[4].value,
+                        unit_price: parseFloat(inputs[5].value) || 0,
+                        discount_percent: parseFloat(inputs[6].value) || 0
+                    });
+                }
+            });
+
+            try {
+                const res = await fetch('/api/bids', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    alert('Bid created successfully!');
+                    window.location.href = '/bids/' + data.bid_id;
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error creating bid: ' + error.message);
+            }
+        });
+
+        // Initialize
+        loadTemplates();
+        addItem(); // Add one empty item row
+    </script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+
+--- Page 1 ---
+KEI/CC/QCL/FEBRUARY /2023
+REGISTERED AND CORPORATE OFFICE:
+D-90, OKHLA INDUSTRIAL AREA PHASE-I, NEW DELHI-110020,  TEL: +91-11-26818840/8642/0242 FAX: 26817225, 26811959   
+E-MAIL: info@kei-ind.com    WEBSITE: www.kei-ind.com   CIN NO: L74899DL1992PLC051527
+@keicables/keicables /keicables
+ENABLING SUPERFAST COMMUNICATIONS
+COMMUNICATION CABLES
+THE POWER BEHIND THE POWER
+BRIDGING THE GAP ACROSS 60 DIFFERENT COUNTRIES
+CAT 6 UTP
+Cables
+Co-Axial
+Cables
+Telephone
+Cables
+CCTV
+Cables
+Scan to reach other offices
+2023-24
+INDIAINDIA
+Consumer  Validated
+--- Page 2 ---
+Empowering the
+next-gen of superfast
+communication
+Our range
+Co- Axial Cables
+Telephone Switch Board Cables
+CAT 6 UTP Cables
+CCTV Cables
+BUILDING THE NATION...! PRESTIGIOUS PROJECTS WIRED BY KEI
+RAM MANDIR
+ WORLD'S TALLEST
+STATUE OF UNITY
+PARLIAMENT OF
+INDIA
+BULLET TRAIN
+INDIAN INSTITUTE
+OF TECHNOLOGY
+BOMBAY
+MUMBAI MONORAIL
+ MUMBAI NAGPUR
+SAMRUDDHI HIGHWAY
+WORLD’S
+LARGEST NARENDRA 
+MODI STADIUM
+ AIROLI-KATAI
+NAKA TUNNEL
+MUMBAI COASTAL
+ROAD MEGA PROJECT
+KONKAN RAILWAY
+PROJECT
+INDIA'S LONGEST
+BOGIBEEL BRIDGE
+BHIWADI 
+RAJASTHAN
+CHOPANKI 
+RAJASTHAN
+PATHREDI 
+RAJASTHAN
+RAKHOLI
+DADRA AND NAGAR 
+HAVELI
+CHINCHPADA 
+DADRA AND NAGAR 
+HAVELI
+STATE OF THE ART MANUFACTURING 5 UNITS 
+CMD’S MESSAGE
+MR. ANIL GUPTA
+Chairman & Managing Director
+KEI Industries Limited
+KEI Industries, an Indian MNC founded in 1968, is a global 
+leader in wire and cable solutions having an extensive range of 
+world-class products an d services. With multiple robust & 
+cutting edge manufacturing facilities and a vast network of more 
+than 30,000 channel partners, KEI serves clients in 65+ 
+countries, establishing itself as a one-stop-shop for 
+comprehensive wire and cable solutions. The company 
+achieved a turnover of INR 8000+ crore in the fiscal year 
+2023-24.
+As the world faces the pressing challenges of global warming 
+and climate change, KEI Industries is dedicated to leading the 
+way towards a sustainable and a carbon-neutral future. Our 
+dedication involves using clean gas and solar energy, alongside advanced air and water treatment 
+systems, to eliminate hazardous chemicals and ensure a safe, sustainable environment. Our diverse 
+array of products also reflects our strong commitment towards building an eco-friendly efficient
+surrounding. With an ongoing focus on innovation, KEI is positioned to lead in sustainability while meet-
+ing the demands of global consumers through using cutting-edge technologies, driving progress and 
+setting new standards for environmental responsibility.
+--- Page 3 ---
+Co-Axial Cables
+KEI’s co-axial cables, RG59, RG6 & RG11 used in the 
+transmission of RF signals and power for voice, data and 
+video applications. The double-shield coaxial cable 
+protects signals from external electromagnetic 
+interference & solid electrolytic grade 99.97% pure 
+copper conductor oﬀers superior electrical performance 
+meeting all requirements of CATV, DTH, Broadband, 
+Digital & Analog signal applications.
+Our co-axial cables are Special International Digital 
+Designed for transmission of high frequency signals with 
+minimum loss for DTH, Institute and Digital Headend etc. 
+The various conﬁgurations of our cables are solid copper 
+center conductor and also available in Copper Clad Steel 
+(CCS), Polyethylene Foam PE, Aluminium laminated tape 
+to provide 100% coverage, Aluminium alloy wire braids 
+to give additional mechanical strength, Flooding 
+Compound jelly to provide internal corrosion & water 
+resistance properties and PVC cover to give 
+environmentally secured safe seal to the construction. 
+Cables tested on 3.0 Ghz spectrum analyzer.
+1
+a) Cable Size & Type
+b) Construction Details
+RG59 RG6 RG11
+Electrolytic grade solid bare copper conductor, foam polyethylene 
+insulation, with laminated aluminium tape and Aluminium Alloy Wire 
+braid, Jelly ﬂooded and PVC Jacketing in Black colour.
+2
+a) Cross Sectional Area 
+CONDUCTOR
+b) Diameter (Approx) 0.81mm 1.02mm 1.63mm
+Solid Annealed Bare Electrolytic Grade Tough Pitch (ETP) Copper (CU) 
+conductor. Also available in Copper Clad Steel - RG 6 CCS & RG 11 CCS
+3 a) Material Physical foam PE
+DIELECTRIC
+b) Core Diameter (Approx) 3.60mm 4.60mm 7.10mm
+a) Material Jelly
+FLOODING COMPOUNDS5
+6.10mm 6.93mm 10.16mm
+a) Material Extruded PVC
+b) Colour Black
+c) Nominal O.D of cable
+OUTER SHEATH ( JACKET )
+6
+40mm 70mm 80mma) Bending radius, Minimum
+b) Packing Length
+OTHER DATA
+4 a) 1st Shield Bonded Al tape
+SHIELD CONSTRUCTIONS
+b) 2nd Shield Aluminium alloy wire braid with Minimum 60% coverage.
+100/305 Mtr Coil 100 mtr Coil/305 Mtr Spool 100 mtr Coil/305 Mtr Spool
+Cable Construction
+CHARACTERISTICS RG59 RG6 RG11
+Maximum DC Resistance at 200C (Ohm/100m) 3.55 2.13 0.85
+75 ± 3
+Min. 82
+53 53 53
+2.82 1.9 1.25
+Min. 82 Min. 82
+75 ± 3 75 ± 3Impedance (Ohm)
+Velocity of Propagation (Vp)%
+Nominal Capacitance (pf/mtr)
+6.73 5.25 3.15
+12.47 10 6.23
+13.45 10.82 6.72
+13.85 11.04 7
+14.60 11.64 7.38
+15.29 12.26 7.71
+15.75 12.63 7.94
+16.73 13.61 8.53
+17.72 14.43 9.02
+18.70 15.29 9.51
+19.52 16.08 9.97
+20.34 16.73 10.43
+22.87 18.54 11.97
+24.85 20.04 13.31
+26.64 21.49 14.27
+5
+55
+211
+250
+270
+300
+330
+350
+400
+450
+500
+550
+600
+750
+870
+1000
+Frequency(MHz) (dB/100m) (dB/100m) (dB/100m)
+Maximum Attenuation @ 20°C
+Electrical Properties
+--- Page 4 ---
+Reference Standard: ITD specifications S/WS 113C & KEI specifications
+Insulation Thickness (Avg.)
+Diameter of Insulated 
+Conductor (Maximum)
+Rip Cord
+PVC Jacket
+Electrical Parameters 0.4 mm Dia. 0.5 mm Dia.
+Conductor Resistance (max.) 0hm/km at 200C 143.0 92.20
+Mutual Capacitance (max.) nf/km 50 50
+Insulation Resistance in Air (min.) M-ohm/km 10,000 10,000
+Capacitance Unbalance Pair to Pair (max.) Pf/km 250 250
+Construction parameters 1 pair 2 pair 3 pair 4 pair 5 pair 10 pair
+Conductor (Solid Annealed 
+Bare Copper) 0.4 mm diameter (nom.) / 0.5 mm diameter (nom.)
+Extruded High-Density Polyethylene
+0.17 mm (for 0.4mm Cables) / 0.20 mm (for 0.5mm Cables) 
+0.74 mm (for 0.4mm Cables) / 0.92 mm (for 0.5mm Cables) 
+Nylon cord placed under Jacket for easy Jacket Stripping
+Extruded  FR PVC Compound  ( Grey Colour )
+Approx. Outer Diameter
+in mm (0.4 mm cables) 3.40 3.80 4.20 6.202.30 2.90
+Approx. Outer Diameter
+in mm (0.5 mm cables) 3.80 4.50 4.90 8.202.60 3.30
+Packing Length (mtrs.) 0.4mm 
+& 0.5mm cables. 100 100 100 100100 100
+Insulation MaterialCOLOUR COMBINATIONS
+1 pair 2 pair 3 pair 4 pair 5 pair 10 pair
+White - Blue White - Blue White - Blue White - Blue White - Blue White - Blue
+- White - Orange White - Orange White - Orange White - Orange White - Orange
+- - White - Green White - Green White - Green White - Green
+- - - White - Brown White - Brown White - Brown
+- - - - White - Grey White - Grey
+- - - - - Red - Blue
+- - - - - Red - Orange
+- - - - - Red - Green
+- - - - - Red - Brown
+- - - - - Red - Grey
+Telephone
+(switch board)
+Cables
+KEI Telephone cables are recommended for use in 
+internal telephone wiring in high-rise buildings, oﬃces, 
+factories, hotels, residential complexes, etc. 
+KEI twisted pair cables are best suited for telephone 
+cabling applications. The conductor is made of solid 
+annealed, electrolytic grade high conductivity bare 
+copper. The conductor is insulated with special grade 
+high - density polyethylene with colour coding. The 
+insulated cores are twisted with uniform lay to form pairs 
+and are bunched together in such a manner so as to 
+minimize cross talk. The cable is jacketed with a grey 
+colour specially formulated Fire Retardant (FR) PVC with 
+high oxygen and temperature index. 
+
+--- Page 5 ---
+CAT 6 UTP
+Cables
+KEI CAT 6 UTP cables meet the requirements of 
+ANSI/TIA-568-C.2 having enhanced performance for 
+transmission of high speed data signals on LANs. It also 
+supports Gigabit Ethernet (1000 baseT) standard.
+Improve Crosstalk Performance: Central spline 
+separates pairs and maintains stable pair position.
+Optimized Cable Balance: Improved balance of 
+transmission performance for simultaneous parallel 
+transmission protocols.
+Jacket
+Separator
+Insulation
+Conductor
+Rip Cord
+Features & Beneﬁts
+Applications
+ConstructionColour Code
+Wire 1 Wire 2
+Pair 1 White - Orange Stripe Orange
+Pair 2 White - Blue Stripe Blue
+Pair 3 White - Green Stripe Green
+Pair 4 White - Brown Stripe Brown
+Cable Component Component Material
+Conductor Solid bare electrolytic grade copper conductor 23AWG
+Insulation High Density Poly Ethylene
+Packing Available in 305 mtr spool.
+Separator Made of PE material
+Rip Cord Nylon Cord
+Jacket PVC outer jacket  ( Dark Grey, Yellow, Blue Colour )
+Customized colour options as per customer requirement available. 
+Cable OD Approx. 6.0 mm
+Electrical Properties - CAT-6  4 P X23 AWG UNSHIELDED CABLES 
+CHARACTERISTICS
+Max 9.38 Ohm/100mDC Resistance (20deg)
+Max 5.0 %DC Resistance Unbalanced
+Max 5.6 nF/100mMutual Capacitance
+Max 330 pF/100mCapacitance Unbalance (Pr – Gr)
+Min 500 MΩ/100mInsulation Resistance
+1/1 DC kV/minDielectric Strength
+100 +/- 15 ΩImpedance - Zo (1~250MHz)
+69%
+ELTCTL (min.)TCL (min.)PSELFEXT (min.)ELFEXT(min.)PSNEXT (min.)NEXT (min.)ATT (max)RL(min.)Freq (MHz)
+354064.867.872.374.32.03201
+NVP
+234052.855.863.365.33.78234
+16.94046.749.758.860.85.3224.58
+154044.847.857.359.35.952510
+10.93840.743.754.256.27.552516
+93738.841.852.854.88.472520
+73636.839.841.353.39.5124.325
+5.5-------30
+n/s35.134.937.949.951.910.6723.631.25
+n/s3228.931.945.447.415.3821.562.5
+n/s3024.827.842.344.319.820.1100
+n/s2718.821.837.839.828.9818200
+n/s2616.819.836.338.332.817.3250
+1 MHz
+250 MHz
+1 MHz
+10 MHz
+100 MHz
+250 MHz
+RL - Return Loss
+Att - Attenuation
+NEXT – Pair To Pair Near End
+Cross Talk
+PSNEXT – Power Sum Near 
+End Cross Talk
+ELFEXT – Pair To Pair Equal 
+Level Far End Cross Talk
+PSELFEXT – Power Sum Equal 
+Level Far End Cross Talk
+TCL-Transverse conversion loss
+ELTCTL-Equal level transverse
+conversion transfer loss
+Propagation Delay (Max)
+Propagation Delay Skew (Max)
+at 200C, 400C & 600C. Variation 
+between pairs from values 
+measured at 20
+ 0C is +/-10ns max.
+570 ns/100m
+536 ns/100m
+45 ns/100m
+45 ns/100m
+45 ns/100m
+45 ns/100m
+
+--- Page 6 ---
+Construction Parameters: Co-axial Cable ( RG 59)
+INNER CONDUCTOR
+Solid Bare CopperMaterial
+0.81 mm (approx.)Diameter
+DIELECTRIC
+Physical Foam PolyethyleneMaterial
+3.60 mm (approx.)Diameter
+SHIELD
+Bonded Aluminium Tape1st Shield
+Aluminium Alloy Braid2nd Shield
+Min. 60%Coverage
+JACKET
+PVC (Black)Material
+6.10 mm (approx.)Diameter
+40 mm (approx.)Bending Radius
+PERFORMANCE
+FREQUENCY Max. Attenuation (db/100 m) at 200C
+6.7355 MHz
+12.47211 MHz
+14.60300 MHz
+19.52550 MHz
+22.87750 MHz
+26.641000 MHz
+24.85870 MHz
+INSULATED POWER CORES
+No. of
+Cores
+Conductor 
+Diameter (Nom.) 
+Solid or Flexible
+Bare Annealed
+Copper
+PVC ST1 
+Conforming to 
+IS 5831
+3 1/0.5mm
+OR
+1/0.188
+0.9 mm 8.0mm max.High 
+Density 
+Polythene
+Red,
+Yellow,
+Blue
+PVC ST1 
+Conforming to 
+IS 5831
+4 1/0.5mm
+OR
+1/0.188
+0.9 mm 8.0mm max.High 
+Density 
+Polythene
+Red,
+Yellow,
+Blue,
+Black
+Insulation
+Material
+Core 
+Diameter
+Colour
+Codes
+Overall Jacket 
+(PVC) White
+Overall 
+Diameter
+ELECTRIC DATA
+Max. 3.55 Ω/Km at 20°CInner Conductor dc Resistance
+53.0 pF/mCapacitance (Nom.)
+75 ± 3 ohmCharacteristic Impedance
+Min. 15 dB @ 1 – 1000 MHzStructural Return Loss
+Min. 82%Nominal Velocity Ratio
+CCTV Cables
+This CCTV 3+1, 4+1 construction cable is of hybrid type 
+with combination of Communication and Electrical 
+conductors. The 4 power cores enable powering of the 
+CCTV camera. This cable used  for combination of 
+communication and electrical supply to CCTV Cameras & 
+due to its  composite component nature it allows CCTV 
+installations tidy & provides lossless out . The 
+communication cable (RG 59 Co-Axial Cable) is used for 
+recording the images by the camera and to communicate 
+with the data center. Co-axial cables are designed to 
+transmit the complete video frequency range with 
+minimum distortion or attenuation, making them an 
+excellent choice for CCTV. The 4 number of wires in this 
+CCTV cables are used for powering the cameras. 
+Outer
+Sheath
+Sheath
+Braiding
+AI. Mylar Tape
+PE Insulation
+Copper
+Conductor
+Bare Copper
+Conductor

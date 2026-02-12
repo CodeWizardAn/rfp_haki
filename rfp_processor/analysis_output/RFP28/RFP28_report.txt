@@ -1,0 +1,53 @@
+======================================================================
+  RFP ANALYSIS REPORT: RFP28
+======================================================================
+  Generated: 2026-02-12T21:54:49.416986
+
+  SOURCE INFORMATION
+  ----------------------------------------
+  Portal:       eProcure Central
+  Title:        Procurement of FMCG Supplies - RFP28
+  Category:     Power Infrastructure
+  Organization: Municipal Corporation
+  Deadline:     2026-03-12
+  Est. Value:   â‚¹306 Lakhs
+
+  DOCUMENT EXTRACTION
+  ----------------------------------------
+  Method:  PDFExtractionManager
+  Pages:   2
+  Words:   5393
+  Chars:   33590
+
+  TERMS ANALYSIS
+  ----------------------------------------
+  Terms Matched:    5
+  Categories Found: linked_terms_document, organization_details, bid_timing
+
+  KEY REQUIREMENTS / MATCHED TERMS
+  ----------------------------------------
+    • {'field': 'Bid End Date', 'value': 'Thank You---', 'category': 'bid_timing', 'section': None}
+    • {'field': 'Pre-Bid Meeting', 'value': 'रणाम', 'category': 'bid_timing', 'section': None}
+    • {'field': 'Organisation', 'value': 'या', 'category': 'organization_details', 'section': None}
+    • {'field': 'Bidder', 'value': 'documents sought in the', 'category': 'organization_details', 'section': None}
+    • {'field': 'Terms and Conditions', 'value': 'or any other document. If buyer needs more items along with the main item, the', 'category': 'linked_terms_document', 'section': None}
+
+  TEXT PREVIEW (first 500 chars)
+  ----------------------------------------
+  
+  --- PAGE 1 ---
+  बड
+  बड
+   
+   
+  ववरण
+  ववरण
+  /
+  /
+  Bid
+   
+   
+  Details
+  बड
+
+======================================================================

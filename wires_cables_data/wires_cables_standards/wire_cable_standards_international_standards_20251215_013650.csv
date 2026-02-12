@@ -1,0 +1,15 @@
+standard_code,standard_type,description,issuing_body,geographical_scope,mandatory_in_region,last_updated,certification_required
+IEC 60227,International Standard (IEC),PVC insulated cables - International standard,International Electrotechnical Commission,Global,Voluntary (reference standard),Various editions,No (compliance declaration)
+IEC 60502,International Standard (IEC),Power cables with extruded insulation,International Electrotechnical Commission,Global,Voluntary (reference standard),Various editions,No (compliance declaration)
+IEC 60332,International Standard (IEC),Tests on electric and optical fibre cables under fire conditions,International Electrotechnical Commission,Global,Voluntary (reference standard),Various editions,No (compliance declaration)
+IEC 60754,International Standard (IEC),Test on gases evolved during combustion of materials from cables,International Electrotechnical Commission,Global,Voluntary (reference standard),Various editions,No (compliance declaration)
+IEC 61034,International Standard (IEC),Measurement of smoke density of cables burning under defined conditions,International Electrotechnical Commission,Global,Voluntary (reference standard),Various editions,No (compliance declaration)
+BS 6004,British Standard (BS),PVC insulated cables (British Standard),British Standards Institution,UK and Commonwealth,In UK market,Various editions,CE marking for EU
+BS 6346,British Standard (BS),PVC insulated cables for electricity supply,British Standards Institution,UK and Commonwealth,In UK market,Various editions,CE marking for EU
+BS 7211,British Standard (BS),Thermosetting insulated cables,British Standards Institution,UK and Commonwealth,In UK market,Various editions,CE marking for EU
+BS 7846,British Standard (BS),"Electric cables - Thermosetting insulated, armoured cables",British Standards Institution,UK and Commonwealth,In UK market,Various editions,CE marking for EU
+ASTM B3,American Standard,Soft or annealed copper wire (American Standard),ASTM/UL/NFPA,USA,Yes in USA,Various editions,UL listing required
+ASTM B8,American Standard,Concentric-lay-stranded copper conductors,ASTM/UL/NFPA,USA,Yes in USA,Various editions,UL listing required
+UL 44,American Standard,Thermoset-insulated wires and cables (USA),ASTM/UL/NFPA,USA,Yes in USA,Various editions,UL listing required
+NEC Article 310,American Standard,Conductors for general wiring (US National Electrical Code),ASTM/UL/NFPA,USA,Yes in USA,Various editions,UL listing required
+VDE 0250,German Standard (VDE),German standard for cables and insulated flexible cords,Verband der Elektrotechnik,Germany/EU,In Germany,Various editions,VDE marking

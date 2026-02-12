@@ -1,0 +1,3253 @@
+
+--- PAGE 1 ---
+बड
+बड
+ 
+ 
+ववरण
+ववरण
+/
+/
+Bid
+ 
+ 
+Details
+बड
+बड
+ 
+ 
+बंद
+बंद
+ 
+ 
+होने
+होने
+ 
+ 
+क
+क
+ 
+ 
+तारख
+तारख
+/
+/
+समय
+समय
+ 
+ 
+/Bid End Date/Time
+28-01-2026 12:00:00
+बड
+बड
+ 
+ 
+खुलने
+खुलने
+ 
+ 
+क
+क
+ 
+ 
+तारख
+तारख
+/
+/
+समय
+समय
+ 
+ 
+/Bid Opening
+Date/Time
+28-01-2026 12:30:00
+बड
+बड
+ 
+ 
+पेशकश
+पेशकश
+ 
+ 
+वैधता
+वैधता
+ (
+ (
+बंद
+बंद
+ 
+ 
+होने
+होने
+ 
+ 
+क
+क
+ 
+ 
+तारख
+तारख
+ 
+ 
+से
+से
+)
+)
+/Bid Offer
+Validity (From End Date)
+30 (Days)
+मं ालय
+मं ालय
+/
+/
+रा!य
+रा!य
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+/Ministry/State Name
+Ministry Of Defence
+वभाग
+वभाग
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+/Department Name
+Department Of Military Affairs
+संगठन
+संगठन
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+/Organisation Name
+Indian Army
+काया%लय
+काया%लय
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+/Office Name
+***********
+कुल
+कुल
+ 
+ 
+मा ा
+मा ा
+/Total Quantity
+6132
+व&तु
+व&तु
+ 
+ 
+'ेणी
+'ेणी
+ 
+ 
+/Item Category
+PVC Insulated Cables for Submersible Pumps - as per IS 694
+(Q2) 
+, PVC Insulated Copper Cable Single and Multi - Core
+Circular Sheathed Cable with Flexible Conductor (V2) as per
+IS 694 (Q2) 
+, Pedestal Safety Lock (Q3) 
+, M - Seal as per IS
+9197 (Q3) 
+, Electrical connection Lugs or thimbles (Q3) 
+,
+Wood screws (Q3) 
+, MCB - Miniature Circuit - Breakers for
+A.C. Operation as per IS / IEC 60898 (Part 1) (Q2) 
+, Molded
+Case Circuit Breakers (MCCB) as per IS / IEC 60947 (Q3)
+बडर
+बडर
+ 
+ 
+का
+का
+ 
+ 
+)यूनतम
+)यूनतम
+ 
+ 
+औसत
+औसत
+ 
+ 
+वाष%क
+वाष%क
+ 
+ 
+टन%ओवर
+टन%ओवर
+ (3 
+ (3 
+वष0
+वष0
+ 
+ 
+का
+का
+)
+)
+/Minimum Average Annual Turnover of the
+bidder (For 3 Years)
+16 Lakh (s)
+मूल
+मूल
+ 
+ 
+उपकरण
+उपकरण
+ 
+ 
+िनमा%ता
+िनमा%ता
+ 
+ 
+का
+का
+ 
+ 
+औसत
+औसत
+ 
+ 
+टन%ओवर
+टन%ओवर
+ (
+ (
+गत
+गत
+ 3 
+ 3 
+वष0
+वष0
+का
+का
+)
+)
+/OEM Average Turnover (Last 3 Years)
+120 Lakh (s)
+उ)हं
+उ)हं
+/
+/
+समान
+समान
+ 
+ 
+सेवा
+सेवा
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+अपे56त
+अपे56त
+ 
+ 
+वगत
+वगत
+ 
+ 
+अनुभव
+अनुभव
+ 
+ 
+के
+के
+वष%
+वष%
+/Years of Past Experience Required for
+same/similar service
+3 Year (s)
+वष0
+वष0
+ 
+के
+के
+ 
+अनुभव
+अनुभव
+ 
+एवं
+एवं
+ 
+टन%ओवर
+टन%ओवर
+ 
+से
+से
+ 
+एमएसई
+एमएसई
+ 
+को
+को
+ 
+छूट
+छूट
+ 
+9ा:
+9ा:
+ 
+है
+है
+ /
+MSE Relaxation for 
+Years Of Experience
+and
+ 
+ 
+Turnover
+Yes 
+| 
+Complete
+&टाट%अप
+&टाट%अप
+ 
+के
+के
+ 
+िलए
+िलए
+ 
+अनुभव
+अनुभव
+ 
+के
+के
+ 
+वष0
+वष0
+ 
+और
+और
+ 
+टन%ओवर
+टन%ओवर
+ 
+से
+से
+ 
+छूट
+छूट
+ 
+9दान
+9दान
+क
+क
+ 
+गई
+गई
+ 
+है
+है
+ / Startup Relaxation for 
+Years Of
+Experience 
+and
+ 
+ 
+Turnover
+Yes 
+| 
+Complete
+ 
+बड
+ 
+सं;या
+/
+Bid
+ 
+Number
+: 
+GEM/2025/B/7026723
+<दनांक
+ /
+Dated
+: 14-01-2026
+बड
+बड
+ 
+ 
+द&तावेज़
+द&तावेज़
+ / Bid Document
+1 / 13
+--- PAGE 2 ---
+वEेता
+वEेता
+ 
+ 
+से
+से
+ 
+ 
+मांगे
+मांगे
+ 
+ 
+गए
+गए
+ 
+ 
+द&तावेज़
+द&तावेज़
+/Document required
+from seller
+Experience Criteria,Past Performance,Bidder
+Turnover,Certificate (Requested in ATC),OEM Authorization
+Certificate,OEM Annual Turnover,Additional Doc 1
+(Requested in ATC)
+*In case any bidder is seeking exemption from Experience /
+Turnover Criteria, the supporting documents to prove his
+eligibility for exemption must be uploaded for evaluation by
+the buyer
+Fया
+Fया
+ 
+ 
+आप
+आप
+ 
+ 
+िनवदाकारH
+िनवदाकारH
+ 
+ 
+Iारा
+Iारा
+ 
+ 
+अपलोड
+अपलोड
+ 
+ 
+<कए
+<कए
+ 
+ 
+गए
+गए
+ 
+ 
+द&तावेज़H
+द&तावेज़H
+ 
+ 
+को
+को
+िनवदा
+िनवदा
+ 
+ 
+मJ
+मJ
+ 
+ 
+भाग
+भाग
+ 
+ 
+लेने
+लेने
+ 
+ 
+वाले
+वाले
+ 
+ 
+सभी
+सभी
+ 
+ 
+िनवदाकारH
+िनवदाकारH
+ 
+ 
+को
+को
+ 
+ 
+<दखाना
+<दखाना
+चाहते
+चाहते
+ 
+ 
+हL
+हL
+? 
+? 
+संदभ%
+संदभ%
+ 
+ 
+मेनू
+मेनू
+ 
+ 
+है
+है
+/Do you want to show
+documents uploaded by bidders to all
+bidders participated in bid?
+Yes (Documents submitted as part of a clarification or
+representation during the tender/bid process will also be
+displayed to other participated bidders after log in)
+बड
+बड
+ 
+ 
+लगाने
+लगाने
+ 
+ 
+क
+क
+ 
+ 
+समय
+समय
+ 
+ 
+सीमा
+सीमा
+ 
+ 
+&वतः
+&वतः
+ 
+ 
+नहं
+नहं
+ 
+ 
+बढ़ाने
+बढ़ाने
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+आवPयक
+आवPयक
+ 
+ 
+बड
+बड
+ 
+ 
+क
+क
+ 
+ 
+सं;या
+सं;या
+।
+।
+ / Minimum number of
+bids required to disable automatic bid
+extension
+3
+<दनH
+<दनH
+ 
+ 
+क
+क
+ 
+ 
+सं;या
+सं;या
+, 
+, 
+5जनके
+5जनके
+ 
+ 
+िलए
+िलए
+ 
+ 
+बड
+बड
+ 
+ 
+लगाने
+लगाने
+ 
+ 
+क
+क
+ 
+ 
+समय
+समय
+-
+-
+सीमा
+सीमा
+बढ़ाई
+बढ़ाई
+ 
+ 
+जाएगी
+जाएगी
+। / 
+। / 
+Number
+ 
+ 
+of
+ 
+ 
+days
+ 
+ 
+for
+ 
+ 
+which
+ 
+ 
+Bid
+would
+ 
+ 
+be
+ 
+ 
+auto
+-
+-
+extended
+3
+ऑटो
+ऑटो
+ 
+ 
+एFसटJशन
+एFसटJशन
+ 
+ 
+अिधकतम
+अिधकतम
+ 
+ 
+<कतनी
+<कतनी
+ 
+ 
+बार
+बार
+ 
+ 
+<कया
+<कया
+ 
+ 
+जाना
+जाना
+ 
+ 
+है
+है
+। /
+। /
+Number
+ 
+ 
+of
+ 
+ 
+Auto
+ 
+ 
+Extension
+ 
+ 
+count
+1
+वगत
+वगत
+ 
+ 
+9दश%न
+9दश%न
+ 
+ 
+/Past Performance
+10 %
+बड
+बड
+ 
+ 
+से
+से
+ 
+ 
+Uरवस%
+Uरवस%
+ 
+ 
+नीलामी
+नीलामी
+ 
+ 
+स<Eय
+स<Eय
+ 
+ 
+<कया
+<कया
+/Bid to RA enabled
+No
+बड
+बड
+ 
+ 
+का
+का
+ 
+ 
+9कार
+9कार
+/Type of Bid
+Two Packet Bid
+9ाथिमक
+9ाथिमक
+ 
+उWपाद
+उWपाद
+ 
+'ेणी
+'ेणी
+/Primary product category
+PVC Insulated Copper Cable Single and Multi - Core Circular
+Sheathed Cable with Flexible Conductor (V2) as per IS 694
+तकनीक
+तकनीक
+ 
+ 
+मूXयांकन
+मूXयांकन
+ 
+ 
+के
+के
+ 
+ 
+दौरान
+दौरान
+ 
+ 
+तकनीक
+तकनीक
+ 
+ 
+&पZीकरण
+&पZीकरण
+ 
+ 
+हेतु
+हेतु
+अनुमत
+अनुमत
+ 
+ 
+समय
+समय
+ 
+ 
+/Time allowed for Technical
+Clarifications during technical evaluation
+2 Days
+िनर6ण
+िनर6ण
+ 
+आवPयक
+आवPयक
+ (
+सूचीब[
+सूचीब[
+ 
+िनर6ण
+िनर6ण
+ 
+9ािधकरण
+9ािधकरण
+ /
+जेम
+जेम
+ 
+के
+के
+ 
+साथ
+साथ
+पूव%
+पूव%
+ 
+पंजीकृत
+पंजीकृत
+ 
+एजJिसयH
+एजJिसयH
+ 
+Iारा
+Iारा
+)/Inspection Required (By
+Empanelled Inspection Authority / Agencies
+pre-registered with GeM)
+No
+मूXयांकन
+मूXयांकन
+ 
+ 
+प[ित
+प[ित
+/Evaluation Method
+Total value wise evaluation
+म]य&थता
+म]य&थता
+ 
+खंड
+खंड
+/Arbitration Clause
+No
+सुलह
+सुलह
+ 
+खंड
+खंड
+/Mediation Clause
+No
+बड
+बड
+ 
+ 
+ववरण
+ववरण
+/
+/
+Bid
+ 
+ 
+Details
+ईएमड
+ईएमड
+ 
+ 
+ववरण
+ववरण
+/EMD Detail
+एडवाईजर
+ 
+बLक
+/Advisory Bank
+State Bank of India
+ईएमड
+ 
+रािश
+/EMD Amount
+99075
+2 / 13
+--- PAGE 3 ---
+ईपीबीजी
+ईपीबीजी
+ 
+ 
+ववरण
+ववरण
+ 
+ 
+/ePBG Detail
+एडवाइजर
+ 
+बLक
+/Advisory Bank
+State Bank of India
+ईपीबीजी
+ 
+9ितशत
+ (%)
+/ePBG Percentage(%)
+5.00
+ईपीबीजी
+ 
+क
+ 
+आवPयक
+ 
+अविध
+ (
+माह
+) 
+/Duration of ePBG
+required (Months).
+14
+(a). 
+जेम
+ 
+क
+ 
+शत0
+ 
+के
+ 
+अनुसार
+ 
+ईएमड
+ 
+छूट
+ 
+के
+ 
+इ`छुक
+ 
+बडर
+ 
+को
+ 
+संबंिधत
+ 
+केटेगर
+ 
+के
+ 
+िलए
+ 
+बड
+ 
+के
+ 
+साथ
+ 
+वैध
+ 
+समिथ%त
+ 
+द&तावेज़
+ 
+9&तुत
+ 
+करने
+ 
+है
+।
+ 
+एमएसई
+केटेगर
+ 
+के
+ 
+अंतग%त
+ 
+केवल
+ 
+व&तुओं
+ 
+के
+ 
+िलए
+ 
+विनमा%ता
+ 
+तथा
+ 
+सेवाओं
+ 
+के
+ 
+िलए
+ 
+सेवा
+ 
+9दाता
+ 
+ईएमड
+ 
+से
+ 
+छूट
+ 
+के
+ 
+पा 
+ 
+हL
+।
+ 
+aयापाUरयH
+ 
+को
+ 
+इस
+ 
+नीित
+ 
+के
+ 
+दायरे
+ 
+से
+बाहर
+ 
+रखा
+ 
+गया
+ 
+है
+।
+/EMD EXEMPTION: The bidder seeking EMD exemption, must submit the valid supporting document
+for the relevant category as per GeM GTC with the bid. Under MSE category, only manufacturers for goods and
+Service Providers for Services are eligible for exemption from EMD. Traders are excluded from the purview of this
+Policy.
+(b).
+ईएमड
+ 
+और
+ 
+संपादन
+ 
+जमानत
+ 
+रािश
+, 
+जहां
+ 
+यह
+ 
+लागू
+ 
+होती
+ 
+है
+, 
+लाभाथb
+ 
+के
+ 
+प6
+ 
+मJ
+ 
+होनी
+ 
+चा<हए
+।
+ / EMD & Performance securityshould be
+in favour of Beneficiary, wherever it is applicable. 
+लाभाथb
+लाभाथb
+ 
+ 
+/Beneficiary :
+ 
+Chief Engineer
+Chief Engineer AIR FORCE NAGPUR ZONE, Department of Military Affairs, Indian Army, Ministry of Defence
+(Chief Engineer Nagpur)
+बोली
+ 
+वभाजन
+ 
+लागू
+ 
+नहं
+ 
+<कया
+ 
+गया
+/ 
+Bid splitting not applied.
+एमआईआई
+एमआईआई
+ 
+के
+के
+ 
+िलए
+िलए
+ 
+आर56त
+आर56त
+ / Reserved for Make In India products
+एमआईआई
+ 
+के
+ 
+िलए
+ 
+आर56त
+ / Reserved for Make In
+India products
+Yes
+एमएसई
+एमएसई
+ 
+ 
+खरद
+खरद
+ 
+ 
+वरयता
+वरयता
+/MSE Purchase Preference
+एमएसई
+ 
+खरद
+ 
+वरयता
+/MSE Purchase Preference
+Yes
+सूcम
+ 
+और
+ 
+लघु
+ 
+उeम
+ 
+मूल
+ 
+उपकरण
+ 
+िनमा%ताओं
+ 
+को
+ 
+खरद
+ 
+मJ
+9ाथिमकता
+, 
+य<द
+ 
+उनका
+ 
+मूXय
+ 
+L
+1+
+X
+% 
+तक
+ 
+क
+ 
+सीमा
+ 
+मJ
+ 
+हो
+ /
+Purchase Preference to MSE OEMs available upto
+price within L1+X%
+15
+सूcम
+ 
+और
+ 
+लघु
+ 
+उeम
+ 
+को
+ 
+खरद
+ 
+मJ
+ 
+9ाथिमकता
+ 
+के
+ 
+िलए
+ 
+बड
+क
+ 
+मा ा
+ 
+का
+ 
+अिधकतम
+ 
+9ितशत
+ / Maximum
+Percentage of Bid quantity for MSE purchase
+preference
+25
+1. If the bidder is a Micro or Small Enterprise as per latest orders issued by Ministry of MSME, the bidder shall be
+relaxed from the eligibility criteria of "Experience Criteria" as defined above subject to meeting of quality and
+technical specifications. The bidder seeking Relaxation from Experience Criteria, shall upload the supporting
+documents to prove his eligibility for Relaxation.
+2. If the bidder is a Micro or Small Enterprise (MSE) as per latest orders issued by Ministry of MSME, the bidder
+shall be relaxed from the eligibility criteria of "Bidder Turnover" as defined above subject to meeting of quality
+and technical specifications. If the bidder itself is MSE OEM of the offered products, it would be relaxed from the
+"OEM Average Turnover" criteria also subject to meeting of quality and technical specifications. The bidder
+3 / 13
+--- PAGE 4 ---
+seeking Relaxation from Turnover, shall upload the supporting documents to prove his eligibility for Relaxation.
+3. If the bidder is a DPIIT registered Startup, the bidder shall be relaxed from the the eligibility criteria of
+"Experience Criteria" as defined above subject to their meeting of quality and technical specifications. The bidder
+seeking Relaxation from Experience Criteria, shall upload the supporting documents to prove his eligibility for
+Relaxation.
+4. If the bidder is a DPIIT registered Startup, the bidder shall be relaxed from the the eligibility criteria of "Bidder
+Turnover" as defined above subject to their meeting of quality and technical specifications. If the bidder is DPIIT
+Registered OEM of the offered products, it would be relaxed from the "OEM Average Turnover" criteria also
+subject to meeting of quality and technical specifications. The bidder seeking Relaxation from Turnover shall
+upload the supporting documents to prove his eligibility for Relaxation. 
+5. The minimum average annual financial turnover of the bidder during the last three years, ending on 31st
+March of the previous financial year, should be as indicated above in the bid document. Documentary evidence in
+the form of certified Audited Balance Sheets of relevant periods or a certificate from the Chartered Accountant /
+Cost Accountant indicating the turnover details for the relevant period shall be uploaded with the bid. In case the
+date of constitution / incorporation of the bidder is less than 3-year-old, the average turnover in respect of the
+completed financial years after the date of constitution shall be taken into account for this criteria. 
+6. Experience Criteria: In respect of the filter applied for experience criteria, the Bidder or its OEM of the product
+offered in the bid {themselves or through reseller(s)} should have regularly, manufactured and supplied same or
+similar Category Products to any Central / State Govt Organization / PSU for number of Financial years as
+indicated above in the bid document before the bid opening date. Copies of relevant contracts and delivery
+acceptance certificates like CRAC to be submitted along with bid in support of having supplied some quantity
+during each of the Financial year. In case of bunch bids, the category of primary product having highest value
+should meet this criterion. 
+7. OEM Turn Over Criteria: The minimum average annual financial turnover of the OEM of the offered product
+during the last three years, ending on 31st March of the previous financial year, should be as indicated in the bid
+document. Documentary evidence in the form of certified Audited Balance Sheets of relevant periods or a
+certificate from the Chartered Accountant / Cost Accountant indicating the turnover details for the relevant period
+shall be uploaded with the bid. In case the date of constitution / incorporation of the OEM is less than 3 year old,
+the average turnover in respect of the completed financial years after the date of constitution shall be taken into
+account for this criteria. 
+8. Bid reserved for Make In India products: : Procurement under this bid is reserved for purchase from Class 1
+local supplier as defined in public procurement (Preference to Make in India), Order 2017 as amended from time
+to time and its subsequent Orders/Notifications issued by concerned Nodal Ministry for specific Goods/Products.
+However, eligible micro and small enterprises will be allowed to participate. The minimum local content to
+qualify as a class 1 local supplier is denoted in the bid document. All bidders must upload a certificate from the
+OEM regarding the percentage of the local content and the details of locations at which the local value addition is
+made along with their bid, failing which the bid is liable to be rejected. In case the bid value is more than Rs 10
+Crore, the declaration relating to percentage of local content shall be certified by the statutory auditor or cost
+auditor, if the OEM is a company and by a practicing cost accountant or a chartered accountant for OEMs other
+than companies as per the Public Procurement (preference to Make-in -India) order 2017 dated 04.06.2020 . In
+case Buyer has selected Purchase preference to Micro and Small Enterprises clause in the bid, the same will get
+precedence over this clause. 
+9. Purchase preference will be given to MSEs having valid Udyam Registration and whose credentials are
+validated online through Udyam Registration portal as defined in Public Procurement Policy for Micro and Small
+Enterprises (MSEs) Order, 2012 dated 23.03.2012 issued by Ministry of Micro, Small and Medium Enterprises and
+its subsequent Orders/Notifications issued by concerned Ministry. If the bidder wants to avail themselves of the
+Purchase preference, the bidder must be the manufacturer / OEM of the offered product on GeM. Traders are
+excluded from the purview of Public Procurement Policy for Micro and Small Enterprises and hence resellers
+offering products manufactured by some other OEM are not eligible for any purchase preference. In respect of bid
+for Services, the bidder must be the Service provider of the offered Service. Relevant documentary evidence in
+this regard shall be uploaded along with the bid in respect of the offered product or service and Buyer will decide
+eligibility for purchase preference based on documentary evidence submitted, while evaluating the bid. If L-1 is
+not an MSE and MSE Seller (s) has / have quoted price within L-1+ 15% (Selected by Buyer) of margin of
+purchase preference /price band defined in relevant policy, such MSE Seller shall be given opportunity to match
+L-1 price and contract will be awarded for 25% (selected by Buyer) percentage of total quantity. The buyers are
+advised to refer the OM No. F.1/4/2021-PPD dated 18.05.2023 
+OM_No.1_4_2021_PPD_dated_18.05.2023
+ 
+for
+compliance of Concurrent application of Public Procurement Policy for Micro and Small Enterprises Order, 2012
+and Public Procurement (Preference to Make in India) Order, 2017. Benefits of MSE will be allowed only if seller is
+validated on-line in GeM profile as well as validated and approved by Buyer after evaluation of documents
+submitted. 
+10. Past Performance: The Bidder or its OEM {themselves or through re-seller(s)} should have supplied same or
+similar Category Products for 10% of bid quantity, in at least one of the last three Financial years before the bid
+opening date to any Central / State Govt Organization / PSU. Copies of relevant contracts (proving supply of
+cumulative order quantity in any one financial year) to be submitted along with bid in support of quantity
+4 / 13
+--- PAGE 5 ---
+supplied in the relevant Financial year. In case of bunch bids, the category related to primary product having
+highest bid value should meet this criterion. 
+PVC Insulated Cables For Submersible Pumps - As Per IS 694 ( 1260 meter ) 
+(Minimum 50% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+GENERIC
+Cable Type
+Flat Cables With PVC Insulation And Sheathed With
+Multistrand Flexible Copper Conductor For
+Submersible Pumps
+CONSTRUCTION
+Size of Cable (Sqmm)
+6
+Number of cores
+3
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********SOUTH DELHI
+900
+15
+2
+***********
+***********GURGAON
+360
+15
+PVC Insulated Cables For Submersible Pumps - As Per IS 694 ( 1080 meter ) 
+(Minimum 50% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+GENERIC
+Cable Type
+Flat Cables With PVC Insulation And Sheathed With
+Multistrand Flexible Copper Conductor For
+Submersible Pumps
+CONSTRUCTION
+Size of Cable (Sqmm)
+10
+Number of cores
+3
+5 / 13
+--- PAGE 6 ---
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********SOUTH DELHI
+630
+15
+2
+***********
+***********GURGAON
+450
+15
+PVC Insulated Copper Cable Single And Multi - Core Circular Sheathed Cable With
+Flexible Conductor (V2) As Per IS 694 ( 1890 meter ) 
+(Minimum 100% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+GENERIC
+Cable Construction Type
+Multicore Cords Cable
+No of core
+2.0
+Nominal Cross Sectional
+Area of Conductor (in Sq
+mm)
+4.0
+Conductor material
+(Complying with
+IS:8130:1984 latest)
+Annealed Tinned Copper
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********SOUTH DELHI
+1170
+15
+2
+***********
+***********GURGAON
+720
+15
+PVC Insulated Copper Cable Single And Multi - Core Circular Sheathed Cable With
+Flexible Conductor (V2) As Per IS 694 ( 1710 meter ) 
+(Minimum 100% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+6 / 13
+--- PAGE 7 ---
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+GENERIC
+Cable Construction Type
+Multicore Cords Cable
+No of core
+2.0
+Nominal Cross Sectional
+Area of Conductor (in Sq
+mm)
+6.0
+Conductor material
+(Complying with
+IS:8130:1984 latest)
+Annealed bare copper
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********SOUTH DELHI
+720
+15
+2
+***********
+***********GURGAON
+990
+15
+Pedestal Safety Lock ( 15 box ) 
+(Minimum 100% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+Construction
+Material
+Mild Steel
+Length of Closed Lock
+42.5 
+(millimeter)
+Height
+4.0 
+(millimeter)
+Width
+15.0 
+(millimeter)
+Packaging
+Guidelines
+Packaging Size (per pack)
+1
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+7 / 13
+--- PAGE 8 ---
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********GURGAON
+15
+15
+M - Seal As Per IS 9197 ( 17 pieces ) 
+(Minimum 100% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+Certifications &
+Standards
+BIS Certification
+No
+Conformity IS 9197 - 1979
+Yes
+Packaging
+Packaging Size
+1.0 
+(kilogram)
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********SOUTH DELHI
+7
+15
+2
+***********
+***********GURGAON
+10
+15
+Electrical Connection Lugs Or Thimbles ( 25 packet ) 
+(Minimum 100% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+Generic
+Compatible Cable
+size(Square mm)
+150
+Maximum operating
+temperature
+50.0 
+(degree Celsius)
+Minimum operating
+temperature
+-25.0 
+(degree Celsius)
+8 / 13
+--- PAGE 9 ---
+Construction
+Connection method
+Clamp
+Material
+Aluminium
+Thickness of metal
+0.8 
+(millimeter)
+Connection Type
+Ring Type
+End type
+Non-Insulated
+Additional info.
+Packaging Type
+box
+Packaging size (Per packet)
+10
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********CHANDIGARH
+25
+15
+Wood Screws ( 15 kilogram ) 
+(Minimum 50% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+Item
+Item
+Slotted raised countersunk head wood screws as per
+IS 6736:Latest
+Material
+Material
+Stainless Steel 304
+Specification
+Conformity to IS
+No
+ISI Marked
+No
+Dimension
+Screw Number
+1
+Length of screw(in mm)
+15
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+9 / 13
+--- PAGE 10 ---
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********SOUTH DELHI
+15
+15
+MCB - Miniature Circuit - Breakers For A.C. Operation As Per IS / IEC 60898 (Part 1) (
+90 pieces ) 
+(Minimum 50% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+STANDARDS
+Conformity of the
+specification
+as per IS/IEC 60898 : PART 1:2015 latest
+RATING
+No. of pole (hint: "P" - Pole,
+"PP" Protected Pole)
+2 P with 
+2 PP
+Rated voltage (in Volts)
+415 V, AC
+Rated Current (in Ampere)
+20
+Instantaneous tripping
+current type
+D
+Rated Short circuit capacity
+(in Ampere)
+10000
+CONSTRUCTION
+Provision of 
+steel sheet
+enclosure 
+duly pretreated
+stove enamelled/powder
+coated for MCBs
+Without enclosure
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********SOUTH DELHI
+65
+15
+2
+***********
+***********GURGAON
+25
+15
+Molded Case Circuit Breakers (MCCB) As Per IS / IEC 60947 ( 30 pieces ) 
+(Minimum 50% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशZयाँ
+विशZयाँ
+ 
+ 
+/Technical Specifications
+10 / 13
+--- PAGE 11 ---
+* 
+जेम
+ 
+केटेगर
+ 
+विशZ
+ 
+के
+ 
+अनुसार
+ / 
+As
+ 
+per
+ 
+GeM
+ 
+Category
+ 
+Speciﬁcation
+ववरण
+ववरण
+/Speciﬁcation
+विशZ
+विशZ
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+ 
+ 
+/Specification
+Name
+बड
+बड
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+आवPयक
+आवPयक
+ 
+ 
+अनुमत
+अनुमत
+ 
+ 
+मूXय
+मूXय
+ 
+ 
+/Bid Requirement
+(Allowed Values)
+GENERIC
+ISI marked
+NO
+Rated Current (in Ampere)
+100A
+No of poles/Protected
+poles(PP)
+4 Pole
+Rated Short circuit capacity
+(in KA)
+MCCB with RSCB capacity of 10/16/25/35 KA tripping
+range
+Breaking current (in KA)
+10 KA
+Rated Voltage
+240/415 Volt 50 Hz AC
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+E.सं.
+E.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+Uरपो<टhग
+Uरपो<टhग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+<डलीवर
+<डलीवर
+ 
+के
+के
+ 
+<दन
+<दन
+/Delivery
+Days
+1
+***********
+***********SOUTH DELHI
+25
+15
+2
+***********
+***********GURGAON
+5
+15
+Special terms and conditions-Version:1 effective from 16-01-2025 for category M - Seal as per IS
+9197
+1
+. 
+The product may also carry an ISI Mark/Standard Mark as per the BIS standard governing this category. As
+such Buyers may also opt for ISI marked product while creating BID. In such cases buyer shall verify valid
+BIS License for the same at the time of evaluation of BID and check ISI marking at the time of receipt of
+material before issuing CRAC.
+ 
+Eेता
+Eेता
+ 
+ 
+Iारा
+Iारा
+ 
+ 
+जोड़
+जोड़
+ 
+ 
+गई
+गई
+ 
+ 
+बड
+बड
+ 
+ 
+क
+क
+ 
+ 
+वशेष
+वशेष
+ 
+ 
+शतk
+शतk
+/Buyer Added Bid Specific Terms and Conditions
+1
+. 
+Generic
+OPTION CLAUSE: The Purchaser reserves the right to increase or decrease the quantity to be ordered up
+to 25 percent of bid quantity at the time of placement of contract. The purchaser also reserves the right to
+increase the ordered quantity up to 25% of the contracted quantity during the currency of the contract at
+the contracted rates. The delivery period of quantity shall commence from the last date of original
+delivery order and in cases where option clause is exercised during the extended delivery period the
+additional time shall commence from the last date of extended delivery period. The additional delivery
+time shall be (Increased quantity ÷ Original quantity) × Original delivery period (in days), subject to
+minimum of 30 days. If the original delivery period is less than 30 days, the additional time equals the
+original delivery period. The Purchaser may extend this calculated delivery duration up to the original
+delivery period while exercising the option clause. Bidders must comply with these terms.
+11 / 13
+--- PAGE 12 ---
+2
+. 
+OEM
+IMPORTED PRODUCTS: In case of imported products, OEM or Authorized Seller of OEM should have a
+registered office in India to provide after sales service support in India. The certificate to this effect should
+be submitted.
+3
+. 
+Buyer Added Bid Specific ATC
+Buyer Added text based ATC clauses
+Bidder financial standing: The bidder should not be under liquidation, court receivership or similar proceed
+ings, should not be bankrupt. Bidder to upload undertaking to this effect with bid. * Bidder are advised to c
+heck applicable GST o their own before quoting. Buyer will not take any responsibility in this regards. * NO
+N DISCLOSURE DECLARATION CERTIFICATE (On Bidder Letter Head) to be uploaded with bid. * EMD and E
+PBG amount to be given in Favor of HQ Chief Engineer (AF) Nagpur *All offered products should be approv
+ed listed i n HQ CESC, Pune category. * Warranty certificate is mandatory for all branded products. * The O
+EM must g ive guarantee letter of behalf of reseller. * In case the bidder is a reseller, he/she must upload b
+id specific r eseller certificate provided by letterhead of respective OEM for the bid duly mentioning Bid Nu
+mber, * In c ase the documents are found to be fraud the bidder shall be blacklisted permanently. * The do
+cuments ca n be verified by department from respective OEM by mail/post, thus all details shall be provid
+ed by bidder /OEM. In case the documents are found to be fraud the bidder shall be rejected and matter wi
+ll be reported to GeM. * Bidder's offer is liable to be rejected if they don't upload any of the Certificate/doc
+umets sougt in the Bid document, the Bidder shall be Technically disqualified
+.
+अ&वीकरण
+अ&वीकरण
+/Disclaimer
+The additional terms and conditions have been incorporated by the Buyer after approval of the Competent
+Authority in Buyer Organization, whereby Buyer organization is solely responsible for the impact of these clauses
+on the bidding process, its outcome, and consequences thereof including any eccentricity / restriction arising in
+the bidding process due to these ATCs and due to modification of technical specifications and / or terms and
+conditions governing the bid. If any clause(s) is / are incorporated by the Buyer regarding following, the bid and
+resultant contracts shall be treated as null and void and such bids may be cancelled by GeM at any stage of
+bidding process without any notice:-
+1
+. 
+Definition of Class I and Class II suppliers in the bid not in line with the extant Order / Office Memorandum
+issued by DPIIT in this regard.
+2
+. 
+Seeking EMD submission from bidder(s), including via Additional Terms & Conditions, in contravention to
+exemption provided to such sellers under GeM GTC.
+3
+. 
+Publishing Custom / BOQ bids for items for which regular GeM categories are available without any
+Category item bunched with it.
+4
+. 
+Creating BoQ bid for single item.
+5
+. 
+Mentioning specific Brand or Make or Model or Manufacturer or Dealer name.
+6
+. 
+Mandating submission of documents in physical form as a pre-requisite to qualify bidders.
+7
+. 
+Floating / creation of work contracts as Custom Bids in Services.
+8
+. 
+Seeking sample with bid or approval of samples during bid evaluation process. (However, in bids for
+attached categories
+, trials are allowed as per approved procurement policy of the buyer nodal Ministries)
+9
+. 
+Mandating foreign / international certifications even in case of existence of Indian Standards without
+specifying equivalent Indian Certification / standards.
+10
+. 
+Seeking experience from specific organization / department / institute only or from foreign / export
+experience.
+11
+. 
+Creating bid for items from irrelevant categories.
+12
+. 
+Incorporating any clause against the MSME policy and Preference to Make in India Policy.
+13
+. 
+Reference of conditions published on any external site or reference to external documents/clauses.
+14
+. 
+Asking for any Tender fee / Bid Participation fee / Auction fee in case of Bids / Forward Auction, as the
+case may be.
+15
+. 
+Buyer added ATC Clauses which are in contravention of clauses defined by buyer in system generated bid
+template as indicated above in the Bid Details section, EMD Detail, ePBG Detail and MII and MSE Purchase
+12 / 13
+--- PAGE 13 ---
+Preference sections of the bid, unless otherwise allowed by GeM GTC.
+16
+. 
+In a category based bid, adding additional items, through buyer added additional scope of work/ additional
+terms and conditions/or any other document. If buyer needs more items along with the main item, the
+same must be added through bunching category based items or by bunching custom catalogs or
+bunching a BoQ with the main category based item, the same must not be done through ATC or Scope of
+Work.
+Further, if any seller has any objection/grievance against these additional clauses or otherwise on any aspect of
+this bid, they can raise their representation against the same by using the Representation window provided in
+the bid details field in Seller dashboard after logging in as a seller within 4 days of bid publication on GeM. Buyer
+is duty bound to reply to all such representations and would not be allowed to open bids if he fails to reply to
+such representations.
+All GeM Sellers/Service Providers shall ensure full compliance with all applicable labour laws,
+including the provisions, rules, schemes and guidelines under the four Labour Codes i.e. the Code
+on Wages, 2019; the Industrial Relations Code, 2020; the Occupational Safety, Health and Working
+Conditions Code, 2020; and the Code on Social Security, 2020 as and when notified and brought into
+force by the Government of India.
+For all provisions of the Labour Codes that are pending operationalisation through rules, schemes or
+notifications, the corresponding provisions of the pre-existing labour enactments (such as The
+Minimum Wages Act, 1948, The Payment of Wages Act, 1936, The Payment of Bonus Act, 1965, The
+Equal Remuneration Act, 1976, The Payment of Gratuity Act, 1972, etc. and relevant State Rules)
+shall continue to remain applicable.
+The Seller/ Service Providers shall, therefore, be responsible for ensuring compliance under:
+All notified and enforceable provisions of the new Labour Codes as mentioned hereinabove;
+and
+All operative provisions of the erstwhile Labour Laws until their complete substitution.
+All obligations relating to wages, social security, safety, working conditions, industrial relations etc.
+and any other statutory requirements shall be strictly met by the Seller/ Service Provider. Any non-
+compliance shall constitute a breach of the contract and shall entitle the Buyer to take appropriate
+action in accordance with the contract and applicable law.
+यह
+ 
+बड
+ 
+सामा)य
+ 
+शत0
+ 
+के
+ 
+अंतग%त
+ 
+भी
+ 
+शािसत
+ 
+है
+ 
+/This Bid is also governed by the General Terms and Conditions
+जेम
+ 
+क
+ 
+सामा)य
+ 
+शत0
+ 
+के
+ 
+खंड
+ 26 
+के
+ 
+संदभ%
+ 
+मJ
+ 
+भारत
+ 
+के
+ 
+साथ
+ 
+भूिम
+ 
+सीमा
+ 
+साझा
+ 
+करने
+ 
+वाले
+ 
+देश
+ 
+के
+ 
+बडर
+ 
+से
+ 
+खरद
+ 
+पर
+ 
+9ितबंध
+ 
+के
+ 
+संबंध
+ 
+मJ
+भारत
+ 
+के
+ 
+साथ
+ 
+भूिम
+ 
+सीमा
+ 
+साझा
+ 
+करने
+ 
+वाले
+ 
+देश
+ 
+का
+ 
+कोई
+ 
+भी
+ 
+बडर
+ 
+इस
+ 
+िनवदा
+ 
+मJ
+ 
+बड
+ 
+देने
+ 
+के
+ 
+िलए
+ 
+तभी
+ 
+पा 
+ 
+होगा
+ 
+जब
+ 
+वह
+ 
+बड
+ 
+देने
+ 
+वाला
+स6म
+ 
+9ािधकार
+ 
+के
+ 
+पास
+ 
+पंजीकृत
+ 
+हो
+।
+बड
+ 
+मJ
+ 
+भाग
+ 
+लेते
+ 
+समय
+ 
+बडर
+ 
+को
+ 
+इसका
+ 
+अनुपालन
+ 
+करना
+ 
+होगा
+ 
+और
+ 
+कोई
+ 
+भी
+ 
+गलत
+ 
+घोषणा
+ 
+<कए
+ 
+जाने
+व
+ 
+इसका
+ 
+अनुपालन
+ 
+न
+ 
+करने
+ 
+पर
+ 
+अनुबंध
+ 
+को
+ 
+तWकाल
+ 
+समा:
+ 
+करने
+ 
+और
+ 
+कानून
+ 
+के
+ 
+अनुसार
+ 
+आगे
+ 
+क
+ 
+कानूनी
+ 
+कार%वाई
+ 
+का
+ 
+आधार
+ 
+होगा
+।
+/In terms
+of GeM GTC clause 26 regarding Restrictions on procurement from a bidder of a country which shares a land border with India, any bidder from a country which shares a
+land border with India will be eligible to bid in this tender only if the bidder is registered with the Competent Authority. While participating in bid, Bidder has to undertake
+compliance of this and any false declaration and non-compliance of this would be a ground for immediate termination of the contract and further legal action in
+accordance with the laws.
+---
+ध)यवाद
+ध)यवाद
+/Thank You---
+13 / 13

@@ -1,0 +1,19 @@
+======================================================================
+KEI PRODUCT EXTRACTION SUMMARY
+======================================================================
+
+Total Products: 45
+Total Cables: 44
+Total Wires: 1
+Total PDFs Downloaded: 22
+
+Categories:
+  - EV Charging Cable: 26
+  - Control Cable: 8
+  - Fire Survival Cable: 4
+  - Solar Cable: 4
+  - HV Cable: 2
+  - Winding Wire: 1
+
+Extraction Date: 2025-12-07 17:55:37
+======================================================================

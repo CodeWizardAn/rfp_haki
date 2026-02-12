@@ -1,0 +1,26 @@
+================================================================================
+POLYCAB COMPREHENSIVE PRODUCT EXTRACTION SUMMARY
+================================================================================
+
+Total Products: 285
+Total Cables: 254
+Total Wires: 31
+
+Categories:
+  - Power Cable-LT: 88
+  - Control Cable: 60
+  - Flexible Cable: 42
+  - FRLS Cable: 21
+  - Power Cable-HT: 21
+  - Multi-core Wire: 18
+  - Submersible Cable: 16
+  - House Wire: 13
+  - Solar Cable: 6
+
+Standards:
+  - IS 1554: 254
+  - IS 694: 31
+
+Extraction Date: 2025-12-07 16:44:36
+Total URLs Scraped: 59
+================================================================================

@@ -1,0 +1,998 @@
+{
+  "analysis_timestamp": "2026-02-12T21:54:53.853454",
+  "total_analyzed": 15,
+  "successful": 15,
+  "failed": 0,
+  "per_portal_summary": {
+    "portal_1": {
+      "name": "GovProcure India",
+      "total": 3,
+      "analyzed": 3,
+      "rfps": [
+        "RFP2",
+        "RFP21",
+        "RFP26"
+      ]
+    },
+    "portal_2": {
+      "name": "TenderBazaar",
+      "total": 3,
+      "analyzed": 3,
+      "rfps": [
+        "RFP17",
+        "RFP22",
+        "RFP27"
+      ]
+    },
+    "portal_3": {
+      "name": "eProcure Central",
+      "total": 3,
+      "analyzed": 3,
+      "rfps": [
+        "RFP18",
+        "RFP23",
+        "RFP28"
+      ]
+    },
+    "portal_4": {
+      "name": "BidConnect",
+      "total": 3,
+      "analyzed": 3,
+      "rfps": [
+        "RFP19",
+        "RFP24",
+        "RFP29"
+      ]
+    },
+    "portal_5": {
+      "name": "SmartTender Hub",
+      "total": 3,
+      "analyzed": 3,
+      "rfps": [
+        "RFP20",
+        "RFP25",
+        "RFP30"
+      ]
+    }
+  },
+  "results": {
+    "RFP2": {
+      "rfp_id": "RFP2",
+      "analysis_timestamp": "2026-02-12T21:54:39.846394",
+      "source": {
+        "portal": "GovProcure India",
+        "portal_id": "portal_1",
+        "url": "http://localhost:5001/rfp/RFP2",
+        "title": "Procurement of Cables & Wires - RFP2",
+        "category": "Cables & Wires",
+        "organization": "National Highway Authority",
+        "deadline": "2026-03-16",
+        "estimated_value": "â‚¹235 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 10525,
+        "total_chars": 69811,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n24-10-2025 11:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n24-10-2025 11:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n180 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+      },
+      "terms_analysis": {
+        "terms_matched": 5,
+        "matched_lines": 959,
+        "total_lines": 6211,
+        "unrecognized_count": 200,
+        "categories_found": [
+          "linked_terms_document",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Pre-Bid Meeting",
+          "value": "रणाम",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Organisation",
+          "value": "या",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "proof of the BC along with bid and has to ensure delivery of hardcopy",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP21": {
+      "rfp_id": "RFP21",
+      "analysis_timestamp": "2026-02-12T21:54:42.091696",
+      "source": {
+        "portal": "GovProcure India",
+        "portal_id": "portal_1",
+        "url": "http://localhost:5001/rfp/RFP21",
+        "title": "Procurement of Industrial Automation - RFP21",
+        "category": "Cables & Wires",
+        "organization": "Smart City Mission",
+        "deadline": "2026-03-15",
+        "estimated_value": "â‚¹400 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 4272,
+        "total_chars": 26579,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n29-01-2026 11:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n29-01-2026 11:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n90 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/St"
+      },
+      "terms_analysis": {
+        "terms_matched": 4,
+        "matched_lines": 86,
+        "total_lines": 1930,
+        "unrecognized_count": 64,
+        "categories_found": [
+          "linked_terms_document",
+          "technical_specifications",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "documents sought in the",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Warranty Period",
+          "value": "30 m",
+          "category": "technical_specifications",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP26": {
+      "rfp_id": "RFP26",
+      "analysis_timestamp": "2026-02-12T21:54:42.685084",
+      "source": {
+        "portal": "GovProcure India",
+        "portal_id": "portal_1",
+        "url": "http://localhost:5001/rfp/RFP26",
+        "title": "Procurement of Lighting Solutions - RFP26",
+        "category": "Industrial Automation",
+        "organization": "Smart City Mission",
+        "deadline": "2026-03-09",
+        "estimated_value": "â‚¹484 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 3099,
+        "total_chars": 19245,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n27-01-2026 15:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n27-01-2026 15:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n30 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/St"
+      },
+      "terms_analysis": {
+        "terms_matched": 5,
+        "matched_lines": 98,
+        "total_lines": 1565,
+        "unrecognized_count": 59,
+        "categories_found": [
+          "linked_terms_document",
+          "epbg_details",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Clarification",
+          "value": "Dय",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Security Deposit",
+          "value": "2011 latest",
+          "category": "epbg_details",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "The minimum average annual financial turnover of the bidder during the last",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP17": {
+      "rfp_id": "RFP17",
+      "analysis_timestamp": "2026-02-12T21:54:44.070102",
+      "source": {
+        "portal": "TenderBazaar",
+        "portal_id": "portal_2",
+        "url": "http://localhost:5002/rfp/RFP17",
+        "title": "Procurement of Electrical Equipment - RFP17",
+        "category": "Cable Management",
+        "organization": "National Highway Authority",
+        "deadline": "2026-03-09",
+        "estimated_value": "â‚¹478 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 7984,
+        "total_chars": 49467,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n09-01-2026 19:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n09-01-2026 19:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n180 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+      },
+      "terms_analysis": {
+        "terms_matched": 8,
+        "matched_lines": 248,
+        "total_lines": 4283,
+        "unrecognized_count": 114,
+        "categories_found": [
+          "bid_timing",
+          "eligibility_criteria",
+          "linked_terms_document",
+          "organization_details",
+          "epbg_details",
+          "technical_specifications"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Security Deposit",
+          "value": "2011 latest",
+          "category": "epbg_details",
+          "section": null
+        },
+        {
+          "field": "Quality Standard",
+          "value": "1984 latest)",
+          "category": "technical_specifications",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "The minimum average annual financial turnover of the bidder during the last",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Experience",
+          "value": "The Bidder or its OEM {themselves or through reseller(s)} should have regularly,",
+          "category": "eligibility_criteria",
+          "section": null
+        },
+        {
+          "field": "Registration",
+          "value": "Empanelment Requirement:",
+          "category": "eligibility_criteria",
+          "section": null
+        },
+        {
+          "field": "Net Worth",
+          "value": "",
+          "category": "eligibility_criteria",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP22": {
+      "rfp_id": "RFP22",
+      "analysis_timestamp": "2026-02-12T21:54:45.458503",
+      "source": {
+        "portal": "TenderBazaar",
+        "portal_id": "portal_2",
+        "url": "http://localhost:5002/rfp/RFP22",
+        "title": "Procurement of Transformers - RFP22",
+        "category": "Lighting Solutions",
+        "organization": "Railway Procurement Division",
+        "deadline": "2026-03-03",
+        "estimated_value": "â‚¹494 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 4046,
+        "total_chars": 25161,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n29-01-2026 11:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n29-01-2026 11:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n90 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/St"
+      },
+      "terms_analysis": {
+        "terms_matched": 4,
+        "matched_lines": 86,
+        "total_lines": 1904,
+        "unrecognized_count": 64,
+        "categories_found": [
+          "linked_terms_document",
+          "technical_specifications",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "documents sought in the",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Warranty Period",
+          "value": "30 m",
+          "category": "technical_specifications",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP27": {
+      "rfp_id": "RFP27",
+      "analysis_timestamp": "2026-02-12T21:54:46.048415",
+      "source": {
+        "portal": "TenderBazaar",
+        "portal_id": "portal_2",
+        "url": "http://localhost:5002/rfp/RFP27",
+        "title": "Procurement of Industrial Automation - RFP27",
+        "category": "Cables & Wires",
+        "organization": "Railway Procurement Division",
+        "deadline": "2026-02-26",
+        "estimated_value": "â‚¹447 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 3424,
+        "total_chars": 21101,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n02-02-2026 09:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n02-02-2026 09:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n30 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/St"
+      },
+      "terms_analysis": {
+        "terms_matched": 5,
+        "matched_lines": 80,
+        "total_lines": 1613,
+        "unrecognized_count": 62,
+        "categories_found": [
+          "eligibility_criteria",
+          "linked_terms_document",
+          "organization_details",
+          "epbg_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Security Deposit",
+          "value": "2011 latest",
+          "category": "epbg_details",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Net Worth",
+          "value": "",
+          "category": "eligibility_criteria",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP18": {
+      "rfp_id": "RFP18",
+      "analysis_timestamp": "2026-02-12T21:54:47.035885",
+      "source": {
+        "portal": "eProcure Central",
+        "portal_id": "portal_3",
+        "url": "http://localhost:5003/rfp/RFP18",
+        "title": "Procurement of Cable Management - RFP18",
+        "category": "Industrial Automation",
+        "organization": "National Highway Authority",
+        "deadline": "2026-03-04",
+        "estimated_value": "â‚¹166 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 5747,
+        "total_chars": 36424,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n28-01-2026 12:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n28-01-2026 12:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n30 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/St"
+      },
+      "terms_analysis": {
+        "terms_matched": 4,
+        "matched_lines": 222,
+        "total_lines": 3253,
+        "unrecognized_count": 82,
+        "categories_found": [
+          "linked_terms_document",
+          "technical_specifications",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Quality Standard",
+          "value": "1984 latest)",
+          "category": "technical_specifications",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "The bidder should not be under liquidation, court receivership or similar proceed",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP23": {
+      "rfp_id": "RFP23",
+      "analysis_timestamp": "2026-02-12T21:54:47.804145",
+      "source": {
+        "portal": "eProcure Central",
+        "portal_id": "portal_3",
+        "url": "http://localhost:5003/rfp/RFP23",
+        "title": "Procurement of FMCG Supplies - RFP23",
+        "category": "Electrical Equipment",
+        "organization": "Municipal Corporation",
+        "deadline": "2026-03-11",
+        "estimated_value": "â‚¹210 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 5151,
+        "total_chars": 32606,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n29-01-2026 12:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n29-01-2026 12:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n90 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/St"
+      },
+      "terms_analysis": {
+        "terms_matched": 5,
+        "matched_lines": 237,
+        "total_lines": 3022,
+        "unrecognized_count": 68,
+        "categories_found": [
+          "linked_terms_document",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Pre-Bid Meeting",
+          "value": "रणाम",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Organisation",
+          "value": "या",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP28": {
+      "rfp_id": "RFP28",
+      "analysis_timestamp": "2026-02-12T21:54:49.416986",
+      "source": {
+        "portal": "eProcure Central",
+        "portal_id": "portal_3",
+        "url": "http://localhost:5003/rfp/RFP28",
+        "title": "Procurement of FMCG Supplies - RFP28",
+        "category": "Power Infrastructure",
+        "organization": "Municipal Corporation",
+        "deadline": "2026-03-12",
+        "estimated_value": "â‚¹306 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 5393,
+        "total_chars": 33590,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n02-02-2026 09:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n02-02-2026 09:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n120 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+      },
+      "terms_analysis": {
+        "terms_matched": 5,
+        "matched_lines": 228,
+        "total_lines": 3101,
+        "unrecognized_count": 62,
+        "categories_found": [
+          "linked_terms_document",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Pre-Bid Meeting",
+          "value": "रणाम",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Organisation",
+          "value": "या",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "documents sought in the",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP19": {
+      "rfp_id": "RFP19",
+      "analysis_timestamp": "2026-02-12T21:54:50.084764",
+      "source": {
+        "portal": "BidConnect",
+        "portal_id": "portal_4",
+        "url": "http://localhost:5004/rfp/RFP19",
+        "title": "Procurement of Cable Management - RFP19",
+        "category": "Transformers",
+        "organization": "Industrial Development Corp",
+        "deadline": "2026-02-20",
+        "estimated_value": "â‚¹298 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 4596,
+        "total_chars": 28617,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n21-01-2026 13:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n21-01-2026 13:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n120 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+      },
+      "terms_analysis": {
+        "terms_matched": 3,
+        "matched_lines": 87,
+        "total_lines": 1980,
+        "unrecognized_count": 62,
+        "categories_found": [
+          "linked_terms_document",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Pre-Bid Meeting",
+          "value": "रणाम",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP24": {
+      "rfp_id": "RFP24",
+      "analysis_timestamp": "2026-02-12T21:54:50.615675",
+      "source": {
+        "portal": "BidConnect",
+        "portal_id": "portal_4",
+        "url": "http://localhost:5004/rfp/RFP24",
+        "title": "Procurement of FMCG Supplies - RFP24",
+        "category": "Cables & Wires",
+        "organization": "Municipal Corporation",
+        "deadline": "2026-02-27",
+        "estimated_value": "â‚¹304 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 3010,
+        "total_chars": 18681,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n23-12-2025 09:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n23-12-2025 09:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n150 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+      },
+      "terms_analysis": {
+        "terms_matched": 3,
+        "matched_lines": 75,
+        "total_lines": 1432,
+        "unrecognized_count": 46,
+        "categories_found": [
+          "linked_terms_document",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Organisation",
+          "value": "या",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP29": {
+      "rfp_id": "RFP29",
+      "analysis_timestamp": "2026-02-12T21:54:51.216225",
+      "source": {
+        "portal": "BidConnect",
+        "portal_id": "portal_4",
+        "url": "http://localhost:5004/rfp/RFP29",
+        "title": "Procurement of Cables & Wires - RFP29",
+        "category": "Safety Equipment",
+        "organization": "Municipal Corporation",
+        "deadline": "2026-03-14",
+        "estimated_value": "â‚¹428 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 4165,
+        "total_chars": 25942,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n04-02-2026 11:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n04-02-2026 11:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n180 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+      },
+      "terms_analysis": {
+        "terms_matched": 5,
+        "matched_lines": 101,
+        "total_lines": 1991,
+        "unrecognized_count": 59,
+        "categories_found": [
+          "boq_boq_headers",
+          "linked_terms_document",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Pre-Bid Meeting",
+          "value": "रणाम",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Qty",
+          "value": "15",
+          "category": "boq_boq_headers",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP20": {
+      "rfp_id": "RFP20",
+      "analysis_timestamp": "2026-02-12T21:54:51.602606",
+      "source": {
+        "portal": "SmartTender Hub",
+        "portal_id": "portal_5",
+        "url": "http://localhost:5005/rfp/RFP20",
+        "title": "Procurement of FMCG Supplies - RFP20",
+        "category": "Power Infrastructure",
+        "organization": "National Highway Authority",
+        "deadline": "2026-03-05",
+        "estimated_value": "â‚¹177 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 2310,
+        "total_chars": 14455,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n28-01-2026 16:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n28-01-2026 16:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n15 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/St"
+      },
+      "terms_analysis": {
+        "terms_matched": 3,
+        "matched_lines": 67,
+        "total_lines": 1305,
+        "unrecognized_count": 43,
+        "categories_found": [
+          "linked_terms_document",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Tender Publishing",
+          "value": "a",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP25": {
+      "rfp_id": "RFP25",
+      "analysis_timestamp": "2026-02-12T21:54:52.347960",
+      "source": {
+        "portal": "SmartTender Hub",
+        "portal_id": "portal_5",
+        "url": "http://localhost:5005/rfp/RFP25",
+        "title": "Procurement of Industrial Automation - RFP25",
+        "category": "FMCG Supplies",
+        "organization": "Public Works Department",
+        "deadline": "2026-02-24",
+        "estimated_value": "â‚¹213 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 4386,
+        "total_chars": 27011,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n27-01-2026 14:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n27-01-2026 14:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n180 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+      },
+      "terms_analysis": {
+        "terms_matched": 3,
+        "matched_lines": 108,
+        "total_lines": 2230,
+        "unrecognized_count": 67,
+        "categories_found": [
+          "linked_terms_document",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Bidder",
+          "value": "The minimum average annual financial turnover of the bidder during the last",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    },
+    "RFP30": {
+      "rfp_id": "RFP30",
+      "analysis_timestamp": "2026-02-12T21:54:53.850863",
+      "source": {
+        "portal": "SmartTender Hub",
+        "portal_id": "portal_5",
+        "url": "http://localhost:5005/rfp/RFP30",
+        "title": "Procurement of Transformers - RFP30",
+        "category": "Power Infrastructure",
+        "organization": "Municipal Corporation",
+        "deadline": "2026-03-02",
+        "estimated_value": "â‚¹13 Lakhs"
+      },
+      "extraction": {
+        "method": "PDFExtractionManager",
+        "total_pages": 2,
+        "total_words": 4496,
+        "total_chars": 28226,
+        "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n27-01-2026 13:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n27-01-2026 13:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n15 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/St"
+      },
+      "terms_analysis": {
+        "terms_matched": 3,
+        "matched_lines": 172,
+        "total_lines": 2507,
+        "unrecognized_count": 58,
+        "categories_found": [
+          "linked_terms_document",
+          "organization_details",
+          "bid_timing"
+        ]
+      },
+      "key_requirements": [
+        {
+          "field": "Bid End Date",
+          "value": "Thank You---",
+          "category": "bid_timing",
+          "section": null
+        },
+        {
+          "field": "Organisation",
+          "value": "या",
+          "category": "organization_details",
+          "section": null
+        },
+        {
+          "field": "Terms and Conditions",
+          "value": "or any other document. If buyer needs more items along with the main item, the",
+          "category": "linked_terms_document",
+          "section": null
+        }
+      ],
+      "identified_sections": [],
+      "validation": {}
+    }
+  }
+}

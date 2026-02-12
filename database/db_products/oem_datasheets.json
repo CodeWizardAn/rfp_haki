@@ -1,0 +1,336 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Detailed OEM product datasheets with full electrical and physical properties",
+    "last_updated": "2026-02-01",
+    "enhanced_conductor_specs": true
+  },
+  "datasheets": [
+    {
+      "sku": "POL-PVC-1.5-R",
+      "product_name": "Polycab Optima Plus 1.5 sq mm FR PVC Insulated Wire",
+      "manufacturer": "Polycab India Limited",
+      "part_number": "FRLSH/FRLS/FR 1.5 sq mm",
+      "description": "Premium quality flame retardant PVC insulated copper conductor wire for house wiring",
+      "electrical_properties": {
+        "rated_voltage": "1100V AC",
+        "max_conductor_temp": "70\u00b0C",
+        "current_carrying_capacity": "14A",
+        "conductor_resistance_max": "12.1 Ohm/km at 20\u00b0C",
+        "insulation_resistance_min": "100 MOhm.km",
+        "voltage_test": "2000V AC for 5 min"
+      },
+      "physical_properties": {
+        "conductor_material": "Electrolytic Grade Copper",
+        "conductor_class": "Class 1 (Solid) / Class 2 (Stranded)",
+        "nominal_area": "1.5 sq mm",
+        "no_of_strands": "1 (Solid) / 7 (Stranded)",
+        "nominal_diameter": "1.38 mm (Solid)",
+        "insulation_type": "PVC Type A (FR/FRLS/FRLSH)",
+        "insulation_thickness": "0.7 mm nominal",
+        "overall_diameter": "2.9 mm nominal",
+        "weight": "21 kg/km approx",
+        "bending_radius": "4 x Overall Diameter",
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity": "99.97% minimum",
+        "conductor_conductivity": "100% IACS minimum",
+        "conductor_resistivity": "17.241 n\u03a9\u00b7m at 20\u00b0C"
+      },
+      "packaging": {
+        "standard_length": "90 meters / coil",
+        "coil_type": "Premium Shrink Wrapped",
+        "carton_qty": "12 coils"
+      },
+      "certifications": {
+        "bis_license": "CM/L-1234567",
+        "is_standard": "IS 694:2010",
+        "bis_mark": "ISI Mark",
+        "fire_rating": "IEC 60332-1 Compliant"
+      },
+      "warranty": "10 Years"
+    },
+    {
+      "sku": "POL-PVC-2.5-R",
+      "product_name": "Polycab Optima Plus 2.5 sq mm FR PVC Insulated Wire",
+      "manufacturer": "Polycab India Limited",
+      "part_number": "FRLSH/FRLS/FR 2.5 sq mm",
+      "description": "Premium quality flame retardant PVC insulated copper conductor wire for house wiring",
+      "electrical_properties": {
+        "rated_voltage": "1100V AC",
+        "max_conductor_temp": "70\u00b0C",
+        "current_carrying_capacity": "18A",
+        "conductor_resistance_max": "7.41 Ohm/km at 20\u00b0C",
+        "insulation_resistance_min": "100 MOhm.km",
+        "voltage_test": "2000V AC for 5 min"
+      },
+      "physical_properties": {
+        "conductor_material": "Electrolytic Grade Copper",
+        "conductor_class": "Class 1 (Solid) / Class 2 (Stranded)",
+        "nominal_area": "2.5 sq mm",
+        "no_of_strands": "1 (Solid) / 7 (Stranded)",
+        "nominal_diameter": "1.78 mm (Solid)",
+        "insulation_type": "PVC Type A (FR/FRLS/FRLSH)",
+        "insulation_thickness": "0.8 mm nominal",
+        "overall_diameter": "3.5 mm nominal",
+        "weight": "32 kg/km approx",
+        "bending_radius": "4 x Overall Diameter",
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity": "99.97% minimum",
+        "conductor_conductivity": "100% IACS minimum",
+        "conductor_resistivity": "17.241 n\u03a9\u00b7m at 20\u00b0C"
+      },
+      "packaging": {
+        "standard_length": "90 meters / coil",
+        "coil_type": "Premium Shrink Wrapped",
+        "carton_qty": "8 coils"
+      },
+      "certifications": {
+        "bis_license": "CM/L-1234567",
+        "is_standard": "IS 694:2010",
+        "bis_mark": "ISI Mark",
+        "fire_rating": "IEC 60332-1 Compliant"
+      },
+      "warranty": "10 Years"
+    },
+    {
+      "sku": "POL-XLPE-4C16",
+      "product_name": "Polycab 4 Core 16 sq mm XLPE Armoured Cable",
+      "manufacturer": "Polycab India Limited",
+      "part_number": "XLPE-SWA-4Cx16",
+      "description": "XLPE insulated, steel wire armoured, PVC sheathed power cable for LT applications",
+      "electrical_properties": {
+        "rated_voltage": "1100V AC",
+        "max_conductor_temp": "90\u00b0C",
+        "current_carrying_capacity": "68A (in ground)",
+        "conductor_resistance_max": "1.15 Ohm/km at 20\u00b0C",
+        "insulation_resistance_min": "200 MOhm.km",
+        "voltage_test": "3500V AC for 5 min"
+      },
+      "physical_properties": {
+        "conductor_material": "Electrolytic Grade Copper",
+        "conductor_class": "Class 2 (Stranded)",
+        "nominal_area": "16 sq mm per core",
+        "number_of_cores": 4,
+        "insulation_type": "XLPE (Cross-linked Polyethylene)",
+        "insulation_thickness": "0.7 mm nominal",
+        "armour_type": "Galvanized Steel Wire",
+        "armour_wire_diameter": "1.6 mm",
+        "outer_sheath": "PVC Type ST2",
+        "overall_diameter": "28.5 mm approx",
+        "weight": "1100 kg/km approx",
+        "bending_radius": "12 x Overall Diameter",
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity": "99.97% minimum",
+        "conductor_conductivity": "100% IACS minimum",
+        "conductor_resistivity": "17.241 n\u03a9\u00b7m at 20\u00b0C"
+      },
+      "packaging": {
+        "standard_length": "500 meters / drum",
+        "drum_type": "Wooden Drum"
+      },
+      "certifications": {
+        "bis_license": "CM/L-1234568",
+        "is_standard": "IS 7098 Part 1",
+        "cpri_approved": true,
+        "fire_rating": "IEC 60332-3 Category C Compliant"
+      },
+      "warranty": "15 Years"
+    },
+    {
+      "sku": "HAV-LIFELINE-1.5",
+      "product_name": "Havells Lifeline Plus S3 1.5 sq mm HRFR Wire",
+      "manufacturer": "Havells India Limited",
+      "part_number": "LIFELINE-PLUS-S3-1.5",
+      "description": "High quality HRFR (Heat Resistant Flame Retardant) insulated copper wire",
+      "electrical_properties": {
+        "rated_voltage": "1100V AC",
+        "max_conductor_temp": "85\u00b0C",
+        "current_carrying_capacity": "14A",
+        "conductor_resistance_max": "12.1 Ohm/km at 20\u00b0C",
+        "insulation_resistance_min": "100 MOhm.km",
+        "voltage_test": "2000V AC for 5 min"
+      },
+      "physical_properties": {
+        "conductor_material": "99.97% Pure Electrolytic Copper",
+        "conductor_class": "Class 1 (Solid) / Class 2 (Stranded)",
+        "nominal_area": "1.5 sq mm",
+        "no_of_strands": "1 (Solid) / 7 (Stranded)",
+        "insulation_type": "HRFR PVC",
+        "insulation_thickness": "0.7 mm nominal",
+        "overall_diameter": "2.9 mm nominal",
+        "weight": "21 kg/km approx",
+        "conductor_material_grade": "99.97% Pure Electrolytic Copper",
+        "conductor_purity": "99.97% minimum",
+        "conductor_conductivity": "100% IACS minimum",
+        "conductor_resistivity": "17.241 n\u03a9\u00b7m at 20\u00b0C"
+      },
+      "packaging": {
+        "standard_length": "90 meters / coil",
+        "coil_type": "Triple Layer Protection"
+      },
+      "certifications": {
+        "bis_license": "CM/L-2345678",
+        "is_standard": "IS 694:2010",
+        "bis_mark": "ISI Mark",
+        "fire_rating": "IEC 60332-1 Compliant"
+      },
+      "warranty": "10 Years"
+    },
+    {
+      "sku": "HAV-LIFELINE-2.5",
+      "product_name": "Havells Lifeline Plus S3 2.5 sq mm HRFR Wire",
+      "manufacturer": "Havells India Limited",
+      "part_number": "LIFELINE-PLUS-S3-2.5",
+      "description": "High quality HRFR (Heat Resistant Flame Retardant) insulated copper wire",
+      "electrical_properties": {
+        "rated_voltage": "1100V AC",
+        "max_conductor_temp": "85\u00b0C",
+        "current_carrying_capacity": "18A",
+        "conductor_resistance_max": "7.41 Ohm/km at 20\u00b0C",
+        "insulation_resistance_min": "100 MOhm.km",
+        "voltage_test": "2000V AC for 5 min"
+      },
+      "physical_properties": {
+        "conductor_material": "99.97% Pure Electrolytic Copper",
+        "conductor_class": "Class 1 (Solid) / Class 2 (Stranded)",
+        "nominal_area": "2.5 sq mm",
+        "no_of_strands": "1 (Solid) / 7 (Stranded)",
+        "insulation_type": "HRFR PVC",
+        "insulation_thickness": "0.8 mm nominal",
+        "overall_diameter": "3.5 mm nominal",
+        "weight": "32 kg/km approx",
+        "conductor_material_grade": "99.97% Pure Electrolytic Copper",
+        "conductor_purity": "99.97% minimum",
+        "conductor_conductivity": "100% IACS minimum",
+        "conductor_resistivity": "17.241 n\u03a9\u00b7m at 20\u00b0C"
+      },
+      "packaging": {
+        "standard_length": "90 meters / coil",
+        "coil_type": "Triple Layer Protection"
+      },
+      "certifications": {
+        "bis_license": "CM/L-2345678",
+        "is_standard": "IS 694:2010",
+        "bis_mark": "ISI Mark",
+        "fire_rating": "IEC 60332-1 Compliant"
+      },
+      "warranty": "10 Years"
+    },
+    {
+      "sku": "KEI-HOMECAB-1.5",
+      "product_name": "KEI Homecab 1.5 sq mm FR LSH Wire",
+      "manufacturer": "KEI Industries Limited",
+      "part_number": "HOMECAB-FRLSH-1.5",
+      "description": "Fire Retardant Low Smoke Halogen Free insulated copper wire",
+      "electrical_properties": {
+        "rated_voltage": "1100V AC",
+        "max_conductor_temp": "70\u00b0C",
+        "current_carrying_capacity": "14A",
+        "conductor_resistance_max": "12.1 Ohm/km at 20\u00b0C",
+        "insulation_resistance_min": "100 MOhm.km",
+        "voltage_test": "2000V AC for 5 min"
+      },
+      "physical_properties": {
+        "conductor_material": "Electrolytic Grade Copper",
+        "conductor_class": "Class 2 (Stranded)",
+        "nominal_area": "1.5 sq mm",
+        "no_of_strands": "7",
+        "insulation_type": "FR LSH PVC",
+        "insulation_thickness": "0.7 mm nominal",
+        "overall_diameter": "2.9 mm nominal",
+        "weight": "21 kg/km approx",
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity": "99.97% minimum",
+        "conductor_conductivity": "100% IACS minimum",
+        "conductor_resistivity": "17.241 n\u03a9\u00b7m at 20\u00b0C"
+      },
+      "packaging": {
+        "standard_length": "90 meters / coil"
+      },
+      "certifications": {
+        "bis_license": "CM/L-3456789",
+        "is_standard": "IS 694:2010",
+        "bis_mark": "ISI Mark",
+        "fire_rating": "IEC 60332-1 Compliant"
+      },
+      "warranty": "7 Years"
+    },
+    {
+      "sku": "FIN-FR-1.5",
+      "product_name": "Finolex FR 1.5 sq mm PVC Insulated Wire",
+      "manufacturer": "Finolex Cables Limited",
+      "part_number": "FINOLEX-FR-1.5",
+      "description": "Flame retardant PVC insulated copper conductor house wire",
+      "electrical_properties": {
+        "rated_voltage": "1100V AC",
+        "max_conductor_temp": "70\u00b0C",
+        "current_carrying_capacity": "14A",
+        "conductor_resistance_max": "12.1 Ohm/km at 20\u00b0C",
+        "insulation_resistance_min": "100 MOhm.km",
+        "voltage_test": "2000V AC for 5 min"
+      },
+      "physical_properties": {
+        "conductor_material": "Electrolytic Grade Copper",
+        "conductor_class": "Class 1 (Solid) / Class 2 (Stranded)",
+        "nominal_area": "1.5 sq mm",
+        "insulation_type": "FR PVC",
+        "insulation_thickness": "0.7 mm nominal",
+        "overall_diameter": "2.9 mm nominal",
+        "weight": "21 kg/km approx",
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity": "99.97% minimum",
+        "conductor_conductivity": "100% IACS minimum",
+        "conductor_resistivity": "17.241 n\u03a9\u00b7m at 20\u00b0C"
+      },
+      "packaging": {
+        "standard_length": "90 meters / coil"
+      },
+      "certifications": {
+        "bis_license": "CM/L-4567890",
+        "is_standard": "IS 694:2010",
+        "bis_mark": "ISI Mark",
+        "fire_rating": "IEC 60332-1 Compliant"
+      },
+      "warranty": "15 Years"
+    },
+    {
+      "sku": "RRK-UNILAY-1.5",
+      "product_name": "RR Kabel Unilay 1.5 sq mm FRLS Wire",
+      "manufacturer": "RR Kabel Limited",
+      "part_number": "UNILAY-FRLS-1.5",
+      "description": "Fire Retardant Low Smoke insulated copper wire for residential wiring",
+      "electrical_properties": {
+        "rated_voltage": "1100V AC",
+        "max_conductor_temp": "70\u00b0C",
+        "current_carrying_capacity": "14A",
+        "conductor_resistance_max": "12.1 Ohm/km at 20\u00b0C",
+        "insulation_resistance_min": "100 MOhm.km",
+        "voltage_test": "2000V AC for 5 min"
+      },
+      "physical_properties": {
+        "conductor_material": "Electrolytic Grade Copper",
+        "conductor_class": "Class 2 (Stranded)",
+        "nominal_area": "1.5 sq mm",
+        "no_of_strands": "7",
+        "insulation_type": "FRLS PVC",
+        "insulation_thickness": "0.7 mm nominal",
+        "overall_diameter": "2.9 mm nominal",
+        "weight": "21 kg/km approx",
+        "conductor_material_grade": "Electrolytic Grade Copper (ETP)",
+        "conductor_purity": "99.97% minimum",
+        "conductor_conductivity": "100% IACS minimum",
+        "conductor_resistivity": "17.241 n\u03a9\u00b7m at 20\u00b0C"
+      },
+      "packaging": {
+        "standard_length": "90 meters / coil"
+      },
+      "certifications": {
+        "bis_license": "CM/L-5678901",
+        "is_standard": "IS 694:2010",
+        "bis_mark": "ISI Mark",
+        "fire_rating": "IEC 60332-1 Compliant"
+      },
+      "warranty": "10 Years"
+    }
+  ]
+}

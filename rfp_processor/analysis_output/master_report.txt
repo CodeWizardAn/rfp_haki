@@ -1,0 +1,171 @@
+======================================================================
+  MASTER RFP ANALYSIS REPORT
+  E-Procurement Portal Scraper & Analyzer
+======================================================================
+  Generated: 2026-02-12T21:54:53.853454
+  Total RFPs Analyzed: 15
+  Successful: 15
+  Failed: 0
+
+  PER-PORTAL BREAKDOWN
+  --------------------------------------------------
+  GovProcure India:
+    Total: 3 | Analyzed: 3
+    RFPs: RFP2, RFP21, RFP26
+
+  TenderBazaar:
+    Total: 3 | Analyzed: 3
+    RFPs: RFP17, RFP22, RFP27
+
+  eProcure Central:
+    Total: 3 | Analyzed: 3
+    RFPs: RFP18, RFP23, RFP28
+
+  BidConnect:
+    Total: 3 | Analyzed: 3
+    RFPs: RFP19, RFP24, RFP29
+
+  SmartTender Hub:
+    Total: 3 | Analyzed: 3
+    RFPs: RFP20, RFP25, RFP30
+
+  INDIVIDUAL RFP SUMMARIES
+  ==================================================
+
+  📄 RFP2
+     Title:    Procurement of Cables & Wires - RFP2
+     Portal:   GovProcure India
+     Category: Cables & Wires
+     Pages:    2 | Words: 10525
+     Terms:    5 matched
+     Sections: None
+
+
+  📄 RFP21
+     Title:    Procurement of Industrial Automation - RFP21
+     Portal:   GovProcure India
+     Category: Cables & Wires
+     Pages:    2 | Words: 4272
+     Terms:    4 matched
+     Sections: None
+
+
+  📄 RFP26
+     Title:    Procurement of Lighting Solutions - RFP26
+     Portal:   GovProcure India
+     Category: Industrial Automation
+     Pages:    2 | Words: 3099
+     Terms:    5 matched
+     Sections: None
+
+
+  📄 RFP17
+     Title:    Procurement of Electrical Equipment - RFP17
+     Portal:   TenderBazaar
+     Category: Cable Management
+     Pages:    2 | Words: 7984
+     Terms:    8 matched
+     Sections: None
+
+
+  📄 RFP22
+     Title:    Procurement of Transformers - RFP22
+     Portal:   TenderBazaar
+     Category: Lighting Solutions
+     Pages:    2 | Words: 4046
+     Terms:    4 matched
+     Sections: None
+
+
+  📄 RFP27
+     Title:    Procurement of Industrial Automation - RFP27
+     Portal:   TenderBazaar
+     Category: Cables & Wires
+     Pages:    2 | Words: 3424
+     Terms:    5 matched
+     Sections: None
+
+
+  📄 RFP18
+     Title:    Procurement of Cable Management - RFP18
+     Portal:   eProcure Central
+     Category: Industrial Automation
+     Pages:    2 | Words: 5747
+     Terms:    4 matched
+     Sections: None
+
+
+  📄 RFP23
+     Title:    Procurement of FMCG Supplies - RFP23
+     Portal:   eProcure Central
+     Category: Electrical Equipment
+     Pages:    2 | Words: 5151
+     Terms:    5 matched
+     Sections: None
+
+
+  📄 RFP28
+     Title:    Procurement of FMCG Supplies - RFP28
+     Portal:   eProcure Central
+     Category: Power Infrastructure
+     Pages:    2 | Words: 5393
+     Terms:    5 matched
+     Sections: None
+
+
+  📄 RFP19
+     Title:    Procurement of Cable Management - RFP19
+     Portal:   BidConnect
+     Category: Transformers
+     Pages:    2 | Words: 4596
+     Terms:    3 matched
+     Sections: None
+
+
+  📄 RFP24
+     Title:    Procurement of FMCG Supplies - RFP24
+     Portal:   BidConnect
+     Category: Cables & Wires
+     Pages:    2 | Words: 3010
+     Terms:    3 matched
+     Sections: None
+
+
+  📄 RFP29
+     Title:    Procurement of Cables & Wires - RFP29
+     Portal:   BidConnect
+     Category: Safety Equipment
+     Pages:    2 | Words: 4165
+     Terms:    5 matched
+     Sections: None
+
+
+  📄 RFP20
+     Title:    Procurement of FMCG Supplies - RFP20
+     Portal:   SmartTender Hub
+     Category: Power Infrastructure
+     Pages:    2 | Words: 2310
+     Terms:    3 matched
+     Sections: None
+
+
+  📄 RFP25
+     Title:    Procurement of Industrial Automation - RFP25
+     Portal:   SmartTender Hub
+     Category: FMCG Supplies
+     Pages:    2 | Words: 4386
+     Terms:    3 matched
+     Sections: None
+
+
+  📄 RFP30
+     Title:    Procurement of Transformers - RFP30
+     Portal:   SmartTender Hub
+     Category: Power Infrastructure
+     Pages:    2 | Words: 4496
+     Terms:    3 matched
+     Sections: None
+
+======================================================================
+  End of Report
+======================================================================

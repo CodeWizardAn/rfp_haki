@@ -1,0 +1,53 @@
+======================================================================
+  RFP ANALYSIS REPORT: RFP2
+======================================================================
+  Generated: 2026-02-12T21:54:39.846394
+
+  SOURCE INFORMATION
+  ----------------------------------------
+  Portal:       GovProcure India
+  Title:        Procurement of Cables & Wires - RFP2
+  Category:     Cables & Wires
+  Organization: National Highway Authority
+  Deadline:     2026-03-16
+  Est. Value:   â‚¹235 Lakhs
+
+  DOCUMENT EXTRACTION
+  ----------------------------------------
+  Method:  PDFExtractionManager
+  Pages:   2
+  Words:   10525
+  Chars:   69811
+
+  TERMS ANALYSIS
+  ----------------------------------------
+  Terms Matched:    5
+  Categories Found: linked_terms_document, organization_details, bid_timing
+
+  KEY REQUIREMENTS / MATCHED TERMS
+  ----------------------------------------
+    • {'field': 'Bid End Date', 'value': 'Thank You---', 'category': 'bid_timing', 'section': None}
+    • {'field': 'Pre-Bid Meeting', 'value': 'रणाम', 'category': 'bid_timing', 'section': None}
+    • {'field': 'Organisation', 'value': 'या', 'category': 'organization_details', 'section': None}
+    • {'field': 'Bidder', 'value': 'proof of the BC along with bid and has to ensure delivery of hardcopy', 'category': 'organization_details', 'section': None}
+    • {'field': 'Terms and Conditions', 'value': 'or any other document. If buyer needs more items along with the main item, the', 'category': 'linked_terms_document', 'section': None}
+
+  TEXT PREVIEW (first 500 chars)
+  ----------------------------------------
+  
+  --- PAGE 1 ---
+  बड
+  बड
+   
+   
+  ववरण
+  ववरण
+  /
+  /
+  Bid
+   
+   
+  Details
+  बड
+
+======================================================================

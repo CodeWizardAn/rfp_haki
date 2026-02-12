@@ -1,0 +1,109 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Compliance rules for RFP specification matching",
+    "last_updated": "2026-02-01"
+  },
+  "rules": [
+    {
+      "rule_id": "voltage_001",
+      "rule_name": "Rated Voltage Compliance",
+      "description": "Check if product rated voltage meets or exceeds RFP requirement",
+      "category": "Electrical",
+      "severity": "critical",
+      "comparison_type": "greater_or_equal",
+      "field_mapping": "rated_voltage",
+      "active": true
+    },
+    {
+      "rule_id": "current_001",
+      "rule_name": "Current Capacity Check",
+      "description": "Verify current carrying capacity meets specifications",
+      "category": "Electrical",
+      "severity": "critical",
+      "comparison_type": "greater_or_equal",
+      "field_mapping": "current_rating",
+      "active": true
+    },
+    {
+      "rule_id": "material_001",
+      "rule_name": "Conductor Material Compliance",
+      "description": "Verify conductor material matches requirement (Cu/Al)",
+      "category": "Material",
+      "severity": "critical",
+      "comparison_type": "exact_match",
+      "field_mapping": "conductor_material",
+      "active": true
+    },
+    {
+      "rule_id": "insulation_001",
+      "rule_name": "Insulation Material Check",
+      "description": "Verify insulation type matches requirement (PVC/XLPE/FRLS)",
+      "category": "Material",
+      "severity": "critical",
+      "comparison_type": "exact_match",
+      "field_mapping": "insulation_type",
+      "active": true
+    },
+    {
+      "rule_id": "temperature_001",
+      "rule_name": "Temperature Rating Check",
+      "description": "Verify conductor temperature rating meets requirement",
+      "category": "Electrical",
+      "severity": "major",
+      "comparison_type": "greater_or_equal",
+      "field_mapping": "temperature_rating",
+      "active": true
+    },
+    {
+      "rule_id": "cert_001",
+      "rule_name": "Safety Certification Required",
+      "description": "Check for required safety certifications (BIS/ISI)",
+      "category": "Certification",
+      "severity": "critical",
+      "comparison_type": "contains",
+      "field_mapping": "certifications",
+      "active": true
+    },
+    {
+      "rule_id": "is_001",
+      "rule_name": "Indian Standards Compliance",
+      "description": "Verify compliance with specified IS standards",
+      "category": "Standards",
+      "severity": "critical",
+      "comparison_type": "contains_all",
+      "field_mapping": "standards_compliance",
+      "active": true
+    },
+    {
+      "rule_id": "env_001",
+      "rule_name": "Environmental Compliance",
+      "description": "Check RoHS/REACH compliance if required",
+      "category": "Environmental",
+      "severity": "major",
+      "comparison_type": "contains",
+      "field_mapping": "environmental_compliance",
+      "active": true
+    },
+    {
+      "rule_id": "size_001",
+      "rule_name": "Cross Section Area Check",
+      "description": "Verify conductor cross-section area matches requirement",
+      "category": "Physical",
+      "severity": "critical",
+      "comparison_type": "exact_match",
+      "field_mapping": "cross_section",
+      "active": true
+    },
+    {
+      "rule_id": "armor_001",
+      "rule_name": "Armoring Requirement",
+      "description": "Check if armoring requirement is met",
+      "category": "Physical",
+      "severity": "critical",
+      "comparison_type": "exact_match",
+      "field_mapping": "armored",
+      "active": true
+    }
+  ]
+}

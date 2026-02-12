@@ -1,0 +1,2976 @@
+
+--- Page 1 ---
+REGISTERED AND CORPORATE OFFICE:
+D-90, OKHLA INDUSTRIAL AREA PHASE-I, NEW DELHI-110020,  TEL: +91-11-26818840/8642/0242 FAX: 26817225, 26811959   
+E-MAIL: info@kei-ind.com    WEBSITE: www.kei-ind.com   CIN NO: L74899DL1992PLC051527
+@keicables/keicables /keicables
+THE POWER BEHIND THE POWER
+BRIDGING THE GAP ACROSS 60 DIFFERENT COUNTRIES
+Scan to reach other offices
+2023-24
+INDIAINDIA
+Consumer  Validated
+
+--- Page 2 ---
+Nature abounds in power of every 
+kind, for every purpose. The wind 
+energy, the solar energy or the 
+electrical energy, clasped in the air 
+around us, all waiting to be 
+harnessed. To be controlled. Only a 
+few especially skilled humans can 
+find specific means to tame these 
+natural resources or replicate them 
+with perfection, for specific and 
+general good. These are the 
+specialists, who with the sheer 
+power of their minds lend brilliance 
+to millions of lives.
+THE POWER
+BEHIND  THE   POWER
+ 
+
+--- Page 3 ---
+SPECIALIST
+THE KEI. The wires and cables specialist is ever finding new ways to 
+brighten up the world around. Making electrical energy easily, 
+economically and most importantly adequately available to people 
+and organizations. Like a magician, KEI comes up with products 
+that harness and transport electrical power smoothly in requisite 
+amounts wherever and whenever needed. The specialist in turn 
+empowers millions of households, thousands of industries and 
+the nation on the whole. KEI is thus the specialist who is the power 
+behind all the power we see around us.
+--- Page 4 ---
+GENESIS
+THE
+Established a partnership firm to
+manufacture switch board cables for DOT
+1968
+1992
+1995
+Partnership firm converted into 
+Public Limited Company
+Issued first IPO. 
+Became a Listed Co.
+1997
+Added another plant at Bhiwadi for 
+PVC /XLPE- LV Power Cables
+2007
+• Commenced new project at Chopanki and modernisation/
+expansion at Bhiwadi & Silvassa unit
+• Received prestigious corporate governance rating
+2008
+Successfully commissioned 100% 
+EOU at Chopanki for LV Power Cables
+2010
+• Technical know-how agreement with BRUGG KABEL A.G., 
+Switzerland for EHV cables 
+• Commercial production of EHV cables up to 220 kV
+2011
+Certification of ISO 9001:2008,
+OHSAS 18001:2007, OHSAS 14001:2004
+2016
+Extended the technical collaboration with 
+M/s Brugg Kabel AG,Switzerland to manufacture
+EHV cables above 66kV and up to 400kV
+2017
+New plant for manufacturing 
+Control & Instrumentation cable up to 66 kV at Pathredi.
+2018
+Added another plant for manufacturing 
+wires & flexible cables at Chinchpada
+2019
+Proud recipient of Superbrand Award 
+EVOLUTION
+--- Page 5 ---
+COMPANY
+THE
+KEI has been at the forefront of India's wire and cable Industry for more than 5 decades. We 
+manufacture a range of specialized cables and are important players in the domestic and retail 
+segment. Our unblemished track record has earned us the patronage of leading Industrial 
+houses, project consultants and architects. In order to provide reliable and expedient services to 
+our customers, we have created manufacturing facilities at Silvassa, Chopanki, Bhiwadi and 
+Pathredi. Today, KEI is a one-stop-shop when it comes to meeting cabling requirements for the 
+domestic, power and Industrial sectors. KEI has earned a formidable reputation by nurturing 
+relationships, ensuring timely execution of orders and becoming a reliable partner in executing 
+client projects. Our uncompromised cost-effective quality and reliable product range that meets 
+rigorous technical requirements of our customers has made us an undisputed industry leader . 
+An ISO 9001:2015 certified company; KEI carries out stringent quality control measures under 
+surveillance of a competent team of technocrats and quality enablers. Continuous product 
+innovations and cutting-edge R&D at KEI's in-house labs are what contribute towards constant 
+evolution in our offerings and services. All KEI wires and cables are of a superior quality, a 
+reason why they have been accredited and certified by Testing Agencies across the globe.
+  
+--- Page 6 ---
+ALLIANCE
+THE
+TWO CABLE GIANTS
+ONE POWER PACKED FUTURE.
+KEI has joined hands with M/s Brugg Kabel AG, a 110 year old 
+Swiss cable giant to upgrade its technology and to manufacture 
+EHV Cables up to 400kV. With this powerful collaboration, the 
+wires and cables specialist is all set to empower many more 
+Indian lives. 
+It is a KEI initiative that will take the Indian power industry to the 
+next level. So come connect with KEI, connect with success.
+
+--- Page 7 ---
+OVERVIEW
+THE
+01
+ENVIRONMENTAL AND 
+RELIABILITY ASPECTS
+HIGH STANDARDS 03
+EHV CABLE SPECIFICATIONS
+    - Manufacturing Process 
+    - CCV Lline 
+   - Integrated optical fibre unit
+    - Standard specifications
+    - Popular constructions
+19
+MAXIMUM PERMISSIBLE 
+SHORT-CIRCUIT CURRENTS 
+FOR CONDUCTOR 
+22
+CABLE LAYOUT AND 
+SYSTEM DESIGN
+24
+LAYING 
+INFORMATION
+26
+SCREEN BONDING 
+METHODS28
+TESTING PROCEDURE 
+AFTER INSTALLATION
+33
+CABLE ACCESSORIES
+JOINTS 
+TERMINATION
+10
+CONTINUOUS CURRENT 
+CARRYING CAPACITY
+PRESUMPTIONS
+CONTINUOUS CURRENT RATINGS
+17
+RATINGS
+FACTORS
+--- Page 8 ---
+ENVIRONMENTAL
+AND RELIABILITY
+ASPECTS
+KEI abides by the rules and regulations of the Government and stays in-sync with the public 
+opinion. Similarly, it keeps the environment as its first consideration while planning a new 
+supply route. For instance, it uses the impeccable XLPE system which is an invisible system. It 
+requires a very small area for installation and normally the land can be reused for its original 
+purpose after the installation, resulting in considerable savings. Moreover, reducing the 
+electrical and magnetic fields is also becoming important now-a-days. The cable systems are 
+designed according to different magnetic field requirements and the external electrical fields 
+are zero. With fewer accidental contacts or flashovers, these systems ensure better standards 
+of safety to both workers and general public. Reliability of the network is also an important 
+factor because the loss of supply results in high cost consequences. The EHV cable systems are 
+less vulnerable to failures compared to the overhead lines.
+HIGH STANDARDS
+Partial discharge in the cables insulation is one of the main reasons for electrical breakdowns. 
+Most of the recognized national and international standards permit discharges of max. 5 pC. 
+However, our policy is not to allow deliveries of cables with any detectable discharges. 
+01 02
+--- Page 9 ---
+OVERVIEW
+EHV CABLE 
+SPECIFICATION 
+Scope
+This specification applies to materials and constructions of 
+cross-linked thermosetting polyethylene (XLPE) insulated 
+cables for extra high voltage transmission of rated voltage 
+from 66kV grade up to and including 400 kV grade. This 
+specification deals manufacturer's standard models of the 
+cable, however any other customised cable design as per 
+project & customer requirements.  
+Conductor
+The conductor shall be formed from copper or aluminium 
+complying with various international or national standard. 
+The conductor shall be stranded circular, compacted 
+circular, or segmental compacted circular . Segmental 
+compacted circular conductors shall be applied to cables 
+of conductor nominal cross-sectional areas of 1000 mm2 
+and above.
+Conductor Shielding
+Conductor shielding of an extruded semi-conducting 
+thermosetting compound shall be applied over the 
+conductor . One or two layer of semi- conducting tape(s) 
+may be applied with an proper lapping between the 
+conductor and the extruded semi-conducting layer .
+Insulation
+The insulation shall be of dry-cured XLPE compound with a 
+thickness to meet dimensional, electrical and physical 
+requirements specified. The compound shall be high 
+quality, heat-, moisture-, ozone- and corona resistant. This 
+insulation shall be suitable for operation in wet or dry 
+locations at conductor temperature not exceeding 90
+oC for 
+normal condition, 130oC for emergency overload conditions 
+and 250oC for short circuit conditions.
+Inner Bedding
+If required, extruded layer of a thermoplastic compound, 
+PVC or PE can be applied.
+Metallic Layer
+The metallic layer can be applied over the insulation 
+shielding to reinforce the capability of carrying fault 
+current specified, if required. The metallic layer will be one 
+of the them as describe in popular construction.
+Metal Tape Moisture Barrier
+When the moisture barrier required, a layer of aluminium 
+tape laminated at both or outer side with copolymer shall 
+be applied longitudinally over the cable core with an overlap 
+so as to lapped parts of the tape on each other .
+Or, a corrugated aluminium sheath / copper sheath / 
+stainless steel sheath or lead alloy sheath is adopted with 
+bituminous compound primer shall be applied over the 
+metalic sheath to protect the sheath against local 
+corrosion.
+Outer Jacket
+The outer jacket shall consist of thermoplastic compound 
+(PVC, PE or similar materials) extruded continuously over 
+the metallic layer or moisture barrier followed by 
+semiconducting layer . 
+Insulation Shielding
+The insulation shielding shall be applied direct upon the 
+Insulation and shall consist of a layer of extruded 
+semi-conducting compound. The extruded semiconducting 
+compound shall be a thermosetting compound and firmly 
+and totally bonded to the insulation.
+03 04
+
+--- Page 10 ---
+MANUFACTURING PROCESS FLOW CHART
+05
+Continuous Catenary Vulcanization (CCV ) LINES
+The system adopted for insulation of EHV cable is Continuous Catenary Vulcanization (CCV) lines with Twin-Rot 
+rotating caterpillar and there are included with triple extrusion along with Dry Curing and Dry cooling system 
+with Nitrogen as medium, having eccentricity, ovality & diameter online X-Ray monitoring system 
+(Sikora Make). 
+The outstanding characteristics of the cable manufactured in application of the system are:
+ 1. Perfect concentricity and roundness through TWINROT and TROSS Technology.
+ 2. Perfect dry curing system (N2 gas) through CCV line.
+ 3. High Production Speeds by High Output Concept.
+ 4. Uniformity of quality is maintained of all products as the manufacturing processes are controlled by 
+  computer .
+ 5. Environment Friendly: Gas filtering system, by product collection , low energy heating.
+ 6. Excellent cleanness achieved by closed material handling system gravimetric method.
+ 7.  Perfect Quality assurance of the EHV cable production.
+06
+• RAW MATERIAL INPUT
+• FINISHED GOODS INSPECTION
+• PROCESS
+• PROCESS & INSPECTION
+• DESPATCH
+Cu/Al Rod 
+With / without 
+SCWBT / WBT 
+Tapes for Water 
+Tightness
+XLPE & Semicon
+Compound
+PVC/Hdpe
+Compound
+Final Testing
+Outer sheath/ Semicon. 
+layer/ Graphite/marking/ 
+Finishing
+SCWBT Tapes
+Gravity Feed 
+system for XLPE 
+compound
+With Temperature 
+data recordingLead Ingots/
+Aluminium Sheat
+SCWBT Tapes
+Copper Wires 
+& tape
+Poly Al Taping
+• Resistivity, Wire diameter, 
+ Tensile strength, Wrapping 
+ Test & Surface finish
+• Resistivity, Anealing, Wire 
+ diameter, Surface finish
+• No. of strands, Conductor 
+ diameter, Segmentdimentions, 
+ Tapes Thickness, Conductor 
+ Resistance , Suface finish
+• Thickness, Hot Set, Diameter, 
+ Eccentricity, Ovality, Silicon 
+ Dip Test for void & contamitna- 
+ tion check, Tensile Strength & 
+ Elongation, Wafer Boil Test, 
+ Surface Finish.
+• Temperature, Duration,Silicon 
+ Dip Test for voids check
+• Tape Thickness, No of Tapes, 
+ Diameter
+• Thickness, Diameter over 
+ sheath, Corrugation Type, 
+ Surface Finish
+• Tape Thickness, No of Tapes, 
+ Overlap
+• Wire Diameter, No. of Wires, 
+ Tape Thickness & Nos. , Built 
+ up Diameter, Surface Finish
+• Material, Thickness, Diame-
+ ter, Suface Finish,
+• Thickness, Adhesion, Peel of 
+ Strength, Diameter, Surface 
+ Finish.
+• Thickness, Conductive layer 
+ finish,  Sequential Marking, 
+ Empty Drums Size & Hard
+ ware Check, Rewinding, 
+ Suface Finish, Overall Diame-
+ t e r.
+• Routine Test on 100% Drums, 
+ Type Test/Size/Voltage Grade, 
+ Surface Finish, mtr . Marking & 
+ Embassing Check.
+• Ends Cutting & Capping, Ends 
+ Securing, Stencill on Drums, 
+ Packing of Cable drums with 
+ PE Sheet & Wooden Laggings 
+ /GI Sheet
+• Drum support pallet Shall be 
+ used if drum is heavy or Large 
+ size drums ( > 10 Tonnes, L 
+ 3000mm x W 1800mm)
+The optical fibres in power cables can be used for measuring the actual temperature along with the cable line or for 
+data transmission. Fibre units are normally embedded under the lead sheath or between the screen wires.
+The temperature monitoring provides continuous monitoring of cable temperatures, detecting hot spots, delivering 
+operational status, condition assessments and power circuit rating data. Ideal for use in high voltage cables, it 
+provides reliable temperature measurements and is immune to electromagnetic interference. 
+INTEGRATED OPTICAL FIBRE UNIT
+Annealing for Cu
+Wire Drawing 
+Stranding round
+compact/Milliken
+Triple Extrusion 
+Insulation Dry Curing
+Degassing
+SC Water Blocking
+Tape over core
+Lead / Al Corrg. 
+Sheath
+SC Water Blocking Tape 
+Bet'n Cu-Wires & Lead sheath
+Inner Sheathing
+Metallic Screening
+Poly Al Taping
+Dispatch
+Drum Marking & Packing
+
+--- Page 11 ---
+STANDARD SPECIFICATIONS
+KEI manufactures Extra High Voltage cables according to various international or national standards. Such as, IEC: 
+60840, IEC: 62067, IS: 7098 (P-3)/93, AN/NZS 1429.2-2009. Cable are also designed specially to the customer’s 
+requirement.
+POPULAR CONSTRUCTIONS
+08
+1.  Conductor : Longitudinally watertight - stranded compacted  circular /  Milliken  
+ Copper or Aluminium     
+  
+2.  Binder Tapes: Semiconducting water blocking tape      
+3.  Conductor Screen : Extruded semiconducting compound     
+4.  Insulation : Extruded super clean XLPE Compound     
+     
+5.  Insulation Screen : Extruded semiconducting compound     
+6.  Bedding : Semi conducting water swellable tape and Semi conducting water 
+ swellable Foam tape 
+ 
+7.  Metallic Sheath : Seam Welded Smooth Aluminium Sheath    
+ 
+8.  Outer Sheath : Extruded PE Sheath + Extruded HDPE sheath with extruded 
+ Semiconducting layer/ Graphite Coating
+(A) Single Core XLPE insulated power cable with Seam Welded Smooth Aluminium Sheath
+*We Manufacture Milliken conductor for sizes 800 mm2 and above on request.
+*We Manufacture Milliken conductor for sizes 800 mm2 and above on request.
+*We Manufacture Milliken conductor for sizes 800 mm2 and above on request.
+*We Manufacture Milliken conductor for sizes 800 mm2 and above on request.
+1.  Conductor : Longitudinally watertight - stranded compacted  circular /  Milliken  
+ Copper or Aluminium    
+      
+2.  Binder Tapes: Semiconducting water blocking tape      
+ 
+3.  Conductor Screen : Extruded semiconducting compound     
+4.  Insulation : Extruded super clean XLPE Compound     
+ 
+5.  Insulation Screen : Extruded semiconducting compound     
+      
+6.  Bedding : Semi conducting water swellable tape and  Semi conducting water 
+ swellable Foam tape
+          
+7.  Metallic Sheath : Seam welded Corrugated Aluminium Sheath    
+ 
+8.  Anticorrrosion layer: Bitumen layer followed by bituminized cotton  tape  
+   
+9.  Outer Sheath : Extruded HDPE / PVC / HFFR  sheath  followed by a Semi Conducting 
+ layer/ Graphite Coating
+(B) Single Core XLPE insulated power cable with Seam welded Corrugated Aluminium Sheath
+1.  Conductor : Longitudinally watertight - stranded compacted  circular /  Milliken  
+ Copper or Aluminium
+      
+2.  Binder Tapes: Semiconducting water blocking tape      
+3.  Conductor Screen : Extruded semiconducting compound     
+   
+4.  Insulation : Extruded super clean XLPE Compound          
+ 
+5.  Insulation Screen : Extruded semiconducting compound     
+ 
+6.  Bedding : Semi conducting water swellable tape      
+7.  Metallic Sheath : A layer of copper wire helix and a copper contact tape in open 
+ helix      
+8.  Seperation Tapes: Semi conducting water swellable tape     
+ 
+9.  Radial Water Barrier: Aluminium or Copper foil laminate
+      
+10.  Outer Sheath : Extruded PE / HFFR sheath followed by a Semi Conducting layer / 
+ Graphite Coating
+(C) Single Core XLPE insulated power cable with Copper wire screen and foil laminated sheath
+1.  Conductor : Longitudinally watertight - stranded compacted  circular /  Milliken  
+ Copper or Aluminium    
+     
+2.  Binder Tapes: Semiconducting water blocking tape     
+3.  Conductor Screen : Extruded semiconducting compound     
+4.  Insulation : Extruded super clean XLPE compound     
+          
+5.  Insulation Screen : Extruded semiconducting compound     
+6.  Bedding : Semi conducting water swellable tape     
+     
+7.  Metallic Sheath : A layer of copper wire helix and a copper contact tape in open 
+ helix (If required)     
+     
+8.  Seperation Tapes: Semi conducting water swellable tape     
+9. Metallic Sheath: Extruded Lead sheath
+     
+10.  Outer Sheath : Extruded HDPE / PVC / HFFR sheath followed by a Semi 
+ Conducting layer followed by a Semi Conducting layer/ Graphite Coating  
+(D) Single Core XLPE insulated power cable with Copper wire screen (if required) and Lead sheath
+07
+--- Page 12 ---
+09
+ 10
+SELECTING A POWER CABLE
+Different kinds of power cable construction are required to transport electrical energy from the power station to 
+the consumer . The following factors are important when selecting a suitable cable construction:
+ • Maximum operating voltage
+ • Insulation level frequency 
+ • Load to be carried
+ • Daily load curve
+ • Magnitude and duration of possible overloads currents  phase-to-phase and phase-to -earth
+ • Connection between overhead and cable line (whether directly or via a transformator)
+ • Insulation level of equipment (bare conductor insulators, arresters, etc.)
+ • Voltage drop
+ • Length of line
+ • Profile of line
+ • Mode of installation
+   -  Underground (whether directly or in ducts)
+   - In air (if in a tunnel, the dimensions and mode of ventilation of tunnel)
+ • Chemical and physical properties of the soil
+   - Whether rocky, sandy, clay or boggy, moist or dry
+   - Chemical agents liable to cause corrosion 
+   - The maximum thermal resistivity of the soil
+ • Maximum and minimum ambient air and soil temperatures, bearing in mind nearby hot water pipes and 
+  other factors liable to heat the cables.
+ • Specifications and requirements to be met. The cross-sectional area can be calculated based on the   
+             capital costs of the cable and its running costs incurred by the power losses in the cable.
+The electrical properties and continuous current 
+rating apply for Lead sheathed cable with our normal 
+sheath thickness. The thickness of sheath and 
+especially the cross-section of Copper screen can be 
+adjusted according to required short-circuit rating of 
+sheath or screen.
+Where loading is cyclic, appreciable increase in 
+current capacities may be justified. Refer to IEC 
+publication 60853 for calculation of the cyclic ratings. 
+In cable circuits having no magnetic saturating 
+materials the positive and negative sequence 
+impedances are equal and can be deduced from the 
+tabulated effective resistance and inductance values 
+corrected as required for frequencies other than 50 
+Hz. 
+Zero sequence impedance for solidly bonded systems 
+can be roughly estimated as the sum of the resistances of conductor, sheath and a reactance of 0.05 to 0.1 ohms/km 
+depending on the proportion of diameters of sheath and conductor at 50 to 60 Hz. For single point bonded systems, 
+the zero sequence, impedance depends on the ground wires and any other grounded metallic objects along the 
+cable route.
+RATED VOLTAGE
+The voltage which forms the basis for certain operating characteristics and test conditions is called the rated 
+voltage and test conditions is called the rated voltages and is denoted Uo/U where 
+Uo = The voltage between the conductor and earth or earthed metallic cover (Concentric conductor, screen, 
+armoring, metal sheath) 
+U = The voltage between the phase conductors
+1.  Conductor : Longitudinally watertight - stranded compacted  circular /  Milliken  
+ Copper or Aluminium
+      
+2.  Binder Tapes: Semiconducting water blocking tapes compound    
+ 
+3.  Conductor Screen : Extruded semiconducting copolymer compound   
+    
+4.  Insulation : Extruded super clean XLPE Compound          
+ 
+5.  Insulation Screen : Extruded semiconducting copolymer compound   
+  
+6.  Bedding : Semi conducting water swellable tape
+     
+7.  Metallic Sheath : Plain annealed round Copper wire Screen with copper tape in 
+open helix       
+8.  Seperation Tapes: Semi conducting water swellable tape 
+   
+9.  Seperation Tapes : Semi conducting water swellable Foam tape  and Copper Woven 
+Semiconducting WS Tape
+10. Metallic Sheath : Seam welded Corrugated Stainless steel Sheath
+11. Anticorrrosion layer: Bitumen layer followed by bituminized cotton  tape
+12. Outer Sheath : Extruded HDPE, PVC or HFFR  Compound  followed by a Semi 
+Conducting layer/ Graphite Coating
+(E) Single Core XLPE insulated power cable with Seam welded Corrugated Stainless steel Sheath
+1.  Conductor : Longitudinally watertight - stranded compacted  circular /  Milliken  
+ Copper or Aluminium
+      
+2.  Binder Tapes: Semiconducting water blocking tapes compound    
+ 
+3.  Conductor Screen : Extruded semiconducting copolymer compound   
+    
+4.  Insulation : Extruded super clean XLPE Compound          
+ 
+5.  Insulation Screen : Extruded semiconducting copolymer compound   
+  
+6.  Bedding : Semi conducting water swellable tape and  Semi conducting water 
+ swellable Foam tape
+     
+7.  Metallic Sheath : Seam welded Corrugated Copper Sheath    
+  
+8.  Seperation Tapes: Bitumen layer followed by bituminized cotton  tape   
+  
+9.  Radial Water Barrier: Extruded HDPE, PVC or HFFR  Compound  followed by a Semi 
+Conducting layer/ Graphite Coating
+(F) Single Core XLPE insulated power cable with Seam welded Corrugated Copper Sheath
+10
+11
+12
+ The cable construction described above are our standard construction. However, we can manufacture cable as per customer’s requirement, 
+such as armoured cable or cable with composite outer sheath for termite protection. 
+--- Page 13 ---
+07
+11
+Aluminium Corrugation Sheathing Line
+Um = The maximum continuously permissible operating voltage of the network at any time or any part of the 
+network, excluding temporary fluctuations such as those occurring during switching or faults The relationship 
+between U0/U and Um in three phase systems according to IEC specification is as follows:
+OPERATING VOLTAGE
+ U0/U kV 36/66 64/110 76/132 127/220 190/330 220/400
+ Um kV  72.5   123   145    245    362     420
+12
+CONTINUOUS CURRENT CARRYING CAPACITY
+A separate group of three single core cables can be continuously loaded according to the tables on 1.1-1.4 and 
+2.1-2.4 if the presumptions below are fulfilled. Correction factors for other installations are given in table A to H.
+The current-carrying capacities are calculated in accordance with the IEC publications 60287 and under the 
+presumptions given below.
+PRESUMPTIONS
+• One three-phase group of single core cable
+Standard conditions for current rating are given below:
+• Maximum conductor temperature 90°C
+• Ambient air temperature 40°C
+• Ground temperature 30°C
+• Depth of laying of cables 1.5 m
+• Thermal resistivity of soil 150
+oC - cm /w
+Distance between single core cables
+ - In case of flat formation-300mm spacing
+ - In case of trefoil formation-cable touching each other 
+• Thermal resistivity of soil 150
+OC-Cm/W
+• Cable in air-heat dissipation conditions same as cables in free air
+• Open screen circuit in single core cable group - circuit of metal  sheaths, concentric conductors or metallic 
+ screens connected to each other and earthed at one point only - screen bonded at a single point. In addition, 
+ screen circuit is considered open when cross-bonded at equal interval
+• Closed screen circuit in single core cable group - circuit of metal sheaths, concentric conductors or metallic 
+ screens connected to each other at both ends of the group and earthed at least at one end - screens bonded at 
+ both ends. 
+CONTINUOUS CURRENT RATINGS
+1.1   38/66KV (E) POLY AL
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 413 471 608 692 324 366 479 541 60 4.29 2.88
+300 464 530 694 793 362 412 541 616 62 4.90 3.14
+400 526 603 802 923 414 471 631 721 65 5.93 3.58
+500 592 684 923 1072 471 537 732 841 68 6.96 4.02
+630 666 776 1060 1245 536 613 851 983 72 8.27 4.57
+800 738 871 1204 1437 603 695 982 1145 76 9.99 5.29
+1000 849 986 1427 1678 702 801 1176 1363 86 12.28 6.41
+1200 901 1054 1539 1825 761 872 1291 1503 89 14.18 7.09
+1600 1000 1185 1767 2132 880 1014 1550 1823 98 18.08 8.69
+2000 1067 1283 1927 2361 975 1135 1757 2086 103 21.81 10.07
+2500 1130 1378 2084 2591 1050 1231 1931 2311 109 26.42 11.75
+Stranded Compacted 
+Circular
+Stranded Segmental 
+milliken overall 
+Compacted Circular
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)
+Conductor Shape
+38/66KV (E) POLY AL Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+--- Page 14 ---
+13 14
+1.2   38/66KV (E) LEAD SHEATHED
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 416 471 615 697 324 366 479 541 63 9.31            7.91
+                
+ 
+300 467 531 702 798 364 412 547 620 65 10.05         8.28                
+400 530 603 812 928 417 471 638 725 69 11.49          9.14                 
+500 599 685 936 1078 475 538 741 846 72 12.92         9.98                
+630 675 777 1077 1253 540 614 862 989 76 14.70         11.00               
+800 750 873 1226 1444 611 696 996 1151 81 16.95         12.25               
+1000 862 988 1451 1686 709 802 1192 1369 91 20.19         14.32               
+1200 916 1056 1566 1834 770 874 1309 1511 94 22.58         15.42               
+1600 1016 1188 1801 2146 891 1017 1574 1835 103 27.80         18.41               
+2000 1086 1286 1965 2373 989 1137 1784 2097 109 32.59         20.85              
+2500 1151 1380 2126 2605 1064 1233 1961 2324 115 38.05         23.37              
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+38/66KV (E) LEAD SHEATHED
+Approx. 
+Cable OD 
+(mm)
+1.3  38/66KV (E) CORRUGATED ALUMINIUM SHEATH
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 407 465 598 677 319 362 468 526 68 5.54
+          
+ 4.13
+                  
+ 
+300 455 524 679 774 358 407 532 601 70 6.22           4.46                  
+400 514 596 782 898 408 466 618 702 73 7.18            4.84                  
+500 575 676 895 1040 462 531 714 818 76 8.27           5.34                  
+630 644 766 1022 1206 523 606 826 954 79 9.52           5.82                   
+800 708 859 1153 1386 585 686 948 1107 84 11.29          6.60                   
+1000 795 969 1342 1615 670 790 1121 1316 93 13.78         7.91                   
+1200 836 1034 1436 1750 720 858 1221 1445 96 15.73         8.64                  
+1600 909 1156 1622 2032 815 994 1441 1745 105 19.80         10.41                 
+2000 956 1245 1748 2236 887 1107 1610 1985 110 23.62         11.89                 
+2500 1000 1327 1872 2439 941 1193 1751 2190 116 28.39         13.66                 
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(Air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+38/66KV (E) CORRUGATED ALUMINIUM SHEATH
+Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 407 467 599 681 319 363 468 529 64 5.397  3.958
+300 455 526 680 779 358 409 533 605 66 6.066 4.267
+400 513 598 783 906 407 467 619 708 69 7.155 4.757
+500 575 678 896 1051 461 533 716 825 72 8.244 5.247
+630 640 769 1022 1219 521 608 828 964 76 9.637 5.860
+800 702 862 1151 1404 582 689 949 1121 80 11.427 6.631
+1000 787 973 1340 1637 665 793 1122 1333 89 14.136 7.991
+1200 827 1038 1433 1775 714 862 1222 1466 92 16.186 8.721
+1600 895 1160 1615 2063 805 997 1441 1772 101 20.428 10.536
+2000 941 1248 1738 2267 876 1110 1607 2014 106 24.329 12.039
+2500 980 1389 1853 2467 927 1197 1741 2218 112 29.309 13.902
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(Air) Aluminium(Ground) Aluminium(Air)
+338/66kV (E) SMOOTH ALUMINIUM SHEATH
+Approx. 
+Cable OD 
+(mm)
+Stranded 
+Segmental 
+Milliken 
+Overall 
+Compacted 
+Circular
+Stranded 
+Compacted 
+Circular
+Conductor 
+Shape
+1.4 38/66kV (E) SMOOTH ALUMINIUM SHEATH
+                
+                 
+                
+               
+               
+               
+               
+               
+              
+              
+1.5 38/66kV (E) CORRUGATED COPPER SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+38/66kV (E) CORRUGATED COPPER SHEATH 
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+240 408 461 592 661 319 358 462 513 75 7.380 5.942
+300 457 755 673 519 358 403 527 587 77 8.058 6.259
+400 516 461 775 877 408 519 612 685 80 9.160 6.762
+500 578 667 884 1004 462 524 704 789 88 10.398 7.400
+630 646 760 1015 1178 524 601 818 931 86 11.538 7.762
+800 712 854 1148  1362 588 682 941 1087 88 13.289 8.493
+1000 800 966 1337 1592 672 787 1114 1296 96 16.115 9.970
+1200 842 1030 1432 1725 724 856 1220 1433 99 17.963 11.015
+1600 916 1151 1610 1987 819 989 1426 1706 106 22.539 12.647
+2000 967 1241 1746 2200 895 1103 1605 1954 113 26.668 14.378
+2500 1010 1322 1866 2393 949 1190 1743 2151 119 31.760 16.352
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+                
+                 
+                
+               
+               
+               
+               
+               
+              
+              
+1.6 38/66kV (E) CORRUGATED STAINLESS STEEL SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+38/66kV (E) CORRUGATED STAINLESS STEEL SHEATH 
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+240 414 461 598 661 322 358 465 513 74 8.128 6.689
+300 466 520 682 756 363 404 530 587 76 8.789 6.991
+400 530 592 789 879 415 462 618 686 79 9.907 7.509
+500 600 672 910 1018 474 528 717 799 82 11.005 8.007
+630 679 763 1048 1181 541 603 834 932 86 12.436 8.660
+800 759 858 1196 1361 613 684 965 1085 90 14.256 9.460
+1000 876 974 1417 1594 715 791 1157 1294 99 17.031 10.886
+1200 936 1042 1532 1729 779 861 1271 1422 102 19.111 11.578
+1600 1050 1174 1763 2011 909 1003 1527 1716 109 23.279 13.387
+2000 1137 1276 1952 2244 1023 1127 1757 1981 116 27.394 15.104
+2500 1217 1373 2126 2465 1114 1226 1945 2198 122 32.374 16.966
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+1.7  64/110KV (E) POLY AL
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 412 464 604 673 321 360 470 523 72 5.40 3.99
+300 463 522 688 770 361 406 536 598 74 6.07 4.31
+400 525 594 795 895 413 464 624 699 77 7.15 4.80
+500 592 675 914 1038 470 530 724 815 80 8.24 5.30
+630 667 765 1050 1203 535 605 840 951 84 9.63 5.93
+800 740 859 1193 1387 603 685 969 1106 88 11.40 6.71
+1000 846 973 1406 1622 699 791 1157 1318 97 13.81 7.94
+1200 898 1040 1516 1762 759 860 1267 1445 101 15.79 8.68
+1600 997 1169 1740 2054 875 1001 1521 1757 109 19.85 10.46
+2000 1067 1264 1898 2265 971 1119 1721 2002 115 23.67 11.93
+2500 1131 1356 2053 2482 1046 1212 1890 2215 121 28.39 13.71
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+64/110KV (E) POLYAL
+Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+
+--- Page 15 ---
+15 16
+1.8 64/110KV (E) LEAD SHEATHED
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 415 464 610 677 323 361 475 526 76 11.99 10.58
+300 467 523 695 774 364 406 541 602 78 12.80 11.04
+400 530 595 804 901 416 465 631 704 81 14.35 12.00
+500 599 676 925 1043 474 530 731 819 85 15.91 12.98
+630 675 766 1046 1210 540 606 850 956 89 17.86 14.16
+800 750 861 1212 1396 609 687 982 1113 93 20.28 15.59
+1000 857 974 1425 1629 706 792 1170 1323 103 23.77 17.90
+1200 910 1042 1537 1770 766 862 1284 1458 106 26.32 19.13
+1600 1009 1171 1765 2065 884 1003 1539 1766 115 31.80 22.41
+2000 1078 1266 1925 2280 979 1121 1741 2015 121 36.83 25.10
+2500 1141 1357 2081 2498 1052 1213 1911 2230 127 42.53 27.86
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+64/110KV (E) LEAD SHEATHED
+Approx. 
+Cable OD 
+(mm)
+1.9  64/110KV (E) CORRUGATED ALUMINIUM SHEATH
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 407 459 593 657 319 356 463 511 82 6.87 5.46
+300 455 516 673 751 358 401 527 584 84 7.56 5.80
+400 513 587 774 871 407 459 611 681 87 8.73 6.38
+500 575 666 886 1007 461 524 705 792 90 9.85 6.92
+630 642 754 1011 1165 521 597 815 922 94 11.34 7.65
+800 707 844 1140 1335 584 675 934 1068 99 13.21 8.51
+1000 791 925 1321 1554 666 777 1101 1267 108 15.79 9.92
+1200 832 1015 1413 1681 716 845 1199 1392 111 17.81 10.69
+1600 903 1132 1596 1947 808 976 1414 1675 119 22.04 12.65
+2000 954 1217 1722 2132 882 1084 1578 1896 125 25.97 14.23
+2500 997 1294 1842 2316 935 1166 1712 2082 131 30.80 16.12
+Stranded 
+Compacted 
+Circular
+SSttrraannddeedd  
+SSeeggmmeennttaall 
+mmiilllliikkeenn  
+oovveerraallll  
+CCoommppaacctteedd 
+CCiirrccuullaarr
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(Air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+64/110KV (E) CORRUGATED ALUMINIUM SHEATH
+Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+1.13  76/132KV (E) POLY AL
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 412 461 601 667 321 358 468 518 76 5.85 4.44
+300 463 520 685 763 361 404 534 593 78 6.51 4.75
+400 524 591 792 887 412 462 621 693 81 7.62 5.27
+500 591 671 910 1027 469 527 720 807 84 8.73 5.79
+630 666 761 1046 1191 534 601 836 941 88 10.14 6.44
+800 741 854 1188 1369 603 681 964 1092 93 11.97 7.27
+1000 844 967 1397 1600 697 786 1149 1300 102 14.43 8.56
+1200 897 1033 1506 1737 756 856 1259 1432 105 16.40 9.29
+1600 995 1161 1728 2023 873 994 1508 1730 114 20.52 11.13
+2000 1064 1256 1886 2236 968 1112 1708 1977 119 24.37 12.64
+2500 1127 1347 2040 2449 1041 1204 1876 2186 125 29.12 14.45
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable Weight 
+(kg/mtrs)AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+76/132KV (E) POLY AL Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+                
+                 
+                
+               
+               
+               
+               
+               
+              
+              
+1.11 64/110kV (E) CORRUGATED COPPER SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+64/110kV (E) CORRUGATED COPPER SHEATH
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+240 406 456 588 650 318 355 459 505 84 8.388 6.949
+300 454 514 668 742 357 399 522 577 86 9.125 7.327
+400 512 586 770 860 406 458 607 677 86 10.145 7.747
+500 575 664 881 1001 460 522 702 787 89 11.339 8.341
+630 641 753 1006 1161 520 596 811 918 92 12.859 9.082
+800 706 844 1136 1331 583 675 930 1064 97 14.799 10.003
+1000 788 952 1317 1553 664 777 1098 1265 105 17.746 11.601
+1200 831 1015 1411 1677 716 845 1201 1394 109 19.676 12.715
+1600 903 1132 1586 1928 808 974 1403 1657 116 24.356 14.464
+2000 952 1218 1722 2130 881 1085 1578 1894 123 28.622 16.332
+2500 995 1295 1841 2314 934 1168 1714 2082 129 33.805 18.397
+                
+                 
+                
+               
+               
+               
+               
+               
+              
+              
+1.12 64/110kV (E) CORRUGATED STAINLESS STEEL SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+64/110kV (E) CORRUGATED STAINLESS STEEL SHEATH
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+240 414 456 594 648 322 355 461 503 85 9.490 8.052
+300 466 514 676 740 363 399 526 575 87 10.207 8.409
+400 530 585 782 859 415 457 612 671 90 11.378 8.980
+500 601 665 901 994 602 565 903 994 93 12.530 9.533
+630 680 755 1039 1154 541 596 826 911 97 14.026 10.249
+800 761 849 1186 1328 613 677 955 1059 101 15.923 11.127
+1000 875 964 1399 1554 714 782 1141 1261 110 18.816 12.671
+1200 935 1032 1514 1688 778 852 1253 1386 113 20.978 13.428
+1600 1050 1162 1711 1956 907 992 1503 1669 120 25.302 15.410
+2000 1138 1263 1926 2181 1020 1116 1728 1925 127 29.506 17.216
+2500 1219 1359 2099 2394 1110 1213 1911 2135 133 34.641 19.233
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(Air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+64/110kV (E) SMOOTH ALUMINIUM SHEATH
+Approx. 
+Cable OD 
+(mm)
+240 405 461 594 664 318 358 464 516 75 6.696 5.257
+300 453 519 674 759 356 403 528 590 77 7.399 5.600
+400 510 590 775 882 405 461 613 689 80 8.542 6.144
+500 571 669 886 1021 459 526 707 802 83 9.684 6.686
+630 638 758 1011 1182 518 600 817 936 87 11.143 7.366
+800 697 849 1139 1359 579 679 936 1086 91 13.009 8.213
+1000 778 957 1321 1582 659 781 1104 1290 100 15.839 9.694
+1200 818 1020 1412 1712 707 849 1202 1417 104 17.975 10.495
+1600 887 1138 1594 1983 797 981 1416 1705 112 22.399 12.507
+2000 933 1223 1716 2196 867 1090 1580 1935 118 26.396 14.106
+2500 972 1300 1833 2364 917 1173 1713 2128 123 31.481 16.073
+1.10 64/110kV (E) SMOOTH ALUMINIUM SHEATH
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+
+--- Page 16 ---
+17
+1.14  76/132KV (E) LEAD SHEATHED*
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 415 462 607 670 323 359 472 521 81 13.04 11.63
+300 466 520 692 767 364 404 539 596 83 14.12 12.36
+400 529 592 800 891 415 462 627 696 86 15.47 13.12
+500 598 672 920 1031 473 528 727 809 90 17.06 14.13
+630 674 762 1059 1195 539 602 845 944 94 19.06 15.36
+800 750 855 1205 1375 609 682 974 1096 99 21.55 16.86
+1000 854 969 1414 1607 704 788 1161 1305 108 25.13 19.26
+1200 908 1035 1525 1745 763 857 1273 1438 111 27.72 20.52
+1600 1005 1163 1751 2034 880 996 1525 1740 120 33.34 23.95
+2000 1073 1257 1909 2244 974 1113 1725 1984 126 38.46 26.72
+2500 1133 1346 2062 2458 1044 1204 1891 2195 132 44.58 29.91
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable 
+Weight (kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+76/132KV (E) LEAD SHEATHED
+Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+1.19  127/220KV (E) POLY AL
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+400 520 578 777 854 99 9.92 -
+500 586 657 894 991 465 516 707 778 100 10.80 7.86
+630 659 745 1029 1153 528 589 821 911 101 11.97 8.28
+800 732 836 1169 1323 595 667 946 1056 106 13.87 9.18
+1000 829 947 1373 1558 685 770 1128 1266 111 15.92 10.05
+1200 880 1011 1480 1690 742 838 1237 1394 114 17.87 10.75
+1600 974 1135 1699 1970 854 972 1481 1686 122 22.11 12.72
+2000 1041 1225 1852 2168 946 1086 1674 1919 128 26.04 14.30
+2500 1097 1311 2007 2389 1014 1176 1844 2137 132 30.52 15.84
+Stranded 
+Compacted 
+Circular
+- -
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+127/220KV (E) POLY AL
+Approx. 
+Cable OD 
+(mm)
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable Weight 
+(kg/mtrs)AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+76/132kV (E) SMOOTH ALUMINIUM SHEATH Approx. 
+Cable OD 
+(mm)
+240 404 459 591 659 317 357 462 512 79 7.191 5.752
+300 452 516 671 753 356 401 526 585 81 7.909 6.111
+400 509 587 772 874 404 459 610 683 84 9.069 6.671
+500 569 665 883 1011 458 523 704 795 87 10.231 7.233
+630 634 754 1007 1171 516 597 813 927 91 11.709 7.932
+800 695 844 1134 1344 577 675 932 1074 96 13.633 8.837
+1000 776 951 1314 1563 659 777 1098 1275 105 16.550 10.405
+1200 815 1013 1405 1691 705 843 1195 1399 108 18.706 11.221
+1600 884 1129 1586 1956 794 973 1408 1683 117 23.190 13.298
+2000 930 1212 1709 2145 863 1081 1570 1909 122 27.224 14.934
+2500 969 1288 1825 2329 913 1163 1703 2097 128 32.346 16.939
+1.16 76/132kV (E) SMOOTH ALUMINIUM SHEATH
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+1.15  76/132KV (E) CORRUGATED ALUMINIUM SHEATH
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+240 405 457 591 655 318 356 462 509 83 7.28 5.87
+300 453 515 670 748 357 400 525 582 85 8.01 6.25
+400 510 585 771 868 405 458 609 679 88 9.17 6.83
+500 572 663 882 1002 459 522 703 788 92 10.34 7.41
+630 636 751 1006 1161 518 595 811 919 95 11.83 8.13
+800 700 841 1134 1330 579 673 930 1055 100 13.72 9.03
+1000 782 948 1313 1547 660 774 1095 1262 109 16.39 10.52
+1200 821 1010 1404 1674 709 841 1193 1387 112 18.43 11.38
+1600 893 1125 1587 1934 801 970 1405 1664 121 22.71 13.32
+2000 939 1208 1711 2122 870 1078 1568 1888 126 26.67 14.94
+2500 981 1285 1830 2305 921 1159 1701 2073 132 31.54 16.87
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable 
+Weight (kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(Air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+76/132KV (E) CORRUGATED ALUMINIUM SHEATH
+Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+                
+                 
+                
+               
+               
+               
+               
+               
+              
+              
+1.18 76/132kV (E) CORRUGATED STAINLESS STEEL SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+76/132kV (E) CORRUGATED STAINLESS STEEL SHEATH 
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+240 414 455 592 644 322 535 460 500 90 10.023 8.585
+300 466 512 674 735 362 398 524 571 92 10.771 8.972
+400 530 583 780 853 415 455 610 660 95 11.936 9.538
+500 601 662 898 987 473 520 707 774 98 13.122 10.125
+630 680 752 1035 1145 540 594 822 904 101 14.636 10.859
+800 761 845 1181 1315 612 673 950 1048 106 16.619 11.823
+1000 874 959 1391 1538 713 779 1134 1248 115 19.581 13.436
+1200 934 1026 1505 1670 778 849 1252 1380 118 21.748 14.206
+1600 1049 1156 1930 1934 905 987 1492 1650 125 26.098 16.206
+2000 1137 1256 1915 2155 1018 1110 1715 1902 132 30.347 18.057
+2500 1218 1352 2089 2376 1108 1207 1899 2113 137 35.519 20.111
+                
+                 
+                
+               
+               
+               
+               
+               
+              
+              
+1.17 76/132kV (E) CORRUGATED COPPER SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+76/132kV (E) CORRUGATED COPPER SHEATH
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+240 405 456 587 648 318 354 459 504 85 8.778 7.340
+300 453 513 667 740 356 399 522 575 87 9.529 7.731
+400 511 583 767 859 405 456 605 671 90 10.741 8.343
+500 573 661 878 993 459 520 699 780 93 11.953 8.956
+630 639 749 1002 1150 519 593 807 910 96 13.494 9.717
+800 703 839 1131 1318 581 671 926 1054 101 15.492 10.696
+1000 786 946 1311 1534 662 772 1092 1250 110 18.528 12.383
+1200 827 1008 1403 1660 712 840 1194 1380 113 20.445 13.585
+1600 899 1124 1578 1906 804 968 1394 1638 120 25.170 15.278
+2000 947 1208 1713 2105 876 1077 1569 1872 127 29.483 17.193
+2500 990 1283 1833 2285 929 1158 1703 2059 133 34.701 19.294
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+18
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+
+--- Page 17 ---
+05 20
+19
+1.20  127/220KV (E) LEAD SHEATHED
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+400 523 579 784 859 104 20.70 -
+500 591 658 903 997 468 517 713 783 105 21.68 18.75
+630 665 746 1039 1158 532 590 828 915 107 23.06 19.36
+800 740 837 1182 1330 600 668 955 1061 112 25.67 20.97
+1000 836 948 1388 1566 690 772 1139 1273 117 28.53 22.66
+1200 888 1013 1496 1698 748 839 1249 1401 120 30.74 23.53
+1600 981 1135 1715 1975 859 973 1493 1691 129 36.54 27.15
+2000 1045 1223 1868 2175 949 1085 1686 1926 135 41.78 30.05
+2500 1104 1307 2020 2382 1017 1173 1852 2133 140 47.23 32.55
+Stranded 
+Compacted 
+Circular
+- -
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable 
+Weight (kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+127/220KV (E) LEAD SHEATHED
+Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+1.21  127/220KV (E) CORRUGATED ALUMINIUM SHEATH
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+400 503 570 754 832 111 11.94 -
+500 562 646 862 962 453 509 687 757 112 12.84 9.90
+630 626 731 985 1114 510 580 793 882 114 14.05 10.35
+800 688 817 1111 1273 570 655 908 1020 119 16.07 11.37
+1000 763 920 1285 1489 646 753 1071 1216 124 18.19 12.32
+1200 799 979 1375 1612 693 817 1166 1334 126 20.20 13.06
+1600 856 1083 1544 1854 771 938 1367 1598 136 25.20 15.81
+2000 899 1159 1655 2029 835 1038 1527 1809 141 29.26 17.52
+2500 934 1227 1780 2207 879 1112 1654 1991 147 34.27 19.60
+Stranded 
+Compacted 
+Circular
+- -
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable Weight 
+(kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(Air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+127/220KV (E) CORRUGATED ALUMINIUM SHEATH
+Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+400 502 574 759 844 -  -  102 11.650 9.252
+500 562 651 868 978 452 512 692 769 103 12.564 9.566
+630 625 737 992 1134 510 584 800 898 104 13.826 10.049
+800 685 825 1120 1306 568 661 918 1045 106 15.405 10.609
+1000 761 930 1296 1527 645 760 1083 1246 112 17.895 11.750
+1200 799 991 1387 1655 691 825 1179 1370 115 19.948 12.452
+1600 865 1101 1567 1911 777 951 1388 1644 123 24.525 14.633
+2000 910 1180 1689 2093 844 1054 1549 1863 129 28.618 16.328
+2500 948 1251 1805 2270 892 1131 1680 2046 135 33.808 18.401
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+Stranded 
+Compacted 
+Circular
+- -
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable 
+Weight (kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+127/220kV (E)  SMOOTH ALUMINIUM SHEATH
+Approx. 
+Cable OD 
+(mm)
+1.22 127/220kV (E) SMOOTH ALUMINIUM SHEATH
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+--- Page 18 ---
+2221
+630 632 725 1004 1127 510 574 804 892 110 16.209 11.621
+800 680 808 1125 1296 561 648 918 1037 113 18.092 12.392
+1000 752 909 1303 1518 634 743 1084 1238 118 20.570 13.396
+1200 787 968 1401 1657 680 806 1186 1369 117 22.099 13.510
+1600 852 1074 1587 1919 763 926 1401 1650 125 26.662 15.437
+2000 897 1149 1713 2100 829 1025 1566 1868 131 30.900 17.065
+2500 932 1218 1833 2286 874 1100 1701 2058 136 36.288 19.066
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+Stranded 
+Compacted Circular
+ 
+ 
+Stranded 
+Segmental
+milliken 
+overall 
+Compacted
+Circular
+**Approx. Cable 
+Weight (kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+190/330kV (E) POLY AL
+Approx. 
+Cable OD 
+(mm)
+1.25 190/330kV (E) POLY AL
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+630 648 729 1026 1140 519 577 818 901 114 27.140 21.973
+800 718 816 1167 1311 583 652 943 1046 118 29.617 23.298
+1000 806 921 1364 1539 667 750 1121 1252 123 32.803 25.018
+1200 852 985 1475 1680 720 814 1232 1384 123 34.468 25.163
+1600 935 1097 1690 1961 820 941 1473 1679 129 39.891 28.004
+2000 992 1179 1837 2157 902 1047 1661 1911 135 45.823 31.122
+2500 1042 1254 1978 2347 962 1127 1815 2104 142 52.777 34.730
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable 
+Weight (kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+190/330kV (E) LEAD SHEATHED
+Approx. 
+Cable OD 
+(mm)
+1.26 190/330kV (E) LEAD SHEATHED
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+630 608 711 969 1090 497 565 781 864 124 17.038 12.409
+800 664 793 1093 1248 553 638 894 1001 127 19.007 13.260
+1000 731 889 1260 1456 622 730 1051 1190 132 21.624 14.397
+1200 763 944 1349 1582 663 789 1145 1311 132 23.380 14.744
+1600 823 1043 1542 1823 741 904 1348 1572 140 28.162 16.862
+2000 863 1114 1643 1987 801 998 1503 1779 145 32.733 18.686
+2500 896 1176 1757 2165 843 1067 1630 1954 151 38.104 20.791
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable 
+Weight (kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+190/330kV (E) CORRUGATED ALUMINIUM SHEATH
+Approx. 
+Cable OD 
+(mm)
+1.27 190/330kV (E) CORRUGATED ALUMINIUM SHEATH
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+630 610 716 975 1104 498 568 786 874 116 15.085 11.308
+800 668 799 1101 1265 554 641 900 1007 119 16.897 12.101
+1000 737 897 1271 1477 625 735 1060 1206 124 19.381 13.236
+1200 770 954 1363 1609 667 796 1157 1333 123 20.817 13.318
+1600 831 1056 1540 1858 747 913 1362 1601 131 25.249 15.357
+2000 872 1129 1661 2033 809 1009 1520 1811 136 29.368 17.078
+2500 908 1193 1776 2204 853 1080 1649 1987 142 34.586 19.179
+TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT TREFOIL FLAT Copper Aluminium
+Stranded 
+Compacted 
+Circular
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+**Approx. Cable 
+Weight (kg/mtrs)
+AREA 
+SQMM
+Copper(Ground) Copper(air) Aluminium(Ground) Aluminium(Air)Conductor 
+Shape
+190/330kV (E)  SMOOTH ALUMINIUM SHEATH
+Approx. 
+Cable OD 
+(mm)
+1.28 190/330kV (E)  SMOOTH ALUMINIUM SHEATH
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+                
+                 
+                
+               
+               
+               
+               
+               
+              
+1.23 127/220kV (E) CORRUGATED COPPER SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+127/220kV (E) CORRUGATED COPPER SHEATH
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+400 505 571 754 832 - - - - 107 13.609 11.211
+500 565 647 864 964 454 510 687 758 108 14.419 11.422
+630 630 733 987 1116 512 581 794 884 110 15.718 11.941
+800 692 821 1116 1284 572 658 912 1027 112 17.336 12.539
+1000 770 925 1293 1500 650 756 1076 1224 118 19.947 13.802
+1200 811 985 1385 1622 699 822 1178 1350 121 21.760 14.946
+1600 880 1095 1558 1860 787 945 1374 1600 128 26.593 16.701
+2000 927 1175 1692 2051 857 1049 1546 1825 135 30.944 18.654
+2500 968 1246 1811 2224 907 1126 1679 2003 141 36.241 20.834
+                
+                 
+                
+               
+               
+               
+               
+               
+              
+1.24 127/220kV (E) CORRUGATED STAINLESS STEEL SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+127/220kV (E) CORRUGATED STAINLESS STEEL SHEATH 
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+400 527 572 768 829 - - - - 112 15.188 12.790
+500 596 650 885 961 469 511 696 754 113 16.119 13.121
+630 675 738 1020 1115 535 583 809 880 115 17.410 13.633
+800 754 830 1166 1285 605 661 936 1024 117 18.976 14.180
+1000 861 942 1373 1509 702 764 1118 1224 123 21.517 15.372
+1200 920 1007 1486 1638 764 833 1230 1350 125 23.610 16.019
+1600 1032 1133 1708 1898 889 968 1471 1620 132 28.032 18.140
+2000 1117 1230 1890 2113 999 1089 1690 1865 139 32.355 20.064
+2500 1197 1322 2060 2317 1086 1180 1868 2067 145 37.615 22.208
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+--- Page 19 ---
+2423
+1.31 220/400KV (E) POLY AL
+Copper(Ground) Copper(Air) Aluminium (Ground) Aluminium(Air)
+FLAT FLAT FLAT FLAT Copper Aluminium
+630 741 1111 564 878 116 14.12 10.43
+800 798 1278 638 1020 119 15.74 11.04
+1000 898 1502 731 1221 123 17.69 11.82
+1200 957 1634 794 1354 124 19.30 12.26
+1600 1067 1900 916 1627 132 23.63 14.24
+2000 1148 2099 1018 1859 136 27.39 15.66
+2500 1222 2292 1097 2052 142 32.28 17.61
+**Approx. Cable Weight 
+(kg/mtrs)AREA 
+SQMM
+Stranded 
+Compacted
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+Conductor 
+Shape
+220/400KV (E) POLY AL Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+1.33 220/400 KV (E) CORRUGATED ALUMINIUM SHEATH
+Copper(Ground) Copper(Air) Aluminium(Ground) Aluminium(Air)
+FLAT FLAT FLAT FLAT Copper Aluminium
+630 697 1076 555 853 130 17.26 13.57
+800 777 1233 625 989 132 18.98 14.28
+1000 868 1439 713 1177 136 21.01 15.14
+1200 921 1558 771 1300 137 22.64 15.59
+1600 1014 1791 880 1545 146 27.20 17.81
+2000 1081 1962 969 1750 150 31.07 19.33
+2500 1138 2132 1034 1916 156 36.12 21.45
+**Approx. Cable Weight 
+(kg/mtrs)AREA 
+SQMM
+Stranded 
+Compacted
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+Conductor 
+Shape
+220/400 KV (E) CORRUGATED ALUMINIUM SHEATH Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+1.34 220/400kV (E) SMOOTH ALUMINIUM SHEATH
+Copper(Ground) Copper(Air) Aluminium(Ground) Aluminium(Air)
+FLAT FLAT FLAT FLAT Copper Aluminium
+**Approx. Cable Weight 
+(kg/mtrs)AREA 
+SQMM
+Stranded 
+Compacted
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+Conductor 
+Shape
+630 704  1092  559  866  119 16.129 12.352
+800 785  1253  630  1003  121 17.818 13.021
+1000 877  1459  719  1192  125 20.075 13.930
+1200 933  1590  779  1318  126 21.816 14.310
+1600 1030  1832  891  1578  135 26.561 16.669
+2000 1099  2009  983  1790  139 30.435 18.145
+2500 1160  2176  1051  1963  145 35.700 20.292□
+220/400kV (E)  SMOOTH ALUMINIUM SHEATH Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+1.32 220/400KV (E) LEAD SHEATHED
+Copper(Ground) Copper(Air) Aluminium(Ground) Aluminium(Air)
+FLAT FLAT FLAT FLAT Copper Aluminium
+630 714 1114 565 880 124 29.5 25.71
+800 799 1282 639 1023 126 31.4 26.57
+1000 899 1507 732 1225 130 33.8 27.77
+1200 958 1640 795 1359 131 35.9 28.69
+1600 1067 1902 916 1630 140 41.6 32.06
+2000 1145 2096 1016 1857 145 46.7 34.72
+2500 1217 2286 1093 2048 151 53.0 38.00
+**Approx. Cable Weight 
+(kg/mtrs)AREA 
+SQMM
+Stranded 
+Compacted
+Stranded 
+Segmental 
+milliken 
+overall 
+Compacted 
+Circular
+Conductor 
+Shape
+220/400KV (E) LEAD SHEATHED Approx. 
+Cable OD 
+(mm)
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+                
+                 
+                
+               
+               
+               
+               
+1.30 190/330kV (E) CORRUGATED STAINLESS STEEL SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+190/330kV (E) CORRUGATED STAINLESS STEEL SHEATH
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+630 661 721 1006 1093 524 569 797 863 124 18.593 14.816
+800 738 809 1148 1256 592 645 921 1001 127 20.453 15.657
+1000 839 915 1349 1475 683 743 1098 1196 132 22.960 16.815
+1200 891 976 1463 1609 741 808 1215 1330 131 24.404 16.831
+1600 996 1095 1682 1864 857 936 1447 1591 137 28.677 18.785
+2000 1076 1186 1860 2074 961 1048 1661 1831 144 33.073 20.783
+2500 1150 1272 2027 2274 1043 1136 1835 2028 150 38.341 22.933
+                
+                 
+                
+               
+               
+               
+               
+1.29 190/330kV (E) CORRUGATED COPPER SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+190/330kV (E) CORRUGATED COPPER SHEATH
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumTREFOIL FLAT FLATTREFOIL TREFOIL FLAT TREFOIL FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+630 615 713 973 1092 500 566 782 865 119 17.169 13.392
+800 675 796 1099 1250 558 639 896 1000 123 19.069 14.273
+1000 746 894 1270 1459 630 732 1056 1191 128 21.607 15.462
+1200 781 951 1363 1588 674 794 1158 1322 127 22.735 15.730
+1600 845 1054 1534 1823 756 910 1352 1569 133 27.409 17.517
+2000 888 1127 1666 2008 820 1788 1520 1007 140 31.790 19.499
+2500 925 1192 1783 2176 867 1078 1651 1961 146 36.966 21.559
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+--- Page 20 ---
+REFERENCE TEST VOLTAGES (Table 1)
+2625 26
+RATING FACTORS
+A. Rating factors for variation in ambient air temperature
+Rating Factor
+30
+1.11
+35
+1.05
+40
+1.00
+45
+0.94
+50
+0.88
+55
+0.81
+Air Temperature (Deg C)
+B. Rating factors for variation in ground temperature
+25
+1.04
+30
+1.00
+35
+0.96
+40
+0.91
+45
+0.86
+50
+0.81
+Ground  Temperature (Deg C)
+Rating Factor
+C. Rating factors for variation in Thermal Resistivity of soil
+Thermal Resistivity (OC cm/w)
+Rating Factor
+100
+1.19
+120
+1.10
+150
+1.00
+200
+0.88
+250
+0.80
+300
+0.72
+Rating Factor
+D. Rating factors for variation in Depth of laying
+Depth of laying (m) 0.5
+1.13
+0.7
+1.09
+0.9
+1.06
+1.0
+1.04
+1.2
+1.02
+1.5
+1.00
+E. Group Rating factors : Group rating factors for cables laid in formed concrete trenches with removable covers 
+on cable troughs where air circulation in stricted . The cables spaced by one cable diameter and trays in tiers by 
+300 mm. The clearance of the cable from the wall is 20mm.
+No. of troughs No. of groups (Circuits)
+1
+2
+3
+6
+1 2 3
+0.87
+0.84
+0.82
+0.84
+0.82
+0.80
+0.83
+0.81
+0.79
+0.92 0.89 0.88
+No. of troughs No. of groups (Circuits)
+1
+2
+3
+6
+1 2 3
+F. Group Rating factors : Group rating factors for cables laid on racks. The cables spaced by one cable diameter 
+and racks in tiers by 300mm. The clearance between the wall and the cable is 20mm.
+1.00
+0.97
+0.96
+0.94
+0.97
+0.94
+0.93
+0.91
+0.96
+0.93
+0.92
+0.90
+                
+                 
+                
+               
+               
+               
+               
+1.36 220/400kV (E) CORRUGATED STAIN LESS STEEL SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+220/400kV (E) CORRUGATED STAINLESS STEEL SHEATH
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumFLAT FLAT FLAT FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+630 708 1077 559 850 131 21.136 17.359
+800 793 1239 633 987 133 22.826 18.030
+1000 895 1454 727 1180 137 25.154 19.009
+1200 954 1581 790 1307 137 26.906 19.321
+1600 1069 1827 913 1559 145 31.404 21.512
+2000 1155 2039 1021 1799 150 35.579 23.289
+2500 1237 2234 1105 1992 156 40.869 25.461
+                
+                 
+                
+               
+               
+               
+               
+1.35 220/400kV (E) CORRUGATED COPPER SHEATH
+Conductor 
+Shape AREA
+SQMM
+Copper (Ground)
+220/400kV (E) CORRUGATED COPPER SHEATH
+Copper (Air) Aluminium (Ground) Aluminium (Air)
+Approx.
+Cable OD
+(mm)
+**Approx. Cable Weight
+(Kg/mtrs)
+Copper AluminiumFLAT FLAT FLAT FLAT
+Stranded 
+Compacted
+Circular
+Stranded 
+Segmental
+Milliken 
+Overall
+Compacted 
+Circular
+630 697 1068 554 847 130 19.402 15.625
+800 777 1239 624 987 133 21.132 16.336
+1000 869 1426 713 1165 137 23.346 17.201
+1200 922 1545 771 1287 138 24.811 17.829
+1600 1020 1769 882 1524 144 29.546 19.654
+2000 1087 1954 973 1741 149 33.582 21.292
+2500 1146 2115 1039 1907 155 38.955 23.547
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+* The above data is indicative, and may vary depending on the client's specification. 
+** Approximate Cable weight is only for transportation guidelines.
+--- Page 21 ---
+27 28
+No. of groups (Circuits)
+2 3
+REFERENCE TEST VOLTAGES (Table 1)
+160
+190
+315
+Rated 
+Voltages 
+of cables
+Highest voltage for 
+equipment between 
+conductors
+30 min 
+voltage 
+test
+Partial 
+discharge 
+test
+Tan 
+delta 
+measurement
+Heating 
+cycle test
+Impulse 
+withstand 
+test
+15 min power 
+frequency voltage test 
+after Impulse  test
+550
+650
+1050
+128
+152
+254
+64
+76
+127
+96
+114
+190
+160
+190
+318
+123
+145
+245
+2.5 Uo
+kVkV
+2 Uo
+kV
+Uo
+kV
+1.5 Uo
+kV
+2.5 Uo
+kV
+Um
+kV
+Uo/U 
+kV
+903257638579072.538/66
+64/110
+76/132
+127/220
+4401425440220330440420220/400
+* Test voltages are generally in line with IEC 60840/ IS :7098 Part 3/IEC:62067
+G. Group rating factors for cables laid in ground in horizontal formation
+Axis distance between groups 
+200 mm
+400 mm
+600 mm
+800 mm
+1000 mm
+0.81
+0.85
+0.88
+0.90
+0.96
+0.71
+0.77
+0.81
+0.84
+0.93
+CONDUCTOR RESISTANCE (Table 2)
+Copper 
+conductor
+Aluminium 
+conductor 
+Copper 
+conductor
+Aluminium 
+conductor 
+Cross-sectional 
+area of 
+conductor
+Max D.C. Resistance of conductor at 20OC App. A. C. resistance of conductor at 90OC
+ohm/ kmohm/ kmohm/ kmohm/ kmsq.mm.
+1600 0.0186 0.0113
+0.0780
+0.0618
+0.0491
+0.0393
+0.0322
+0.0236
+0.0207
+0.0163
+0.1290
+0.1010
+0.0791
+0.0622
+0.0497
+0.0380
+0.0326
+0.0251
+2400 0.0149 0.0090 0.273 0.019
+2500 0.0127 0.0072 0.305 0.016
+0.0754
+0.0601
+0.0470
+0.0366
+0.0283
+0.0221
+0.0176
+0.0151
+0.1250
+0.1000
+0.0778
+0.0605
+0.0469
+0.0367
+0.0291
+0.0247
+240
+300
+400
+500
+630
+800
+1000
+1200
+0.09720.1610
+Aluminium Copper
+Sq.mm K.Amps (rms) K.Amps (rms)
+240 22.6 34.3
+300 28.2 42.9
+400 37.6 57.2
+500 47.0 71.5
+630 59.2 90.1
+800 75.2 114.4
+1000 94.5 143.0
+1200 113.4 171.6
+1600 152.4 228.8
+2000 189.0 286.0
+2500 236.2 357.5
+Stranded Segmental 
+milliken overall 
+Compacted Circular
+MAX. PERMISSIBLE SHORT-CIRCUIT CURRENTS FOR ONE SECOND.
+Conductor Shape
+Cross-Sectional Area of 
+conductor.
+Short Circuit rating for 1 Sec.
+Stranded Compacted 
+Circular
+The permissible short circuit current of a cable is determined by the maximum permissible 
+conductor temperature and by the duration of the short circuit current. At high peak currents, 
+the dynamic forces between the conductors must be taken into account.
+The short circuit capacity of the conductor and metallic screen of cable are related principally 
+to their heat capacities and are limited by the maximum temperature permitted under short 
+circuit XLPE power are 90 deg.C at normal operation and 250 deg.C at short circuit operation.
+According to IEC 60949 based formula:-
+I  Permissible Short Circuit Current 
+�  Factor to allow for heat loss into adjacent components
+I 
+AD  Short circuit current calculated on adiabatic basis
+Where;
+ t  Duration of short circuit (Sec.)
+ s  Geometrical Cross sectional area of current carrying component (sq.mm) 
+ θ
+i  Initial Temperature (90 deg.C)
+ θ f  Final Temperature (250 deg.C)
+ β  Reciprocal of temperature coefficient of resistance of current carrying conductor
+   at 0 deg.C
+ k  Constant depending upon the material of current carrying component.
+Values for constant are as below:-
+ k  Aluminium: 148
+   Copper: 226
+ β  Aluminium: 228
+   Copper: 234.5
+PERMISSIBLE SHORT CIRCUIT CURRENTS.
+MAX. PERMISSIBLE SHORT-CIRCUIT CURRENTS 
+FOR CONDUCTOR
+I = ε x IAD
+I2
+AD t = K2 S2 In θf +β
+θi +β( (
+--- Page 22 ---
+29 30
+SPECS
+THE
+CABLE HANDLING AND STORAGE
+1. Introduction
+This directive describes the mandatory transportation handling and storage conditions for high voltage cables by KEI Cables. 
+Failure to observe those instructions may cause a loss of warranty.
+2. Transportation handling instructions
+During transportation the following basic rules must be observed under all 
+circumstances to avoid any damages to the drum and the cable. The 
+pictogram shown below, which is also to be found at the cable drum, 
+indicates the main rules accordingly.
+ • Don't drop the drum, not even from small heights.
+ • Securely protect the drum against moving.
+ • Always use axle spreader when lifting the drum with a crane.
+ • Use lifting equipment with appropriate lifting capacity.
+ • Avoid mechanical stress of the wooden protection.
+ • Place rubber mats underneath the drum when loaded onto a 
+     trailer .
+ • Observe high centre of gravity when loaded on a trailer .
+ • Do not remove the fastening support of the drum until cable 
+       pulling begins.
+It's the duty of the freight forwarder to ensure a safe transport and to 
+use intact equipment only.
+Especially the following issues need to be carefully taken into account:
+ • Height and width clearance of all roads, tunnels and bridges to be passed.
+ • Width of the roads and sufficient load capacity.
+ • Curve radii, inclinations, bumps, holes, tilt angles of the roads.
+ • Sufficient loading capacity and braking force of the trailer and towing vehicle.
+ • For ship transport: proper fixing of the drums to avoid falling from deck or being harmed by a storm.
+3. Transportation and Storage conditions
+It is important throughout the entire transportation and storage duration that the permissible ambient temperature of the cables on their 
+drums is respected. The following table lists the permissible ambienttemperatures for different cable types on their drums.
+In addition the following conditions must be ensured throughout the entire transportation and storageduration:
+• The cables must be protected against mechanical damage, e.g. by wood lagging or Steel sheet Packing of the drums.
+• The cables must be protected against direct sun radiation, e.g. by wood lagging or Steel sheet packing of the Drumsor kept under a 
+suitable roof.
+• The drums must always be standing upright; do not tilt the drums or lay them on their side.
+• Store the heavy drums(>5MT) only on firm ground such as concrete or asphalt.
+Note:
+4. Cable laying conditions
+During the cable laying process the cable temperature has to be within the permissible range to avoidany damages of the cable's outer 
+sheath. In case the ambient temperature was not continuouslymaintained within this temperature range during 48 hours prior to the 
+cable laying process, appropriatecounter measures have to be taken to ensure the correct cable temperature.
+In case of project-related questions regarding above instructions please contact the responsible projectengineer for help.
+Further and more detailed information may be provided along with the project-specific documentation.
+Cable Type Ambient Temperature Range  Relative Humidity 
+XLPE insulated cables with HDPE or  -20 0C .. +500C Up to 100%, condensing 
+PVC outer sheath 
+XLPE insulated cables with FRNC   -5 0C .. +350C (*) Up to 100%, condensing 
+outer sheath 
+Oil filled cables with HDPE or   -20
+0C .. +500C Up to 100%, condensing 
+PVC outer sheath 
+(*): Under Consideration 
+
+--- Page 23 ---
+31 32
+CABLE LAYOUT AND SYSTEM DESIGN
+The dimensioning of a high voltage cable system is always based on the specifications and demands of the project at hand. The following details are 
+required for calculation:
+• The type of cable insulation
+• Nominal and maximum operating voltage
+• Short- circuit capacity or short- circuit current with statement of the effect time
+• Transmission capacity or nominal current
+• Operating mode: permanent operation or partial load operation (load factors)
+• Ambient conditions:
+ -Type of installation   
+ -Ambient temperature
+ -Special thermal resistance of the ground
+The calculation of the admissible load currents (ampacity) and the cable temperature is performed in accordance with the IEC publication 60287. At KEI, 
+professional computer programs are in use for the calculation of the various cable data.
+In initial approximation, the main insulation of a high voltage XLPE cable can be regarded as a homogeneous 
+cylinder . Its field distribution or voltage gradient is therefore represented by a homogeneous radial field. The 
+value of the voltage gradient at a point x within the insulation can be calculated as:
+Ex= U
+o/ rx . ln (ra/ri) (kV/ mm)
+Uo= Operating voltage (kV)
+rx= Radius at position x (mm)
+ra= External radius above the insulation (mm)
+ri= Radius of the internal field diameter (mm)
+The electrical field strength is highest at
+the inner semiconductor and lowest above the insulation.
+(below the external semiconductor, r
+x= ra)
+1.1 ELECTRICAL FIELD
+E
+X
+ri rx ra
+The operating capacity depends on the type of insulation and its geometry. The following formula applies for all radial field cables : 
+C = E
+r/18 * ln (D/d) (µF/km) 
+With Er= Relative permitivity (XLPE: 2.5)
+D= Diameter over main insulation excluding screen (mm) 
+d= Diameter over conductor including screen (mm)
+Single-core high voltage XLPE cables represent an extended capacitance with a homogeneous radial field distribution. 
+Thus a capacitive charging current to earth results in the following formula:
+Ic= U
+o.ω.C (A/ km) 
+With Uo= Operating voltage (kV)  
+ω = Angular frequency (1/s) C = Operating capacity (µF/km)
+1.2 CAPACITY, CHARGING CURRENT
+The operating inductance in general depends on the relation between the conductor axis 
+spacing and the external conductor diameter . Practically, two cases have to be considered:
+1.3 INDUCTANCE, 
+INDUCTIVE REACTANCE
+The operating  inductance for all three phases calculated as:
+L= 2.10-4 ln (a/0.779. rL ) ( H/Km)
+with  
+a= Phase Axis distance ( mm )
+r
+L = Diameter of conductor over
+inner semiconducting layer  ( mm )
+LAYING FORMATION:  TREFOIL
+2r
+aa
+a
+2ra a
+LAYING FORMATION: FLAT
+The mean operating inductance for the three phases calculates 
+for both cases as:
+L m= 2. 10-4 . ln (a'/0.779.r
+L ) ( H/km )
+With
+á=
+ 3√ 2.a Mean geometric distance ( mm )
+a= Phase axis distance ( mm )
+r
+L= Diameter of conductor over inner semiconducting layer ( mm )
+The inductive reactance of the cable system calculates for both cases as:
+X = ω. L  (Ω/ k m)
+With ω= A ngular frequency ( 1/s )
+MANUFACTURING
+UNITS
+A large infrastructure, spread over an area of 2,49,576 sq. metres across three 
+strategically located units, supported by state-of-the-art production units, gives KEI 
+the strength to meet the varied needs of its wide client base. 
+CORPORATE
+OFFICE
+BHIWADI
+NEW DELHI
+CHOPANKI PATHREDI
+SILVASSA
+CHINCHPADA
+CORPORATE
+OFFICE
+BHIWADI
+NEW DELHI
+CHOPANKI PATHREDI
+SILVASSA
+CHINCHPADA
+--- Page 24 ---
+19
+33
+1.4 DIRECT CURRENT RESISTANCE
+1.5 LOSSES IN CABLES
+OHMIC CONDUCTOR LOSSES
+The losses caused by the skin effect, meaning the displacement of the  current against the conductor surface, rise approximately quadratic with the 
+frequency. This effect can be reduced with suitable conductor constructions, e.g. segmented conductors
+LOSSES THROUGH SKIN EFFECTS
+The proximity effect detects the additional losses caused by magnet fields of parallel conductors through eddy currents and current displacement effects 
+in the conductor and cable sheath. In practice , their influence is of less importance, because three conductor cables are only installed up to medium cross 
+sections and single conductor cables with large cross sections with sufficient axis space. The resistance increase through proximity effects relating to the 
+conductor resistance is therefore mainly below 10%
+LOSSES THROUGH PROXIMITY EFFECT
+2r
+aa
+a
+High voltage cables are equipped with metal sheaths or screens that must be earthed adequately.
+Sheath losses occur through:
+ • Circulating currents in the system
+ • Eddy currents in the cable sheath 
+  (Only applicable for tubular types)
+ • Resulting sheath currents caused by induced sheath voltage 
+  (in unbalanced earthing systems)
+The sheath losses, especially high circulating currents, may substantially reduce the current load capacity under certain circumstances. They can be 
+lowered significantly through special earthing methods
+LOSSES IN THE METAL SHEATH
+LAYING INFORMATION
+34
+The maximum DC resistance values of conductors at 20°C are shown in cable standards. The DC resistance at other conductor temperatures may be 
+calculated using the equation given below:
+  R t= R20 [ 1 + α20 (t – 20°C)]
+Rt = DC resistance at temperature t, Ω/km
+R20 = DC resistance of conductor at 20°C, Ω/km
+T = temperature of conductor, °C
+α20 = temperature coefficient of resistance at 20°C, 1/°C
+For Copper conductors   α20=0.0393  
+For Aluminium conductor and sheath   α20=0.0403
+For Lead alloy sheath   α20=0.0400 
+Maximum DC resistance of conductors at 20°C (in accordance with IEC 60228/IS: 8130). Calculated DC resistance of metallic sheaths and metallic screens 
+at 20°C
+Voltage– dependent and current- dependent power losses occur in cables.
+I) Voltage – dependent losses.
+  Voltage- dependent power losses are caused by polarization 
+  effects within the main insulation. 
+  They calculate to:
+  P 
+d = U2oω  C tan δ  (ω/km)
+  with Uo= Operating Voltage (kV)
+           ω= Angular Frequency
+Dielectric power loss factors tan δ  for typical cable insulations are:
+  XLPE        (1.5 to 3.5) 10
+-4
+C= Operating Capacity (µF/km)
+II) Current – dependent losses
+  The current dependent losses consist of the following components:
+  • Ohmic conductor losses
+  •  Losses through skin effect
+  • Losses through proximity effect 
+  •  Losses in the metal sheath
+The ohmic losses depend on material and temperature. For the calculation of the ohmic losses I
+2R, The conductor resistance stated for 20O C (Ro) must be 
+converted to the operating temperature of the cable.
+Rt= Ro (1+ α(θ-20O C) ) (Ω/km)
+With 
+α= 0.0393 for Copper
+α= 0.0403 for Aluminium
+The conductor cross- section and admissible DC resistances at 20
+OC 
+(Ro) correspond to the standard series pursuant to IEC 60228/IS:8130.
+Minimum permissible bending radii during laying:
+ • During pulling of power cables, the bending radii should not be 
+  smaller than the recommended values
+ • In the case of single bends, the values may be reduced to a 
+  minimum of 70% if the cables are carefully and evenly bent only 
+  once before a termination 
+  (around a pre-fabricated bow, if necessary)
+Maximum Permissible pulling tensions during laying: 
+ • During laying of power cables attention must be paid to 
+  permissible tensile forces
+Permissible tensile forces when pulling by cable pulling grip:
+F = A x 15 N/mm
+2
+(Cable with Al-Conductor)
+F = A x 20 N/mm2
+(Cable with Cu-Conductor)
+Maximum value in both cases is 40 KN
+Maximum recommended tensile forces when pulling eye is attached to the 
+conductor:
+Al-conductor    F = A X 50 N/mm2
+Cu-conductor  F = A X 70 N/mm2
+Maximum value in both cases is 80 KN
+A = Cross Sectional area of conductor in mm2 (without screen and conc. Conductor)
+Minimum permissible cable temperature during laying:
+XLPE insulated cable U> 30 kV; -5°C for HFFR and PVC-sheath, - 15°C for PE-sheath. At 
+lower temperature the cables must be adequately warmed up beforehand. This can be 
+done by storing the cables in heated room for several days or by means of special 
+equipment.
+--- Page 25 ---
+19 3635
+XLPE - INSULATED CABLES DIRECTLY IN GROUND
+XLPE-insulated cables can continuously be loaded to a conductor temperature of 90°c in underground installations. If a cable in 
+the ground is continuously operated at this highest rated conductor temperature, the thermal resistivity of the soil surrounding 
+the cable may in the course of time increase from its original value as a result of the drying-out processes. As a consequence, the 
+conductor temperature may greatly exceed the highest rated value. Using single-point bonding or cross bonding instead of 
+both-end bonding results in a considerable increase in the current carrying capacity.
+When planning cable installations, care has to be taken that the cables and fittings chosen are capable of withstanding the 
+expected dynamic and thermal short-circuit stresses. The dynamic stresses depend on the max. asymmetric short-circuit 
+current and the thermal stresses on the mean short-circuit current.
+SHORT-CIRCUIT CURRENT CAPACITY
+Generally cables and their standard accessories will withstand the dynamic stresses under short-circuit conditions, but near the 
+power stations it is important to take into considerations the dynamic short-circuit current capacity and to pay attention to the 
+technique of installation.
+DYNAMIC STRESSES
+On page No. 10, the maximum permissible short-circuit currents for short-circuit duration of one second are given. These values 
+are based on the following presumptions:
+• Before short-circuit, the temperature of conductors - maximum 
+ permissible temperature of conductor in continuous use
+• Maximum permissible temperature of conductor in short-circuit is 
+ 250 DegC for XLPE Insulated cables
+• The permissible short-circuit currents for short-circuit duration of 0.2  upto 5 seconds may be calculated by multiplying the 
+ value of maximum  short-circuit current for short-circuit duration of one second by the figure 1/Sqrt (t) where t is the duration 
+ of short-circuit in seconds
+A)  Underground installation of EHV XLPE Cables
+1.1)  Bending Radius - The minimum bending radius for EHV XLPE cables 
+  is 20 X D, where D is the overall diameter of cable.
+1.2)  Installation in ground - Underground XLPE cables are usually buried 
+  directly in the ground. 
+THERMAL STRESSES
+Single core cables can be laid in flat or trefoil formation as shown in figures.
+1.3)  Depth of laying – As a general rule, EHV cables are laid at a depth of 1 to 1.5 m. the laying depth is chosen depending on 
+  obstacles in the ground e.g. telephone cables or water pipes. There may be more reasons for deeper laying, which then 
+  mean a reduction of current carrying capacity.
+1.4) Sand bedding - The cable shall be completely surrounded by well-compacted sand to such a thickness and of such a 
+  grain size that the cable is completely protected against damage. The thickness of  sand bedding should normally be a 
+  minimum of 10 cm in directions from the cable surface. Sand with grain size less than 8 mm is considered to give the cable 
+  a good protection.
+1.5)  Extra protection - Important feeders and cables at places where extended digging activity is expected can be further 
+  protected against damage by means of tubes, slabs, troughs or warning tapes. Ducts of non-magnetic material for single 
+  core cables can be mainly used at road crossing etc., the duct diameter should not be less than 1.5 times the cable 
+  diameter . In trenches, normally extra protection is obtained by means of concrete slabs and its size is chosen according 
+  to the expected damage. The slabs are placed directly on the cable sand.
+1.6)  Back filling - Normally, the back fill consists of the material earlier excavated. However, bigger stones or pieces of rock 
+  should be removed.
+1.7)  Warning Tape - A pre-warning tape (yellow PVC tape) should be laid in the ground.
+1.8)  Transportation - In order to avoid damage to the cable, the cable drum must be handled carefully during transportation. 
+  It is very important that the cable drum stands on the flanges during  transportation, well fixed to the transport vehicle. 
+  Loading and unloading should be made by crane or fork truck, not by rolling. Rolling of the drum should be done slowly 
+  and carefully in the direction of the arrow on the drum.
+1.9)  Cable pulling - During the pulling, the cable drum is normally placed  on jacks at the starting point and wire winch at the 
+  other end of the trench. The pulling wire can be connected to cable either by a cable stocking or pulling eye to the 
+  conductors in such a manner that water or soil cannot enter into the cable.
+  The maximum pulling force for Aluminium and Copper conductor shall be as follows:
+  For Cable Stocking 40 KN
+  For Pulling Eye 80 KN
+  The cable should preferably be pulled from the top of the drum. To prevent crossing of turns on the drum at sudden 
+  pulling stop, a brake should be arranged at the cable drum and a man placed there to operate this brake, which must be 
+  pulled rapidly to stop.
+  To protect the cable from damage during the pulling out, cable rollers should be used and placed at suitable intervals. At  
+  bends, angle rollers and guide rollers as required must be used in order to maintain the desired bending radius of the 
+  cable.During the cable pulling, telephones or walkie-talkie should be used to ensure the internal communication. Once 
+  established, it helps in preventing accidents and enables a safe pulling operation.
+ B)  Installation of XLPE cable in air
+  The requirement for bending radii, transportation and pulling of the cables are the same as for underground installation.  
+  For fixing of the cable, the following requirements have to be taken into consideration:
+Back filling
+Back filling
+Back filling
+Cable fixing After laying of three Nos. cable, the cable shall be tied up with non-  
+  magnetic metals trefoil/ single clamp depend up on the laying 
+  configuration i.e., Trefoil/flat
+Horizontal distance between cleats At 1 to 1.5 meter interval or as per customer's choice
+Vertical distance between cleats If the cable circuits are laid in tiers then the vertical spacing between the 
+  tiers should not be less than 300 mm
+--- Page 26 ---
+38
+EHV CABLES
+TERMINATIONS
+EHV CABLES
+TERMINATIONS
+SINGLE PHASE
+LB   W/O   SVL
+OV OV
+SHEATH VOLTAGE
+INDUCED
+INDUCED
+SHEATH VOLTAGE
+SINGLE PHASE
+LB   W/O   SVL
+BOTH END BONDING SCHEME
+SINGLE-POINT BONDING OF SCREENS
+One end of the cable sheath is connected to the system earth, so 
+that at the other end (“open end”) the standing voltage appears, 
+which is induced linearily along the cable length. In order to 
+ensure the relevant safety requirements, the “open end” of the 
+cable sheath has to be protected with a surge arrester . In order to 
+avoid potential lifting in case of a failure, both earth points have to 
+be connected additionally with an earth continuity wire. The SVL 
+(sheath voltage limiter) is designed to deflect switching and 
+atmospheric surges but must not trigger in case of a short- 
+circuit.
+EHV CABLES
+TERMINATIONS
+EHV CABLES
+TERMINATIONS
+SINGLE PHASE
+LB   W/O   SVL
+OV
+SHEATH VOLTAGE
+INDUCED
+SINGLE PHASE
+LB   W/O   SVL
+SINGLE POINT BONDING SCHEME
+CROSS
+BONDING OF SCREENS
+This earthing method shall be applied for 
+longer route lengths where joints are 
+required due to the limited cable delivery 
+length. A cross- bonding system consists 
+of three equal sections with cyclic sheath 
+crossing after each section. The 
+termination points shall be solidly bonded 
+to earth.
+Along each section, a standing voltage is 
+induced. In ideal cross- bonding systems 
+the three section lengths are equal, so that 
+no residual voltage occurs and thus no 
+sheath current flows. The sheath losses 
+can be kept very low with this method 
+impairing the safety as in the two- sided 
+sheath earthing.
+Very long route lengths can consist of 
+several cross- bonding systems in a row. 
+In this case, it is recommended to maintain 
+solid bonding of the system ends in order 
+to prevent travelling surges in case of a 
+fault.
+In addition to cross- linking the sheaths, 
+the conductor phases can be transposed 
+cyclicly. This solution is especially suited 
+for very long cable lengths or parallel 
+circuits.
+TESTING PROCEDURE
+AFTER INSTALLATION
+(UPTO 400 kV XLPE CABLE)
+Tests will be performed according to IEC: 60840, IEC: 62067 and SCECO-E-Specification.
+DESCRIPTION OF TEST REQUIREMENT
+1. PHASE CHECKING:
+Correct phasing is verified by successively grounding individual phases 
+and checking the corresponding phase at the opposite end using a 
+Megger set at 5kV. The correct phase should be grounded with all other 
+phases showing open circuit.
+2. INSULATION RESISTANCE MEASUREMENT:
+The Insulation Resistance is measured between the conductor at 5kV 
+DC, and its grounded shield. This test is to be performed both before and 
+after the DC High Voltage Test.
+3. DC SHEATH TEST: 
+A DC voltage of 10 kV is applied for 1 minute. This test should be 
+performed after initial cable installation with the cable backfilled in the 
+trench (where applicable) and finally when the cable installation is 
+complete. No breakdown should occur .
+4. AC VOLTAGE TEST:
+The waveform shall be substantially sinusoidal and the frequency shall 
+be between 20 Hz & 300 Hz. In particular cases, the minimum frequency 
+can be reduced to 10 Hz subject to agreement between the purchaser 
+and the manufacturer . A voltage according to IEC 60840/62067 shall be 
+applied for 1 h, except in cases where this is not practicable.
+5. CAPACITANCE:
+Using a digital LCR Meter capacitance is measured between conductor 
+and shield.
+6. CONDUCTOR CONTINUITY AND CONDUCTOR DC RESISTANCE TEST:
+With the conductors looped at the remote end, a loop resistance is 
+measured successively between all phases. By simultaneous equations 
+DC resistance for each conductor can be calculated.
+7. CABLE SHIELD CONTINUITY AND CABLE SHIELD DC RESISTANCE 
+TEST:
+With the cable shields looped at the remote end, a loop resistance is 
+measured successively between all phases. By simultaneous equations 
+DC resistance for each cable shield can be calculated.
+POSITIVE CONFIRMATION
+SUITABLE RESISTANCE FOR CABLE AGE.
+AC VOLTAGE TEST OF THE INSULATION
+10kV DC 1 MIN.
+MATCHING CABLE DESIGN PARAMETERS
+MATCHING CABLE DESIGN PARAMETERS
+MATCHING CABLE DESIGN PARAMETERS
+37
+SCREEN BONDING METHODS 
+SOLID BONDING OF SCREENS
+Both ends of the cable sheath are connected to the system earth. With this 
+method no standing voltages occur at the cable ends, which make it the 
+most secure regarding safety aspects. On the other hand, circulating 
+currents may flow in the sheath as the loop between the two earthing points 
+is closed through the ground. These circulating currents are proportional to 
+the conductor currents and therefore reduce the cable ampacity 
+significantly making it the most disadvantageous method regarding 
+economic aspects.
+
+--- Page 27 ---
+1939 40
+8. LINKBOX/ JOINTBAY EARTH RESISTANCE TEST:
+Using specialized contact resistance test equipment and the 3 point 
+method, the Linkbox Ground Rod network earth resistance is measured.
+9. LINKBOX LINK CONTACT RESISTANCE TEST:
+Using specialized contact resistance test equipment (Digital Micro 
+Ohmmeter) the Linkbox Link Contact Resistance is directly measured.
+10. SHEATH VOLTAGE LIMITER (SVL) CHARACTERISTIC CHECK:
+SVL DC Voltage withstand test- application of DC voltage to verify SVL 
+design parameters.
+SVL design parameters.
+SVL Insulation Resistance Check.
+MATCHING CABLE DESIGN PARAMETERS
+LESS THAN 20µΩ AT EACH CONNECTION
+LESS THAN 20µΩ
+CABLE ACCESSORIES
+JOINTS
+Joints allow the reliable connection of cables to each other .
+Easier installation thanks to 
+smaller dimensions.
+Wide range of application with 
+insulation diameters
+Maximum operation reliability
+with a metal radial moisture 
+barrier as standard for all joints.
+The insulation body comprises the 
+semiconductive deflectors & middle 
+electrode and the insulation 
+compound. Thanks to a perfect 
+combination of outstanding electrical 
+and mechanical properties and 
+excellent interface behaviour, silicone 
+rubber (SiR) is used for the deflectors, 
+the middle electrode and the 
+insulation. To ensure proper 
+functioning at all voltage loads and to 
+guarantee a long and reliable life, the 
+semiconductive parts are made of 
+solid material. For optimal electrical 
+stress distribution, the insulation body 
+was designed based on computer FEM 
+simulations. The extreme flexibility of 
+the SiR ensures easy and fast 
+assembling. The excellent elasticity of 
+the SiR has an optimised level of 
+surface pressure and ensures 
+void-free contact between the 
+insulation body and the cable. These 
+advantages will remain constant over 
+an extremely long service period.
+All these features result in a joint that 
+is highly reliable and will last a 
+lifetime. For added quality, the 
+insulation bodies are produced as a 
+single piece, are prefabricated 
+in-house and are pretested in our 
+Swiss production plant.
+Based on excellent experience with 
+joints of our MP family, all main 
+advantages of the pre-tested 
+one-piece SiR slip-on bodies have 
+been kept. As the most crucial 
+element of the joint, design, material 
+selection and production of the 
+insulation body undergoes extensive 
+research at Brugg Cables. As a result, 
+the outstanding properties and 
+long-time stability of the SiR were 
+maintained and the electrical design 
+was optimized.
+
+--- Page 28 ---
+High voltage
+polymer cable
+Radial metallic
+moisture barrier
+Conductor
+clamp
+Filling 
+material
+Mechanical 
+protection
+Deflector SiR slip-on 
+insulation body
+Middle 
+electrode
+ADVANTAGES OF THE PRE-FABRICATED 
+AND PRE-TESTED ONE-PIECE 
+SiR INSULATION BODY:
+• Very high breakdown strength of >23 kV/mm at 50/60 Hz 
+• Excellent temperature stability of– 50 to +180 °C 
+• Very high life exponent of n >>40
+• Excellent field grading performance at high frequency load due to 
+ semiconductive parts of solid material
+• Optimal electrical stress distribution due to computer-assisted FEM-design
+• Void-free contact pressure on the cable surface at normal and elevated load 
+ conditions with the excellent elasticity of the SiR
+• Long lifetime due to excellent mechanical properties of the SiR
+• Connection of different types of polymer cables with different insulation 
+ diameters possible due to a high elasticity of the SiR slip-on body
+EFFECTIVE RESISTANCE
+That you can benefit from the advantages of the new slip-on joints, we offer the products 
+for polymer cables with insulation diameters of 57 to 102 mm and a conductor 
+cross-section of up to 2500 mm2. The joints are tested to a service voltage of 145 kV and 
+a BIL level of 650 kV.
+• Very compact dimensions
+• 100 % failure free pre-tested one-piece SiR 
+ slip-on bodies
+• Total moisture barrier provided by a radial 
+ metallic shield as a standard
+• No preload during transport or storage
+• Possibility to use different types of outer 
+ mechanical protection designs
+• Easy to handle and install thanks to a longer 
+ middle electrode and exceptional elasticity, no 
+ high mechanical forces needed for installation
+• Possible to apply coaxial cross-bonding cables 
+ up to a cross-section of 500/500 mm2
+• Many uses in all environments, laying conditions 
+ and climates
+AT A GLANCE, THE MAIN ADVANTAGES
+OF OUR  PRE-TESTED SLIP-ON JOINTS ARE:
+By incorporating a radial metallic moisture 
+barrier as standard, the reliability of the joint is 
+even greater . Four different mechanical designs 
+ensure added flexibility in usage and application. 
+Smaller dimensions and a larger diameter range 
+for applications round off the new features. 
+Together with the proven advantages of the SiR 
+slip-on body, you are always well connected with 
+our new joints.
+Brugg Cables is devoted to the quality, performance and reliability of its products. High standards in production and testing are 
+the order of the day at our factory in Switzerland. Computerised machines and skilled personnel are the guarantee for our high 
+quality. To ensure this, each insulation body is tested individually. Of course, all our joints are suitable for any type of polymer 
+cable or cable manufacturer .
+Earthing. Earthing can be made according to customer specifications. All joints are designed in a way that are either direct 
+earthing, straight through connection or through where cross-bonding is possible. Cross-bonding cables can be applied up to 
+500/500 mm2.
+High quality in production. Consistent, high quality standards in manufacturing are guaranteed by using computerised machines. 
+To ensure 0-failure during production, each part is tested several times in the manufacturing process. Every device is certified 
+individually.
+Standards. All joints are designed according to international standards, such as IEC 60840 or IEEE 404-2000. As a matter of 
+course, we are certified according to ISO 9001 and ISO 14001.
+Testing. To guarantee the quality of our products, testing is essential. All equipment is tested extensively in R&D. Our products 
+are type-tested according to IEC 60840 and IEEE 404-2000. To ensure that all slip-on bodies are 100 % working, they all have to 
+pass a routine test in accordance with IEC 60840.
+Installation. To ensure highest quality in the field, we have an own installation department. Brugg engineers operate around the 
+world, erecting and commissioning our various products. In order that you benefit as much as possible, we offer a complete 
+installation service, training for your teams or the supervision of the installation by our experts, all at a reasonable price.
+Joint with metal foil and heat shrink cover .
+ Joint with Cu and FRP protection box.
+  Simulations: 
+Design based on computer FEM-simulations 
+for optimal electrical stress.
+41 42
+--- Page 29 ---
+TERMINATIONS
+Terminations allow the reliable connection between a cable and other 
+equipment.
+44
+Product Portfolio of EHV Terminations
+Outdoor with Porcelain" insulator  TE 
+Outdoor with Composite insulator  FR
+Transformer terminations   TT
+GIS terminations (fluid filled)   TF
+GIS and transformer
+terminations (dry type)   TFD/TTD
+Bolt  :  Conduit the main cable current. Made of Cu or Al. 
+  Dimensions according to customer needs: 
+  35-40-50-60 mm 
+Head Armature: Improve the potential distribution along the 
+  insulators. For EHV with additional corona ring 
+  possible 
+Sealing  :  Avoid oil ingress into the cable. Improve electrical 
+  field
+Insulator :  gives necessary creepage distance and mechanical 
+  strength (self supported construction)
+Stress cone:  For electrical field control at the cut edge of cable 
+  semicon. Size according to cable dimensions and 
+  voltage level
+Silicone oil : Give additional insulation. Works as filling media 
+  between cable and insulator inside the termination.
+Base plate :  For fixing the cable termination to a structure. 
+  Typcially fixed with Support insulators to isolate from 
+  the structure
+Gland  :  To fix the cable jacekt and screen to the terminaiton. 
+  Include a sealing area to avoid water ingress
+Outdoor terminations - Main components
+Bolt
+Head Armature
+Sealing
+Insulator
+Stress cone
+Base plate
+Support insul.
+Cable Gland
+and sealing
+Silicone oil
+Bolt:  conduit the cable conductor current
+Head Armature: Allow interconnection between termination and 
+ equipment. 
+Sealing :  Avoids oil ingress into the cable. Improves the electrical 
+ field
+Insulator: Works as oil barrier between cable and equipment Outer 
+ Dimensions acc. IEC 62271-209
+Stress cone: for electrical field control at the cable semicon cut edge. 
+ Sizes depend on cable dimensions and voltage level
+Silicone oil: Insulating filling media between cable and insulator
+Spannring: For fixing the insulator to the equipment. Two possibilities 
+ single phase of three phase arrangement 
+Cable gland: For fixing the cable jacket and cable screen. Includes a 
+ sealing area to avoid water ingress 
+Corona Ring: to improve electrical field distribution inside 
+ transformers. Dimensions according to EN 50299-1
+GIS and Transformer terminations –Main components
+Bolt
+Head Armature
+Sealing
+Insulator
+Stress cone
+Fixing ring
+Gland and
+sealing
+Silicone oil
+Corona Ring
+43
+GIS/Transformer plug in terminations type TFD
+Dry type plug-in terminatons
+For polymeric cables up to 550 kV
+Dry type plug-in terminations offer highest quality 
+and application flexibility as GIS or Transformer 
+cable termination for system voltages up to 550 kV. 
+Based on the outstanding properties of the 
+prefabricated and electrically tested slip on stress 
+cones, the reliable modular construction of the TFD 
+terminations allow its application to all types of 
+polymeric insulated cables. 
+Wires and Cables
+The power behind the power
+45-101
+Highest Voltage for the equipment (UM)
+Dimensions according to
+Weight
+KV
+IEC 62271-209
+kg.
+170
+43
+Max. Current rating A 4000
+Min./Max. Ø over cable Insulation prepared mm
+Max. cable cross section (approx.) mm² 2500
+Max. Shorth circuit current 1 sec. KA 80
+Max. Shorth circuit current 3 sec. KA 50
+--- Page 30 ---
+Widest range of wires and cables from 1.1kV up to 400kV
+Safety and Quality,
+                          Our Priority.
+45
+GIS Sockets type TFD
+Sockets up to 550 kV
+Dry type sockets offer high flexibility to SF6 insulated 
+switchgears for system voltages up to 550 kV. 
+Regardless of whether the required dimensions of 
+the cable compartment are for a dry type or a fluid 
+filled type termination as per IEC 62271 209, each 
+socket is provided with all necessary elements for 
+the fast and easy installation to any switchgear 
+independently of the manufacturer . All materials 
+used are UV and corrosion resistant thus allowing 
+the terminations to be applicable for both indoors 
+and outdoors installations.
+Wires and Cables
+The power behind the power
+65
+Highest Voltage for the equipment (UM)
+Dimensions according to
+KV
+IEC 62271-209
+170
+Weight kg.
+1 Phase Arrangement item No. 89385
+3 Phase Arrangement item No. 89387
+Dimensions according to IEC 62271-209
+for dry-type Terminations
+Wires and Cables
+The power behind the power
+65
+Highest Voltage for the equipment (UM)
+Dimensions according to
+KV
+IEC 62271-209
+170
+Weight kg.
+1 Phase Arrangement item No. 89385
+3 Phase Arrangement item No. 89387
+Dimensions according to IEC 62271-209
+for dry-type Terminations
+Sockets up to 550 kV
+Transformer Sockets type TTD
+Dry type sockets offer high flexibility to oil insulated 
+transformers for system voltages up to 550 kV. 
+Regardless of whether the required dimensions of 
+the cable compartment are for dry type terminations 
+according to EN 50299 2 or fluid filled terminations 
+according to EN 50299 1, each socket is provided with 
+all necessary elements for the fast and easy 
+installation to any transformer independently of the 
+manufacturer . All materials used are UV and 
+corrosion resistant thus allowing the terminations to 
+be applicable for both indoors and outdoors 
+installations.
+Wires and Cables
+The power behind the power
+73
+Highest Voltage for the equipment (UM)
+Dimensions according to
+KV
+EN 50299-1
+170
+Weight kg.
+1 Phase Arrangement item No. 89449
+Dimensions according to EN50299-1
+for fluid-filled Terminations
+Wires and Cables
+The power behind the power
+73
+Highest Voltage for the equipment (UM)
+Dimensions according to
+KV
+EN 50299-1
+170
+Weight kg.
+1 Phase Arrangement item No. 89449
+Dimensions according to EN50299-1
+for fluid-filled Terminations

@@ -1,0 +1,6211 @@
+
+--- PAGE 1 ---
+बड
+बड
+ 
+ 
+ववरण
+ववरण
+/
+/
+Bid
+ 
+ 
+Details
+बड
+बड
+ 
+ 
+बंद
+बंद
+ 
+ 
+होने
+होने
+ 
+ 
+क
+क
+ 
+ 
+तारख
+तारख
+/
+/
+समय
+समय
+ 
+ 
+/Bid End Date/Time
+24-10-2025 11:00:00
+बड
+बड
+ 
+ 
+खुलने
+खुलने
+ 
+ 
+क
+क
+ 
+ 
+तारख
+तारख
+/
+/
+समय
+समय
+ 
+ 
+/Bid Opening
+Date/Time
+24-10-2025 11:30:00
+बड
+बड
+ 
+ 
+पेशकश
+पेशकश
+ 
+ 
+वैधता
+वैधता
+ (
+ (
+बंद
+बंद
+ 
+ 
+होने
+होने
+ 
+ 
+क
+क
+ 
+ 
+तारख
+तारख
+ 
+ 
+से
+से
+)
+)
+/Bid Offer
+Validity (From End Date)
+180 (Days)
+मं ालय
+मं ालय
+/
+/
+रा!य
+रा!य
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+/Ministry/State Name
+Ministry Of Power
+वभाग
+वभाग
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+/Department Name
+Power Grid Corporation Of India Limited
+संगठन
+संगठन
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+/Organisation Name
+Power Grid Corporation Of India Limited
+काया%लय
+काया%लय
+ 
+ 
+का
+का
+ 
+ 
+नाम
+नाम
+/Office Name
+Corporate Office Gurgaon
+कुल
+कुल
+ 
+ 
+मा ा
+मा ा
+/Total Quantity
+125650
+व&तु
+व&तु
+ 
+ 
+'ेणी
+'ेणी
+ 
+ 
+/Item Category
+1.1 kV 3.5C x 300 sqmm XLPE , 1.1 KV 1C X 630 sqmm
+XLPE , 1.1 KV 3.5C X 70SQMM AL PVC Armoured , 1.1 KV
+3.5C X 35SQMM AL PVC Armoured , 1.1 KV 4C X 16SQMM AL
+PVC Armoured , 1.1 KV 4C X 6SQMM AL PVC Armoured , 1.1
+KV 2C X 6SQMM AL PVC Armoured , 1.1 KV 5C x 2.5 sqmm
+Cu PVC Armoured , 1.1 KV 10C x 2.5 sqmm Cu PVC
+Armoured , 1.1 KV 14C x 2.5 sqmm Cu PVC Armoured , 1.1
+KV 19C x 2.5 sqmm Cu PVC Armoured , 1.1 KV 5C X
+2.5SQMM Cu PVC Armoured , 1.1 KV 10C X 2.5SQMM Cu
+PVC Armoured , 1.1 KV 14C X 2.5 Cu PVC Armoured
+GeMARPTS
+ 
+ 
+म)
+म)
+ 
+ 
+खोजी
+खोजी
+ 
+ 
+गई
+गई
+ 
+ 
+,&-ं.स
+,&-ं.स
+ / Searched
+Strings used in GeMARPTS
+1.1kV power and control cable
+GeMARPTS
+ 
+ 
+म)
+म)
+ 
+ 
+खोजा
+खोजा
+ 
+ 
+गया
+गया
+ 
+ 
+प/रणाम
+प/रणाम
+ / Searched
+Result generated in GeMARPTS
+Control Cable, XLPE Cable for Working Voltages up to and
+Including 1.1 KV as per IS 7098 (Part 1), Cable tray Systems
+and Cable ladder systems (Overhead power Cable tray),
+Lighting Pole or Post and Hardware - Tubular Street Light
+Poles (V2), Power Cable Fault Locator, Power Generator - DG
+Set (up to 900 KVA), Power cable for direct burial xlpe ugac
+cable for DMRC, Monitor power cables, Thyristor Power Unit,
+Universal Power Flow Controller
+अिधसूचना
+अिधसूचना
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+ 
+ 
+चयिनत
+चयिनत
+ 
+ 
+5ासंिगक
+5ासंिगक
+ 
+ 
+'े,णयाँ
+'े,णयाँ
+ / Relevant
+Categories selected for notification
+Monitor power cables
+Control Cable
+XLPE Cable for Working Voltages up to and Including 1.1
+KV as per IS 7098 (Part 1)
+बीओ8यू
+बीओ8यू
+ 
+ 
+शीष%क
+शीष%क
+ 
+ 
+/BOQ Title
+Supply of Power and control cables
+ 
+बड
+ 
+सं:या
+/
+Bid
+ 
+Number
+: 
+GEM/2025/B/6694421
+;दनांक
+ /
+Dated
+: 03-10-2025
+बड
+बड
+ 
+ 
+द&तावेज़
+द&तावेज़
+ / Bid Document
+1 / 38
+--- PAGE 2 ---
+एमएसएमई
+एमएसएमई
+ 
+के
+के
+ 
+िलए
+िलए
+ 
+अनुभव
+अनुभव
+ 
+के
+के
+ 
+वषD
+वषD
+ 
+और
+और
+ 
+टन%ओवर
+टन%ओवर
+ 
+से
+से
+ 
+छूट
+छूट
+ 
+5दान
+5दान
+क
+क
+ 
+गई
+गई
+ 
+है
+है
+/MSE Exemption for Years of
+Experience and Turnover
+No
+&टाट%अप
+&टाट%अप
+ 
+के
+के
+ 
+िलए
+िलए
+ 
+अनुभव
+अनुभव
+ 
+के
+के
+ 
+वषD
+वषD
+ 
+और
+और
+ 
+टन%ओवर
+टन%ओवर
+ 
+से
+से
+ 
+छूट
+छूट
+ 
+5दान
+5दान
+क
+क
+ 
+गई
+गई
+ 
+है
+है
+ /Startup Exemption for Years of
+Experience and Turnover
+No
+वHेता
+वHेता
+ 
+ 
+से
+से
+ 
+ 
+मांगे
+मांगे
+ 
+ 
+गए
+गए
+ 
+ 
+द&तावेज़
+द&तावेज़
+/Document required
+from seller
+Experience Criteria,Certificate (Requested in ATC),OEM
+Authorization Certificate,Compliance of BoQ specification
+and supporting document
+*In case any bidder is seeking exemption from Experience /
+Turnover Criteria, the supporting documents to prove his
+eligibility for exemption must be uploaded for evaluation by
+the buyer
+8या
+8या
+ 
+ 
+आप
+आप
+ 
+ 
+िनवदाकारJ
+िनवदाकारJ
+ 
+ 
+Kारा
+Kारा
+ 
+ 
+अपलोड
+अपलोड
+ 
+ 
+;कए
+;कए
+ 
+ 
+गए
+गए
+ 
+ 
+द&तावेज़J
+द&तावेज़J
+ 
+ 
+को
+को
+िनवदा
+िनवदा
+ 
+ 
+म)
+म)
+ 
+ 
+भाग
+भाग
+ 
+ 
+लेने
+लेने
+ 
+ 
+वाले
+वाले
+ 
+ 
+सभी
+सभी
+ 
+ 
+िनवदाकारJ
+िनवदाकारJ
+ 
+ 
+को
+को
+ 
+ 
+;दखाना
+;दखाना
+चाहते
+चाहते
+ 
+ 
+हL
+हL
+? 
+? 
+संदभ%
+संदभ%
+ 
+ 
+मेनू
+मेनू
+ 
+ 
+है
+है
+/Do you want to show
+documents uploaded by bidders to all
+bidders participated in bid?
+No
+बड
+बड
+ 
+ 
+लगाने
+लगाने
+ 
+ 
+क
+क
+ 
+ 
+समय
+समय
+ 
+ 
+सीमा
+सीमा
+ 
+ 
+&वतः
+&वतः
+ 
+ 
+नहं
+नहं
+ 
+ 
+बढ़ाने
+बढ़ाने
+ 
+ 
+के
+के
+ 
+ 
+िलए
+िलए
+आवPयक
+आवPयक
+ 
+ 
+बड
+बड
+ 
+ 
+क
+क
+ 
+ 
+सं:या
+सं:या
+।
+।
+ / Minimum number of
+bids required to disable automatic bid
+extension
+3
+;दनJ
+;दनJ
+ 
+ 
+क
+क
+ 
+ 
+सं:या
+सं:या
+, 
+, 
+,जनके
+,जनके
+ 
+ 
+िलए
+िलए
+ 
+ 
+बड
+बड
+ 
+ 
+लगाने
+लगाने
+ 
+ 
+क
+क
+ 
+ 
+समय
+समय
+-
+-
+सीमा
+सीमा
+बढ़ाई
+बढ़ाई
+ 
+ 
+जाएगी
+जाएगी
+। / 
+। / 
+Number
+ 
+ 
+of
+ 
+ 
+days
+ 
+ 
+for
+ 
+ 
+which
+ 
+ 
+Bid
+would
+ 
+ 
+be
+ 
+ 
+auto
+-
+-
+extended
+7
+ऑटो
+ऑटो
+ 
+ 
+ए8सट)शन
+ए8सट)शन
+ 
+ 
+अिधकतम
+अिधकतम
+ 
+ 
+;कतनी
+;कतनी
+ 
+ 
+बार
+बार
+ 
+ 
+;कया
+;कया
+ 
+ 
+जाना
+जाना
+ 
+ 
+है
+है
+। /
+। /
+Number
+ 
+ 
+of
+ 
+ 
+Auto
+ 
+ 
+Extension
+ 
+ 
+count
+3
+बड
+बड
+ 
+ 
+से
+से
+ 
+ 
+/रवस%
+/रवस%
+ 
+ 
+नीलामी
+नीलामी
+ 
+ 
+स;Hय
+स;Hय
+ 
+ 
+;कया
+;कया
+/Bid to RA enabled
+Yes
+/रवस%
+/रवस%
+ 
+नीलामी
+नीलामी
+ 
+यो.यता
+यो.यता
+ 
+िनयम
+िनयम
+/RA Qualiﬁcation Rule
+50% Lowest Priced Technically Qualified Bidders
+बड
+बड
+ 
+ 
+का
+का
+ 
+ 
+5कार
+5कार
+/Type of Bid
+Two Packet Bid
+5ाथिमक
+5ाथिमक
+ 
+उVपाद
+उVपाद
+ 
+'ेणी
+'ेणी
+/Primary product category
+1.1 kV 3.5C x 300 sqmm XLPE
+तकनीक
+तकनीक
+ 
+ 
+मूWयांकन
+मूWयांकन
+ 
+ 
+के
+के
+ 
+ 
+दौरान
+दौरान
+ 
+ 
+तकनीक
+तकनीक
+ 
+ 
+&पYीकरण
+&पYीकरण
+ 
+ 
+हेतु
+हेतु
+अनुमत
+अनुमत
+ 
+ 
+समय
+समय
+ 
+ 
+/Time allowed for Technical
+Clarifications during technical evaluation
+3 Days
+िनरZण
+िनरZण
+ 
+आवPयक
+आवPयक
+ (
+सूचीब[
+सूचीब[
+ 
+िनरZण
+िनरZण
+ 
+5ािधकरण
+5ािधकरण
+ /
+जेम
+जेम
+ 
+के
+के
+ 
+साथ
+साथ
+पूव%
+पूव%
+ 
+पंजीकृत
+पंजीकृत
+ 
+एज)िसयJ
+एज)िसयJ
+ 
+Kारा
+Kारा
+)/Inspection Required (By
+Empanelled Inspection Authority / Agencies
+pre-registered with GeM)
+No
+मूWयांकन
+मूWयांकन
+ 
+ 
+प[ित
+प[ित
+/Evaluation Method
+Total value wise evaluation
+म]य&थता
+म]य&थता
+ 
+खंड
+खंड
+/Arbitration Clause
+No
+सुलह
+सुलह
+ 
+खंड
+खंड
+/Mediation Clause
+No
+बड
+बड
+ 
+ 
+ववरण
+ववरण
+/
+/
+Bid
+ 
+ 
+Details
+ईएमड
+ईएमड
+ 
+ 
+ववरण
+ववरण
+/EMD Detail
+2 / 38
+--- PAGE 3 ---
+एडवाईजर
+ 
+बLक
+/Advisory Bank
+State Bank of India
+ईएमड
+ 
+रािश
+/EMD Amount
+915000
+ईपीबीजी
+ईपीबीजी
+ 
+ 
+ववरण
+ववरण
+ 
+ 
+/ePBG Detail
+एडवाइजर
+ 
+बLक
+/Advisory Bank
+State Bank of India
+ईपीबीजी
+ 
+5ितशत
+ (%)
+/ePBG Percentage(%)
+5.00
+ईपीबीजी
+ 
+क
+ 
+आवPयक
+ 
+अविध
+ (
+माह
+) 
+/Duration of ePBG
+required (Months).
+20
+(a). 
+जेम
+ 
+क
+ 
+शतD
+ 
+के
+ 
+अनुसार
+ 
+ईएमड
+ 
+छूट
+ 
+के
+ 
+इ`छुक
+ 
+बडर
+ 
+को
+ 
+संबंिधत
+ 
+केटेगर
+ 
+के
+ 
+िलए
+ 
+बड
+ 
+के
+ 
+साथ
+ 
+वैध
+ 
+समिथ%त
+ 
+द&तावेज़
+ 
+5&तुत
+ 
+करने
+ 
+है
+।
+ 
+एमएसई
+केटेगर
+ 
+के
+ 
+अंतग%त
+ 
+केवल
+ 
+व&तुओं
+ 
+के
+ 
+िलए
+ 
+विनमा%ता
+ 
+तथा
+ 
+सेवाओं
+ 
+के
+ 
+िलए
+ 
+सेवा
+ 
+5दाता
+ 
+ईएमड
+ 
+से
+ 
+छूट
+ 
+के
+ 
+पा 
+ 
+हL
+।
+ 
+aयापा/रयJ
+ 
+को
+ 
+इस
+ 
+नीित
+ 
+के
+ 
+दायरे
+ 
+से
+बाहर
+ 
+रखा
+ 
+गया
+ 
+है
+।
+/EMD EXEMPTION: The bidder seeking EMD exemption, must submit the valid supporting document
+for the relevant category as per GeM GTC with the bid. Under MSE category, only manufacturers for goods and
+Service Providers for Services are eligible for exemption from EMD. Traders are excluded from the purview of this
+Policy.
+(b).
+ईएमड
+ 
+और
+ 
+संपादन
+ 
+जमानत
+ 
+रािश
+, 
+जहां
+ 
+यह
+ 
+लागू
+ 
+होती
+ 
+है
+, 
+लाभाथb
+ 
+के
+ 
+पZ
+ 
+म)
+ 
+होनी
+ 
+चा;हए
+।
+ / EMD & Performance securityshould be
+in favour of Beneficiary, wherever it is applicable. 
+लाभाथb
+लाभाथb
+ 
+ 
+/Beneficiary :
+ 
+Centralized Procurement Cell,
+Centralized Procurement Cell, 3rd Floor, NR3-III-RHQ, Plot No 2A/INS02, Awadh Vihar Yojana, Amar Shaheed Path,
+Lucknow– 226002 (Uttar Pradesh)
+(Power Grid Corporation Of India Limited)
+बोली
+ 
+वभाजन
+ 
+लागू
+ 
+नहं
+ 
+;कया
+ 
+गया
+/ 
+Bid splitting not applied.
+Reserved for Make In India products
+Reserved for Make In India products
+Yes
+एमएसई
+एमएसई
+ 
+ 
+खरद
+खरद
+ 
+ 
+वरयता
+वरयता
+/MSE Purchase Preference
+एमएसई
+ 
+खरद
+ 
+वरयता
+/MSE Purchase Preference
+Yes
+1. Bid reserved for Make In India products: : Procurement under this bid is reserved for purchase from Class 1
+local supplier as defined in public procurement (Preference to Make in India), Order 2017 as amended from time
+to time and its subsequent Orders/Notifications issued by concerned Nodal Ministry for specific Goods/Products.
+However, eligible micro and small enterprises will be allowed to participate. The minimum local content to
+qualify as a class 1 local supplier is denoted in the bid document. All bidders must upload a certificate from the
+OEM regarding the percentage of the local content and the details of locations at which the local value addition is
+made along with their bid, failing which the bid is liable to be rejected. In case the bid value is more than Rs 10
+Crore, the declaration relating to percentage of local content shall be certified by the statutory auditor or cost
+auditor, if the OEM is a company and by a practicing cost accountant or a chartered accountant for OEMs other
+than companies as per the Public Procurement (preference to Make-in -India) order 2017 dated 04.06.2020 . In
+case Buyer has selected Purchase preference to Micro and Small Enterprises clause in the bid, the same will get
+precedence over this clause. 
+3 / 38
+--- PAGE 4 ---
+2. Purchase preference will be given to MSEs having valid Udyam Registration and whose credentials are
+validated online through Udyam Registration portal as defined in Public Procurement Policy for Micro and Small
+Enterprises (MSEs) Order, 2012 dated 23.03.2012 issued by Ministry of Micro, Small and Medium Enterprises and
+its subsequent Orders/Notifications issued by concerned Ministry. If the bidder wants to avail themselves of the
+Purchase preference, the bidder must be the manufacturer / OEM of the offered product on GeM. Traders are
+excluded from the purview of Public Procurement Policy for Micro and Small Enterprises and hence resellers
+offering products manufactured by some other OEM are not eligible for any purchase preference. In respect of bid
+for Services, the bidder must be the Service provider of the offered Service. Relevant documentary evidence in
+this regard shall be uploaded along with the bid in respect of the offered product or service and Buyer will decide
+eligibility for purchase preference based on documentary evidence submitted, while evaluating the bid. If L-1 is
+not an MSE and MSE Seller (s) has / have quoted price within L-1+ 15% (Selected by Buyer) of margin of
+purchase preference /price band defined in relevant policy, such MSE Seller shall be given opportunity to match
+L-1 price and contract will be awarded for 25% (selected by Buyer) percentage of total quantity. The buyers are
+advised to refer the OM No. F.1/4/2021-PPD dated 18.05.2023 
+OM_No.1_4_2021_PPD_dated_18.05.2023
+ 
+for
+compliance of Concurrent application of Public Procurement Policy for Micro and Small Enterprises Order, 2012
+and Public Procurement (Preference to Make in India) Order, 2017. Benefits of MSE will be allowed only if seller is
+validated on-line in GeM profile as well as validated and approved by Buyer after evaluation of documents
+submitted. 
+3. Estimated Bid Value indicated above is being declared solely for the purpose of guidance on EMD amount and
+for determining the Eligibility Criteria related to Turn Over, Past Performance and Project / Past Experience etc.
+This has no relevance or bearing on the price to be quoted by the bidders and is also not going to have any
+impact on bid participation. Also this is not going to be used as a criteria in determining reasonableness of
+quoted prices which would be determined by the buyer based on its own assessment of reasonableness and
+based on competitive prices received in Bid / RA process. 
+4. Reverse Auction would be conducted amongst first 50% of the technically qualified bidders arranged in the
+order of prices from lowest to highest. Number of sellers eligible for participating in RA would be rounded off to
+next higher integer value if number of technically qualified bidders is odd (e.g. if 7 bids are technically qualified,
+then RA will be conducted amongst L-1 to L-4). In case number of technically qualified bidders are 2 or 3, RA will
+be between all without any elimination. If Buyer has chosen to split the bid amongst N sellers, then minimum N
+sellers would be taken to RA round. In case Primary products of only one OEM are left in contention for
+participation in RA based on lowest 50% bidders qualifying for RA, the number of sellers qualifying for RA would
+be increased to get at least products of one more OEM (directly participated or through its reseller) if available.
+Further, if bid(s) of any seller(s) eligible for MSE preference is / are coming within price band of 15% of Non MSE
+L-1 or if bid of any seller(s) eligible for Make in India preference is / are coming within price band of 20% of non
+MII L-1, then such MSE / Make in India seller shall also be allowed to participate in the RA process.
+Pre Bid Detail(s)
+मूWय
+मूWय
+ 
+िभcनता
+िभcनता
+ 
+खंड
+खंड
+ 
+द&तावेज़
+द&तावेज़
+/Pre-Bid
+Date and Time
+5ी
+5ी
+-
+बड
+बड
+ 
+&थान
+&थान
+/Pre-Bid Venue
+10-10-2025 11:00:00
+Centralized Procurement Cell, 3rd Floor, NR3-III-RHQ, Plot No 2A/INS02,
+Awadh Vihar Yojana Amar Shaheed Path, Lucknow– 226002 (Uttar Pradesh)
+1.1 KV 3.5C X 300 Sqmm XLPE
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+4 / 38
+--- PAGE 5 ---
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Vaibhav Rajkumar
+Banajwade
+410206,Power Grid Corp.of
+India Ltd, 400/220 KV NAVI
+MUMBAI GIS
+SUBSTATION,PLOT-T1,VILLAGE-
+TEMBHODE,VAVANJA
+ROAD,P.O.-ADAI,AT
+NEWALE,TALUKA-
+PANVEL,DISTT-RAIGAD,NAVI
+MUMBAI, Maharastra-410206
+800
+180
+1.1 KV 1C X 630 Sqmm XLPE
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Bhanu Pratap Arya
+342307,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 765/400 kV Bhadla II
+Substation, Village - Kan Singh
+Ki Sid, Tehsil - Bap, District -
+Phalodi, Rajasthan - 342307
+1000
+180
+1.1 KV 3.5C X 70SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+5 / 38
+--- PAGE 6 ---
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+AJIT KUMAR SAHOO
+342307,POWERGRID
+765/400/220kV Bhadla
+Substation, Noore Ki Bhurj,
+Bap, Phalodi, 342307
+500
+180
+1.1 KV 3.5C X 70SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Virendra Kumar
+Meena
+324008,POWERGRID
+CORPORATION OF INDIA, Kota
+440/220KV Substation, Near
+Karni Mata Mandir, Nanta,
+District-Kota, Rajasthan-
+324008
+200
+180
+1.1 KV 3.5C X 70SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+6 / 38
+--- PAGE 7 ---
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Shivendra Kumar
+Soni
+343029,POWERGRID
+CORPORATION OF INDIA,
+Bhinmal 440/220KV Substation,
+Bhinmal-Ramseen Road,
+Bhinmal, District-Jalore,
+Rajasthan-343029
+500
+180
+1.1 KV 3.5C X 70SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Bhanu Pratap Arya
+342307,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 765/400 kV Bhadla II
+Substation, Village - Kan Singh
+Ki Sid, Tehsil - Bap, District -
+Phalodi, Rajasthan - 342307
+500
+180
+7 / 38
+--- PAGE 8 ---
+1.1 KV 3.5C X 70SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Anupam Jaiswal
+303901,POWERGRID
+CORPORATION OF INDIA, Jaipur
+South 440/220KV Substation,
+48Km Mile Stone, NH-12, Tonk
+Road, Chaksu, Jaipur,
+Rajasthan-303901
+500
+180
+1.1 KV 3.5C X 70SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+8 / 38
+--- PAGE 9 ---
+1
+Vaibhav Rajkumar
+Banajwade
+410206,Power Grid Corp.of
+India Ltd, 400/220 KV NAVI
+MUMBAI GIS
+SUBSTATION,PLOT-T1,VILLAGE-
+TEMBHODE,VAVANJA
+ROAD,P.O.-ADAI,AT
+NEWALE,TALUKA-
+PANVEL,DISTT-RAIGAD,NAVI
+MUMBAI, Maharastra-410206
+10700
+180
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1.1 KV 3.5C X 35SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Anupam Jaiswal
+303901,POWERGRID
+CORPORATION OF INDIA, Jaipur
+South 440/220KV Substation,
+48Km Mile Stone, NH-12, Tonk
+Road, Chaksu, Jaipur,
+Rajasthan-303901
+500
+180
+1.1 KV 3.5C X 35SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+9 / 38
+--- PAGE 10 ---
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Virendra Kumar
+Meena
+324008,POWERGRID
+CORPORATION OF INDIA, Kota
+440/220KV Substation, Near
+Karni Mata Mandir, Nanta,
+District-Kota, Rajasthan-
+324008
+500
+180
+1.1 KV 3.5C X 35SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Shivendra Kumar
+Soni
+343029,POWERGRID
+CORPORATION OF INDIA,
+Bhinmal 440/220KV Substation,
+Bhinmal-Ramseen Road,
+Bhinmal, District-Jalore,
+Rajasthan-343029
+500
+180
+1.1 KV 3.5C X 35SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+10 / 38
+--- PAGE 11 ---
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Raj Kumar Ghasal
+334601,Power Grid Corporation
+of India Limited, 765/400KV
+substtaion, Jalasar, Post-
+Jamsar, Bikaner-334601
+500
+180
+1.1 KV 3.5C X 35SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Bhanu Pratap Arya
+342307,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 765/400 kV Bhadla II
+Substation, Village - Kan Singh
+Ki Sid, Tehsil - Bap, District -
+Phalodi, Rajasthan - 342307
+500
+180
+1.1 KV 3.5C X 35SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+11 / 38
+--- PAGE 12 ---
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+UTKARSH SAREEN
+305207,POWERGRID
+CORPORATION OF INDIA,
+Ajmer, 765/400KV Substation,
+Village and Post- Jethana,
+District-Ajmer, Rajasthan-
+305207
+500
+180
+1.1 KV 3.5C X 35SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+AJIT KUMAR SAHOO
+342307,POWERGRID
+765/400/220kV Bhadla
+Substation, Noore Ki Bhurj,
+Bap, Phalodi, 342307
+500
+180
+12 / 38
+--- PAGE 13 ---
+1.1 KV 3.5C X 35SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Vaibhav Rajkumar
+Banajwade
+410206,Power Grid Corp.of
+India Ltd, 400/220 KV NAVI
+MUMBAI GIS
+SUBSTATION,PLOT-T1,VILLAGE-
+TEMBHODE,VAVANJA
+ROAD,P.O.-ADAI,AT
+NEWALE,TALUKA-
+PANVEL,DISTT-RAIGAD,NAVI
+MUMBAI, Maharastra-410206
+5500
+180
+1.1 KV 4C X 16SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+13 / 38
+--- PAGE 14 ---
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+AJIT KUMAR SAHOO
+342307,POWERGRID
+765/400/220kV Bhadla
+Substation, Noore Ki Bhurj,
+Bap, Phalodi, 342307
+500
+180
+1.1 KV 4C X 16SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Anupam Jaiswal
+303901,POWERGRID
+CORPORATION OF INDIA, Jaipur
+South 440/220KV Substation,
+48Km Mile Stone, NH-12, Tonk
+Road, Chaksu, Jaipur,
+Rajasthan-303901
+500
+180
+1.1 KV 4C X 16SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+14 / 38
+--- PAGE 15 ---
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+UTKARSH SAREEN
+305207,POWERGRID
+CORPORATION OF INDIA,
+Ajmer, 765/400KV Substation,
+Village and Post- Jethana,
+District-Ajmer, Rajasthan-
+305207
+500
+180
+1.1 KV 4C X 16SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Raj Kumar Ghasal
+334601,Power Grid Corporation
+of India Limited, 765/400KV
+substtaion, Jalasar, Post-
+Jamsar, Bikaner-334601
+2000
+180
+1.1 KV 4C X 16SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+15 / 38
+--- PAGE 16 ---
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Bhanu Pratap Arya
+342307,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 765/400 kV Bhadla II
+Substation, Village - Kan Singh
+Ki Sid, Tehsil - Bap, District -
+Phalodi, Rajasthan - 342307
+500
+180
+1.1 KV 4C X 16SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Shivendra Kumar
+Soni
+343029,POWERGRID
+CORPORATION OF INDIA,
+Bhinmal 440/220KV Substation,
+Bhinmal-Ramseen Road,
+Bhinmal, District-Jalore,
+Rajasthan-343029
+500
+180
+1.1 KV 4C X 16SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+16 / 38
+--- PAGE 17 ---
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Vaibhav Rajkumar
+Banajwade
+410206,Power Grid Corp.of
+India Ltd, 400/220 KV NAVI
+MUMBAI GIS
+SUBSTATION,PLOT-T1,VILLAGE-
+TEMBHODE,VAVANJA
+ROAD,P.O.-ADAI,AT
+NEWALE,TALUKA-
+PANVEL,DISTT-RAIGAD,NAVI
+MUMBAI, Maharastra-410206
+7500
+180
+1.1 KV 4C X 6SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+AJIT KUMAR SAHOO
+342307,POWERGRID
+765/400/220kV Bhadla
+Substation, Noore Ki Bhurj,
+Bap, Phalodi, 342307
+500
+180
+1.1 KV 4C X 6SQMM AL PVC Armoured
+17 / 38
+--- PAGE 18 ---
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Virendra Kumar
+Meena
+324008,POWERGRID
+CORPORATION OF INDIA, Kota
+440/220KV Substation, Near
+Karni Mata Mandir, Nanta,
+District-Kota, Rajasthan-
+324008
+200
+180
+1.1 KV 4C X 6SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+18 / 38
+--- PAGE 19 ---
+1
+Shivendra Kumar
+Soni
+343029,POWERGRID
+CORPORATION OF INDIA,
+Bhinmal 440/220KV Substation,
+Bhinmal-Ramseen Road,
+Bhinmal, District-Jalore,
+Rajasthan-343029
+250
+180
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1.1 KV 4C X 6SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Bhanu Pratap Arya
+342307,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 765/400 kV Bhadla II
+Substation, Village - Kan Singh
+Ki Sid, Tehsil - Bap, District -
+Phalodi, Rajasthan - 342307
+500
+180
+1.1 KV 4C X 6SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+19 / 38
+--- PAGE 20 ---
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+UTKARSH SAREEN
+305207,POWERGRID
+CORPORATION OF INDIA,
+Ajmer, 765/400KV Substation,
+Village and Post- Jethana,
+District-Ajmer, Rajasthan-
+305207
+500
+180
+1.1 KV 4C X 6SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Anupam Jaiswal
+303901,POWERGRID
+CORPORATION OF INDIA, Jaipur
+South 440/220KV Substation,
+48Km Mile Stone, NH-12, Tonk
+Road, Chaksu, Jaipur,
+Rajasthan-303901
+500
+180
+1.1 KV 4C X 6SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+20 / 38
+--- PAGE 21 ---
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Vaibhav Rajkumar
+Banajwade
+410206,Power Grid Corp.of
+India Ltd, 400/220 KV NAVI
+MUMBAI GIS
+SUBSTATION,PLOT-T1,VILLAGE-
+TEMBHODE,VAVANJA
+ROAD,P.O.-ADAI,AT
+NEWALE,TALUKA-
+PANVEL,DISTT-RAIGAD,NAVI
+MUMBAI, Maharastra-410206
+8500
+180
+1.1 KV 2C X 6SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+AJIT KUMAR SAHOO
+342307,POWERGRID
+765/400/220kV Bhadla
+Substation, Noore Ki Bhurj,
+Bap, Phalodi, 342307
+500
+180
+1.1 KV 2C X 6SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+21 / 38
+--- PAGE 22 ---
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Virendra Kumar
+Meena
+324008,POWERGRID
+CORPORATION OF INDIA, Kota
+440/220KV Substation, Near
+Karni Mata Mandir, Nanta,
+District-Kota, Rajasthan-
+324008
+200
+180
+1.1 KV 2C X 6SQMM AL PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Anupam Jaiswal
+303901,POWERGRID
+CORPORATION OF INDIA, Jaipur
+South 440/220KV Substation,
+48Km Mile Stone, NH-12, Tonk
+Road, Chaksu, Jaipur,
+Rajasthan-303901
+500
+180
+22 / 38
+--- PAGE 23 ---
+1.1 KV 5C X 2.5 Sqmm Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Vaibhav Rajkumar
+Banajwade
+410206,Power Grid Corp.of
+India Ltd, 400/220 KV NAVI
+MUMBAI GIS
+SUBSTATION,PLOT-T1,VILLAGE-
+TEMBHODE,VAVANJA
+ROAD,P.O.-ADAI,AT
+NEWALE,TALUKA-
+PANVEL,DISTT-RAIGAD,NAVI
+MUMBAI, Maharastra-410206
+17000
+180
+1.1 KV 10C X 2.5 Sqmm Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+23 / 38
+--- PAGE 24 ---
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Vaibhav Rajkumar
+Banajwade
+410206,Power Grid Corp.of
+India Ltd, 400/220 KV NAVI
+MUMBAI GIS
+SUBSTATION,PLOT-T1,VILLAGE-
+TEMBHODE,VAVANJA
+ROAD,P.O.-ADAI,AT
+NEWALE,TALUKA-
+PANVEL,DISTT-RAIGAD,NAVI
+MUMBAI, Maharastra-410206
+14500
+180
+1.1 KV 14C X 2.5 Sqmm Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Vaibhav Rajkumar
+Banajwade
+410206,Power Grid Corp.of
+India Ltd, 400/220 KV NAVI
+MUMBAI GIS
+SUBSTATION,PLOT-T1,VILLAGE-
+TEMBHODE,VAVANJA
+ROAD,P.O.-ADAI,AT
+NEWALE,TALUKA-
+PANVEL,DISTT-RAIGAD,NAVI
+MUMBAI, Maharastra-410206
+10000
+180
+1.1 KV 19C X 2.5 Sqmm Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+24 / 38
+--- PAGE 25 ---
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Vaibhav Rajkumar
+Banajwade
+410206,Power Grid Corp.of
+India Ltd, 400/220 KV NAVI
+MUMBAI GIS
+SUBSTATION,PLOT-T1,VILLAGE-
+TEMBHODE,VAVANJA
+ROAD,P.O.-ADAI,AT
+NEWALE,TALUKA-
+PANVEL,DISTT-RAIGAD,NAVI
+MUMBAI, Maharastra-410206
+15500
+180
+1.1 KV 5C X 2.5 Sqmm Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Soumyadeep
+Banerjee
+132117,Power Grid Corporation
+of India Limited, ±800KV HVDC
+Kurukshetra Terminal, 
+VPO-
+Bhadson, Opp- Picaddally
+Sugar Mill, Tehsil- Indri, Dist-
+Karnal, Haryana-132117
+2000
+180
+1.1 KV 10C X 2.5 Sqmm Cu PVC Armoured
+25 / 38
+--- PAGE 26 ---
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Soumyadeep
+Banerjee
+132117,Power Grid Corporation
+of India Limited, ±800KV HVDC
+Kurukshetra Terminal, 
+VPO-
+Bhadson, Opp- Picaddally
+Sugar Mill, Tehsil- Indri, Dist-
+Karnal, Haryana-132117
+2000
+180
+1.1 KV 5C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+26 / 38
+--- PAGE 27 ---
+1
+AJIT KUMAR SAHOO
+342307,POWERGRID
+765/400/220kV Bhadla
+Substation, Noore Ki Bhurj,
+Bap, Phalodi, 342307
+1000
+180
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1.1 KV 5C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Asheesh Meena
+332315,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 400/220 kV SUB-
+STATION, Near Village-
+Badhadar, 13 km on SIKAR -
+BIKANER NATIONAL HIGHWAY -
+52, Post Office: KHURI BADI,
+SIKAR, RAJASTHAN-332315
+2000
+180
+1.1 KV 5C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+27 / 38
+--- PAGE 28 ---
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Virendra Kumar
+Meena
+324008,POWERGRID
+CORPORATION OF INDIA, Kota
+440/220KV Substation, Near
+Karni Mata Mandir, Nanta,
+District-Kota, Rajasthan-
+324008
+800
+180
+1.1 KV 5C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Shivendra Kumar
+Soni
+343029,POWERGRID
+CORPORATION OF INDIA,
+Bhinmal 440/220KV Substation,
+Bhinmal-Ramseen Road,
+Bhinmal, District-Jalore,
+Rajasthan-343029
+1000
+180
+1.1 KV 5C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+28 / 38
+--- PAGE 29 ---
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Bhanu Pratap Arya
+342307,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 765/400 kV Bhadla II
+Substation, Village - Kan Singh
+Ki Sid, Tehsil - Bap, District -
+Phalodi, Rajasthan - 342307
+1000
+180
+1.1 KV 5C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Raj Kumar Ghasal
+334601,Power Grid Corporation
+of India Limited, 765/400KV
+substtaion, Jalasar, Post-
+Jamsar, Bikaner-334601
+1000
+180
+1.1 KV 5C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+29 / 38
+--- PAGE 30 ---
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+UTKARSH SAREEN
+305207,POWERGRID
+CORPORATION OF INDIA,
+Ajmer, 765/400KV Substation,
+Village and Post- Jethana,
+District-Ajmer, Rajasthan-
+305207
+1000
+180
+1.1 KV 5C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Anupam Jaiswal
+303901,POWERGRID
+CORPORATION OF INDIA, Jaipur
+South 440/220KV Substation,
+48Km Mile Stone, NH-12, Tonk
+Road, Chaksu, Jaipur,
+Rajasthan-303901
+500
+180
+1.1 KV 5C X 2.5SQMM Cu PVC Armoured
+30 / 38
+--- PAGE 31 ---
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Raj Kumar Ghasal
+334601,Power Grid Corporation
+of India Limited, 765/400KV
+substtaion, Jalasar, Post-
+Jamsar, Bikaner-334601
+500
+180
+1.1 KV 10C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+AJIT KUMAR SAHOO
+342307,POWERGRID
+765/400/220kV Bhadla
+Substation, Noore Ki Bhurj,
+Bap, Phalodi, 342307
+1000
+180
+31 / 38
+--- PAGE 32 ---
+1.1 KV 10C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Asheesh Meena
+332315,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 400/220 kV SUB-
+STATION, Near Village-
+Badhadar, 13 km on SIKAR -
+BIKANER NATIONAL HIGHWAY -
+52, Post Office: KHURI BADI,
+SIKAR, RAJASTHAN-332315
+500
+180
+1.1 KV 10C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+32 / 38
+--- PAGE 33 ---
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Shivendra Kumar
+Soni
+343029,POWERGRID
+CORPORATION OF INDIA,
+Bhinmal 440/220KV Substation,
+Bhinmal-Ramseen Road,
+Bhinmal, District-Jalore,
+Rajasthan-343029
+1000
+180
+1.1 KV 10C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Raj Kumar Ghasal
+334601,Power Grid Corporation
+of India Limited, 765/400KV
+substtaion, Jalasar, Post-
+Jamsar, Bikaner-334601
+1000
+180
+1.1 KV 10C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+33 / 38
+--- PAGE 34 ---
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Virendra Kumar
+Meena
+324008,POWERGRID
+CORPORATION OF INDIA, Kota
+440/220KV Substation, Near
+Karni Mata Mandir, Nanta,
+District-Kota, Rajasthan-
+324008
+500
+180
+1.1 KV 10C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Anupam Jaiswal
+303901,POWERGRID
+CORPORATION OF INDIA, Jaipur
+South 440/220KV Substation,
+48Km Mile Stone, NH-12, Tonk
+Road, Chaksu, Jaipur,
+Rajasthan-303901
+1000
+180
+1.1 KV 10C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+34 / 38
+--- PAGE 35 ---
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+UTKARSH SAREEN
+305207,POWERGRID
+CORPORATION OF INDIA,
+Ajmer, 765/400KV Substation,
+Village and Post- Jethana,
+District-Ajmer, Rajasthan-
+305207
+1000
+180
+1.1 KV 10C X 2.5SQMM Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Bhanu Pratap Arya
+342307,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 765/400 kV Bhadla II
+Substation, Village - Kan Singh
+Ki Sid, Tehsil - Bap, District -
+Phalodi, Rajasthan - 342307
+1000
+180
+1.1 KV 14C X 2.5 Cu PVC Armoured
+(Minimum 60% Local Content required for qualifying as Class 1 Local Supplier)
+तकनीक
+तकनीक
+ 
+ 
+विशYयाँ
+विशYयाँ
+ 
+ 
+/Technical Specifications
+35 / 38
+--- PAGE 36 ---
+Specification Document
+View File
+BOQ Detail Document
+View File
+Advisory-Please refer attached BOQ document for detailed consignee list and delivery period.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+ 
+ 
+अिधकार
+अिधकार
+ 
+ 
+तथा
+तथा
+ 
+ 
+मा ा
+मा ा
+/Consignees/Reporting Officer and Quantity
+H.सं.
+H.सं.
+/S.N
+o.
+परेषती
+परेषती
+/
+/
+/रपो;टdग
+/रपो;टdग
+अिधकार
+अिधकार
+ 
+ 
+/Consignee
+Reporting/Officer
+पता
+पता
+/Address
+मा ा
+मा ा
+ /Quantity
+;डलीवर
+;डलीवर
+ 
+के
+के
+ 
+;दन
+;दन
+/Delivery
+Days
+1
+Bhanu Pratap Arya
+342307,POWER GRID
+CORPORATION OF INDIA
+LIMITED, 765/400 kV Bhadla II
+Substation, Village - Kan Singh
+Ki Sid, Tehsil - Bap, District -
+Phalodi, Rajasthan - 342307
+1000
+180
+Hेता
+Hेता
+ 
+ 
+Kारा
+Kारा
+ 
+ 
+जोड़
+जोड़
+ 
+ 
+गई
+गई
+ 
+ 
+बड
+बड
+ 
+ 
+क
+क
+ 
+ 
+वशेष
+वशेष
+ 
+ 
+शतg
+शतg
+/Buyer Added Bid Specific Terms and Conditions
+1
+. 
+Generic
+Bidder shall submit the following documents along with their bid for Vendor Code Creation:
+ a. Copy of PAN Card.
+ b. Copy of GSTIN.
+ c. Copy of Cancelled Cheque.
+ d. Copy of EFT Mandate duly certified by Bank.
+2
+. 
+Generic
+Manufacturer Authorization:
+Wherever Authorised Distributors/service providers are submitting the
+bid, Authorisation Form /Certificate with OEM/Original Service Provider details such as name, designation,
+address, e-mail Id and Phone No. required to be furnished along with the bid
+3
+. 
+Generic
+Buyer Organization specific Integrity Pact shall have to be complied by all bidders. Bidders shall have to
+upload scanned copy of signed integrity pact as per Buyer organizations policy along with bid. 
+Click here
+to view the file
+4
+. 
+Generic
+Without prejudice to Buyer’s right to price adjustment 
+by way of discount or any other right or remedy
+available to Buyer, Buyer may terminate the Contract or any part thereof by a written notice to the Seller,
+if:
+i) The Seller fails to comply with any material term of the Contract.
+ii) The Seller informs Buyer of its inability to deliver the Material(s) or any part thereof within the
+36 / 38
+--- PAGE 37 ---
+stipulated Delivery Period or such inability otherwise becomes apparent.
+iii) The Seller fails to deliver the Material(s) or any part thereof within the stipulated Delivery Period
+and/or to replace/rectify any rejected or defective Material(s) promptly.
+iv) The Seller becomes bankrupt or goes into liquidation.
+v) The Seller makes a general assignment for the benefit of creditors.
+vi) A receiver is appointed for any substantial property owned by the Seller.
+vii) The Seller has misrepresented to Buyer, acting on which misrepresentation Buyer has placed the
+Purchase Order on the Seller.
+5
+. 
+Scope of Supply
+Scope of supply (Bid price to include all cost components) : Only supply of Goods
+6
+. 
+Forms of EMD and PBG
+Bidders can also submit the EMD with Account Payee Demand Draft in favour of
+Power Grid Corporation of India Ltd
+payable at
+Lucknow
+.
+Bidder has to upload scanned copy / proof of the DD along with bid and has to ensure delivery of hardcopy
+to the Buyer within 5 days of Bid End date / Bid Opening date.
+7
+. 
+Forms of EMD and PBG
+Bidders can also submit the EMD with Banker’s Cheque in favour of
+Power Grid Corporation of India Ltd
+payable at
+Lucknow
+.
+Bidder has to upload scanned copy / proof of the BC along with bid and has to ensure delivery of hardcopy
+to the Buyer within 5 days of Bid End date / Bid Opening date.
+8
+. 
+Buyer Added Bid Specific ATC
+Buyer Added text based ATC clauses
+पावरिhड
+पावरिhड
+ 
+के
+के
+ 
+उiर
+उiर
+ 
+Zे 
+Zे 
+-
+I 
+और
+और
+ 
+प,jमी
+प,jमी
+ 
+Zे 
+Zे 
+-
+I 
+के
+के
+ 
+िलए
+िलए
+ 
+पावर
+पावर
+ 
+एवं
+एवं
+ 
+कं-ोल
+कं-ोल
+ 
+केबल
+केबल
+ 
+क
+क
+ 
+आपूित%
+आपूित%
+"
+“
+Supply of Power & Control Cables to Northern Region-I and W
+estern Region-I of POWERGRID
+”
+Specification. No.: NCN0206
+.
+9
+. 
+Buyer Added Bid Specific ATC
+Buyer uploaded ATC document 
+Click here to view the file
+.
+अ&वीकरण
+अ&वीकरण
+/Disclaimer
+The additional terms and conditions have been incorporated by the Buyer after approval of the Competent
+Authority in Buyer Organization, whereby Buyer organization is solely responsible for the impact of these clauses
+on the bidding process, its outcome, and consequences thereof including any eccentricity / restriction arising in
+the bidding process due to these ATCs and due to modification of technical specifications and / or terms and
+conditions governing the bid. If any clause(s) is / are incorporated by the Buyer regarding following, the bid and
+resultant contracts shall be treated as null and void and such bids may be cancelled by GeM at any stage of
+bidding process without any notice:-
+37 / 38
+--- PAGE 38 ---
+1
+. 
+Definition of Class I and Class II suppliers in the bid not in line with the extant Order / Office Memorandum
+issued by DPIIT in this regard.
+2
+. 
+Seeking EMD submission from bidder(s), including via Additional Terms & Conditions, in contravention to
+exemption provided to such sellers under GeM GTC.
+3
+. 
+Publishing Custom / BOQ bids for items for which regular GeM categories are available without any
+Category item bunched with it.
+4
+. 
+Creating BoQ bid for single item.
+5
+. 
+Mentioning specific Brand or Make or Model or Manufacturer or Dealer name.
+6
+. 
+Mandating submission of documents in physical form as a pre-requisite to qualify bidders.
+7
+. 
+Floating / creation of work contracts as Custom Bids in Services.
+8
+. 
+Seeking sample with bid or approval of samples during bid evaluation process. (However, in bids for
+attached categories
+, trials are allowed as per approved procurement policy of the buyer nodal Ministries)
+9
+. 
+Mandating foreign / international certifications even in case of existence of Indian Standards without
+specifying equivalent Indian Certification / standards.
+10
+. 
+Seeking experience from specific organization / department / institute only or from foreign / export
+experience.
+11
+. 
+Creating bid for items from irrelevant categories.
+12
+. 
+Incorporating any clause against the MSME policy and Preference to Make in India Policy.
+13
+. 
+Reference of conditions published on any external site or reference to external documents/clauses.
+14
+. 
+Asking for any Tender fee / Bid Participation fee / Auction fee in case of Bids / Forward Auction, as the
+case may be.
+15
+. 
+Buyer added ATC Clauses which are in contravention of clauses defined by buyer in system generated bid
+template as indicated above in the Bid Details section, EMD Detail, ePBG Detail and MII and MSE Purchase
+Preference sections of the bid, unless otherwise allowed by GeM GTC.
+16
+. 
+In a category based bid, adding additional items, through buyer added additional scope of work/ additional
+terms and conditions/or any other document. If buyer needs more items along with the main item, the
+same must be added through bunching category based items or by bunching custom catalogs or
+bunching a BoQ with the main category based item, the same must not be done through ATC or Scope of
+Work.
+Further, if any seller has any objection/grievance against these additional clauses or otherwise on any aspect of
+this bid, they can raise their representation against the same by using the Representation window provided in
+the bid details field in Seller dashboard after logging in as a seller within 4 days of bid publication on GeM. Buyer
+is duty bound to reply to all such representations and would not be allowed to open bids if he fails to reply to
+such representations.
+All GeM Sellers / Service Providers are mandated to ensure compliance with all the applicable laws /
+acts / rules including but not limited to all Labour Laws such as The Minimum Wages Act, 1948, The
+Payment of Wages Act, 1936, The Payment of Bonus Act, 1965, The Equal Remuneration Act, 1976,
+The Payment of Gratuity Act, 1972 etc. Any non-compliance will be treated as breach of contract
+and Buyer may take suitable actions as per GeM Contract.
+यह
+ 
+बड
+ 
+सामाcय
+ 
+शतD
+ 
+के
+ 
+अंतग%त
+ 
+भी
+ 
+शािसत
+ 
+है
+ 
+/This Bid is also governed by the General Terms and Conditions
+जेम
+ 
+क
+ 
+सामाcय
+ 
+शतD
+ 
+के
+ 
+खंड
+ 26 
+के
+ 
+संदभ%
+ 
+म)
+ 
+भारत
+ 
+के
+ 
+साथ
+ 
+भूिम
+ 
+सीमा
+ 
+साझा
+ 
+करने
+ 
+वाले
+ 
+देश
+ 
+के
+ 
+बडर
+ 
+से
+ 
+खरद
+ 
+पर
+ 
+5ितबंध
+ 
+के
+ 
+संबंध
+ 
+म)
+भारत
+ 
+के
+ 
+साथ
+ 
+भूिम
+ 
+सीमा
+ 
+साझा
+ 
+करने
+ 
+वाले
+ 
+देश
+ 
+का
+ 
+कोई
+ 
+भी
+ 
+बडर
+ 
+इस
+ 
+िनवदा
+ 
+म)
+ 
+बड
+ 
+देने
+ 
+के
+ 
+िलए
+ 
+तभी
+ 
+पा 
+ 
+होगा
+ 
+जब
+ 
+वह
+ 
+बड
+ 
+देने
+ 
+वाला
+सZम
+ 
+5ािधकार
+ 
+के
+ 
+पास
+ 
+पंजीकृत
+ 
+हो
+।
+बड
+ 
+म)
+ 
+भाग
+ 
+लेते
+ 
+समय
+ 
+बडर
+ 
+को
+ 
+इसका
+ 
+अनुपालन
+ 
+करना
+ 
+होगा
+ 
+और
+ 
+कोई
+ 
+भी
+ 
+गलत
+ 
+घोषणा
+ 
+;कए
+ 
+जाने
+व
+ 
+इसका
+ 
+अनुपालन
+ 
+न
+ 
+करने
+ 
+पर
+ 
+अनुबंध
+ 
+को
+ 
+तVकाल
+ 
+समाn
+ 
+करने
+ 
+और
+ 
+कानून
+ 
+के
+ 
+अनुसार
+ 
+आगे
+ 
+क
+ 
+कानूनी
+ 
+कार%वाई
+ 
+का
+ 
+आधार
+ 
+होगा
+।
+/In terms
+of GeM GTC clause 26 regarding Restrictions on procurement from a bidder of a country which shares a land border with India, any bidder from a country which shares a
+land border with India will be eligible to bid in this tender only if the bidder is registered with the Competent Authority. While participating in bid, Bidder has to undertake
+compliance of this and any false declaration and non-compliance of this would be a ground for immediate termination of the contract and further legal action in
+accordance with the laws.
+---
+धcयवाद
+धcयवाद
+/Thank You---
+38 / 38

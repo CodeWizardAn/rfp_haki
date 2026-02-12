@@ -1,0 +1,54 @@
+{
+  "rfp_id": "RFP24",
+  "analysis_timestamp": "2026-02-12T21:54:50.615675",
+  "source": {
+    "portal": "BidConnect",
+    "portal_id": "portal_4",
+    "url": "http://localhost:5004/rfp/RFP24",
+    "title": "Procurement of FMCG Supplies - RFP24",
+    "category": "Cables & Wires",
+    "organization": "Municipal Corporation",
+    "deadline": "2026-02-27",
+    "estimated_value": "â‚¹304 Lakhs"
+  },
+  "extraction": {
+    "method": "PDFExtractionManager",
+    "total_pages": 2,
+    "total_words": 3010,
+    "total_chars": 18681,
+    "text_preview": "\n--- PAGE 1 ---\n\u0001बड\n\u0001बड\n \n \n\u0001ववरण\n\u0001ववरण\n/\n/\nBid\n \n \nDetails\n\u0001बड\n\u0001बड\n \n \nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid End Date/Time\n23-12-2025 09:00:00\n\u0001बड\n\u0001बड\n \n \nखुलने\nखुलने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n/\n/\nसमय\nसमय\n \n \n/Bid Opening\nDate/Time\n23-12-2025 09:30:00\n\u0001बड\n\u0001बड\n \n \nपेशकश\nपेशकश\n \n \nवैधता\nवैधता\n (\n (\nबंद\nबंद\n \n \nहोने\nहोने\n \n \nक\u0010\nक\u0010\n \n \nतार\u0013ख\nतार\u0013ख\n \n \nसे\nसे\n)\n)\n/Bid Offer\nValidity (From End Date)\n150 (Days)\nमं ालय\nमं ालय\n/\n/\nरा!य\nरा!य\n \n \nका\nका\n \n \nनाम\nनाम\n/Ministry/S"
+  },
+  "terms_analysis": {
+    "terms_matched": 3,
+    "matched_lines": 75,
+    "total_lines": 1432,
+    "unrecognized_count": 46,
+    "categories_found": [
+      "linked_terms_document",
+      "organization_details",
+      "bid_timing"
+    ]
+  },
+  "key_requirements": [
+    {
+      "field": "Bid End Date",
+      "value": "Thank You---",
+      "category": "bid_timing",
+      "section": null
+    },
+    {
+      "field": "Organisation",
+      "value": "या",
+      "category": "organization_details",
+      "section": null
+    },
+    {
+      "field": "Terms and Conditions",
+      "value": "or any other document. If buyer needs more items along with the main item, the",
+      "category": "linked_terms_document",
+      "section": null
+    }
+  ],
+  "identified_sections": [],
+  "validation": {}
+}

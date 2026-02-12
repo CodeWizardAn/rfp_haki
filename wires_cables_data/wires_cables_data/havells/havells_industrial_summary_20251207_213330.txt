@@ -1,0 +1,15 @@
+======================================================================
+HAVELLS INDUSTRIAL CABLES EXTRACTION SUMMARY
+======================================================================
+
+Total Products: 14
+
+Categories:
+  - HT Power Cable: 4
+  - LT Power Cable: 4
+  - LT Control Cable: 2
+  - Instrumentation Cable: 2
+  - EHV Cable: 2
+
+Extraction Date: 2025-12-07 21:33:30
+Output Directory: d:\FMCG_data\datasheet_scraper\data\wires_cables\pricings_and_details\havells

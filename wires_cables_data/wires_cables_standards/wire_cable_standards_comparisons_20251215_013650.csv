@@ -1,0 +1,9 @@
+indian,international,differences,tender_compatibility,typical_price_range_inr,application
+IS 694,IEC 60227,IS 694 follows similar specifications but with specific Indian conditions. Voltage rating harmonized but testing parameters differ.,Often accepted interchangeably in Indian tenders,₹15-25 per meter (1.5 sq mm),Residential and commercial wiring
+IS 1554,IEC 60227,IS 1554 is more comprehensive covering various cable types. IEC focuses on PVC insulation specifically.,IS 1554 preferred in Indian government tenders,₹18-30 per meter (2.5 sq mm),Power distribution and lighting
+IS 7098,BS 6004,Similar voltage ratings but IS 7098 includes tropical conditions testing. BS 6004 is UK-specific.,IS 7098 mandatory for BIS certification,₹20-35 per meter (2.5 sq mm),Industrial and commercial installations
+IS 9968,IEC 60502,XLPE insulation standards. IS 9968 includes additional tropical climate tests. IEC is global standard.,Both accepted in international tenders,₹45-75 per meter (16 sq mm),Medium voltage power distribution
+IS 10810,IEC 60332,IS 10810 specifically for FRLS cables with Indian fire safety norms. IEC 60332 focuses on fire propagation tests.,IS 10810 mandatory for high-rise buildings in India,₹35-55 per meter (2.5 sq mm),"High-rise buildings, hospitals, malls"
+IS 5831,BS 7846,Armoured cable standards. IS 5831 includes specific Indian installation conditions. BS 7846 for UK market.,IS 5831 required for underground installations in India,₹85-150 per meter (25 sq mm),Underground and outdoor installations
+IS 8130,IEC 60502,Both cover XLPE cables up to 33kV. IS 8130 includes monsoon and high-temperature testing.,IS 8130 preferred by state electricity boards,"₹450-850 per meter (95 sq mm, 11kV)",Power transmission and distribution
+IS 13573,IEC 60502-4,Crosslinked polyethylene standards. IS 13573 adapted for Indian voltage systems and climate.,Both accepted in utility projects,₹120-220 per meter (50 sq mm),Industrial power distribution

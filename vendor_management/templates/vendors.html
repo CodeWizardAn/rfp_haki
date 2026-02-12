@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📦 Vendor Management System</h1>
+            <ul class="nav-links">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/vendors" class="active">Vendors</a></li>
+                <li><a href="/performance">Performance</a></li>
+                <li><a href="/ratings">Ratings</a></li>
+                <li><a href="/communications">Communications</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="vendors-section">
+            <h2>Vendor Management</h2>
+            
+            <div class="toolbar">
+                <input type="text" id="searchInput" placeholder="Search vendors..." class="search-box">
+                <button class="btn btn-success" onclick="showAddVendorForm()">+ Add Vendor</button>
+                <select id="statusFilter" class="filter-select" onchange="loadVendors()">
+                    <option value="">All Status</option>
+                    <option value="ACTIVE">Active</option>
+                    <option value="INACTIVE">Inactive</option>
+                    <option value="SUSPENDED">Suspended</option>
+                </select>
+            </div>
+
+            <div class="modal" id="addVendorModal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeAddVendorForm()">&times;</span>
+                    <h3>Add New Vendor</h3>
+                    <form id="vendorForm" onsubmit="submitVendor(event)">
+                        <input type="text" placeholder="Vendor ID" id="vendorId" required>
+                        <input type="text" placeholder="Company Name" id="vendorName" required>
+                        <input type="email" placeholder="Email" id="vendorEmail" required>
+                        <input type="text" placeholder="Phone" id="vendorPhone">
+                        <input type="text" placeholder="GST Number" id="vendorGST">
+                        <input type="text" placeholder="City" id="vendorCity">
+                        <button type="submit" class="btn btn-primary">Create Vendor</button>
+                    </form>
+                </div>
+            </div>
+
+            <table class="vendors-table">
+                <thead>
+                    <tr>
+                        <th>Vendor ID</th>
+                        <th>Company Name</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="vendorsTableBody">
+                    <tr><td colspan="6" style="text-align: center;">Loading vendors...</td></tr>
+                </tbody>
+            </table>
+
+            <div id="vendorsList" class="vendors-grid"></div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        let allVendors = [];
+
+        async function loadVendors() {
+            const status = document.getElementById('statusFilter').value;
+            const url = `/api/vendors${status ? '?status=' + status : ''}`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.success) {
+                    allVendors = data.vendors;
+                    displayVendors(allVendors);
+                }
+            } catch (error) {
+                console.error('Error loading vendors:', error);
+            }
+        }
+
+        function displayVendors(vendors) {
+            const tbody = document.getElementById('vendorsTableBody');
+            
+            if (!vendors || vendors.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No vendors found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = vendors.map(vendor => `
+                <tr>
+                    <td><strong>${vendor.vendor_id}</strong></td>
+                    <td>${vendor.name}</td>
+                    <td>${vendor.email || 'N/A'}</td>
+                    <td>${vendor.city || 'N/A'}</td>
+                    <td><span class="badge badge-${vendor.status.toLowerCase()}">${vendor.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm" onclick="viewVendor('${vendor.vendor_id}')">View</button>
+                        <button class="btn btn-sm" onclick="editVendor('${vendor.vendor_id}')">Edit</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteVendor('${vendor.vendor_id}')">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function showAddVendorForm() {
+            document.getElementById('addVendorModal').style.display = 'block';
+        }
+
+        function closeAddVendorForm() {
+            document.getElementById('addVendorModal').style.display = 'none';
+        }
+
+        async function submitVendor(event) {
+            event.preventDefault();
+            
+            const vendorData = {
+                vendor_id: document.getElementById('vendorId').value,
+                name: document.getElementById('vendorName').value,
+                email: document.getElementById('vendorEmail').value,
+                phone: document.getElementById('vendorPhone').value,
+                gst_number: document.getElementById('vendorGST').value,
+                city: document.getElementById('vendorCity').value
+            };
+
+            try {
+                const response = await fetch('/api/vendors', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(vendorData)
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Vendor created successfully!');
+                    closeAddVendorForm();
+                    document.getElementById('vendorForm').reset();
+                    loadVendors();
+                } else {
+                    alert('Error: ' + (data.error || 'Failed to create vendor'));
+                }
+            } catch (error) {
+                console.error('Error creating vendor:', error);
+                alert('Error creating vendor');
+            }
+        }
+
+        function viewVendor(vendorId) {
+            window.location.href = `/vendors/${vendorId}`;
+        }
+
+        function editVendor(vendorId) {
+            alert('Edit functionality for: ' + vendorId);
+        }
+
+        async function deleteVendor(vendorId) {
+            if (confirm('Are you sure you want to delete this vendor?')) {
+                try {
+                    const response = await fetch(`/api/vendors/${vendorId}`, {
+                        method: 'DELETE'
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        alert('Vendor deleted successfully!');
+                        loadVendors();
+                    } else {
+                        alert('Error: ' + (data.error || 'Failed to delete vendor'));
+                    }
+                } catch (error) {
+                    console.error('Error deleting vendor:', error);
+                }
+            }
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filtered = allVendors.filter(v => 
+                v.name.toLowerCase().includes(searchTerm) ||
+                v.vendor_id.toLowerCase().includes(searchTerm) ||
+                (v.email && v.email.toLowerCase().includes(searchTerm))
+            );
+            displayVendors(filtered);
+        });
+
+        // Load vendors on page load
+        loadVendors();
+    </script>
+</body>
+</html>

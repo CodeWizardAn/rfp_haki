@@ -1,0 +1,8 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Conversation history storage for multi-agent system",
+    "last_updated": "2026-02-01"
+  },
+  "conversations": []
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📦 Vendor Management System</h1>
+            <ul class="nav-links">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/vendors">Vendors</a></li>
+                <li><a href="/performance">Performance</a></li>
+                <li><a href="/ratings">Ratings</a></li>
+                <li><a href="/communications">Communications</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="vendor-detail">
+            <button class="btn" onclick="history.back()">← Back</button>
+            
+            <div class="detail-grid">
+                <div class="vendor-info">
+                    <h2 id="vendorName">Loading...</h2>
+                    <div class="info-group">
+                        <label>Vendor ID:</label>
+                        <p id="vendorId">-</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Email:</label>
+                        <p id="vendorEmail">-</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Phone:</label>
+                        <p id="vendorPhone">-</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Address:</label>
+                        <p id="vendorAddress">-</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Status:</label>
+                        <p id="vendorStatus">-</p>
+                    </div>
+                </div>
+
+                <div class="vendor-stats">
+                    <h3>Performance Metrics</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <label>Overall Score</label>
+                            <p class="metric-value" id="overallScore">-</p>
+                        </div>
+                        <div class="metric-card">
+                            <label>Delivery Score</label>
+                            <p class="metric-value" id="deliveryScore">-</p>
+                        </div>
+                        <div class="metric-card">
+                            <label>Quality Score</label>
+                            <p class="metric-value" id="qualityScore">-</p>
+                        </div>
+                        <div class="metric-card">
+                            <label>Response Score</label>
+                            <p class="metric-value" id="responseScore">-</p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 20px;">Badges</h3>
+                    <div id="badgesList" class="badges-container">
+                        <p>No badges</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Rating History</h3>
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Overall Rating</th>
+                            <th>Delivery</th>
+                            <th>Quality</th>
+                            <th>Response</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ratingHistory">
+                        <tr><td colspan="5">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h3>Communication History</h3>
+                <div id="communicationHistory" class="history-list">
+                    <p>Loading...</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Send Message</h3>
+                <form id="messageForm" onsubmit="sendMessage(event)">
+                    <select id="messageType" required>
+                        <option value="">Select Message Type</option>
+                        <option value="INQUIRY">Inquiry</option>
+                        <option value="QUOTATION_REQUEST">Quotation Request</option>
+                        <option value="COMPLAINT">Complaint</option>
+                        <option value="PERFORMANCE_REVIEW">Performance Review</option>
+                    </select>
+                    <input type="email" id="recipientEmail" placeholder="Recipient Email" required>
+                    <input type="text" id="messageSubject" placeholder="Subject" required>
+                    <textarea id="messageBody" placeholder="Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const vendorId = '{{ vendor_id }}';
+
+        async function loadVendorDetails() {
+            try {
+                const response = await fetch(`/api/vendors/${vendorId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const vendor = data.vendor;
+                    
+                    // Display vendor info
+                    document.getElementById('vendorName').textContent = vendor.name;
+                    document.getElementById('vendorId').textContent = vendor.vendor_id;
+                    document.getElementById('vendorEmail').textContent = vendor.email || 'N/A';
+                    document.getElementById('vendorPhone').textContent = vendor.phone || 'N/A';
+                    document.getElementById('vendorAddress').textContent = (vendor.address || 'N/A') + ', ' + (vendor.city || '');
+                    document.getElementById('vendorStatus').textContent = vendor.status;
+
+                    // Display performance
+                    if (vendor.performance) {
+                        document.getElementById('overallScore').textContent = vendor.performance.overall_score + '/100';
+                        document.getElementById('deliveryScore').textContent = vendor.performance.delivery_score + '/100';
+                        document.getElementById('qualityScore').textContent = vendor.performance.quality_score + '/100';
+                        document.getElementById('responseScore').textContent = vendor.performance.response_score + '/100';
+                    }
+
+                    // Display badges
+                    if (vendor.badges && vendor.badges.length > 0) {
+                        document.getElementById('badgesList').innerHTML = vendor.badges
+                            .map(b => `<span class="badge">${b.badge_name}</span>`)
+                            .join('');
+                    }
+
+                    loadRatingHistory();
+                    loadCommunicationHistory();
+                }
+            } catch (error) {
+                console.error('Error loading vendor details:', error);
+            }
+        }
+
+        async function loadRatingHistory() {
+            try {
+                const response = await fetch(`/api/ratings/${vendorId}`);
+                const data = await response.json();
+
+                if (data.success && data.history) {
+                    const tbody = document.getElementById('ratingHistory');
+                    tbody.innerHTML = data.history.map(r => `
+                        <tr>
+                            <td>${new Date(r.rating_date).toLocaleDateString()}</td>
+                            <td>${r.overall_rating}</td>
+                            <td>${r.delivery_score}</td>
+                            <td>${r.quality_score}</td>
+                            <td>${r.response_score}</td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading rating history:', error);
+            }
+        }
+
+        async function loadCommunicationHistory() {
+            try {
+                const response = await fetch(`/api/communications/${vendorId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const div = document.getElementById('communicationHistory');
+                    if (data.messages && data.messages.length > 0) {
+                        div.innerHTML = data.messages.map(m => `
+                            <div class="message-item">
+                                <strong>${m.message_type}</strong> - ${m.subject}
+                                <p>${new Date(m.sent_date).toLocaleString()}</p>
+                                <p>${m.body.substring(0, 100)}...</p>
+                                <p class="status badge-${m.status.toLowerCase()}">${m.status}</p>
+                            </div>
+                        `).join('');
+                    } else {
+                        div.innerHTML = '<p>No communications yet</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading communication history:', error);
+            }
+        }
+
+        async function sendMessage(event) {
+            event.preventDefault();
+
+            const messageData = {
+                message_type: document.getElementById('messageType').value,
+                recipient: document.getElementById('recipientEmail').value,
+                sender: 'buyer@company.com',
+                subject: document.getElementById('messageSubject').value,
+                body: document.getElementById('messageBody').value
+            };
+
+            try {
+                const response = await fetch(`/api/communications/${vendorId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(messageData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Message sent successfully!');
+                    document.getElementById('messageForm').reset();
+                    loadCommunicationHistory();
+                } else {
+                    alert('Error: ' + (data.error || 'Failed to send message'));
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+                alert('Error sending message');
+            }
+        }
+
+        loadVendorDetails();
+    </script>
+</body>
+</html>

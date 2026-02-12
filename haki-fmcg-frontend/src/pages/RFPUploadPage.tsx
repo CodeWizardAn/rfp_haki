@@ -1,0 +1,370 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useDropzone } from 'react-dropzone';
+import {
+  UploadCloud, FileText, CheckCircle2, Globe, Wifi, RefreshCw,
+  Download, AlertTriangle, ArrowRight, Search,
+} from 'lucide-react';
+import { Button, Card, CardHeader, CardTitle, Input, Select, TextArea, Badge } from '@/components/ui';
+import { formatCompactCurrency } from '@/utils/formatters';
+
+/* ───── Portal definitions ───── */
+const PORTALS = [
+  { id: 'portal_1', name: 'GovProcure India', port: 5001, icon: '🏛️', color: 'cyan', rfpCount: 3 },
+  { id: 'portal_2', name: 'TenderConnect', port: 5002, icon: '🔗', color: 'emerald', rfpCount: 3 },
+  { id: 'portal_3', name: 'eProcure Hub', port: 5003, icon: '📦', color: 'amber', rfpCount: 3 },
+  { id: 'portal_4', name: 'BidMarket Pro', port: 5004, icon: '📊', color: 'violet', rfpCount: 3 },
+  { id: 'portal_5', name: 'PublicBids Online', port: 5005, icon: '🌐', color: 'coral', rfpCount: 3 },
+];
+
+/* ───── Pipeline stages ───── */
+const PIPELINE_STAGES = [
+  { label: 'Scrape Portals', desc: 'Extract RFP listings from all portals' },
+  { label: 'Download PDFs', desc: 'Download RFP documents to local storage' },
+  { label: 'Extract Text', desc: 'Parse PDF content using pdfplumber' },
+  { label: 'Term Matching', desc: 'Match against 7.7M+ procurement terms' },
+  { label: 'Analyze & Report', desc: 'Generate per-RFP analysis reports' },
+];
+
+export default function RFPUploadPage() {
+  const [files, setFiles] = useState<File[]>([]);
+  const [processImmediately, setProcessImmediately] = useState(true);
+  const [activeMode, setActiveMode] = useState<'portals' | 'upload'>('portals');
+  const [portalStatuses, setPortalStatuses] = useState<Record<string, 'idle' | 'scraping' | 'done' | 'error'>>({});
+  const [pipelineStage, setPipelineStage] = useState(-1);
+  const [scrapeResults, setScrapeResults] = useState<{ total: number; success: number; failed: number } | null>(null);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: (accepted) => setFiles(accepted),
+    accept: {
+      'application/pdf': ['.pdf'],
+      'application/msword': ['.doc'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
+    },
+  });
+
+  const handleScrapePortal = (portalId: string) => {
+    setPortalStatuses((prev) => ({ ...prev, [portalId]: 'scraping' }));
+    setTimeout(() => {
+      setPortalStatuses((prev) => ({ ...prev, [portalId]: 'done' }));
+    }, 2000);
+  };
+
+  const handleScrapeAll = () => {
+    setPipelineStage(0);
+    PORTALS.forEach((p) => handleScrapePortal(p.id));
+    // Simulate pipeline stages
+    let stage = 0;
+    const interval = setInterval(() => {
+      stage++;
+      setPipelineStage(stage);
+      if (stage >= PIPELINE_STAGES.length) {
+        clearInterval(interval);
+        setScrapeResults({ total: 15, success: 15, failed: 0 });
+      }
+    }, 1500);
+  };
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+      <div className="flex items-center gap-3">
+        <Globe size={28} className="text-electric-cyan" />
+        <div>
+          <h1 className="text-h1 text-ghost-white">Acquire RFPs</h1>
+          <p className="text-body text-muted-silver">Scrape from e-procurement portals or upload manually</p>
+        </div>
+      </div>
+
+      {/* Mode Tabs */}
+      <div className="flex gap-2">
+        <button
+          onClick={() => setActiveMode('portals')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+            activeMode === 'portals'
+              ? 'bg-electric-cyan/15 text-electric-cyan border border-electric-cyan/40'
+              : 'bg-steel-slate/20 text-muted-silver hover:text-ghost-white border border-transparent'
+          }`}
+        >
+          <Wifi size={16} /> Scrape from Portals
+        </button>
+        <button
+          onClick={() => setActiveMode('upload')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+            activeMode === 'upload'
+              ? 'bg-electric-cyan/15 text-electric-cyan border border-electric-cyan/40'
+              : 'bg-steel-slate/20 text-muted-silver hover:text-ghost-white border border-transparent'
+          }`}
+        >
+          <UploadCloud size={16} /> Manual Upload
+        </button>
+      </div>
+
+      <AnimatePresence mode="wait">
+        {/* ── Portal Scraping Mode ── */}
+        {activeMode === 'portals' && (
+          <motion.div
+            key="portals"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            className="space-y-6"
+          >
+            {/* Portal Grid */}
+            <Card variant="glass" className="p-6">
+              <CardHeader>
+                <CardTitle>E-Procurement Portals</CardTitle>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  leftIcon={pipelineStage >= 0 && pipelineStage < PIPELINE_STAGES.length
+                    ? <RefreshCw size={14} className="animate-spin" />
+                    : <Search size={14} />
+                  }
+                  onClick={handleScrapeAll}
+                  disabled={pipelineStage >= 0 && pipelineStage < PIPELINE_STAGES.length}
+                >
+                  {pipelineStage >= 0 && pipelineStage < PIPELINE_STAGES.length ? 'Processing...' : 'Scrape All Portals'}
+                </Button>
+              </CardHeader>
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                {PORTALS.map((portal) => {
+                  const st = portalStatuses[portal.id] || 'idle';
+                  return (
+                    <div
+                      key={portal.id}
+                      className={`relative p-4 rounded-xl border transition-all ${
+                        st === 'done'
+                          ? 'border-neon-emerald/30 bg-neon-emerald/5'
+                          : st === 'scraping'
+                            ? 'border-electric-cyan/30 bg-electric-cyan/5'
+                            : st === 'error'
+                              ? 'border-coral-flame/30 bg-coral-flame/5'
+                              : 'border-steel-slate/20 bg-steel-slate/5 hover:border-steel-slate/40'
+                      }`}
+                    >
+                      <div className="text-center">
+                        <span className="text-2xl block mb-2">{portal.icon}</span>
+                        <p className="text-sm font-medium text-ghost-white">{portal.name}</p>
+                        <p className="text-xs text-muted-silver mt-0.5">Port {portal.port}</p>
+                        <Badge variant="soft" color={portal.color as any} size="sm" className="mt-2">
+                          {portal.rfpCount} RFPs available
+                        </Badge>
+                      </div>
+                      <div className="mt-3 flex items-center justify-center gap-2">
+                        {st === 'idle' && (
+                          <Button variant="ghost" size="xs" onClick={() => handleScrapePortal(portal.id)}>
+                            Scrape
+                          </Button>
+                        )}
+                        {st === 'scraping' && (
+                          <div className="flex items-center gap-1.5 text-electric-cyan">
+                            <RefreshCw size={12} className="animate-spin" />
+                            <span className="text-xs">Scraping...</span>
+                          </div>
+                        )}
+                        {st === 'done' && (
+                          <div className="flex items-center gap-1.5 text-neon-emerald">
+                            <CheckCircle2 size={12} />
+                            <span className="text-xs">{portal.rfpCount} scraped</span>
+                          </div>
+                        )}
+                        {st === 'error' && (
+                          <div className="flex items-center gap-1.5 text-coral-flame">
+                            <AlertTriangle size={12} />
+                            <span className="text-xs">Failed</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+
+            {/* Processing Pipeline */}
+            {pipelineStage >= 0 && (
+              <Card variant="glass" className="p-6">
+                <CardHeader>
+                  <CardTitle>Processing Pipeline</CardTitle>
+                  <span className="text-xs text-muted-silver">
+                    Stage {Math.min(pipelineStage + 1, PIPELINE_STAGES.length)}/{PIPELINE_STAGES.length}
+                  </span>
+                </CardHeader>
+                <div className="space-y-3">
+                  {PIPELINE_STAGES.map((stage, i) => {
+                    const completed = i < pipelineStage;
+                    const current = i === pipelineStage;
+                    return (
+                      <div key={stage.label} className="flex items-center gap-4">
+                        <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
+                          completed
+                            ? 'bg-neon-emerald/20 text-neon-emerald'
+                            : current
+                              ? 'bg-electric-cyan/20 text-electric-cyan ring-2 ring-electric-cyan/40 animate-pulse'
+                              : 'bg-steel-slate/20 text-muted-silver/60'
+                        }`}>
+                          {completed ? <CheckCircle2 size={14} /> : i + 1}
+                        </span>
+                        <div className="flex-1">
+                          <p className={`text-sm font-medium ${
+                            completed ? 'text-neon-emerald' : current ? 'text-electric-cyan' : 'text-muted-silver/60'
+                          }`}>{stage.label}</p>
+                          <p className="text-xs text-muted-silver/50">{stage.desc}</p>
+                        </div>
+                        {completed && <CheckCircle2 size={14} className="text-neon-emerald/70" />}
+                        {current && <RefreshCw size={14} className="text-electric-cyan animate-spin" />}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="mt-4 pt-3 border-t border-steel-slate/20">
+                  <div className="w-full h-2 rounded-full bg-steel-slate/30">
+                    <motion.div
+                      className="h-full rounded-full bg-gradient-to-r from-electric-cyan to-neon-emerald"
+                      initial={{ width: '0%' }}
+                      animate={{ width: `${(Math.min(pipelineStage + 1, PIPELINE_STAGES.length) / PIPELINE_STAGES.length) * 100}%` }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </div>
+                </div>
+              </Card>
+            )}
+
+            {/* Scrape Results */}
+            <AnimatePresence>
+              {scrapeResults && (
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <Card variant="glass" className="p-6 border border-neon-emerald/20">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <CheckCircle2 size={24} className="text-neon-emerald" />
+                        <div>
+                          <p className="text-lg font-bold text-ghost-white">Pipeline Complete</p>
+                          <p className="text-sm text-muted-silver">
+                            {scrapeResults.success}/{scrapeResults.total} RFPs successfully scraped and analyzed
+                            {scrapeResults.failed > 0 && ` · ${scrapeResults.failed} failed`}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="secondary" size="sm" leftIcon={<Download size={14} />}>
+                          Download Reports
+                        </Button>
+                        <Button variant="primary" size="sm" leftIcon={<ArrowRight size={14} />}>
+                          View RFPs
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-steel-slate/20">
+                      <div className="text-center p-3 rounded-lg bg-neon-emerald/5">
+                        <p className="text-2xl font-bold text-neon-emerald">{scrapeResults.success}</p>
+                        <p className="text-xs text-muted-silver">Successful</p>
+                      </div>
+                      <div className="text-center p-3 rounded-lg bg-electric-cyan/5">
+                        <p className="text-2xl font-bold text-electric-cyan">5</p>
+                        <p className="text-xs text-muted-silver">Portals Scraped</p>
+                      </div>
+                      <div className="text-center p-3 rounded-lg bg-coral-flame/5">
+                        <p className="text-2xl font-bold text-coral-flame">{scrapeResults.failed}</p>
+                        <p className="text-xs text-muted-silver">Failures</p>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+
+        {/* ── Manual Upload Mode ── */}
+        {activeMode === 'upload' && (
+          <motion.div
+            key="upload"
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            className="space-y-6"
+          >
+            {/* Drag & Drop Zone */}
+            <Card variant="glass" className="p-6">
+              <div
+                {...getRootProps()}
+                className={`border-2 border-dashed rounded-2xl p-8 text-center transition-all cursor-pointer ${
+                  isDragActive ? 'border-electric-cyan/60 bg-electric-cyan/10' : 'border-steel-slate/40'
+                }`}
+              >
+                <input {...getInputProps()} />
+                <UploadCloud size={36} className="text-electric-cyan mx-auto mb-3" />
+                <p className="text-body-lg text-ghost-white">Drag & drop RFP documents here</p>
+                <p className="text-body text-muted-silver mt-1">PDF, DOC, DOCX, XLSX supported</p>
+                <Button variant="secondary" size="sm" className="mt-4">
+                  Browse Files
+                </Button>
+              </div>
+
+              {files.length > 0 && (
+                <div className="mt-6 space-y-3">
+                  <p className="text-sm text-muted-silver">Uploaded Files</p>
+                  {files.map((file) => (
+                    <div key={file.name} className="flex items-center justify-between p-3 rounded-lg bg-steel-slate/20">
+                      <div className="flex items-center gap-3">
+                        <FileText size={18} className="text-electric-cyan" />
+                        <div>
+                          <p className="text-sm text-ghost-white">{file.name}</p>
+                          <p className="text-xs text-muted-silver">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                        </div>
+                      </div>
+                      <CheckCircle2 size={16} className="text-neon-emerald" />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Card>
+
+            {/* Metadata Form */}
+            <Card variant="glass" className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input label="Title" placeholder="RFP Title" />
+                <Select
+                  label="Priority"
+                  placeholder="Select priority"
+                  options={[
+                    { value: 'critical', label: 'Critical' },
+                    { value: 'high', label: 'High' },
+                    { value: 'medium', label: 'Medium' },
+                    { value: 'low', label: 'Low' },
+                  ]}
+                />
+                <Input label="Deadline" type="date" />
+                <Input label="Budget (₹)" placeholder={formatCompactCurrency(25000000)} />
+              </div>
+
+              <div className="mt-4">
+                <TextArea label="Tags" placeholder="Enter tags (comma-separated)" />
+              </div>
+
+              <div className="mt-4 flex items-center gap-2">
+                <input
+                  id="processNow"
+                  type="checkbox"
+                  checked={processImmediately}
+                  onChange={(e) => setProcessImmediately(e.target.checked)}
+                  className="w-4 h-4 rounded border-steel-slate/60 bg-deep-navy text-electric-cyan"
+                />
+                <label htmlFor="processNow" className="text-sm text-muted-silver">
+                  Process immediately after upload
+                </label>
+              </div>
+
+              <div className="mt-6 flex items-center justify-end gap-3">
+                <Button variant="secondary">Save Draft</Button>
+                <Button variant="primary">Upload & Process</Button>
+              </div>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
