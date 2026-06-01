@@ -93,12 +93,17 @@ _spec_matcher = None
 _spec_calculator = None
 SPEC_COMPARER_AVAILABLE = False
 
+# Persistent catalog store (loaded after logger is defined — see below)
+CATALOG_STORE_AVAILABLE = False
+
+# In-memory staging for import-preview (extraction_id → detected products)
+_import_staging: dict[str, dict] = {}
+
 # In-memory store for background linked-doc downloads (analysis_id → result)
 _linked_docs_store: dict[str, dict] = {}
 
-# In-memory store for saved analyses (analysis_id → full result)
-_saved_analyses: dict[str, dict] = {}
-_saved_analysis_counter = 0
+# Persistent analysis history store (replaces in-memory dict)
+ANALYSIS_STORE_AVAILABLE = False
 
 try:
     import pandas as pd
@@ -146,6 +151,49 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
+
+# Persistent user/imported product catalog store
+try:
+    from database.catalog_store import (
+        load_user_products as _load_persisted_products,
+        add_product as _persist_product,
+        add_products_bulk as _persist_products_bulk,
+        delete_product as _delete_persisted_product,
+        sync_to_dataframe as _sync_catalog_to_df,
+        get_count as _persisted_product_count,
+        get_import_history as _get_import_history,
+    )
+    CATALOG_STORE_AVAILABLE = True
+    logger.info("✅ Persistent catalog store available")
+except ImportError as _cse:
+    CATALOG_STORE_AVAILABLE = False
+
+# Persistent analysis history store
+try:
+    from database.analysis_store import (
+        save_analysis as _persist_analysis,
+        list_analyses as _list_analyses,
+        get_analysis as _get_analysis,
+        delete_analysis as _delete_analysis,
+    )
+    ANALYSIS_STORE_AVAILABLE = True
+    logger.info("✅ Persistent analysis store available")
+except ImportError as _ase:
+    ANALYSIS_STORE_AVAILABLE = False
+    logger.warning(f"⚠️ Analysis store unavailable: {_ase}")
+    logger.warning(f"Catalog store not available: {_cse}")
+
+# Win/Loss Analytics Integration
+try:
+    from analytics.win_loss_analytics import WinLossAnalytics
+    from database.db_engine import get_db_manager
+    WIN_LOSS_ANALYTICS_AVAILABLE = True
+    logger.info("✅ Win/Loss analytics available")
+except ImportError as _wla_err:
+    WIN_LOSS_ANALYTICS_AVAILABLE = False
+    logger.warning(f"⚠️ Win/Loss analytics unavailable: {_wla_err}")
+
+# Auto-reload trigger: updated 2026-05-12 00:15 (added bid outcome recording endpoints)
 
 
 # =============================================================================
@@ -2704,40 +2752,50 @@ async def api_download_bid_pdf(bid_id: str, current_user: TokenData = Depends(ge
 @app.post("/api/v1/saved-analyses", tags=["Saved Analyses"])
 async def api_save_analysis(body: dict, current_user: TokenData = Depends(get_current_user)):
     """Save an analysis result for later use in bid generation."""
-    global _saved_analysis_counter
-    _saved_analysis_counter += 1
-
     analysis_result = body.get("analysis_result", {})
-    analysis_id = analysis_result.get("analysis_id") or f"SA-{_saved_analysis_counter:04d}"
     file_name = body.get("file_name") or analysis_result.get("filename", "Unknown")
 
-    record = {
-        "id": analysis_id,
-        "file_name": file_name,
-        "analysis_result": analysis_result,
-        "total_requirements": analysis_result.get("total_requirements", 0),
-        "matched": len([c for c in analysis_result.get("comparisons", []) if c.get("match_count", 0) > 0]),
-        "detected_application": analysis_result.get("detected_application", ""),
-        "rfp_title": (analysis_result.get("rfp_summary") or {}).get("boq_title", "") or file_name,
-        "organization": (analysis_result.get("rfp_summary") or {}).get("organization", ""),
-        "saved_at": datetime.now().isoformat(),
-        "saved_by": current_user.username,
-    }
-    _saved_analyses[analysis_id] = record
+    if ANALYSIS_STORE_AVAILABLE:
+        record = _persist_analysis(
+            analysis_result=analysis_result,
+            file_name=file_name,
+            saved_by=current_user.username,
+            source="manual",
+        )
+    else:
+        analysis_id = analysis_result.get("analysis_id") or f"SA-{uuid.uuid4().hex[:8].upper()}"
+        record = {
+            "id": analysis_id,
+            "file_name": file_name,
+            "analysis_result": analysis_result,
+            "total_requirements": analysis_result.get("total_requirements", 0),
+            "matched": len([c for c in analysis_result.get("comparisons", []) if c.get("match_count", 0) > 0]),
+            "detected_application": analysis_result.get("detected_application", ""),
+            "rfp_title": (analysis_result.get("rfp_summary") or {}).get("boq_title", "") or file_name,
+            "organization": (analysis_result.get("rfp_summary") or {}).get("organization", ""),
+            "saved_at": datetime.now().isoformat(),
+            "saved_by": current_user.username,
+        }
     return ResponseFormatter.success(data=record, message="Analysis saved")
 
 
 @app.get("/api/v1/saved-analyses", tags=["Saved Analyses"])
 async def api_list_saved_analyses(current_user: TokenData = Depends(get_current_user)):
-    """List all saved analyses (most recent first)."""
-    items = sorted(_saved_analyses.values(), key=lambda x: x.get("saved_at", ""), reverse=True)
+    """List all saved analyses (most recent first). Summaries only."""
+    if ANALYSIS_STORE_AVAILABLE:
+        items = _list_analyses(include_result=False)
+    else:
+        items = sorted([], key=lambda x: x.get("saved_at", ""), reverse=True)
     return ResponseFormatter.success(data=items)
 
 
 @app.get("/api/v1/saved-analyses/{analysis_id}", tags=["Saved Analyses"])
 async def api_get_saved_analysis(analysis_id: str, current_user: TokenData = Depends(get_current_user)):
-    """Get a specific saved analysis by ID."""
-    record = _saved_analyses.get(analysis_id)
+    """Get a specific saved analysis by ID (includes full analysis_result)."""
+    if ANALYSIS_STORE_AVAILABLE:
+        record = _get_analysis(analysis_id)
+    else:
+        record = None
     if not record:
         raise HTTPException(status_code=404, detail="Saved analysis not found")
     return ResponseFormatter.success(data=record)
@@ -2746,9 +2804,12 @@ async def api_get_saved_analysis(analysis_id: str, current_user: TokenData = Dep
 @app.delete("/api/v1/saved-analyses/{analysis_id}", tags=["Saved Analyses"])
 async def api_delete_saved_analysis(analysis_id: str, current_user: TokenData = Depends(get_current_user)):
     """Delete a saved analysis."""
-    if analysis_id not in _saved_analyses:
+    if ANALYSIS_STORE_AVAILABLE:
+        deleted = _delete_analysis(analysis_id)
+        if not deleted:
+            raise HTTPException(status_code=404, detail="Saved analysis not found")
+    else:
         raise HTTPException(status_code=404, detail="Saved analysis not found")
-    del _saved_analyses[analysis_id]
     return ResponseFormatter.success(message="Deleted")
 
 
@@ -2788,9 +2849,10 @@ async def api_portal_rfps(current_user: TokenData = Depends(get_current_user)):
             data = json.load(f)
         rfps = data.get("rfps", [])
         # Enrich with saved-analysis status
+        _existing_ids = {a["id"] for a in (_list_analyses() if ANALYSIS_STORE_AVAILABLE else [])}
         for r in rfps:
             aid = r.get("rfp_id")
-            if aid and aid in _saved_analyses:
+            if aid and aid in _existing_ids:
                 r["analysis_saved"] = True
                 r["saved_analysis_id"] = aid
             else:
@@ -3166,8 +3228,15 @@ async def list_products(
 #       wildcard route, otherwise FastAPI will match "catalog" as a sku value.
 # =============================================================================
 
-# In-memory store for user-added products
+# In-memory store for user-added products — seeded from persistent store
 _user_added_products: List[Dict[str, Any]] = []
+if CATALOG_STORE_AVAILABLE:
+    try:
+        _user_added_products = _load_persisted_products()
+        if _user_added_products:
+            logger.info(f"Loaded {len(_user_added_products)} persisted user/imported products from catalog store")
+    except Exception as _lpe:
+        logger.warning(f"Could not load persisted products: {_lpe}")
 
 @app.get("/api/v1/products/catalog", tags=["Products"])
 async def list_catalog_products(
@@ -3202,6 +3271,7 @@ async def list_catalog_products(
     cat_col = _col(df, 'Product_Category', 'Category', 'category', 'Type')
     code_col = _col(df, 'Product_Code', 'product_code', 'SKU', 'sku')
     price_col = _col(df, 'Price_Per_Meter_INR', 'Calculated_Price_Per_Meter', 'price')
+    price_100m_col = _col(df, 'Price_Per_100m_INR')
     src_col = _col(df, 'Source', 'source')
     voltage_col = _col(df, 'Voltage_Rating', 'voltage_rating', 'Voltage')
     size_col = _col(df, 'Conductor_Size_sqmm', 'conductor_size', 'Size')
@@ -3223,6 +3293,8 @@ async def list_catalog_products(
             df = df[df[src_col] == 'Moglix Marketplace']
         elif source == 'user':
             df = df[df[src_col] == 'User Added']
+        elif source == 'imported':
+            df = df[df[src_col] == 'PDF Import']
     if search:
         q = search.lower()
         mask = pd.Series([False] * len(df), index=df.index)
@@ -3245,14 +3317,50 @@ async def list_catalog_products(
             return None
         return v
 
+    import re as _re
+    _coil_len_re = _re.compile(r'Length:\s*(\d+)\s*m', _re.IGNORECASE)
+    _calc_col = _col(df, 'Calculated_Price_Per_Meter')
+
+    def _price_unit_for_row(row):
+        """Detect whether the listed price is per-meter or per N-metre coil.
+        Priority:
+          1. Product name contains 'Length: N m'  → 'Nm'  (e.g. '90m', '100m')
+          2. Price_Per_Meter_INR ÷ Calculated_Price_Per_Meter ≈ N (85–115 → 100m, 80–95 → 90m, 170–195 → 180m)
+          3. Default → 'm'
+        """
+        name_val = str(row.get(name_col) or '')
+        m = _coil_len_re.search(name_val)
+        if m:
+            return f"{m.group(1)}m"
+        if _calc_col:
+            try:
+                ppm = float(row.get(price_col) or 0)
+                calc = float(row.get(_calc_col) or 0)
+                if calc > 0 and ppm > 0:
+                    ratio = ppm / calc
+                    if 85 <= ratio <= 115:
+                        return '100m'
+                    if 170 <= ratio <= 195:
+                        return '180m'
+                    if 80 <= ratio <= 95:
+                        return '90m'
+            except (TypeError, ValueError):
+                pass
+        return 'm'
+
     items = []
     for idx, row in page_df.iterrows():
+        _src_val = _v(row, src_col) or 'OEM Direct'
+        _p_unit = _price_unit_for_row(row)
+        _is_coil = _p_unit != 'm'
         items.append({
             'product_code': _v(row, code_col) or f"P-{idx + 1}",
             'name': _v(row, name_col) or 'Unknown Product',
             'oem': _v(row, oem_col) or 'Unknown',
             'category': _v(row, cat_col) or 'General',
             'price_per_meter': _v(row, price_col),
+            'price_per_100m': _v(row, price_100m_col) if _is_coil else None,
+            'price_unit': _p_unit,
             'voltage_rating': _v(row, voltage_col),
             'conductor_size': _v(row, size_col),
             'cores': _v(row, cores_col),
@@ -3260,7 +3368,7 @@ async def list_catalog_products(
             'conductor_material': _v(row, material_col),
             'standard': _v(row, standard_col),
             'quality_score': _v(row, quality_col),
-            'source': _v(row, src_col) or 'OEM Direct',
+            'source': _src_val,
         })
 
     # Append user-added products to the first page when no filter excludes them
@@ -3335,6 +3443,13 @@ async def add_product_manually(
     _user_added_products.append(product)
     logger.info(f"User added product: {name} (code={product['product_code']})")
 
+    # Persist to disk
+    if CATALOG_STORE_AVAILABLE:
+        try:
+            _persist_product(product)
+        except Exception as _pe:
+            logger.warning(f"Could not persist product: {_pe}")
+
     # Also try to inject into the in-memory OEM DataFrame for RFP matching
     product_db, _ = _get_oem_db_and_matcher()
     if product_db and product_db.products_df is not None:
@@ -3361,24 +3476,34 @@ async def add_product_manually(
     return ResponseFormatter.success(data=product, message="Product added successfully")
 
 
+
 @app.post("/api/v1/products/import-catalog", tags=["Products"])
 async def import_product_catalog(
     file: UploadFile = File(None),
     url: Optional[str] = Query(None),
+    auto_confirm: bool = Query(False, description="If true, skip preview and add products immediately"),
     current_user: TokenData = Depends(get_current_user),
 ):
     """
     Import products from a PDF catalog or a URL.
     Extracts product names, specs, and pricing from the uploaded document.
+
+    Two modes:
+    - **auto_confirm=false** (default): Returns a preview with extraction_id.
+      Call POST /import-catalog/confirm to actually add them.
+    - **auto_confirm=true**: Extracts AND adds products in one step (legacy behaviour).
     """
     import tempfile as _tmpfile
 
     extracted_text = ""
+    source_name = ""
+    page_count = 0
 
     # ── Option A: PDF file upload ──
     if file and file.filename:
         if not file.filename.lower().endswith('.pdf'):
             raise HTTPException(status_code=400, detail="Only PDF files are supported")
+        source_name = file.filename
         content = await file.read()
         tmp = _tmpfile.NamedTemporaryFile(delete=False, suffix='.pdf')
         tmp.write(content)
@@ -3390,6 +3515,7 @@ async def import_product_catalog(
             else:
                 import pdfplumber
                 with pdfplumber.open(tmp.name) as pdf:
+                    page_count = len(pdf.pages)
                     for pg in pdf.pages:
                         extracted_text += (pg.extract_text() or "") + "\n"
         finally:
@@ -3400,6 +3526,7 @@ async def import_product_catalog(
 
     # ── Option B: URL ──
     elif url:
+        source_name = url
         import urllib.request as _ureq
         try:
             req = _ureq.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -3417,6 +3544,7 @@ async def import_product_catalog(
                         else:
                             import pdfplumber
                             with pdfplumber.open(tmp.name) as pdf:
+                                page_count = len(pdf.pages)
                                 for pg in pdf.pages:
                                     extracted_text += (pg.extract_text() or "") + "\n"
                     finally:
@@ -3436,6 +3564,7 @@ async def import_product_catalog(
 
     # ── Extract products using LangChain or regex ──
     detected_products = []
+    extraction_method = "regex"
     try:
         from agents.langchain_agent import LangChainRFPAgent, LANGCHAIN_AVAILABLE as LC_AVAIL
         if LC_AVAIL:
@@ -3453,6 +3582,7 @@ async def import_product_catalog(
 Return a JSON array where each item has:
 {{
   "name": "full product name",
+  "description": "brief description or null",
   "category": "product category",
   "voltage_rating": "voltage or null",
   "conductor_size": "size in sqmm or null",
@@ -3460,7 +3590,8 @@ Return a JSON array where each item has:
   "insulation": "insulation type or null",
   "conductor_material": "Copper/Aluminium or null",
   "price_per_meter": price_number_or_null,
-  "standard": "IS/IEC standard or null"
+  "standard": "IS/IEC standard or null",
+  "oem": "manufacturer name or null"
 }}
 
 Extract every distinct product. Return ONLY valid JSON array."""),
@@ -3471,8 +3602,10 @@ Extract every distinct product. Return ONLY valid JSON array."""),
                     parsed = _safe_json_parse(raw)
                     if isinstance(parsed, list):
                         detected_products = parsed
+                        extraction_method = "ai"
                     elif isinstance(parsed, dict) and 'products' in parsed:
                         detected_products = parsed['products']
+                        extraction_method = "ai"
     except Exception as llm_err:
         logger.warning(f"LLM catalog extraction failed: {llm_err}")
 
@@ -3481,9 +3614,10 @@ Extract every distinct product. Return ONLY valid JSON array."""),
         import re
         lines = extracted_text.split('\n')
         cable_pattern = re.compile(
-            r'(?P<name>[\w\s/×\-\.]+(?:cable|wire|conductor|XLPE|PVC|armoured)[\w\s/×\-\.]*)',
+            r'(?P<name>[\w\s/×\-\.]+(?:cable|wire|conductor|XLPE|PVC|armoured|FRLS|LSZH|SWA|HT|LT)[\w\s/×\-\.]*)',
             re.IGNORECASE
         )
+        price_pattern = re.compile(r'(?:₹|Rs\.?|INR)\s*(\d[\d,]*(?:\.\d{1,2})?)', re.IGNORECASE)
         for line in lines:
             m = cable_pattern.search(line)
             if m:
@@ -3491,11 +3625,21 @@ Extract every distinct product. Return ONLY valid JSON array."""),
                 if len(pname) > 8 and pname not in [p['name'] for p in detected_products]:
                     size_m = re.search(r'(\d+(?:\.\d+)?)\s*(?:sq\.?mm|mm²)', line, re.I)
                     voltage_m = re.search(r'(\d+(?:\.\d+)?)\s*(?:kV|V)', line, re.I)
+                    cores_m = re.search(r'(\d+)\s*(?:core|c\b)', line, re.I)
+                    material_m = re.search(r'\b(copper|aluminium|aluminum|cu|al)\b', line, re.I)
+                    insulation_m = re.search(r'\b(XLPE|PVC|EPR|LSZH|FRLS|PE|rubber)\b', line, re.I)
+                    price_m = price_pattern.search(line)
+                    oem_m = re.search(r'\b(Polycab|Havells|KEI|Finolex|RR Kabel|Moglix|Anchor|Syska)\b', line, re.I)
                     detected_products.append({
                         'name': pname[:120],
                         'category': 'Cables & Wires',
                         'conductor_size': size_m.group(1) if size_m else None,
                         'voltage_rating': voltage_m.group(0) if voltage_m else None,
+                        'cores': int(cores_m.group(1)) if cores_m else None,
+                        'conductor_material': material_m.group(1).capitalize() if material_m else None,
+                        'insulation': insulation_m.group(1).upper() if insulation_m else None,
+                        'price_per_meter': float(price_m.group(1).replace(',', '')) if price_m else None,
+                        'oem': oem_m.group(1) if oem_m else None,
                     })
         # Dedupe
         seen = set()
@@ -3505,14 +3649,15 @@ Extract every distinct product. Return ONLY valid JSON array."""),
             if key and key not in seen:
                 seen.add(key)
                 unique.append(p)
-        detected_products = unique[:100]  # cap at 100
+        detected_products = unique[:200]  # cap at 200
 
-    # ── Add detected products to the user catalog ──
-    added = []
+    # ── Build preview items with temp codes ──
+    preview_items = []
     for p in detected_products:
-        product = {
+        preview_items.append({
             'product_code': f"IMP-{uuid.uuid4().hex[:8].upper()}",
             'name': p.get('name', 'Unnamed Product'),
+            'description': p.get('description'),
             'oem': p.get('manufacturer') or p.get('oem') or 'Imported',
             'category': p.get('category', 'Cables & Wires'),
             'price_per_meter': p.get('price_per_meter'),
@@ -3523,13 +3668,160 @@ Extract every distinct product. Return ONLY valid JSON array."""),
             'conductor_material': p.get('conductor_material'),
             'standard': p.get('standard'),
             'quality_score': None,
-            'source': 'User Added',
-            'added_at': datetime.now().isoformat(),
+            'source': 'PDF Import',
+            'selected': True,  # default all selected in preview
+        })
+
+    # ── Auto-confirm mode (legacy, or when user doesn't need preview) ──
+    if auto_confirm:
+        added = _finalize_import(preview_items, source_name)
+        return ResponseFormatter.success(
+            data={
+                "imported_count": len(added),
+                "products": added,
+                "source": source_name,
+                "extraction_method": extraction_method,
+            },
+            message=f"Imported {len(added)} products from catalog",
+        )
+
+    # ── Preview mode: stage the extraction for later confirmation ──
+    extraction_id = f"ext-{uuid.uuid4().hex[:12]}"
+    _import_staging[extraction_id] = {
+        "products": preview_items,
+        "source": source_name,
+        "extracted_at": datetime.now().isoformat(),
+        "extraction_method": extraction_method,
+        "text_length": len(extracted_text),
+        "page_count": page_count,
+    }
+    # Auto-expire old staging entries (keep last 20)
+    if len(_import_staging) > 20:
+        oldest = sorted(_import_staging.keys(), key=lambda k: _import_staging[k]["extracted_at"])
+        for k in oldest[:-20]:
+            del _import_staging[k]
+
+    return ResponseFormatter.success(
+        data={
+            "extraction_id": extraction_id,
+            "preview": preview_items,
+            "total_detected": len(preview_items),
+            "source": source_name,
+            "extraction_method": extraction_method,
+            "page_count": page_count,
+            "text_length": len(extracted_text),
+        },
+        message=f"Detected {len(preview_items)} products. Review and confirm to add to catalog.",
+    )
+
+
+@app.post("/api/v1/products/import-catalog/confirm", tags=["Products"])
+async def confirm_catalog_import(
+    body: Dict[str, Any],
+    current_user: TokenData = Depends(get_current_user),
+):
+    """
+    Confirm an import after previewing extracted products.
+    Body: { extraction_id: str, selected_codes?: string[] }
+    If selected_codes is provided, only those products are added.
+    Otherwise all detected products are added.
+    """
+    extraction_id = body.get("extraction_id", "")
+    if extraction_id not in _import_staging:
+        raise HTTPException(status_code=404, detail="Extraction not found or expired. Please re-upload the catalog.")
+
+    staged = _import_staging.pop(extraction_id)
+    products = staged["products"]
+    source_name = staged["source"]
+
+    # Filter by selected codes if provided
+    selected_codes = body.get("selected_codes")
+    if selected_codes and isinstance(selected_codes, list):
+        products = [p for p in products if p["product_code"] in selected_codes]
+
+    if not products:
+        return ResponseFormatter.success(
+            data={"imported_count": 0, "products": []},
+            message="No products selected for import",
+        )
+
+    added = _finalize_import(products, source_name)
+    return ResponseFormatter.success(
+        data={
+            "imported_count": len(added),
+            "products": added,
+            "source": source_name,
+        },
+        message=f"Successfully added {len(added)} products to your catalog",
+    )
+
+
+@app.delete("/api/v1/products/import-catalog/{product_code}", tags=["Products"])
+async def delete_imported_product(
+    product_code: str,
+    current_user: TokenData = Depends(get_current_user),
+):
+    """Delete a single user-added or imported product by its code."""
+    global _user_added_products
+    before = len(_user_added_products)
+    _user_added_products = [p for p in _user_added_products if p.get("product_code") != product_code]
+    removed = before - len(_user_added_products)
+
+    if CATALOG_STORE_AVAILABLE:
+        _delete_persisted_product(product_code)
+
+    if removed == 0:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return ResponseFormatter.success(data={"deleted": product_code}, message="Product removed from catalog")
+
+
+@app.get("/api/v1/products/import-history", tags=["Products"])
+async def import_history(current_user: TokenData = Depends(get_current_user)):
+    """Return a history of catalog imports grouped by timestamp."""
+    if CATALOG_STORE_AVAILABLE:
+        return ResponseFormatter.success(data=_get_import_history())
+    return ResponseFormatter.success(data=[])
+
+
+def _finalize_import(products: List[Dict[str, Any]], source_name: str) -> List[Dict[str, Any]]:
+    """
+    Internal helper — add products from an import to:
+    1. In-memory _user_added_products
+    2. Persistent JSON store
+    3. OEM DataFrame
+    """
+    now = datetime.now().isoformat()
+    added = []
+    for p in products:
+        product = {
+            'product_code': p.get('product_code', f"IMP-{uuid.uuid4().hex[:8].upper()}"),
+            'name': p.get('name', 'Unnamed Product'),
+            'description': p.get('description'),
+            'oem': p.get('oem', 'Imported'),
+            'category': p.get('category', 'Cables & Wires'),
+            'price_per_meter': p.get('price_per_meter'),
+            'voltage_rating': p.get('voltage_rating'),
+            'conductor_size': p.get('conductor_size'),
+            'cores': p.get('cores'),
+            'insulation': p.get('insulation'),
+            'conductor_material': p.get('conductor_material'),
+            'standard': p.get('standard'),
+            'quality_score': None,
+            'source': 'PDF Import',
+            'source_file': source_name,
+            'added_at': now,
         }
         _user_added_products.append(product)
         added.append(product)
 
-    # Also inject into DataFrame
+    # Persist to disk
+    if CATALOG_STORE_AVAILABLE and added:
+        try:
+            _persist_products_bulk(added, source="PDF Import")
+        except Exception as _pe:
+            logger.warning(f"Could not persist imported products: {_pe}")
+
+    # Inject into OEM DataFrame
     product_db, _ = _get_oem_db_and_matcher()
     if product_db and product_db.products_df is not None and added:
         new_rows = []
@@ -3538,7 +3830,7 @@ Extract every distinct product. Return ONLY valid JSON array."""),
                 'Product_Name': p['name'],
                 'Product_Code': p['product_code'],
                 'OEM': p['oem'],
-                'Source': 'User Added',
+                'Source': 'PDF Import',
                 'Product_Category': p['category'],
                 'Price_Per_Meter_INR': p.get('price_per_meter'),
                 'Voltage_Rating': p.get('voltage_rating'),
@@ -3553,14 +3845,7 @@ Extract every distinct product. Return ONLY valid JSON array."""),
         )
         logger.info(f"Imported {len(added)} products from catalog — new total: {len(product_db.products_df)}")
 
-    return ResponseFormatter.success(
-        data={
-            "imported_count": len(added),
-            "products": added,
-            "source": file.filename if file and file.filename else url,
-        },
-        message=f"Imported {len(added)} products from catalog",
-    )
+    return added
 
 
 # ── Wildcard product routes — MUST be AFTER /catalog, /catalog/stats, /add, /import-catalog ──
@@ -3849,6 +4134,7 @@ async def analyze_rfp(
     include_calculations: bool = Query(False),
     include_recommendations: bool = Query(True),
     include_budget: bool = Query(True),
+    include_win_loss: bool = Query(False),
     cable_length: float = Query(100),
     application: str = Query("auto"),
     background_tasks: BackgroundTasks = BackgroundTasks(),
@@ -3858,6 +4144,8 @@ async def analyze_rfp(
     Comprehensive RFP analysis: extract → parse → match against 22k+ OEM products.
     Returns requirements, BOQ, OEM summary, top-3 products per requirement
     with engineering calculations, recommendations, and budget analysis.
+    
+    Optional: include_win_loss=true to also calculate historical win/loss ratio for the RFP.
     """
     import tempfile as _tmpfile
     import math
@@ -4117,6 +4405,37 @@ async def analyze_rfp(
                 'best_oem': rankings[0]['oem'] if rankings else None,
             }
 
+        # ── Win/Loss Ratio Calculation (optional, non-blocking) ──
+        win_loss_ratio = None
+        if include_win_loss and WIN_LOSS_ANALYTICS_AVAILABLE:
+            try:
+                # Extract RFP ID from extracted fields or use filename
+                rfp_id = extracted_fields.get('rfp_number') or extracted_fields.get('rfp_id') or file.filename or analysis_id
+                
+                # Get database session and fetch win/loss ratio - with timeout
+                try:
+                    db_manager = get_db_manager()
+                    session = db_manager.get_session()
+                    if session:
+                        try:
+                            win_loss_analytics = WinLossAnalytics(session_factory=lambda: db_manager.get_session())
+                            win_loss_ratio = win_loss_analytics.get_win_loss_ratio_by_rfp(session, rfp_id)
+                            logger.debug(f"Win/Loss ratio calculated for RFP {rfp_id}")
+                        except Exception as inner_err:
+                            logger.debug(f"Win/Loss calculation inner error: {type(inner_err).__name__}")
+                            win_loss_ratio = None
+                        finally:
+                            try:
+                                session.close()
+                            except:
+                                pass
+                except Exception as db_err:
+                    logger.debug(f"Win/Loss DB access error: {type(db_err).__name__}")
+                    win_loss_ratio = None
+            except Exception as wl_err:
+                logger.debug(f"Win/Loss calculation skipped: {type(wl_err).__name__}")
+                win_loss_ratio = None
+
         # ── Build full result ──
         result = _clean_nan({
             'status': 'success',
@@ -4134,6 +4453,7 @@ async def analyze_rfp(
             'specifications': specifications,
             'comparisons': comparisons,
             'oem_summary': oem_summary,
+            'win_loss_analysis': win_loss_ratio,
             'detected_application': detected_app,
             'analysis_options': {
                 'include_calculations': include_calculations,
@@ -4163,6 +4483,19 @@ async def analyze_rfp(
         background_tasks.add_task(
             _extract_and_download_links_background, analysis_id, tmp_path,
         )
+
+        # ── Auto-save to persistent analysis history ──
+        if ANALYSIS_STORE_AVAILABLE:
+            try:
+                _persist_analysis(
+                    analysis_result=result,
+                    file_name=file.filename or "Unknown",
+                    saved_by=getattr(current_user, 'username', 'system') if current_user else 'anonymous',
+                    source="auto",
+                )
+                logger.info(f"Auto-saved analysis {analysis_id} to history")
+            except Exception as _auto_save_err:
+                logger.warning(f"Auto-save analysis failed (non-fatal): {_auto_save_err}")
 
         return ResponseFormatter.success(data=result, message="RFP analysis complete")
 
@@ -4719,6 +5052,265 @@ async def start_agent_workflow(body: Dict[str, Any], current_user: TokenData = D
     return ResponseFormatter.success(data=conv, message="Workflow started")
 
 
+RESOLVED_WIN_STATUSES = {"approved", "won", "awarded"}
+RESOLVED_LOSS_STATUSES = {"rejected", "lost"}
+OPEN_BID_STATUSES = {"draft", "in_review", "submitted", "pending", "processing"}
+
+
+def _safe_float(value: Any, default: float = 0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _extract_bid_features(bid: Dict[str, Any]) -> Dict[str, float]:
+    import math
+
+    total_value = max(_safe_float(bid.get("total_value"), 0.0), 0.0)
+    items = bid.get("items") or []
+
+    return {
+        "overall_score": max(0.0, min(100.0, _safe_float(bid.get("overall_score"), 0.0))),
+        "technical_score": max(0.0, min(100.0, _safe_float(bid.get("technical_score"), 0.0))),
+        "commercial_score": max(0.0, min(100.0, _safe_float(bid.get("commercial_score"), 0.0))),
+        "discount_percentage": max(0.0, min(50.0, _safe_float(bid.get("discount_percentage"), 0.0))),
+        "log_total_value": math.log1p(total_value),
+        "validity_days": max(0.0, min(365.0, _safe_float(bid.get("validity_days"), 0.0))),
+        "items_count": float(len(items)),
+    }
+
+
+def _sigmoid(value: float) -> float:
+    import math
+
+    if value >= 0:
+        z = math.exp(-value)
+        return 1.0 / (1.0 + z)
+    z = math.exp(value)
+    return z / (1.0 + z)
+
+
+def _train_bid_logistic_model(samples: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    feature_names = [
+        "overall_score",
+        "technical_score",
+        "commercial_score",
+        "discount_percentage",
+        "log_total_value",
+        "validity_days",
+        "items_count",
+    ]
+
+    if len(samples) < 6:
+        return None
+
+    class_values = {int(s["label"]) for s in samples}
+    if len(class_values) < 2:
+        return None
+
+    means: Dict[str, float] = {}
+    stds: Dict[str, float] = {}
+
+    for name in feature_names:
+        values = [float(s["features"][name]) for s in samples]
+        mean = sum(values) / len(values)
+        variance = sum((v - mean) ** 2 for v in values) / max(1, len(values) - 1)
+        means[name] = mean
+        stds[name] = variance ** 0.5 if variance > 1e-8 else 1.0
+
+    normalized: List[tuple[List[float], int]] = []
+    for sample in samples:
+        row = [
+            (float(sample["features"][name]) - means[name]) / stds[name]
+            for name in feature_names
+        ]
+        normalized.append((row, int(sample["label"])))
+
+    weights = [0.0 for _ in range(len(feature_names) + 1)]  # bias + features
+    learning_rate = 0.08
+    l2_penalty = 0.01
+
+    for _ in range(700):
+        gradients = [0.0 for _ in range(len(weights))]
+        for row, label in normalized:
+            z = weights[0]
+            for idx, val in enumerate(row, start=1):
+                z += weights[idx] * val
+            pred = _sigmoid(z)
+            error = pred - float(label)
+            gradients[0] += error
+            for idx, val in enumerate(row, start=1):
+                gradients[idx] += error * val
+
+        batch_size = float(len(normalized))
+        weights[0] -= learning_rate * (gradients[0] / batch_size)
+        for idx in range(1, len(weights)):
+            reg = l2_penalty * weights[idx]
+            weights[idx] -= learning_rate * ((gradients[idx] / batch_size) + reg)
+
+    return {
+        "feature_names": feature_names,
+        "means": means,
+        "stds": stds,
+        "weights": weights,
+    }
+
+
+def _predict_with_model(features: Dict[str, float], model: Dict[str, Any]) -> float:
+    names = model["feature_names"]
+    means = model["means"]
+    stds = model["stds"]
+    weights = model["weights"]
+
+    z = weights[0]
+    for idx, name in enumerate(names, start=1):
+        standardized = (float(features[name]) - float(means[name])) / float(stds[name])
+        z += float(weights[idx]) * standardized
+
+    return max(0.01, min(0.99, _sigmoid(z)))
+
+
+def _heuristic_probability(features: Dict[str, float], baseline_rate: float, median_value: float) -> float:
+    import math
+
+    score = baseline_rate
+    score += ((features["overall_score"] - 70.0) / 30.0) * 0.18
+    score += ((features["technical_score"] - 70.0) / 30.0) * 0.10
+    score += ((features["commercial_score"] - 70.0) / 30.0) * 0.10
+    score += min(features["discount_percentage"], 12.0) / 12.0 * 0.08
+
+    if median_value > 0:
+        total_value = max(math.expm1(features["log_total_value"]), 0.0)
+        score -= ((total_value / median_value) - 1.0) * 0.07
+
+    score += min(features["items_count"], 25.0) / 25.0 * 0.04
+    return max(0.05, min(0.95, score))
+
+
+def _model_brier_score(samples: List[Dict[str, Any]], model: Optional[Dict[str, Any]], baseline_rate: float, median_value: float) -> float:
+    if not samples:
+        return 0.25
+
+    total = 0.0
+    for sample in samples:
+        if model:
+            pred = _predict_with_model(sample["features"], model)
+        else:
+            pred = _heuristic_probability(sample["features"], baseline_rate, median_value)
+        err = pred - float(sample["label"])
+        total += err * err
+
+    return total / len(samples)
+
+
+def _get_win_loss_prediction_payload() -> Dict[str, Any]:
+    from statistics import median
+
+    bids = list(bid_store.values())
+    resolved_samples: List[Dict[str, Any]] = []
+    open_bids: List[Dict[str, Any]] = []
+
+    wins = 0
+    losses = 0
+
+    for bid in bids:
+        status = str(bid.get("status") or "").lower()
+        if status in RESOLVED_WIN_STATUSES:
+            wins += 1
+            resolved_samples.append({"features": _extract_bid_features(bid), "label": 1, "bid": bid})
+        elif status in RESOLVED_LOSS_STATUSES:
+            losses += 1
+            resolved_samples.append({"features": _extract_bid_features(bid), "label": 0, "bid": bid})
+        elif status in OPEN_BID_STATUSES:
+            open_bids.append(bid)
+
+    resolved_count = wins + losses
+    baseline_win_rate = (wins + 1) / (resolved_count + 2) if resolved_count > 0 else 0.5
+
+    median_value = 0.0
+    if resolved_samples:
+        values = [max(_safe_float(s["bid"].get("total_value"), 0.0), 0.0) for s in resolved_samples]
+        median_value = float(median(values)) if values else 0.0
+
+    model = _train_bid_logistic_model(resolved_samples)
+
+    def predict_bid(bid: Dict[str, Any]) -> Dict[str, Any]:
+        features = _extract_bid_features(bid)
+        if model:
+            model_prob = _predict_with_model(features, model)
+            probability = max(0.01, min(0.99, (0.8 * model_prob) + (0.2 * baseline_win_rate)))
+            model_source = "logistic_regression"
+        else:
+            probability = _heuristic_probability(features, baseline_win_rate, median_value)
+            model_source = "heuristic_fallback"
+
+        total_value = max(_safe_float(bid.get("total_value"), 0.0), 0.0)
+        drivers: List[str] = []
+        if features["overall_score"] >= 85:
+            drivers.append("Strong overall score improves win likelihood")
+        elif features["overall_score"] <= 60:
+            drivers.append("Low overall score reduces win likelihood")
+
+        if features["discount_percentage"] >= 5:
+            drivers.append("Competitive discount contributes positively")
+
+        if median_value > 0 and total_value > median_value * 1.35:
+            drivers.append("Bid value is high versus historical median")
+
+        return {
+            "bid_id": bid.get("bid_id"),
+            "status": bid.get("status"),
+            "predicted_win_probability": round(probability, 4),
+            "predicted_loss_probability": round(1.0 - probability, 4),
+            "model_source": model_source,
+            "drivers": drivers[:3],
+        }
+
+    open_predictions = [predict_bid(b) for b in open_bids]
+    open_predictions.sort(key=lambda row: row["predicted_win_probability"], reverse=True)
+
+    expected_wins = sum(row["predicted_win_probability"] for row in open_predictions)
+    expected_losses = max(0.0, len(open_predictions) - expected_wins)
+    ratio_denominator = expected_losses if expected_losses > 0 else 1.0
+    predicted_ratio = round(expected_wins / ratio_denominator, 2)
+
+    target_bid = None
+    if open_bids:
+        target = sorted(
+            open_bids,
+            key=lambda b: str(b.get("updated_at") or b.get("created_at") or ""),
+            reverse=True,
+        )[0]
+        target_bid = predict_bid(target)
+
+    brier = _model_brier_score(resolved_samples, model, baseline_win_rate, median_value)
+    confidence = max(0.2, min(0.95, 1.0 - brier))
+
+    return {
+        "resolved_bids": resolved_count,
+        "won_count": wins,
+        "lost_count": losses,
+        "current_win_rate": round(wins / resolved_count, 4) if resolved_count else 0.0,
+        "current_win_loss_ratio": f"{wins}:{losses}",
+        "target_bid": target_bid,
+        "portfolio_forecast": {
+            "open_bids": len(open_predictions),
+            "expected_wins": round(expected_wins, 2),
+            "expected_losses": round(expected_losses, 2),
+            "predicted_win_loss_ratio": f"{predicted_ratio}:1",
+            "average_win_probability": round((expected_wins / len(open_predictions)), 4) if open_predictions else 0.0,
+            "top_candidates": open_predictions[:5],
+        },
+        "model": {
+            "type": "logistic_regression" if model else "heuristic_fallback",
+            "confidence": round(confidence, 4),
+            "training_samples": len(resolved_samples),
+            "generated_at": datetime.now().isoformat(),
+        },
+    }
+
+
 # =============================================================================
 # Dashboard Stats (consumed by frontend analytics.service.ts)
 # =============================================================================
@@ -4738,6 +5330,12 @@ async def get_dashboard_stats(current_user: TokenData = Depends(get_current_user
         "rfp_trend": rfp_trend,
         "bid_trend": bid_trend,
     })
+
+
+@app.get("/api/v1/analytics/win-loss-prediction", tags=["Analytics"])
+async def get_win_loss_prediction(current_user: TokenData = Depends(get_current_user)):
+    """Get a data-driven win/loss prediction for active bids."""
+    return ResponseFormatter.success(data=_get_win_loss_prediction_payload())
 
 
 @app.get("/api/v1/analytics/bids", tags=["Analytics"])
@@ -4862,6 +5460,240 @@ def run_server(host: str = "0.0.0.0", port: int = 8000):
     """Run the API server"""
     import uvicorn
     uvicorn.run(app, host=host, port=port)
+
+
+# ════════════════════════════════════════════════════════════════════════════════
+# ── BID OUTCOME RECORDING ENDPOINTS ──
+# ════════════════════════════════════════════════════════════════════════════════
+# These endpoints allow recording bid outcomes (won/lost) to populate win/loss analytics
+
+class BidOutcomeRequest(BaseModel):
+    """Record a bid outcome"""
+    rfp_id: str
+    bid_id: Optional[str] = None
+    outcome: str  # 'won', 'lost', 'no_bid'
+    our_bid_amount: Optional[float] = None
+    winning_bid_amount: Optional[float] = None
+    winning_competitor: Optional[str] = None
+    competitor_names: Optional[list[str]] = None
+    technical_score: Optional[float] = None
+    commercial_score: Optional[float] = None
+    overall_score: Optional[float] = None
+    winning_factors: Optional[list[str]] = None
+    losing_factors: Optional[list[str]] = None
+    customer_name: Optional[str] = None
+    customer_segment: Optional[str] = None
+    customer_region: Optional[str] = None
+    rfp_category: Optional[str] = None
+
+
+@app.post("/api/v1/analytics/record-bid-outcome", tags=["Analytics"])
+async def record_bid_outcome(
+    outcome_data: BidOutcomeRequest,
+    user_id: Optional[str] = Query(None)
+):
+    """
+    Record a bid outcome (won/lost/no_bid)
+    
+    This allows sales teams to record the result of a bid submission,
+    which will be used to calculate win/loss ratios for analytics.
+    
+    After recording outcomes, the Win/Loss Rate Analysis card will automatically
+    populate with calculated metrics on the next RFP analysis.
+    
+    Example payload:
+    ```json
+    {
+        "rfp_id": "GEM/2025/B/6694421",
+        "bid_id": "BID-001",
+        "outcome": "won",
+        "our_bid_amount": 915000,
+        "technical_score": 92.5,
+        "commercial_score": 88.0,
+        "winning_factors": ["Competitive pricing", "Technical expertise"],
+        "customer_name": "Power Grid Corporation",
+        "customer_segment": "Government"
+    }
+    ```
+    """
+    try:
+        if WIN_LOSS_ANALYTICS_AVAILABLE:
+            db_manager = get_db_manager()
+            session = db_manager.get_session()
+            
+            try:
+                from analytics.models import WinLossRecord
+                
+                # Create win/loss record
+                record = WinLossRecord(
+                    rfp_id=outcome_data.rfp_id,
+                    bid_id=outcome_data.bid_id,
+                    outcome=outcome_data.outcome,
+                    our_bid_amount=outcome_data.our_bid_amount,
+                    winning_bid_amount=outcome_data.winning_bid_amount,
+                    winning_competitor=outcome_data.winning_competitor,
+                    competitor_names=outcome_data.competitor_names or [],
+                    technical_score=outcome_data.technical_score,
+                    commercial_score=outcome_data.commercial_score,
+                    overall_score=outcome_data.overall_score,
+                    winning_factors=outcome_data.winning_factors or [],
+                    losing_factors=outcome_data.losing_factors or [],
+                    customer_name=outcome_data.customer_name,
+                    customer_segment=outcome_data.customer_segment,
+                    customer_region=outcome_data.customer_region,
+                    rfp_category=outcome_data.rfp_category,
+                    recorded_at=datetime.utcnow(),
+                    recorded_by=user_id or "system"
+                )
+                
+                session.add(record)
+                session.commit()
+                session.close()
+                
+                logger.info(f"✅ Recorded bid outcome for RFP {outcome_data.rfp_id}")
+                
+                return wrap_response({
+                    "success": True,
+                    "message": f"Bid outcome recorded for RFP {outcome_data.rfp_id}",
+                    "record_id": record.id,
+                    "rfp_id": outcome_data.rfp_id,
+                    "outcome": outcome_data.outcome
+                }, status_code=201)
+            except Exception as inner_err:
+                logger.error(f"Error recording bid outcome: {inner_err}")
+                session.close()
+                raise HTTPException(status_code=400, detail=f"Failed to record bid outcome: {str(inner_err)}")
+        else:
+            raise HTTPException(status_code=503, detail="Win/Loss analytics not available")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Bid outcome recording error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/analytics/win-loss-ratio/{rfp_id}", tags=["Analytics"])
+async def get_win_loss_ratio(rfp_id: str):
+    """
+    Get the calculated win/loss ratio for a specific RFP
+    
+    Returns analytics including:
+    - Win rate percentage
+    - Win ratio (wins:losses)
+    - Bid value analysis
+    - Competitor information
+    - Technical and commercial scores
+    - Success/losing factors
+    
+    This data is calculated from recorded bid outcomes for the RFP.
+    """
+    try:
+        if WIN_LOSS_ANALYTICS_AVAILABLE:
+            db_manager = get_db_manager()
+            session = db_manager.get_session()
+            
+            try:
+                win_loss_analytics = WinLossAnalytics(session_factory=lambda: db_manager.get_session())
+                result = win_loss_analytics.get_win_loss_ratio_by_rfp(session, rfp_id)
+                session.close()
+                
+                return wrap_response(result)
+            except Exception as e:
+                session.close()
+                logger.error(f"Error calculating win/loss ratio: {e}")
+                raise HTTPException(status_code=400, detail=str(e))
+        else:
+            raise HTTPException(status_code=503, detail="Win/Loss analytics not available")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Win/loss ratio error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/v1/analytics/bulk-record-outcomes", tags=["Analytics"])
+async def bulk_record_outcomes(
+    outcomes: list[BidOutcomeRequest],
+    user_id: Optional[str] = Query(None)
+):
+    """
+    Record multiple bid outcomes at once
+    
+    Useful for importing historical bid data from CSV, Excel, or another system.
+    
+    Example:
+    ```json
+    [
+        {
+            "rfp_id": "GEM/2025/B/6694421",
+            "outcome": "won",
+            "our_bid_amount": 915000,
+            "technical_score": 92.5
+        },
+        {
+            "rfp_id": "GEM/2025/B/6694420",
+            "outcome": "lost",
+            "our_bid_amount": 850000,
+            "winning_competitor": "Competitor A"
+        }
+    ]
+    ```
+    """
+    try:
+        if WIN_LOSS_ANALYTICS_AVAILABLE:
+            db_manager = get_db_manager()
+            session = db_manager.get_session()
+            
+            try:
+                from analytics.models import WinLossRecord
+                
+                records = []
+                for outcome_data in outcomes:
+                    record = WinLossRecord(
+                        rfp_id=outcome_data.rfp_id,
+                        bid_id=outcome_data.bid_id,
+                        outcome=outcome_data.outcome,
+                        our_bid_amount=outcome_data.our_bid_amount,
+                        winning_bid_amount=outcome_data.winning_bid_amount,
+                        winning_competitor=outcome_data.winning_competitor,
+                        competitor_names=outcome_data.competitor_names or [],
+                        technical_score=outcome_data.technical_score,
+                        commercial_score=outcome_data.commercial_score,
+                        overall_score=outcome_data.overall_score,
+                        winning_factors=outcome_data.winning_factors or [],
+                        losing_factors=outcome_data.losing_factors or [],
+                        customer_name=outcome_data.customer_name,
+                        customer_segment=outcome_data.customer_segment,
+                        customer_region=outcome_data.customer_region,
+                        rfp_category=outcome_data.rfp_category,
+                        recorded_at=datetime.utcnow(),
+                        recorded_by=user_id or "system"
+                    )
+                    records.append(record)
+                
+                session.add_all(records)
+                session.commit()
+                session.close()
+                
+                logger.info(f"✅ Recorded {len(records)} bid outcomes")
+                
+                return wrap_response({
+                    "success": True,
+                    "message": f"Recorded {len(records)} bid outcomes",
+                    "count": len(records),
+                    "rfps_affected": list(set(o.rfp_id for o in outcomes))
+                }, status_code=201)
+            except Exception as inner_err:
+                session.close()
+                logger.error(f"Error bulk recording outcomes: {inner_err}")
+                raise HTTPException(status_code=400, detail=f"Failed to record outcomes: {str(inner_err)}")
+        else:
+            raise HTTPException(status_code=503, detail="Win/Loss analytics not available")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Bulk outcome recording error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 if __name__ == "__main__":

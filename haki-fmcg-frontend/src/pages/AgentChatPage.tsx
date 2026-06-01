@@ -12,7 +12,7 @@ const initialMessages: ChatMsg[] = [
 
 const agentResponses: Record<string, { agent: string; text: string }> = {
   'rfp': { agent: 'Sales', text: 'I found 3 active RFPs matching your criteria. RFP-2026-0044 (Power Cables) has the highest priority with a deadline in 5 days. Shall I start the analysis pipeline?' },
-  'price': { agent: 'Pricing', text: 'Current pricing for XLPE cables: ₹2,450/m for 240mm², ₹3,120/m for 400mm². I can generate a competitive quote with 8% margin. Want me to proceed?' },
+  'price': { agent: 'Pricing', text: 'Current pricing for XLPE cables: ₹2,450/100m for 240mm², ₹3,120/100m for 400mm². I can generate a competitive quote with 8% margin. Want me to proceed?' },
   'spec': { agent: 'Technical', text: 'Specification match results: 8 out of 12 requirements fully met (87% score). Gaps found in voltage rating (33kV required vs 22kV available) and temperature range. Shall I suggest alternatives?' },
   'status': { agent: 'Master', text: 'Pipeline status: 2 workflows active. WF-2026-044 is at Stage 5/8 (Pricing). WF-2026-043 completed successfully 2 hours ago with 92% match score.' },
 };

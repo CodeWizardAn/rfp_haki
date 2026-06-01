@@ -22,8 +22,8 @@ const categoryLabels = { rfp: 'RFPs', product: 'Products', vendor: 'Vendors', bi
 const mockResults: SearchResult[] = [
   { id: 'RFP-2026-0001', title: 'Power Cable Supply — Zone East', category: 'rfp', subtitle: 'High priority · Pricing' },
   { id: 'RFP-2026-0002', title: 'LT Cable 1.1kV Requirements', category: 'rfp', subtitle: 'Medium priority · Draft' },
-  { id: 'HAV-XLPE-11-240', title: 'XLPE 11kV 3Cx240 Havells Make', category: 'product', subtitle: 'Havells · ₹1,850/m' },
-  { id: 'POL-PVC-1.1-16', title: 'PVC 1.1kV 4Cx16 Polycab', category: 'product', subtitle: 'Polycab · ₹320/m' },
+  { id: 'HAV-XLPE-11-240', title: 'XLPE 11kV 3Cx240 Havells Make', category: 'product', subtitle: 'Havells · ₹1,850/100m' },
+  { id: 'POL-PVC-1.1-16', title: 'PVC 1.1kV 4Cx16 Polycab', category: 'product', subtitle: 'Polycab · ₹320/100m' },
   { id: 'V-001', title: 'Havells India Ltd', category: 'vendor', subtitle: 'Rating: 4.8 · Active' },
   { id: 'B-0087', title: 'Bid for Power Cable Supply', category: 'bid', subtitle: 'Havells · ₹58.6L · Approved' },
 ];

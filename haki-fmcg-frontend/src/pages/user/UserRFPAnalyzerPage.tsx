@@ -71,6 +71,35 @@ interface AnalysisResult {
   pricing_estimate?: Record<string, any>;
   analysis_id?: string;
   linked_docs_status?: string;
+  win_loss_analysis?: {
+    rfp_id: string;
+    status: string;
+    total_bids: number;
+    participated: number;
+    won: number;
+    lost: number;
+    no_bid: number;
+    win_ratio: number;
+    win_percentage: number;
+    loss_percentage: number;
+    participation_rate: number;
+    bid_value: {
+      won_value: number;
+      lost_value: number;
+      total_value: number;
+      avg_bid_amount_won: number;
+      avg_bid_amount_lost: number;
+    };
+    competitors_faced: string[];
+    unique_competitors_count: number;
+    score_analysis: {
+      avg_technical_score: number;
+      avg_commercial_score: number;
+      avg_overall_score: number;
+    };
+    factors: Array<{ factor: string; frequency: number }>;
+    latest_outcome: string | null;
+  };
 }
 
 interface Comparison {
@@ -368,6 +397,7 @@ export default function UserRFPAnalyzerPage() {
           options: {
             include_recommendations: true,
             include_budget: true,
+            include_win_loss: true,
           },
         },
         {
@@ -1035,6 +1065,56 @@ export default function UserRFPAnalyzerPage() {
             </motion.div>
           )}
 
+          {/* ── Win/Loss Rate Analysis ── */}
+          {result.win_loss_analysis && (
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.28 }}>
+              <Card variant="glass">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp size={18} className="text-electric-cyan" />
+                    Win/Loss Rate Analysis
+                    {result.win_loss_analysis.status === 'no_data' && (
+                      <span className="text-xs text-muted-silver ml-auto">(No historical data for this RFP)</span>
+                    )}
+                  </CardTitle>
+                </CardHeader>
+                {result.win_loss_analysis.status === 'success' ? (
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 px-4 pb-4">
+                    <div className="bg-panel-dark/50 rounded-lg p-3 border border-steel-slate/10 text-center">
+                      <p className="text-[10px] text-muted-silver mb-1">Win Rate</p>
+                      <p className="text-lg font-bold text-neon-emerald">{result.win_loss_analysis.win_percentage.toFixed(1)}%</p>
+                    </div>
+                    <div className="bg-panel-dark/50 rounded-lg p-3 border border-steel-slate/10 text-center">
+                      <p className="text-[10px] text-muted-silver mb-1">Win Ratio</p>
+                      <p className="text-lg font-bold text-electric-cyan">{result.win_loss_analysis.win_ratio.toFixed(2)}:1</p>
+                    </div>
+                    <div className="bg-panel-dark/50 rounded-lg p-3 border border-steel-slate/10 text-center">
+                      <p className="text-[10px] text-muted-silver mb-1">Won / Lost</p>
+                      <p className="text-lg font-bold text-ghost-white">{result.win_loss_analysis.won} / {result.win_loss_analysis.lost}</p>
+                    </div>
+                    <div className="bg-panel-dark/50 rounded-lg p-3 border border-steel-slate/10 text-center">
+                      <p className="text-[10px] text-muted-silver mb-1">Competitors</p>
+                      <p className="text-lg font-bold text-ghost-white">{result.win_loss_analysis.unique_competitors_count}</p>
+                    </div>
+                    <div className="bg-panel-dark/50 rounded-lg p-3 border border-steel-slate/10 text-center col-span-2">
+                      <p className="text-[10px] text-muted-silver mb-1">Won Value</p>
+                      <p className="text-lg font-bold text-neon-emerald">₹{(result.win_loss_analysis.bid_value.won_value / 100000).toFixed(1)}L</p>
+                    </div>
+                    <div className="bg-panel-dark/50 rounded-lg p-3 border border-steel-slate/10 text-center col-span-2">
+                      <p className="text-[10px] text-muted-silver mb-1">Lost Value</p>
+                      <p className="text-lg font-bold text-danger-red">₹{(result.win_loss_analysis.bid_value.lost_value / 100000).toFixed(1)}L</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="px-4 pb-4 text-center text-muted-silver text-sm py-4">
+                    <p>No win/loss historical data available for this RFP yet.</p>
+                    <p className="text-xs mt-1">Data will appear here when bid outcomes are recorded.</p>
+                  </div>
+                )}
+              </Card>
+            </motion.div>
+          )}
+
           {/* ── Pricing Estimate (from Pricing Agent) ── */}
           {result.pricing_estimate?.summary && (
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.29 }}>
@@ -1199,7 +1279,7 @@ export default function UserRFPAnalyzerPage() {
                           </div>
                           <div className="flex justify-between">
                             <span className="text-muted-silver">Avg Price</span>
-                            <span className="text-ghost-white">{fmtINR(oem.avg_price)}/m</span>
+                            <span className="text-ghost-white">{fmtINR(oem.avg_price)}{(oem as any).avg_price_unit ?? '/m'}</span>
                           </div>
                           {oem.max_warranty > 0 && (
                             <div className="flex justify-between">
@@ -1400,7 +1480,7 @@ export default function UserRFPAnalyzerPage() {
                                     </div>
                                     {/* Price */}
                                     <div className="mt-3 pt-3 border-t border-steel-slate/15 flex justify-between items-baseline">
-                                      <span className="text-xs text-muted-silver">Price/meter</span>
+                                      <span className="text-xs text-muted-silver">{(product as any).price_unit && (product as any).price_unit !== 'm' ? `Price/${(product as any).price_unit}` : 'Price/m'}</span>
                                       <span className="text-base font-bold text-ghost-white">{fmtINR(product.price_per_meter)}</span>
                                     </div>
                                     {product.warranty_years > 0 && (
@@ -1931,9 +2011,13 @@ function ComparisonTable({
 
   // Always show these extra rows
   specLabels.push({
-    key: 'price', label: 'Price/Meter',
+    key: 'price', label: 'Price',
     rfpVal: '—',
-    getProductVal: (p) => fmtINR(p.price_per_meter),
+    getProductVal: (p) => {
+      const unit = (p as any).price_unit;
+      const suffix = unit && unit !== 'm' ? `/${unit}` : '/m';
+      return p.price_per_meter != null ? `${fmtINR(p.price_per_meter)}${suffix}` : '—';
+    },
   });
   specLabels.push({
     key: 'quality', label: 'Quality Score',
@@ -2130,6 +2214,76 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
                 : `Low alignment between RFP requirements and catalog. Significant specification mismatches exist. Consider requesting clarification from the buyer or evaluating alternate product lines.`}
         </p>
       </div>
+
+      {/* Win/Loss Analysis */}
+      {result.win_loss_analysis && result.win_loss_analysis.status === 'success' && (
+        <div className="mt-4 p-4 rounded-xl bg-electric-cyan/5 border border-electric-cyan/20">
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp size={16} className="text-electric-cyan" />
+            <p className="text-sm font-semibold text-ghost-white">Win/Loss Analysis for {result.win_loss_analysis.rfp_id}</p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+            <div className="bg-steel-slate/10 rounded-lg p-2">
+              <p className="text-[10px] text-muted-silver uppercase tracking-wider">Win Rate</p>
+              <p className="text-lg font-bold text-neon-emerald">{result.win_loss_analysis.win_percentage.toFixed(1)}%</p>
+            </div>
+            <div className="bg-steel-slate/10 rounded-lg p-2">
+              <p className="text-[10px] text-muted-silver uppercase tracking-wider">Win Ratio</p>
+              <p className="text-lg font-bold text-electric-cyan">{result.win_loss_analysis.win_ratio.toFixed(2)}:1</p>
+            </div>
+            <div className="bg-steel-slate/10 rounded-lg p-2">
+              <p className="text-[10px] text-muted-silver uppercase tracking-wider">Won / Lost</p>
+              <p className="text-lg font-bold text-ghost-white">{result.win_loss_analysis.won} / {result.win_loss_analysis.lost}</p>
+            </div>
+            <div className="bg-steel-slate/10 rounded-lg p-2">
+              <p className="text-[10px] text-muted-silver uppercase tracking-wider">Competitors</p>
+              <p className="text-lg font-bold text-ghost-white">{result.win_loss_analysis.unique_competitors_count}</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <p className="text-muted-silver mb-1">Bid Value Analysis</p>
+              <div className="space-y-1">
+                <div className="flex justify-between">
+                  <span className="text-muted-silver">Won Value:</span>
+                  <span className="text-neon-emerald font-semibold">₹{(result.win_loss_analysis.bid_value.won_value / 100000).toFixed(1)}L</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-silver">Lost Value:</span>
+                  <span className="text-danger-red font-semibold">₹{(result.win_loss_analysis.bid_value.lost_value / 100000).toFixed(1)}L</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p className="text-muted-silver mb-1">Score Averages</p>
+              <div className="space-y-1">
+                <div className="flex justify-between">
+                  <span className="text-muted-silver">Technical:</span>
+                  <span className="text-electric-cyan font-semibold">{result.win_loss_analysis.score_analysis.avg_technical_score.toFixed(1)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-silver">Commercial:</span>
+                  <span className="text-electric-cyan font-semibold">{result.win_loss_analysis.score_analysis.avg_commercial_score.toFixed(1)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {result.win_loss_analysis.factors && result.win_loss_analysis.factors.length > 0 && (
+            <div className="mt-2 pt-2 border-t border-steel-slate/15">
+              <p className="text-[10px] text-muted-silver uppercase tracking-wider mb-1.5">Key Factors</p>
+              <div className="flex flex-wrap gap-1">
+                {result.win_loss_analysis.factors.slice(0, 4).map((factor, idx) => (
+                  <span key={idx} className="text-xs bg-steel-slate/20 text-muted-silver rounded px-2 py-0.5">
+                    {factor.factor} ({factor.frequency})
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

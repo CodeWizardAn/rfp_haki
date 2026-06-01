@@ -194,9 +194,33 @@ export default function BidGeneratorPage() {
     if (toast) { const t = setTimeout(() => setToast(null), 4000); return () => clearTimeout(t); }
   }, [toast]);
 
+  // If location.state has an analysis_id but no analysisResult, fetch the full record
+  useEffect(() => {
+    const stateAny = location.state as any;
+    const passedId = stateAny?.analysisId || stateAny?.analysis_id;
+    if (passedId && !analysisResult) {
+      (async () => {
+        setLoadingSaved(true);
+        try {
+          const r = await fetch(`${API}/api/v1/saved-analyses/${passedId}`, { headers: hdrs() });
+          if (r.ok) {
+            const j = await r.json();
+            const record = j.data ?? j;
+            if (record?.analysis_result) {
+              setAnalysisResult(record.analysis_result);
+              setFileName(record.file_name || '');
+              setToast({ type: 'success', msg: `Loaded analysis: ${record.file_name}` });
+            }
+          }
+        } catch { /* empty */ }
+        setLoadingSaved(false);
+      })();
+    }
+  }, [location.state]);
+
   // Load saved analyses when no analysis result is provided
   useEffect(() => {
-    if (!analysisResult) {
+    if (!analysisResult && !(location.state as any)?.analysisId && !(location.state as any)?.analysis_id) {
       (async () => {
         setLoadingSaved(true);
         try {
@@ -211,10 +235,36 @@ export default function BidGeneratorPage() {
     }
   }, [analysisResult]);
 
-  const handleSelectSavedAnalysis = (item: any) => {
-    setAnalysisResult(item.analysis_result);
-    setFileName(item.file_name || '');
-    setToast({ type: 'success', msg: `Loaded analysis: ${item.file_name}` });
+  const handleSelectSavedAnalysis = async (item: any) => {
+    // If the list item already has analysis_result (legacy), use it directly
+    if (item.analysis_result) {
+      setAnalysisResult(item.analysis_result);
+      setFileName(item.file_name || '');
+      setToast({ type: 'success', msg: `Loaded analysis: ${item.file_name}` });
+      return;
+    }
+    // Otherwise, fetch the full record by ID
+    try {
+      setLoadingSaved(true);
+      const r = await fetch(`${API}/api/v1/saved-analyses/${item.id}`, { headers: hdrs() });
+      if (r.ok) {
+        const j = await r.json();
+        const record = j.data ?? j;
+        if (record?.analysis_result) {
+          setAnalysisResult(record.analysis_result);
+          setFileName(record.file_name || '');
+          setToast({ type: 'success', msg: `Loaded analysis: ${record.file_name}` });
+        } else {
+          setToast({ type: 'error', msg: 'Analysis data missing or corrupted' });
+        }
+      } else {
+        setToast({ type: 'error', msg: 'Failed to load analysis' });
+      }
+    } catch {
+      setToast({ type: 'error', msg: 'Network error loading analysis' });
+    } finally {
+      setLoadingSaved(false);
+    }
   };
 
   const filteredSaved = savedAnalyses.filter(s => {
@@ -293,7 +343,7 @@ export default function BidGeneratorPage() {
                       <div className="flex items-center gap-3 mt-2 text-[11px] text-muted-silver">
                         <span>{item.total_requirements ?? 0} requirements</span>
                         <span>·</span>
-                        <span>{item.matched_requirements ?? 0} matched</span>
+                        <span>{item.matched ?? item.matched_requirements ?? 0} matched</span>
                       </div>
                       {item.organization && (
                         <div className="flex items-center gap-1 mt-1 text-[11px] text-muted-silver">

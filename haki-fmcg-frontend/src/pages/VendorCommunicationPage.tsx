@@ -59,7 +59,7 @@ const messagesData: Record<string, Message[]> = {
   'v-001': [
     { id: 'm1', sender: 'vendor', senderName: 'Finolex Cables', content: 'Good morning! We have updated our pricing for LT Power Cables for Q1 2026. The new rates include a 3% volume discount for orders above 10,000 meters.', timestamp: '09:15 AM', type: 'quotation' },
     { id: 'm2', sender: 'user', senderName: 'Rajesh Kumar', content: 'Thanks for the update. Can you also share pricing for 240 sq mm 3.5 Core XLPE variant?', timestamp: '09:22 AM', type: 'inquiry' },
-    { id: 'm3', sender: 'vendor', senderName: 'Finolex Cables', content: 'Sure, the 240 sq mm 3.5C XLPE is ₹1,850/meter for volumes above 10,000m. This includes transit insurance.', timestamp: '09:40 AM', type: 'quotation' },
+    { id: 'm3', sender: 'vendor', senderName: 'Finolex Cables', content: 'Sure, the 240 sq mm 3.5C XLPE is ₹1,850/100m for volumes above 10,000m. This includes transit insurance.', timestamp: '09:40 AM', type: 'quotation' },
     { id: 'm4', sender: 'user', senderName: 'Rajesh Kumar', content: 'What about the lead time for 15,000 meters?', timestamp: '10:05 AM', type: 'inquiry' },
     { id: 'm5', sender: 'vendor', senderName: 'Finolex Cables', content: 'For 15,000 meters, we can do phased delivery:\n• Phase 1 (9,000m): 4 weeks from PO\n• Phase 2 (6,000m): 6 weeks from PO\n\nAll deliveries ex-works Pune factory.', timestamp: '10:20 AM', type: 'quotation' },
     { id: 'm6', sender: 'vendor', senderName: 'Finolex Cables', content: 'Updated pricing sheet attached for Q1 2026.', timestamp: '10:32 AM', type: 'quotation', attachment: 'Finolex_Q1_2026_PriceList.xlsx' },

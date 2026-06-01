@@ -3,6 +3,7 @@ import type {
   DashboardStats,
   RFPAnalytics,
   BidAnalytics,
+  WinLossPrediction,
   ActivityItem,
   ApiResponse,
   PaginatedResponse,
@@ -42,6 +43,11 @@ export const analyticsService = {
 
   getPerformanceMetrics: async () => {
     const { data } = await api.get<ApiResponse<Record<string, unknown>>>('/analytics/performance');
+    return data.data;
+  },
+
+  getWinLossPrediction: async (): Promise<WinLossPrediction> => {
+    const { data } = await api.get<ApiResponse<WinLossPrediction>>('/analytics/win-loss-prediction');
     return data.data;
   },
 };

@@ -12,6 +12,10 @@
 |-- .venv
     |-- .gitignore
     |-- Include
+        |-- site
+            |-- python3.13
+                |-- greenlet
+                    |-- greenlet.h
     |-- Lib
         |-- site-packages
             |-- certifi
@@ -68,6 +72,136 @@
                 |-- INSTALLER
                 |-- licenses
                     |-- LICENSE
+                |-- METADATA
+                |-- RECORD
+                |-- top_level.txt
+                |-- WHEEL
+            |-- greenlet
+                |-- CObjects.cpp
+                |-- greenlet.cpp
+                |-- greenlet.h
+                |-- greenlet_allocator.hpp
+                |-- greenlet_compiler_compat.hpp
+                |-- greenlet_cpython_compat.hpp
+                |-- greenlet_exceptions.hpp
+                |-- greenlet_internal.hpp
+                |-- greenlet_msvc_compat.hpp
+                |-- greenlet_refs.hpp
+                |-- greenlet_slp_switch.hpp
+                |-- greenlet_thread_support.hpp
+                |-- platform
+                    |-- setup_switch_x64_masm.cmd
+                    |-- switch_aarch64_gcc.h
+                    |-- switch_alpha_unix.h
+                    |-- switch_amd64_unix.h
+                    |-- switch_arm32_gcc.h
+                    |-- switch_arm32_ios.h
+                    |-- switch_arm64_masm.asm
+                    |-- switch_arm64_masm.obj
+                    |-- switch_arm64_msvc.h
+                    |-- switch_csky_gcc.h
+                    |-- switch_loongarch64_linux.h
+                    |-- switch_m68k_gcc.h
+                    |-- switch_mips_unix.h
+                    |-- switch_ppc64_aix.h
+                    |-- switch_ppc64_linux.h
+                    |-- switch_ppc_aix.h
+                    |-- switch_ppc_linux.h
+                    |-- switch_ppc_macosx.h
+                    |-- switch_ppc_unix.h
+                    |-- switch_riscv_unix.h
+                    |-- switch_s390_unix.h
+                    |-- switch_sh_gcc.h
+                    |-- switch_sparc_sun_gcc.h
+                    |-- switch_x32_unix.h
+                    |-- switch_x64_masm.asm
+                    |-- switch_x64_masm.obj
+                    |-- switch_x64_msvc.h
+                    |-- switch_x86_msvc.h
+                    |-- switch_x86_unix.h
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- __init__.cpython-313.pyc
+                |-- PyGreenlet.cpp
+                |-- PyGreenlet.hpp
+                |-- PyGreenletUnswitchable.cpp
+                |-- PyModule.cpp
+                |-- slp_platformselect.h
+                |-- TBrokenGreenlet.cpp
+                |-- tests
+                    |-- fail_clearing_run_switches.py
+                    |-- fail_cpp_exception.py
+                    |-- fail_initialstub_already_started.py
+                    |-- fail_slp_switch.py
+                    |-- fail_switch_three_greenlets.py
+                    |-- fail_switch_three_greenlets2.py
+                    |-- fail_switch_two_greenlets.py
+                    |-- leakcheck.py
+                    |-- test_contextvars.py
+                    |-- test_cpp.py
+                    |-- test_extension_interface.py
+                    |-- test_gc.py
+                    |-- test_generator.py
+                    |-- test_generator_nested.py
+                    |-- test_greenlet.py
+                    |-- test_greenlet_trash.py
+                    |-- test_interpreter_shutdown.py
+                    |-- test_leaks.py
+                    |-- test_stack_saved.py
+                    |-- test_throw.py
+                    |-- test_tracing.py
+                    |-- test_version.py
+                    |-- test_weakref.py
+                    |-- _test_extension.c
+                    |-- _test_extension.cp313-win_amd64.pyd
+                    |-- _test_extension_cpp.cp313-win_amd64.pyd
+                    |-- _test_extension_cpp.cpp
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- fail_clearing_run_switches.cpython-313.pyc
+                        |-- fail_cpp_exception.cpython-313.pyc
+                        |-- fail_initialstub_already_started.cpython-313.pyc
+                        |-- fail_slp_switch.cpython-313.pyc
+                        |-- fail_switch_three_greenlets.cpython-313.pyc
+                        |-- fail_switch_three_greenlets2.cpython-313.pyc
+                        |-- fail_switch_two_greenlets.cpython-313.pyc
+                        |-- leakcheck.cpython-313.pyc
+                        |-- test_contextvars.cpython-313.pyc
+                        |-- test_cpp.cpython-313.pyc
+                        |-- test_extension_interface.cpython-313.pyc
+                        |-- test_gc.cpython-313.pyc
+                        |-- test_generator.cpython-313.pyc
+                        |-- test_generator_nested.cpython-313.pyc
+                        |-- test_greenlet.cpython-313.pyc
+                        |-- test_greenlet_trash.cpython-313.pyc
+                        |-- test_interpreter_shutdown.cpython-313.pyc
+                        |-- test_leaks.cpython-313.pyc
+                        |-- test_stack_saved.cpython-313.pyc
+                        |-- test_throw.cpython-313.pyc
+                        |-- test_tracing.cpython-313.pyc
+                        |-- test_version.cpython-313.pyc
+                        |-- test_weakref.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- TExceptionState.cpp
+                |-- TGreenlet.cpp
+                |-- TGreenlet.hpp
+                |-- TGreenletGlobals.cpp
+                |-- TMainGreenlet.cpp
+                |-- TPythonState.cpp
+                |-- TStackState.cpp
+                |-- TThreadState.hpp
+                |-- TThreadStateCreator.hpp
+                |-- TThreadStateDestroy.cpp
+                |-- TUserGreenlet.cpp
+                |-- _greenlet.cp313-win_amd64.pyd
+                |-- __init__.py
+                |-- __pycache__
+                    |-- __init__.cpython-313.pyc
+            |-- greenlet-3.5.0.dist-info
+                |-- INSTALLER
+                |-- licenses
+                    |-- LICENSE
+                    |-- LICENSE.PSF
                 |-- METADATA
                 |-- RECORD
                 |-- top_level.txt
@@ -1130,6 +1264,596 @@
                 |-- REQUESTED
                 |-- top_level.txt
                 |-- WHEEL
+            |-- sqlalchemy
+                |-- connectors
+                    |-- aioodbc.py
+                    |-- asyncio.py
+                    |-- pyodbc.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- aioodbc.cpython-313.pyc
+                        |-- asyncio.cpython-313.pyc
+                        |-- pyodbc.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- cyextension
+                    |-- collections.cp313-win_amd64.pyd
+                    |-- collections.pyx
+                    |-- immutabledict.cp313-win_amd64.pyd
+                    |-- immutabledict.pxd
+                    |-- immutabledict.pyx
+                    |-- processors.cp313-win_amd64.pyd
+                    |-- processors.pyx
+                    |-- resultproxy.cp313-win_amd64.pyd
+                    |-- resultproxy.pyx
+                    |-- util.cp313-win_amd64.pyd
+                    |-- util.pyx
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- __init__.cpython-313.pyc
+                |-- dialects
+                    |-- mssql
+                        |-- aioodbc.py
+                        |-- base.py
+                        |-- information_schema.py
+                        |-- json.py
+                        |-- provision.py
+                        |-- pymssql.py
+                        |-- pyodbc.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- aioodbc.cpython-313.pyc
+                            |-- base.cpython-313.pyc
+                            |-- information_schema.cpython-313.pyc
+                            |-- json.cpython-313.pyc
+                            |-- provision.cpython-313.pyc
+                            |-- pymssql.cpython-313.pyc
+                            |-- pyodbc.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- mysql
+                        |-- aiomysql.py
+                        |-- asyncmy.py
+                        |-- base.py
+                        |-- cymysql.py
+                        |-- dml.py
+                        |-- enumerated.py
+                        |-- expression.py
+                        |-- json.py
+                        |-- mariadb.py
+                        |-- mariadbconnector.py
+                        |-- mysqlconnector.py
+                        |-- mysqldb.py
+                        |-- provision.py
+                        |-- pymysql.py
+                        |-- pyodbc.py
+                        |-- reflection.py
+                        |-- reserved_words.py
+                        |-- types.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- aiomysql.cpython-313.pyc
+                            |-- asyncmy.cpython-313.pyc
+                            |-- base.cpython-313.pyc
+                            |-- cymysql.cpython-313.pyc
+                            |-- dml.cpython-313.pyc
+                            |-- enumerated.cpython-313.pyc
+                            |-- expression.cpython-313.pyc
+                            |-- json.cpython-313.pyc
+                            |-- mariadb.cpython-313.pyc
+                            |-- mariadbconnector.cpython-313.pyc
+                            |-- mysqlconnector.cpython-313.pyc
+                            |-- mysqldb.cpython-313.pyc
+                            |-- provision.cpython-313.pyc
+                            |-- pymysql.cpython-313.pyc
+                            |-- pyodbc.cpython-313.pyc
+                            |-- reflection.cpython-313.pyc
+                            |-- reserved_words.cpython-313.pyc
+                            |-- types.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- oracle
+                        |-- base.py
+                        |-- cx_oracle.py
+                        |-- dictionary.py
+                        |-- oracledb.py
+                        |-- provision.py
+                        |-- types.py
+                        |-- vector.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- base.cpython-313.pyc
+                            |-- cx_oracle.cpython-313.pyc
+                            |-- dictionary.cpython-313.pyc
+                            |-- oracledb.cpython-313.pyc
+                            |-- provision.cpython-313.pyc
+                            |-- types.cpython-313.pyc
+                            |-- vector.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- postgresql
+                        |-- array.py
+                        |-- asyncpg.py
+                        |-- base.py
+                        |-- dml.py
+                        |-- ext.py
+                        |-- hstore.py
+                        |-- json.py
+                        |-- named_types.py
+                        |-- operators.py
+                        |-- pg8000.py
+                        |-- pg_catalog.py
+                        |-- provision.py
+                        |-- psycopg.py
+                        |-- psycopg2.py
+                        |-- psycopg2cffi.py
+                        |-- ranges.py
+                        |-- types.py
+                        |-- _psycopg_common.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- array.cpython-313.pyc
+                            |-- asyncpg.cpython-313.pyc
+                            |-- base.cpython-313.pyc
+                            |-- dml.cpython-313.pyc
+                            |-- ext.cpython-313.pyc
+                            |-- hstore.cpython-313.pyc
+                            |-- json.cpython-313.pyc
+                            |-- named_types.cpython-313.pyc
+                            |-- operators.cpython-313.pyc
+                            |-- pg8000.cpython-313.pyc
+                            |-- pg_catalog.cpython-313.pyc
+                            |-- provision.cpython-313.pyc
+                            |-- psycopg.cpython-313.pyc
+                            |-- psycopg2.cpython-313.pyc
+                            |-- psycopg2cffi.cpython-313.pyc
+                            |-- ranges.cpython-313.pyc
+                            |-- types.cpython-313.pyc
+                            |-- _psycopg_common.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- sqlite
+                        |-- aiosqlite.py
+                        |-- base.py
+                        |-- dml.py
+                        |-- json.py
+                        |-- provision.py
+                        |-- pysqlcipher.py
+                        |-- pysqlite.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- aiosqlite.cpython-313.pyc
+                            |-- base.cpython-313.pyc
+                            |-- dml.cpython-313.pyc
+                            |-- json.cpython-313.pyc
+                            |-- provision.cpython-313.pyc
+                            |-- pysqlcipher.cpython-313.pyc
+                            |-- pysqlite.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- type_migration_guidelines.txt
+                    |-- _typing.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- _typing.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- engine
+                    |-- base.py
+                    |-- characteristics.py
+                    |-- create.py
+                    |-- cursor.py
+                    |-- default.py
+                    |-- events.py
+                    |-- interfaces.py
+                    |-- mock.py
+                    |-- processors.py
+                    |-- reflection.py
+                    |-- result.py
+                    |-- row.py
+                    |-- strategies.py
+                    |-- url.py
+                    |-- util.py
+                    |-- _py_processors.py
+                    |-- _py_row.py
+                    |-- _py_util.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- base.cpython-313.pyc
+                        |-- characteristics.cpython-313.pyc
+                        |-- create.cpython-313.pyc
+                        |-- cursor.cpython-313.pyc
+                        |-- default.cpython-313.pyc
+                        |-- events.cpython-313.pyc
+                        |-- interfaces.cpython-313.pyc
+                        |-- mock.cpython-313.pyc
+                        |-- processors.cpython-313.pyc
+                        |-- reflection.cpython-313.pyc
+                        |-- result.cpython-313.pyc
+                        |-- row.cpython-313.pyc
+                        |-- strategies.cpython-313.pyc
+                        |-- url.cpython-313.pyc
+                        |-- util.cpython-313.pyc
+                        |-- _py_processors.cpython-313.pyc
+                        |-- _py_row.cpython-313.pyc
+                        |-- _py_util.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- event
+                    |-- api.py
+                    |-- attr.py
+                    |-- base.py
+                    |-- legacy.py
+                    |-- registry.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- api.cpython-313.pyc
+                        |-- attr.cpython-313.pyc
+                        |-- base.cpython-313.pyc
+                        |-- legacy.cpython-313.pyc
+                        |-- registry.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- events.py
+                |-- exc.py
+                |-- ext
+                    |-- associationproxy.py
+                    |-- asyncio
+                        |-- base.py
+                        |-- engine.py
+                        |-- exc.py
+                        |-- result.py
+                        |-- scoping.py
+                        |-- session.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- base.cpython-313.pyc
+                            |-- engine.cpython-313.pyc
+                            |-- exc.cpython-313.pyc
+                            |-- result.cpython-313.pyc
+                            |-- scoping.cpython-313.pyc
+                            |-- session.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- automap.py
+                    |-- baked.py
+                    |-- compiler.py
+                    |-- declarative
+                        |-- extensions.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- extensions.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- horizontal_shard.py
+                    |-- hybrid.py
+                    |-- indexable.py
+                    |-- instrumentation.py
+                    |-- mutable.py
+                    |-- mypy
+                        |-- apply.py
+                        |-- decl_class.py
+                        |-- infer.py
+                        |-- names.py
+                        |-- plugin.py
+                        |-- util.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- apply.cpython-313.pyc
+                            |-- decl_class.cpython-313.pyc
+                            |-- infer.cpython-313.pyc
+                            |-- names.cpython-313.pyc
+                            |-- plugin.cpython-313.pyc
+                            |-- util.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- orderinglist.py
+                    |-- serializer.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- associationproxy.cpython-313.pyc
+                        |-- automap.cpython-313.pyc
+                        |-- baked.cpython-313.pyc
+                        |-- compiler.cpython-313.pyc
+                        |-- horizontal_shard.cpython-313.pyc
+                        |-- hybrid.cpython-313.pyc
+                        |-- indexable.cpython-313.pyc
+                        |-- instrumentation.cpython-313.pyc
+                        |-- mutable.cpython-313.pyc
+                        |-- orderinglist.cpython-313.pyc
+                        |-- serializer.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- future
+                    |-- engine.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- engine.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- inspection.py
+                |-- log.py
+                |-- orm
+                    |-- attributes.py
+                    |-- base.py
+                    |-- bulk_persistence.py
+                    |-- clsregistry.py
+                    |-- collections.py
+                    |-- context.py
+                    |-- decl_api.py
+                    |-- decl_base.py
+                    |-- dependency.py
+                    |-- descriptor_props.py
+                    |-- dynamic.py
+                    |-- evaluator.py
+                    |-- events.py
+                    |-- exc.py
+                    |-- identity.py
+                    |-- instrumentation.py
+                    |-- interfaces.py
+                    |-- loading.py
+                    |-- mapped_collection.py
+                    |-- mapper.py
+                    |-- path_registry.py
+                    |-- persistence.py
+                    |-- properties.py
+                    |-- query.py
+                    |-- relationships.py
+                    |-- scoping.py
+                    |-- session.py
+                    |-- state.py
+                    |-- state_changes.py
+                    |-- strategies.py
+                    |-- strategy_options.py
+                    |-- sync.py
+                    |-- unitofwork.py
+                    |-- util.py
+                    |-- writeonly.py
+                    |-- _orm_constructors.py
+                    |-- _typing.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- attributes.cpython-313.pyc
+                        |-- base.cpython-313.pyc
+                        |-- bulk_persistence.cpython-313.pyc
+                        |-- clsregistry.cpython-313.pyc
+                        |-- collections.cpython-313.pyc
+                        |-- context.cpython-313.pyc
+                        |-- decl_api.cpython-313.pyc
+                        |-- decl_base.cpython-313.pyc
+                        |-- dependency.cpython-313.pyc
+                        |-- descriptor_props.cpython-313.pyc
+                        |-- dynamic.cpython-313.pyc
+                        |-- evaluator.cpython-313.pyc
+                        |-- events.cpython-313.pyc
+                        |-- exc.cpython-313.pyc
+                        |-- identity.cpython-313.pyc
+                        |-- instrumentation.cpython-313.pyc
+                        |-- interfaces.cpython-313.pyc
+                        |-- loading.cpython-313.pyc
+                        |-- mapped_collection.cpython-313.pyc
+                        |-- mapper.cpython-313.pyc
+                        |-- path_registry.cpython-313.pyc
+                        |-- persistence.cpython-313.pyc
+                        |-- properties.cpython-313.pyc
+                        |-- query.cpython-313.pyc
+                        |-- relationships.cpython-313.pyc
+                        |-- scoping.cpython-313.pyc
+                        |-- session.cpython-313.pyc
+                        |-- state.cpython-313.pyc
+                        |-- state_changes.cpython-313.pyc
+                        |-- strategies.cpython-313.pyc
+                        |-- strategy_options.cpython-313.pyc
+                        |-- sync.cpython-313.pyc
+                        |-- unitofwork.cpython-313.pyc
+                        |-- util.cpython-313.pyc
+                        |-- writeonly.cpython-313.pyc
+                        |-- _orm_constructors.cpython-313.pyc
+                        |-- _typing.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- pool
+                    |-- base.py
+                    |-- events.py
+                    |-- impl.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- base.cpython-313.pyc
+                        |-- events.cpython-313.pyc
+                        |-- impl.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- py.typed
+                |-- schema.py
+                |-- sql
+                    |-- annotation.py
+                    |-- base.py
+                    |-- cache_key.py
+                    |-- coercions.py
+                    |-- compiler.py
+                    |-- crud.py
+                    |-- ddl.py
+                    |-- default_comparator.py
+                    |-- dml.py
+                    |-- elements.py
+                    |-- events.py
+                    |-- expression.py
+                    |-- functions.py
+                    |-- lambdas.py
+                    |-- naming.py
+                    |-- operators.py
+                    |-- roles.py
+                    |-- schema.py
+                    |-- selectable.py
+                    |-- sqltypes.py
+                    |-- traversals.py
+                    |-- type_api.py
+                    |-- util.py
+                    |-- visitors.py
+                    |-- _dml_constructors.py
+                    |-- _elements_constructors.py
+                    |-- _orm_types.py
+                    |-- _py_util.py
+                    |-- _selectable_constructors.py
+                    |-- _typing.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- annotation.cpython-313.pyc
+                        |-- base.cpython-313.pyc
+                        |-- cache_key.cpython-313.pyc
+                        |-- coercions.cpython-313.pyc
+                        |-- compiler.cpython-313.pyc
+                        |-- crud.cpython-313.pyc
+                        |-- ddl.cpython-313.pyc
+                        |-- default_comparator.cpython-313.pyc
+                        |-- dml.cpython-313.pyc
+                        |-- elements.cpython-313.pyc
+                        |-- events.cpython-313.pyc
+                        |-- expression.cpython-313.pyc
+                        |-- functions.cpython-313.pyc
+                        |-- lambdas.cpython-313.pyc
+                        |-- naming.cpython-313.pyc
+                        |-- operators.cpython-313.pyc
+                        |-- roles.cpython-313.pyc
+                        |-- schema.cpython-313.pyc
+                        |-- selectable.cpython-313.pyc
+                        |-- sqltypes.cpython-313.pyc
+                        |-- traversals.cpython-313.pyc
+                        |-- type_api.cpython-313.pyc
+                        |-- util.cpython-313.pyc
+                        |-- visitors.cpython-313.pyc
+                        |-- _dml_constructors.cpython-313.pyc
+                        |-- _elements_constructors.cpython-313.pyc
+                        |-- _orm_types.cpython-313.pyc
+                        |-- _py_util.cpython-313.pyc
+                        |-- _selectable_constructors.cpython-313.pyc
+                        |-- _typing.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- testing
+                    |-- assertions.py
+                    |-- assertsql.py
+                    |-- asyncio.py
+                    |-- config.py
+                    |-- engines.py
+                    |-- entities.py
+                    |-- exclusions.py
+                    |-- fixtures
+                        |-- base.py
+                        |-- mypy.py
+                        |-- orm.py
+                        |-- sql.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- base.cpython-313.pyc
+                            |-- mypy.cpython-313.pyc
+                            |-- orm.cpython-313.pyc
+                            |-- sql.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- pickleable.py
+                    |-- plugin
+                        |-- bootstrap.py
+                        |-- plugin_base.py
+                        |-- pytestplugin.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- bootstrap.cpython-313.pyc
+                            |-- plugin_base.cpython-313.pyc
+                            |-- pytestplugin.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- profiling.py
+                    |-- provision.py
+                    |-- requirements.py
+                    |-- schema.py
+                    |-- suite
+                        |-- test_cte.py
+                        |-- test_ddl.py
+                        |-- test_deprecations.py
+                        |-- test_dialect.py
+                        |-- test_insert.py
+                        |-- test_reflection.py
+                        |-- test_results.py
+                        |-- test_rowcount.py
+                        |-- test_select.py
+                        |-- test_sequence.py
+                        |-- test_types.py
+                        |-- test_unicode_ddl.py
+                        |-- test_update_delete.py
+                        |-- __init__.py
+                        |-- __pycache__
+                            |-- test_cte.cpython-313.pyc
+                            |-- test_ddl.cpython-313.pyc
+                            |-- test_deprecations.cpython-313.pyc
+                            |-- test_dialect.cpython-313.pyc
+                            |-- test_insert.cpython-313.pyc
+                            |-- test_reflection.cpython-313.pyc
+                            |-- test_results.cpython-313.pyc
+                            |-- test_rowcount.cpython-313.pyc
+                            |-- test_select.cpython-313.pyc
+                            |-- test_sequence.cpython-313.pyc
+                            |-- test_types.cpython-313.pyc
+                            |-- test_unicode_ddl.cpython-313.pyc
+                            |-- test_update_delete.cpython-313.pyc
+                            |-- __init__.cpython-313.pyc
+                    |-- util.py
+                    |-- warnings.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- assertions.cpython-313.pyc
+                        |-- assertsql.cpython-313.pyc
+                        |-- asyncio.cpython-313.pyc
+                        |-- config.cpython-313.pyc
+                        |-- engines.cpython-313.pyc
+                        |-- entities.cpython-313.pyc
+                        |-- exclusions.cpython-313.pyc
+                        |-- pickleable.cpython-313.pyc
+                        |-- profiling.cpython-313.pyc
+                        |-- provision.cpython-313.pyc
+                        |-- requirements.cpython-313.pyc
+                        |-- schema.cpython-313.pyc
+                        |-- util.cpython-313.pyc
+                        |-- warnings.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- types.py
+                |-- util
+                    |-- compat.py
+                    |-- concurrency.py
+                    |-- deprecations.py
+                    |-- langhelpers.py
+                    |-- preloaded.py
+                    |-- queue.py
+                    |-- tool_support.py
+                    |-- topological.py
+                    |-- typing.py
+                    |-- _collections.py
+                    |-- _concurrency_py3k.py
+                    |-- _has_cy.py
+                    |-- _py_collections.py
+                    |-- __init__.py
+                    |-- __pycache__
+                        |-- compat.cpython-313.pyc
+                        |-- concurrency.cpython-313.pyc
+                        |-- deprecations.cpython-313.pyc
+                        |-- langhelpers.cpython-313.pyc
+                        |-- preloaded.cpython-313.pyc
+                        |-- queue.cpython-313.pyc
+                        |-- tool_support.cpython-313.pyc
+                        |-- topological.cpython-313.pyc
+                        |-- typing.cpython-313.pyc
+                        |-- _collections.cpython-313.pyc
+                        |-- _concurrency_py3k.cpython-313.pyc
+                        |-- _has_cy.cpython-313.pyc
+                        |-- _py_collections.cpython-313.pyc
+                        |-- __init__.cpython-313.pyc
+                |-- __init__.py
+                |-- __pycache__
+                    |-- events.cpython-313.pyc
+                    |-- exc.cpython-313.pyc
+                    |-- inspection.cpython-313.pyc
+                    |-- log.cpython-313.pyc
+                    |-- schema.cpython-313.pyc
+                    |-- types.cpython-313.pyc
+                    |-- __init__.cpython-313.pyc
+            |-- sqlalchemy-2.0.49.dist-info
+                |-- INSTALLER
+                |-- licenses
+                    |-- LICENSE
+                |-- METADATA
+                |-- RECORD
+                |-- REQUESTED
+                |-- top_level.txt
+                |-- WHEEL
+            |-- typing_extensions-4.15.0.dist-info
+                |-- INSTALLER
+                |-- licenses
+                    |-- LICENSE
+                |-- METADATA
+                |-- RECORD
+                |-- WHEEL
+            |-- typing_extensions.py
             |-- urllib3
                 |-- connection.py
                 |-- connectionpool.py
@@ -1221,6 +1945,8 @@
                 |-- METADATA
                 |-- RECORD
                 |-- WHEEL
+            |-- __pycache__
+                |-- typing_extensions.cpython-313.pyc
     |-- pyvenv.cfg
     |-- Scripts
         |-- activate
@@ -1371,6 +2097,7 @@
 |-- api
     |-- api_performance.py
     |-- bid_document_generator.py
+    |-- bid_outcome_recorder.py
     |-- bid_pdf_generator.py
     |-- rest_api.py
     |-- __init__.py
@@ -1395,6 +2122,8 @@
 |-- compliance_checker.py
 |-- database
     |-- .embedding_cache
+    |-- analysis_store.py
+    |-- catalog_store.py
     |-- chromadb_setup.py
     |-- crud.py
     |-- data_loaders.py
@@ -1407,6 +2136,9 @@
     |-- db_config.py
     |-- db_engine.py
     |-- db_main
+        |-- rfp_system.db
+        |-- rfp_system.db-shm
+        |-- rfp_system.db-wal
     |-- db_performance.py
     |-- db_pricing
         |-- compliance_rules.json
@@ -1415,7 +2147,9 @@
     |-- db_products
         |-- oem_datasheets.json
         |-- oem_products.json
+        |-- user_catalog.json
     |-- db_rfp
+        |-- analysis_history.json
         |-- bids.db
         |-- bid_approvals.db
         |-- bid_approval_rfp.db
@@ -1430,12 +2164,15 @@
         |-- vendor_ratings.db
     |-- migrations
         |-- 001_initial_schema.json
+        |-- create_win_loss_table.py
     |-- migrations.py
     |-- models.py
     |-- README.md
     |-- vector_embeddings.py
     |-- __init__.py
     |-- __pycache__
+        |-- analysis_store.cpython-313.pyc
+        |-- catalog_store.cpython-313.pyc
         |-- chromadb_setup.cpython-313.pyc
         |-- crud.cpython-313.pyc
         |-- data_loaders.cpython-313.pyc
@@ -1446,6 +2183,7 @@
         |-- models.cpython-313.pyc
         |-- vector_embeddings.cpython-313.pyc
         |-- __init__.cpython-313.pyc
+|-- DEMO_VS_NEW_ACCOUNTS.md
 |-- e_procure_portals
     |-- launch_all_portals.py
     |-- portal_app.py
@@ -1651,6 +2389,7 @@
     |-- tsconfig.json
     |-- tsconfig.node.json
     |-- vite.config.ts
+|-- METRICS_AND_METHODS_CATALOG.md
 |-- oem_bids.db
 |-- pdf_extraction
     |-- app.py
@@ -1982,6 +2721,16 @@
         |-- oem_bid_routes.cpython-313.pyc
         |-- perf_integration.cpython-313.pyc
         |-- rfp_workflow.cpython-313.pyc
+|-- roles
+    |-- AI_SYSTEM_ARCHITECT.md
+    |-- BACKEND_SYSTEMS_ENGINEER.md
+    |-- FRONTEND_ENGINEER.md
+    |-- NLP_DATA_ENGINEER.md
+    |-- PPT_3_SLIDES_TEAM_ROLES.md
+    |-- UI_UX_ENGINEER.md
+|-- scripts
+    |-- create_demo_seed_data.py
+|-- SETUP_COMPLETE.md
 |-- spec_comparer
     |-- app.py
     |-- static
@@ -2042,6 +2791,9 @@
         |-- mock_data.cpython-313.pyc
         |-- test_analytics.cpython-313-pytest-9.0.2.pyc
         |-- __init__.cpython-313.pyc
+|-- test_demo_metrics.py
+|-- test_win_loss_feature.py
+|-- test_win_loss_integration.py
 |-- uploads
 |-- vendor_management
     |-- app.py
@@ -2073,6 +2825,8 @@
         |-- vendor_database.cpython-313.pyc
         |-- vendor_performance.cpython-313.pyc
         |-- vendor_rating.cpython-313.pyc
+|-- verify_win_loss_integration.py
+|-- WIN_LOSS_CALCULATION_GUIDE.md
 |-- wires_cables_data
     |-- actual_enrich.py
     |-- add_10_columns.py

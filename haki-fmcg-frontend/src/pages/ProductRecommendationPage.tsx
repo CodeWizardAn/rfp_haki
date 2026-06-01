@@ -4,25 +4,25 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Lightbulb, TrendingUp, Star, ShoppingCart, ChevronRight } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
 
-interface Recommendation { sku: string; name: string; category: string; matchScore: number; reason: string; price: number; savings?: number; }
+interface Recommendation { sku: string; name: string; category: string; matchScore: number; reason: string; price: number; priceUnit: string; savings?: number; }
 
 const tabs = ['For RFP-2026-0044', 'Frequently Bought Together', 'Cost-Effective Alternatives'] as const;
 
 const recommendations: Record<string, Recommendation[]> = {
   'For RFP-2026-0044': [
-    { sku: 'HAK-XLPE-240', name: 'XLPE Power Cable 240mm²', category: 'Power Cables', matchScore: 94, reason: 'Best match for voltage & current specs', price: 2450 },
-    { sku: 'HAK-FR-25', name: 'Fire Resistant Cable 25mm²', category: 'Fire Resistant', matchScore: 91, reason: 'Meets FR-LSH requirement from clause 4.2', price: 1680 },
-    { sku: 'HAK-ARM-120', name: 'Armoured Cable 120mm²', category: 'Armoured', matchScore: 82, reason: 'Suitable for underground installation', price: 1450 },
+    { sku: 'HAK-XLPE-240', name: 'XLPE Power Cable 240mm²', category: 'Power Cables', matchScore: 94, reason: 'Best match for voltage & current specs', price: 2450, priceUnit: '/m' },
+    { sku: 'HAK-FR-25', name: 'Fire Resistant Cable 25mm²', category: 'Fire Resistant', matchScore: 91, reason: 'Meets FR-LSH requirement from clause 4.2', price: 1680, priceUnit: '/m' },
+    { sku: 'HAK-ARM-120', name: 'Armoured Cable 120mm²', category: 'Armoured', matchScore: 82, reason: 'Suitable for underground installation', price: 1450, priceUnit: '/m' },
   ],
   'Frequently Bought Together': [
-    { sku: 'HAK-TERM-240', name: 'Heat Shrink Termination Kit 240mm²', category: 'Accessories', matchScore: 0, reason: 'Usually ordered with XLPE-240', price: 4500 },
-    { sku: 'HAK-JNT-240', name: 'Straight Joint Kit 240mm²', category: 'Accessories', matchScore: 0, reason: 'Required for cable jointing', price: 6200 },
-    { sku: 'HAK-LUG-240', name: 'Compression Lugs 240mm² (Pack 10)', category: 'Accessories', matchScore: 0, reason: 'Copper compression type', price: 1200 },
+    { sku: 'HAK-TERM-240', name: 'Heat Shrink Termination Kit 240mm²', category: 'Accessories', matchScore: 0, reason: 'Usually ordered with XLPE-240', price: 4500, priceUnit: '/pc' },
+    { sku: 'HAK-JNT-240', name: 'Straight Joint Kit 240mm²', category: 'Accessories', matchScore: 0, reason: 'Required for cable jointing', price: 6200, priceUnit: '/pc' },
+    { sku: 'HAK-LUG-240', name: 'Compression Lugs 240mm² (Pack 10)', category: 'Accessories', matchScore: 0, reason: 'Copper compression type', price: 1200, priceUnit: '/pack' },
   ],
   'Cost-Effective Alternatives': [
-    { sku: 'HAK-XLPE-185', name: 'XLPE Power Cable 185mm²', category: 'Power Cables', matchScore: 78, reason: 'Meets 80% specs at lower cost', price: 1890, savings: 560 },
-    { sku: 'HAK-ALU-240', name: 'Aluminium XLPE 240mm²', category: 'Power Cables', matchScore: 88, reason: 'Same size, aluminium conductor', price: 1650, savings: 800 },
-    { sku: 'HAK-PVC-240', name: 'PVC Power Cable 240mm²', category: 'Power Cables', matchScore: 72, reason: 'PVC insulation alternative', price: 1980, savings: 470 },
+    { sku: 'HAK-XLPE-185', name: 'XLPE Power Cable 185mm²', category: 'Power Cables', matchScore: 78, reason: 'Meets 80% specs at lower cost', price: 1890, priceUnit: '/m', savings: 560 },
+    { sku: 'HAK-ALU-240', name: 'Aluminium XLPE 240mm²', category: 'Power Cables', matchScore: 88, reason: 'Same size, aluminium conductor', price: 1650, priceUnit: '/m', savings: 800 },
+    { sku: 'HAK-PVC-240', name: 'PVC Power Cable 240mm²', category: 'Power Cables', matchScore: 72, reason: 'PVC insulation alternative', price: 1980, priceUnit: '/m', savings: 470 },
   ],
 };
 
@@ -61,8 +61,8 @@ export default function ProductRecommendationPage() {
                   </div>
                 </div>
                 <div className="text-right flex-shrink-0">
-                  <span className="text-sm font-bold text-ghost-white">₹{item.price.toLocaleString('en-IN')}/m</span>
-                  {item.savings && <span className="text-[10px] text-neon-emerald block">Save ₹{item.savings.toLocaleString('en-IN')}/m</span>}
+                  <span className="text-sm font-bold text-ghost-white">₹{item.price.toLocaleString('en-IN')}<span className="text-[10px] text-muted-silver font-normal">{item.priceUnit}</span></span>
+                  {item.savings && <span className="text-[10px] text-neon-emerald block">Save ₹{item.savings.toLocaleString('en-IN')}{item.priceUnit}</span>}
                 </div>
                 <ChevronRight size={16} className="text-muted-silver/30 group-hover:text-electric-cyan transition-colors" />
               </Card>

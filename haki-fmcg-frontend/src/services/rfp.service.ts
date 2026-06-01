@@ -64,6 +64,7 @@ export const rfpService = {
       include_calculations?: boolean;
       include_recommendations?: boolean;
       include_budget?: boolean;
+      include_win_loss?: boolean;
       cable_length?: number;
       application?: string;
     },
@@ -78,6 +79,8 @@ export const rfpService = {
       params.set('include_recommendations', String(options.include_recommendations));
     if (options?.include_budget !== undefined)
       params.set('include_budget', String(options.include_budget));
+    if (options?.include_win_loss !== undefined)
+      params.set('include_win_loss', String(options.include_win_loss));
     if (options?.cable_length !== undefined)
       params.set('cable_length', String(options.cable_length));
     if (options?.application)

@@ -40,7 +40,7 @@ const mockProduct = {
   rating: 4.6,
   reviewCount: 128,
   price: 4850,
-  unit: '/m',
+  unit: '/100m',
   listPrice: 5200,
   moq: 500,
   leadTime: '10-14 days',

@@ -1169,6 +1169,26 @@ class SpecMatcher:
                 'hsn_code': row.get('HSN_Code'),
                 'compliance_standards': row.get('Compliance_Standards'),
             }
+            # Detect price unit from product name (coil length) or price ratio
+            _pname = str(row.get('Product_Name', ''))
+            _coil_m = __import__('re').search(r'Length:\s*(\d+)\s*m', _pname, __import__('re').IGNORECASE)
+            if _coil_m:
+                product['price_unit'] = f"{_coil_m.group(1)}m"
+            else:
+                _ppm = row.get('Price_Per_Meter_INR') or 0
+                _calc = row.get('Calculated_Price_Per_Meter') or 0
+                try:
+                    _ratio = float(_ppm) / float(_calc) if float(_calc) > 0 else 1
+                    if 85 <= _ratio <= 115:
+                        product['price_unit'] = '100m'
+                    elif 170 <= _ratio <= 195:
+                        product['price_unit'] = '180m'
+                    elif 80 <= _ratio <= 95:
+                        product['price_unit'] = '90m'
+                    else:
+                        product['price_unit'] = 'm'
+                except (TypeError, ValueError, ZeroDivisionError):
+                    product['price_unit'] = 'm'
             # Clean NaN values for JSON serialization
             results.append(clean_nan_values(product))
         

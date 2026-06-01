@@ -300,6 +300,38 @@ export interface BidAnalytics {
   monthly_values: TrendPoint[];
 }
 
+export interface WinLossBidPrediction {
+  bid_id?: string;
+  status?: string;
+  predicted_win_probability: number;
+  predicted_loss_probability: number;
+  model_source: string;
+  drivers: string[];
+}
+
+export interface WinLossPrediction {
+  resolved_bids: number;
+  won_count: number;
+  lost_count: number;
+  current_win_rate: number;
+  current_win_loss_ratio: string;
+  target_bid?: WinLossBidPrediction | null;
+  portfolio_forecast: {
+    open_bids: number;
+    expected_wins: number;
+    expected_losses: number;
+    predicted_win_loss_ratio: string;
+    average_win_probability: number;
+    top_candidates: WinLossBidPrediction[];
+  };
+  model: {
+    type: string;
+    confidence: number;
+    training_samples: number;
+    generated_at: string;
+  };
+}
+
 // --- Compliance & Audit ---
 
 export interface ComplianceRule {

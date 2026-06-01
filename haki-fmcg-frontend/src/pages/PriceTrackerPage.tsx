@@ -6,19 +6,19 @@ import { Card, Badge } from '@/components/ui';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 const products = [
-  { sku: 'HAK-XLPE-240', name: 'XLPE 240mm²', currentPrice: 2450, change: 3.2, history: [
+  { sku: 'HAK-XLPE-240', name: 'XLPE 240mm²', currentPrice: 2450, priceUnit: '/m', change: 3.2, history: [
     { month: 'Sep', price: 2280 }, { month: 'Oct', price: 2310 }, { month: 'Nov', price: 2340 },
     { month: 'Dec', price: 2380 }, { month: 'Jan', price: 2420 }, { month: 'Feb', price: 2450 },
   ]},
-  { sku: 'HAK-XLPE-400', name: 'XLPE 400mm²', currentPrice: 3120, change: 5.1, history: [
+  { sku: 'HAK-XLPE-400', name: 'XLPE 400mm²', currentPrice: 3120, priceUnit: '/m', change: 5.1, history: [
     { month: 'Sep', price: 2890 }, { month: 'Oct', price: 2920 }, { month: 'Nov', price: 2980 },
     { month: 'Dec', price: 3010 }, { month: 'Jan', price: 3060 }, { month: 'Feb', price: 3120 },
   ]},
-  { sku: 'HAK-PVC-16', name: 'PVC Control 16-core', currentPrice: 890, change: -1.5, history: [
+  { sku: 'HAK-PVC-16', name: 'PVC Control 16-core', currentPrice: 890, priceUnit: '/m', change: -1.5, history: [
     { month: 'Sep', price: 920 }, { month: 'Oct', price: 910 }, { month: 'Nov', price: 905 },
     { month: 'Dec', price: 900 }, { month: 'Jan', price: 895 }, { month: 'Feb', price: 890 },
   ]},
-  { sku: 'HAK-FR-25', name: 'FR Cable 25mm²', currentPrice: 1680, change: 8.4, history: [
+  { sku: 'HAK-FR-25', name: 'FR Cable 25mm²', currentPrice: 1680, priceUnit: '/m', change: 8.4, history: [
     { month: 'Sep', price: 1480 }, { month: 'Oct', price: 1510 }, { month: 'Nov', price: 1560 },
     { month: 'Dec', price: 1590 }, { month: 'Jan', price: 1640 }, { month: 'Feb', price: 1680 },
   ]},
@@ -60,7 +60,7 @@ export default function PriceTrackerPage() {
             </div>
             <div className="flex items-center gap-2">
               <IndianRupee size={14} className="text-electric-cyan" />
-              <span className="text-xl font-bold text-ghost-white">₹{prod.currentPrice.toLocaleString('en-IN')}/m</span>
+              <span className="text-xl font-bold text-ghost-white">₹{prod.currentPrice.toLocaleString('en-IN')}<span className="text-sm font-normal text-muted-silver">{prod.priceUnit}</span></span>
               <Badge variant="soft" color={prod.change >= 0 ? 'emerald' : 'coral'} size="sm">{prod.change >= 0 ? '+' : ''}{prod.change}%</Badge>
             </div>
           </div>

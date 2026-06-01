@@ -463,6 +463,128 @@ class WinLossAnalytics:
             'total_unique_customers': len(customer_analysis)
         }
     
+    def get_win_loss_ratio_by_rfp(self, session: Session, rfp_id: str) -> Dict[str, Any]:
+        """
+        Get win/loss ratio for a specific RFP ID
+        
+        Returns detailed statistics for a unique RFP including:
+        - Win/loss counts
+        - Win rate percentage
+        - Bid amounts
+        - Competitor information
+        - Success/losing factors
+        """
+        query = session.query(WinLossRecord).filter(WinLossRecord.rfp_id == rfp_id)
+        records = query.all()
+        
+        if not records:
+            return {
+                'rfp_id': rfp_id,
+                'status': 'no_data',
+                'total_bids': 0,
+                'won': 0,
+                'lost': 0,
+                'no_bid': 0,
+                'win_ratio': 0,
+                'win_percentage': 0.0,
+                'loss_percentage': 0.0,
+                'participation_rate': 0.0,
+                'message': f'No win/loss records found for RFP {rfp_id}'
+            }
+        
+        # Count outcomes
+        won_count = sum(1 for r in records if r.outcome == 'won')
+        lost_count = sum(1 for r in records if r.outcome == 'lost')
+        no_bid_count = sum(1 for r in records if r.outcome == 'no_bid')
+        total = len(records)
+        
+        # Calculate ratios
+        participated = won_count + lost_count
+        win_ratio = won_count / lost_count if lost_count > 0 else (won_count if won_count > 0 else 0)
+        win_rate = won_count / participated if participated > 0 else 0
+        loss_rate = lost_count / participated if participated > 0 else 0
+        participation_rate = participated / total if total > 0 else 0
+        
+        # Bid amounts analysis
+        won_records = [r for r in records if r.outcome == 'won']
+        lost_records = [r for r in records if r.outcome == 'lost']
+        
+        won_amounts = [r.our_bid_amount for r in won_records if r.our_bid_amount]
+        lost_amounts = [r.our_bid_amount for r in lost_records if r.our_bid_amount]
+        
+        won_value = sum(won_amounts) if won_amounts else 0
+        lost_value = sum(lost_amounts) if lost_amounts else 0
+        
+        # Competitor analysis for this RFP
+        competitors = set()
+        for r in records:
+            if r.competitor_names:
+                competitors.update(r.competitor_names)
+            if r.winning_competitor:
+                competitors.add(r.winning_competitor)
+        
+        # Success/losing factors
+        winning_factors_list = []
+        losing_factors_list = []
+        for r in won_records:
+            if r.winning_factors:
+                winning_factors_list.extend(r.winning_factors)
+        for r in lost_records:
+            if r.losing_factors:
+                losing_factors_list.extend(r.losing_factors)
+        
+        factor_frequency = defaultdict(int)
+        for factor in winning_factors_list:
+            factor_frequency[f"{factor} (WIN)"] += 1
+        for factor in losing_factors_list:
+            factor_frequency[f"{factor} (LOSS)"] += 1
+        
+        sorted_factors = sorted(factor_frequency.items(), key=lambda x: x[1], reverse=True)
+        
+        # Score analysis
+        avg_technical_score = 0
+        avg_commercial_score = 0
+        avg_overall_score = 0
+        
+        if participated > 0:
+            technical_scores = [r.technical_score for r in records if r.technical_score]
+            commercial_scores = [r.commercial_score for r in records if r.commercial_score]
+            overall_scores = [r.overall_score for r in records if r.overall_score]
+            
+            avg_technical_score = sum(technical_scores) / len(technical_scores) if technical_scores else 0
+            avg_commercial_score = sum(commercial_scores) / len(commercial_scores) if commercial_scores else 0
+            avg_overall_score = sum(overall_scores) / len(overall_scores) if overall_scores else 0
+        
+        return {
+            'rfp_id': rfp_id,
+            'status': 'success',
+            'total_bids': total,
+            'participated': participated,
+            'won': won_count,
+            'lost': lost_count,
+            'no_bid': no_bid_count,
+            'win_ratio': round(win_ratio, 2),
+            'win_percentage': round(win_rate * 100, 2),
+            'loss_percentage': round(loss_rate * 100, 2),
+            'participation_rate': round(participation_rate * 100, 2),
+            'bid_value': {
+                'won_value': round(won_value, 2),
+                'lost_value': round(lost_value, 2),
+                'total_value': round(won_value + lost_value, 2),
+                'avg_bid_amount_won': round(sum(won_amounts) / len(won_amounts), 2) if won_amounts else 0,
+                'avg_bid_amount_lost': round(sum(lost_amounts) / len(lost_amounts), 2) if lost_amounts else 0,
+            },
+            'competitors_faced': list(competitors),
+            'unique_competitors_count': len(competitors),
+            'score_analysis': {
+                'avg_technical_score': round(avg_technical_score, 2),
+                'avg_commercial_score': round(avg_commercial_score, 2),
+                'avg_overall_score': round(avg_overall_score, 2),
+            },
+            'factors': [{'factor': f, 'frequency': c} for f, c in sorted_factors[:5]],
+            'latest_outcome': max((r.outcome_date for r in records if r.outcome_date), default=None),
+        }
+
     def get_comprehensive_report(self, session: Session, days: int = 90) -> Dict[str, Any]:
         """Generate comprehensive win/loss report"""
         end_date = datetime.utcnow()

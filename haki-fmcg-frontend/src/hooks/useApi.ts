@@ -39,6 +39,7 @@ const keys = {
   // dashboard
   dashboardStats: ['dashboard', 'stats'] as const,
   dashboardActivity: (page: number) => ['dashboard', 'activity', page] as const,
+  winLossPrediction: ['dashboard', 'win-loss-prediction'] as const,
   systemHealth: ['system', 'health'] as const,
 
   // rfps
@@ -142,6 +143,15 @@ export function useActivityFeed(page = 1) {
     queryKey: keys.dashboardActivity(page),
     queryFn: () => analyticsService.getActivityFeed(page),
     staleTime: STALE_TIME_SHORT,
+  });
+}
+
+export function useWinLossPrediction() {
+  return useQuery({
+    queryKey: keys.winLossPrediction,
+    queryFn: () => analyticsService.getWinLossPrediction(),
+    staleTime: STALE_TIME_SHORT,
+    retry: 2,
   });
 }
 

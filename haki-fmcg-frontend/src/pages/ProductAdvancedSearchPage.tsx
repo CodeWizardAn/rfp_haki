@@ -11,12 +11,12 @@ const materials = ['All', 'Copper', 'Aluminium', 'Copper-Clad'];
 const standards = ['All', 'IS 7098', 'IS 1554', 'IEC 60502', 'BS 6346'];
 
 const mockProducts = [
-  { sku: 'HAK-XLPE-240', name: 'XLPE Insulated Power Cable 240mm²', category: 'Power Cables', voltage: 'HT (3.3-33kV)', material: 'Copper', standard: 'IS 7098', price: 2450, matchScore: 94 },
-  { sku: 'HAK-XLPE-400', name: 'XLPE Insulated Power Cable 400mm²', category: 'Power Cables', voltage: 'HT (3.3-33kV)', material: 'Copper', standard: 'IS 7098', price: 3120, matchScore: 88 },
-  { sku: 'HAK-PVC-16', name: 'PVC Control Cable 16-core', category: 'Control Cables', voltage: 'LT (≤1.1kV)', material: 'Copper', standard: 'IS 1554', price: 890, matchScore: 76 },
-  { sku: 'HAK-FR-25', name: 'Fire Resistant Cable 25mm²', category: 'Fire Resistant', voltage: 'LT (≤1.1kV)', material: 'Copper', standard: 'IEC 60502', price: 1680, matchScore: 91 },
-  { sku: 'HAK-ARM-120', name: 'Armoured Cable 120mm²', category: 'Armoured', voltage: 'HT (3.3-33kV)', material: 'Aluminium', standard: 'BS 6346', price: 1450, matchScore: 82 },
-  { sku: 'HAK-INST-4P', name: 'Instrumentation Cable 4-pair', category: 'Instrumentation', voltage: 'LT (≤1.1kV)', material: 'Copper-Clad', standard: 'IS 1554', price: 320, matchScore: 69 },
+  { sku: 'HAK-XLPE-240', name: 'XLPE Insulated Power Cable 240mm²', category: 'Power Cables', voltage: 'HT (3.3-33kV)', material: 'Copper', standard: 'IS 7098', price: 2450, priceUnit: '/m', matchScore: 94 },
+  { sku: 'HAK-XLPE-400', name: 'XLPE Insulated Power Cable 400mm²', category: 'Power Cables', voltage: 'HT (3.3-33kV)', material: 'Copper', standard: 'IS 7098', price: 3120, priceUnit: '/m', matchScore: 88 },
+  { sku: 'HAK-PVC-16', name: 'PVC Control Cable 16-core', category: 'Control Cables', voltage: 'LT (≤1.1kV)', material: 'Copper', standard: 'IS 1554', price: 890, priceUnit: '/m', matchScore: 76 },
+  { sku: 'HAK-FR-25', name: 'Fire Resistant Cable 25mm²', category: 'Fire Resistant', voltage: 'LT (≤1.1kV)', material: 'Copper', standard: 'IEC 60502', price: 1680, priceUnit: '/m', matchScore: 91 },
+  { sku: 'HAK-ARM-120', name: 'Armoured Cable 120mm²', category: 'Armoured', voltage: 'HT (3.3-33kV)', material: 'Aluminium', standard: 'BS 6346', price: 1450, priceUnit: '/m', matchScore: 82 },
+  { sku: 'HAK-INST-4P', name: 'Instrumentation Cable 4-pair', category: 'Instrumentation', voltage: 'LT (≤1.1kV)', material: 'Copper-Clad', standard: 'IS 1554', price: 320, priceUnit: '/m', matchScore: 69 },
 ];
 
 export default function ProductAdvancedSearchPage() {
@@ -93,7 +93,7 @@ export default function ProductAdvancedSearchPage() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className="text-sm font-bold text-ghost-white">₹{p.price.toLocaleString('en-IN')}/m</span>
+                  <span className="text-sm font-bold text-ghost-white">₹{p.price.toLocaleString('en-IN')}<span className="text-[10px] text-muted-silver font-normal">{p.priceUnit}</span></span>
                   <div className="mt-1"><Badge variant="soft" color={p.matchScore >= 85 ? 'emerald' : p.matchScore >= 70 ? 'amber' : 'coral'} size="sm">{p.matchScore}% match</Badge></div>
                 </div>
               </Card>

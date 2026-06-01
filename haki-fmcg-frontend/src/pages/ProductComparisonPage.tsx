@@ -19,6 +19,7 @@ interface Product {
   oem: string;
   oemColor: string;
   price: number;
+  priceUnit: string;
   rating: number;
   specs: Record<string, string>;
 }
@@ -30,6 +31,7 @@ const CATALOG: Product[] = [
     oem: 'Finolex',
     oemColor: '#3B82F6',
     price: 4850,
+    priceUnit: '/m',
     rating: 4.5,
     specs: {
       'Voltage Rating': '11 kV',
@@ -55,6 +57,7 @@ const CATALOG: Product[] = [
     oem: 'Havells',
     oemColor: '#EF4444',
     price: 5120,
+    priceUnit: '/m',
     rating: 4.7,
     specs: {
       'Voltage Rating': '11 kV',
@@ -80,6 +83,7 @@ const CATALOG: Product[] = [
     oem: 'Polycab',
     oemColor: '#F97316',
     price: 4980,
+    priceUnit: '/m',
     rating: 4.6,
     specs: {
       'Voltage Rating': '11 kV',
@@ -105,6 +109,7 @@ const CATALOG: Product[] = [
     oem: 'KEI',
     oemColor: '#22C55E',
     price: 4720,
+    priceUnit: '/m',
     rating: 4.3,
     specs: {
       'Voltage Rating': '11 kV',
@@ -250,7 +255,7 @@ export default function ProductComparisonPage() {
                   <Star size={11} className="text-amber-glow fill-amber-glow" />
                   <span className="text-xs text-ghost-white">{p.rating}</span>
                 </div>
-                <p className="text-lg font-bold text-electric-cyan mt-2">₹{p.price.toLocaleString('en-IN')}<span className="text-[10px] text-muted-silver font-normal">/m</span></p>
+                <p className="text-lg font-bold text-electric-cyan mt-2">₹{p.price.toLocaleString('en-IN')}<span className="text-[10px] text-muted-silver font-normal">{p.priceUnit}</span></p>
               </motion.div>
             ))}
           </div>

@@ -19,14 +19,24 @@ import {
   AlertCircle,
   FileText,
   X,
+  Eye,
+  Check,
+  ChevronsUpDown,
+  Sparkles,
+  Regex,
 } from 'lucide-react';
 import { Card, Badge, Button, Modal, Input, Spinner } from '@/components/ui';
-import { productService, type CatalogProduct, type CatalogResponse, type CatalogFilters } from '@/services/product.service';
+import {
+  productService,
+  type CatalogResponse,
+  type CatalogFilters,
+  type ImportPreviewResponse,
+} from '@/services/product.service';
 
 // ── Source badge color helper ──
 function sourceBadge(source: string) {
-  if (source === 'user') return { color: 'cyan' as const, label: 'User Added' };
-  if (source === 'imported') return { color: 'purple' as const, label: 'Imported' };
+  if (source === 'user' || source === 'User Added') return { color: 'cyan' as const, label: 'User Added' };
+  if (source === 'imported' || source === 'PDF Import') return { color: 'purple' as const, label: 'PDF Import' };
   return { color: 'emerald' as const, label: source?.toUpperCase() || 'OEM' };
 }
 
@@ -75,7 +85,7 @@ function AddProductModal({ open, onClose, onAdded }: { open: boolean; onClose: (
           <Input label="Product Name *" placeholder="e.g. XLPE Cable 3x95mm²" value={form.name} onChange={(e) => set('name', e.target.value)} />
           <Input label="OEM / Brand" placeholder="e.g. Polycab" value={form.oem} onChange={(e) => set('oem', e.target.value)} />
           <Input label="Category" placeholder="e.g. Power Cables" value={form.category} onChange={(e) => set('category', e.target.value)} />
-          <Input label="Price per Meter (₹)" placeholder="e.g. 450" type="number" value={form.price_per_meter} onChange={(e) => set('price_per_meter', e.target.value)} />
+          <Input label="Price (₹) — enter /m or /100m as applicable" placeholder="e.g. 450 per m or 45000 per 100m" type="number" value={form.price_per_meter} onChange={(e) => set('price_per_meter', e.target.value)} />
           <Input label="Voltage Rating" placeholder="e.g. 11kV" value={form.voltage_rating} onChange={(e) => set('voltage_rating', e.target.value)} />
           <Input label="Conductor Size (mm²)" placeholder="e.g. 95" type="number" value={form.conductor_size} onChange={(e) => set('conductor_size', e.target.value)} />
           <Input label="Number of Cores" placeholder="e.g. 3" type="number" value={form.cores} onChange={(e) => set('cores', e.target.value)} />
@@ -94,104 +104,302 @@ function AddProductModal({ open, onClose, onAdded }: { open: boolean; onClose: (
   );
 }
 
-// ── Import Catalog Modal ──
+// ── Import Catalog Modal (Two-Step: Extract → Preview → Confirm) ──
 function ImportCatalogModal({ open, onClose, onImported }: { open: boolean; onClose: () => void; onImported: (count: number) => void }) {
   const [mode, setMode] = useState<'file' | 'url'>('file');
   const [file, setFile] = useState<File | null>(null);
   const [url, setUrl] = useState('');
-  const [importing, setImporting] = useState(false);
+  const [step, setStep] = useState<'upload' | 'extracting' | 'preview' | 'confirming' | 'done'>('upload');
   const [error, setError] = useState('');
-  const [result, setResult] = useState<{ imported_count: number } | null>(null);
+  const [preview, setPreview] = useState<ImportPreviewResponse | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [importedCount, setImportedCount] = useState(0);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const handleImport = async () => {
-    setError(''); setResult(null); setImporting(true);
+  // Reset state when modal opens
+  useEffect(() => {
+    if (open) {
+      setStep('upload'); setError(''); setPreview(null); setSelected(new Set());
+      setImportedCount(0); setFile(null); setUrl('');
+    }
+  }, [open]);
+
+  // ── Step 1: Extract from PDF/URL ──
+  const handleExtract = async () => {
+    setError(''); setStep('extracting');
     try {
-      const res = await productService.importCatalog(mode === 'file' ? file! : undefined, mode === 'url' ? url : undefined);
-      setResult(res);
-      onImported(res.imported_count);
+      const res = await productService.importCatalog(
+        mode === 'file' ? file! : undefined,
+        mode === 'url' ? url : undefined,
+        false // preview mode
+      );
+      // If it's a preview response (has extraction_id)
+      const data = res as ImportPreviewResponse;
+      if (data.extraction_id && data.preview) {
+        setPreview(data);
+        // Select all by default
+        setSelected(new Set(data.preview.map((p) => p.product_code)));
+        setStep('preview');
+      } else {
+        // Fallback: auto-confirmed (legacy)
+        const legacy = res as any;
+        setImportedCount(legacy.imported_count || 0);
+        onImported(legacy.imported_count || 0);
+        setStep('done');
+      }
     } catch (e: any) {
-      setError(e?.response?.data?.detail || e?.message || 'Import failed');
-    } finally { setImporting(false); }
+      setError(e?.response?.data?.detail || e?.message || 'Extraction failed');
+      setStep('upload');
+    }
   };
 
-  const canImport = mode === 'file' ? !!file : url.trim().length > 5;
+  // ── Step 2: Confirm selected products ──
+  const handleConfirm = async () => {
+    if (!preview) return;
+    setStep('confirming'); setError('');
+    try {
+      const selectedCodes = Array.from(selected);
+      const res = await productService.confirmImport(preview.extraction_id, selectedCodes);
+      setImportedCount(res.imported_count);
+      onImported(res.imported_count);
+      setStep('done');
+    } catch (e: any) {
+      setError(e?.response?.data?.detail || e?.message || 'Import confirmation failed');
+      setStep('preview');
+    }
+  };
+
+  const toggleProduct = (code: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(code)) next.delete(code); else next.add(code);
+      return next;
+    });
+  };
+  const toggleAll = () => {
+    if (!preview) return;
+    if (selected.size === preview.preview.length) {
+      setSelected(new Set());
+    } else {
+      setSelected(new Set(preview.preview.map((p) => p.product_code)));
+    }
+  };
+
+  const canExtract = mode === 'file' ? !!file : url.trim().length > 5;
 
   return (
-    <Modal open={open} onClose={onClose} size="lg" title="Connect Product Catalog" description="Import products from a PDF catalog or URL. Our AI will detect and extract products automatically.">
+    <Modal open={open} onClose={onClose} size="xl" title="Import Product Catalog from PDF" description="Upload a PDF catalog and our AI will extract products automatically.">
       <div className="space-y-5">
-        {/* Mode Tabs */}
-        <div className="flex gap-1 p-1 rounded-xl bg-steel-slate/20">
-          <button onClick={() => setMode('file')} className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-colors ${mode === 'file' ? 'bg-neon-emerald/15 text-neon-emerald' : 'text-muted-silver hover:text-ghost-white'}`}>
-            <Upload size={15} />PDF Upload
-          </button>
-          <button onClick={() => setMode('url')} className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-colors ${mode === 'url' ? 'bg-electric-cyan/15 text-electric-cyan' : 'text-muted-silver hover:text-ghost-white'}`}>
-            <Link2 size={15} />Catalog URL
-          </button>
-        </div>
 
-        {mode === 'file' ? (
-          <div>
-            <input ref={fileRef} type="file" accept=".pdf" className="hidden" onChange={(e) => setFile(e.target.files?.[0] || null)} />
-            <div
-              onClick={() => fileRef.current?.click()}
-              className="border-2 border-dashed border-steel-slate/30 rounded-xl p-8 text-center cursor-pointer hover:border-neon-emerald/30 transition-colors"
-            >
-              {file ? (
-                <div className="flex items-center justify-center gap-3">
-                  <FileText size={24} className="text-neon-emerald" />
-                  <div className="text-left">
-                    <p className="text-sm text-ghost-white font-medium">{file.name}</p>
-                    <p className="text-xs text-muted-silver">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
-                  </div>
-                  <button onClick={(e) => { e.stopPropagation(); setFile(null); }} className="p-1 hover:bg-steel-slate/30 rounded"><X size={14} className="text-muted-silver" /></button>
+        {/* ── Step: Upload ── */}
+        {step === 'upload' && (
+          <>
+            {/* Mode Tabs */}
+            <div className="flex gap-1 p-1 rounded-xl bg-steel-slate/20">
+              <button onClick={() => setMode('file')} className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-colors ${mode === 'file' ? 'bg-neon-emerald/15 text-neon-emerald' : 'text-muted-silver hover:text-ghost-white'}`}>
+                <Upload size={15} />PDF Upload
+              </button>
+              <button onClick={() => setMode('url')} className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-colors ${mode === 'url' ? 'bg-electric-cyan/15 text-electric-cyan' : 'text-muted-silver hover:text-ghost-white'}`}>
+                <Link2 size={15} />Catalog URL
+              </button>
+            </div>
+
+            {mode === 'file' ? (
+              <div>
+                <input ref={fileRef} type="file" accept=".pdf" className="hidden" onChange={(e) => setFile(e.target.files?.[0] || null)} />
+                <div
+                  onClick={() => fileRef.current?.click()}
+                  className="border-2 border-dashed border-steel-slate/30 rounded-xl p-8 text-center cursor-pointer hover:border-neon-emerald/30 transition-colors"
+                >
+                  {file ? (
+                    <div className="flex items-center justify-center gap-3">
+                      <FileText size={24} className="text-neon-emerald" />
+                      <div className="text-left">
+                        <p className="text-sm text-ghost-white font-medium">{file.name}</p>
+                        <p className="text-xs text-muted-silver">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                      </div>
+                      <button onClick={(e) => { e.stopPropagation(); setFile(null); }} className="p-1 hover:bg-steel-slate/30 rounded"><X size={14} className="text-muted-silver" /></button>
+                    </div>
+                  ) : (
+                    <>
+                      <Upload size={32} className="mx-auto text-steel-slate/50 mb-3" />
+                      <p className="text-sm text-ghost-white">Click to upload PDF catalog</p>
+                      <p className="text-xs text-muted-silver mt-1">Supports product catalogs, datasheets, and spec sheets</p>
+                    </>
+                  )}
                 </div>
-              ) : (
-                <>
-                  <Upload size={32} className="mx-auto text-steel-slate/50 mb-3" />
-                  <p className="text-sm text-ghost-white">Click to upload PDF catalog</p>
-                  <p className="text-xs text-muted-silver mt-1">Supports product catalogs, datasheets, and spec sheets</p>
-                </>
-              )}
-            </div>
-          </div>
-        ) : (
-          <Input
-            label="Catalog URL"
-            placeholder="https://example.com/product-catalog.pdf"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            leftIcon={<Link2 size={14} />}
-          />
+              </div>
+            ) : (
+              <Input
+                label="Catalog URL"
+                placeholder="https://example.com/product-catalog.pdf"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                leftIcon={<Link2 size={14} />}
+              />
+            )}
+          </>
         )}
 
-        {error && <div className="flex items-center gap-2 text-coral-flame text-sm bg-coral-flame/10 px-3 py-2 rounded-lg"><AlertCircle size={14} />{error}</div>}
-
-        {result && (
-          <div className="bg-neon-emerald/10 border border-neon-emerald/20 rounded-xl p-4">
-            <div className="flex items-center gap-2 text-neon-emerald font-medium mb-1">
-              <CheckCircle2 size={16} />Import Complete
+        {/* ── Step: Extracting (loading) ── */}
+        {step === 'extracting' && (
+          <div className="flex flex-col items-center gap-4 py-12">
+            <div className="relative">
+              <Loader2 size={40} className="text-electric-cyan animate-spin" />
+              <Sparkles size={16} className="absolute -top-1 -right-1 text-amber-400 animate-pulse" />
             </div>
-            <p className="text-sm text-ghost-white">{result.imported_count} products detected and added to your catalog.</p>
+            <div className="text-center">
+              <p className="text-ghost-white font-medium">Analyzing PDF Catalog...</p>
+              <p className="text-sm text-muted-silver mt-1">AI is reading your catalog and detecting products. This may take up to a minute.</p>
+            </div>
+            <div className="flex gap-6 text-xs text-muted-silver">
+              <span className="flex items-center gap-1.5"><FileText size={12} className="text-neon-emerald" />Extracting text</span>
+              <span className="flex items-center gap-1.5"><Eye size={12} className="text-electric-cyan" />Detecting products</span>
+              <span className="flex items-center gap-1.5"><Database size={12} className="text-amber-400" />Parsing specs</span>
+            </div>
           </div>
         )}
 
-        {importing && (
-          <div className="flex items-center gap-3 text-sm text-electric-cyan py-3">
-            <Loader2 size={16} className="animate-spin" />
-            <span>AI is analyzing your catalog and extracting products... This may take a minute.</span>
+        {/* ── Step: Preview extracted products ── */}
+        {step === 'preview' && preview && (
+          <>
+            {/* Summary bar */}
+            <div className="flex items-center justify-between bg-steel-slate/15 rounded-xl p-3">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-neon-emerald" />
+                  <span className="text-sm text-ghost-white font-medium">
+                    {preview.total_detected} products detected
+                  </span>
+                </div>
+                <Badge variant="soft" color={preview.extraction_method === 'ai' ? 'cyan' : 'amber'} size="sm">
+                  {preview.extraction_method === 'ai' ? <><Sparkles size={10} className="mr-1" />AI Extracted</> : <><Regex size={10} className="mr-1" />Pattern Match</>}
+                </Badge>
+                {preview.page_count > 0 && (
+                  <span className="text-xs text-muted-silver">{preview.page_count} pages</span>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <button onClick={toggleAll} className="flex items-center gap-1.5 text-xs text-electric-cyan hover:text-electric-cyan/80 transition-colors">
+                  <ChevronsUpDown size={12} />
+                  {selected.size === preview.preview.length ? 'Deselect All' : 'Select All'}
+                </button>
+                <span className="text-xs text-muted-silver">
+                  {selected.size} of {preview.preview.length} selected
+                </span>
+              </div>
+            </div>
+
+            {/* Product preview table */}
+            <div className="max-h-[400px] overflow-y-auto rounded-xl border border-steel-slate/20">
+              <table className="w-full text-sm">
+                <thead className="sticky top-0 bg-deep-space-blue z-10">
+                  <tr className="text-left text-xs text-muted-silver border-b border-steel-slate/20">
+                    <th className="p-2.5 w-8">
+                      <input
+                        type="checkbox"
+                        checked={selected.size === preview.preview.length}
+                        onChange={toggleAll}
+                        className="rounded border-steel-slate/40 text-neon-emerald focus:ring-neon-emerald/30"
+                      />
+                    </th>
+                    <th className="p-2.5 font-medium">Product Name</th>
+                    <th className="p-2.5 font-medium">OEM</th>
+                    <th className="p-2.5 font-medium">Category</th>
+                    <th className="p-2.5 font-medium">Size</th>
+                    <th className="p-2.5 font-medium">Voltage</th>
+                    <th className="p-2.5 font-medium">Material</th>
+                    <th className="p-2.5 font-medium">Price/100m</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {preview.preview.map((p) => {
+                    const isSelected = selected.has(p.product_code);
+                    return (
+                      <tr
+                        key={p.product_code}
+                        onClick={() => toggleProduct(p.product_code)}
+                        className={`border-b border-steel-slate/10 cursor-pointer transition-colors ${isSelected ? 'bg-neon-emerald/5 hover:bg-neon-emerald/10' : 'opacity-50 hover:bg-steel-slate/10'}`}
+                      >
+                        <td className="p-2.5">
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => toggleProduct(p.product_code)}
+                            className="rounded border-steel-slate/40 text-neon-emerald focus:ring-neon-emerald/30"
+                          />
+                        </td>
+                        <td className="p-2.5 text-ghost-white font-medium max-w-[220px] truncate">{p.name}</td>
+                        <td className="p-2.5 text-muted-silver text-xs">{p.oem || '—'}</td>
+                        <td className="p-2.5 text-muted-silver text-xs">{p.category || '—'}</td>
+                        <td className="p-2.5 text-muted-silver text-xs">{p.conductor_size ? `${p.conductor_size}mm²` : '—'}</td>
+                        <td className="p-2.5 text-muted-silver text-xs">{p.voltage_rating || '—'}</td>
+                        <td className="p-2.5 text-muted-silver text-xs">{p.conductor_material || '—'}</td>
+                        <td className="p-2.5 text-ghost-white font-semibold text-xs">
+                          {p.price_per_meter != null ? `₹${Number(p.price_per_meter).toLocaleString('en-IN')}${(p as any).price_unit && (p as any).price_unit !== 'm' ? `/${(p as any).price_unit}` : '/m'}` : '—'}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+
+        {/* ── Step: Confirming ── */}
+        {step === 'confirming' && (
+          <div className="flex flex-col items-center gap-3 py-10">
+            <Loader2 size={32} className="text-neon-emerald animate-spin" />
+            <p className="text-sm text-ghost-white">Adding {selected.size} products to your catalog...</p>
+          </div>
+        )}
+
+        {/* ── Step: Done ── */}
+        {step === 'done' && (
+          <div className="bg-neon-emerald/10 border border-neon-emerald/20 rounded-xl p-6 text-center">
+            <CheckCircle2 size={32} className="mx-auto text-neon-emerald mb-3" />
+            <p className="text-ghost-white font-semibold text-lg">{importedCount} Products Added!</p>
+            <p className="text-sm text-muted-silver mt-1">
+              Products have been extracted from the PDF and added to your catalog.
+              They are now available for RFP matching and search.
+            </p>
+          </div>
+        )}
+
+        {/* ── Error ── */}
+        {error && (
+          <div className="flex items-center gap-2 text-coral-flame text-sm bg-coral-flame/10 px-3 py-2 rounded-lg">
+            <AlertCircle size={14} />{error}
           </div>
         )}
       </div>
-      <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-steel-slate/20">
-        <Button variant="ghost" onClick={onClose} disabled={importing}>Cancel</Button>
-        {!result ? (
-          <Button variant="primary" onClick={handleImport} disabled={!canImport || importing}>
-            {importing ? <><Loader2 size={14} className="animate-spin mr-1.5" />Importing...</> : <><Upload size={14} className="mr-1.5" />Import Catalog</>}
-          </Button>
-        ) : (
-          <Button variant="primary" onClick={() => { onClose(); setResult(null); setFile(null); setUrl(''); }}>Done</Button>
-        )}
+
+      {/* ── Footer Actions ── */}
+      <div className="flex items-center justify-between mt-6 pt-4 border-t border-steel-slate/20">
+        <div>
+          {step === 'preview' && (
+            <Button variant="ghost" size="sm" onClick={() => { setStep('upload'); setPreview(null); }}>
+              <Upload size={14} className="mr-1.5" />Upload Different File
+            </Button>
+          )}
+        </div>
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" onClick={onClose} disabled={step === 'extracting' || step === 'confirming'}>Cancel</Button>
+          {step === 'upload' && (
+            <Button variant="primary" onClick={handleExtract} disabled={!canExtract}>
+              <Eye size={14} className="mr-1.5" />Extract Products
+            </Button>
+          )}
+          {step === 'preview' && (
+            <Button variant="primary" onClick={handleConfirm} disabled={selected.size === 0}>
+              <Check size={14} className="mr-1.5" />Add {selected.size} Products to Catalog
+            </Button>
+          )}
+          {step === 'done' && (
+            <Button variant="primary" onClick={() => { onClose(); }}>Done</Button>
+          )}
+        </div>
       </div>
     </Modal>
   );
@@ -378,7 +586,7 @@ export default function UserProductsPage() {
                     <th className="p-3 font-medium">Category</th>
                     <th className="p-3 font-medium">Conductor</th>
                     <th className="p-3 font-medium">Voltage</th>
-                    <th className="p-3 font-medium">Price/m</th>
+                    <th className="p-3 font-medium">Price/100m</th>
                     <th className="p-3 font-medium">Source</th>
                   </tr>
                 </thead>
@@ -401,7 +609,7 @@ export default function UserProductsPage() {
                           </td>
                           <td className="p-3 text-muted-silver text-xs">{p.voltage_rating || '—'}</td>
                           <td className="p-3 text-ghost-white font-semibold whitespace-nowrap">
-                            {p.price_per_meter != null ? `₹${p.price_per_meter.toLocaleString('en-IN')}` : '—'}
+                            {p.price_per_meter != null ? `₹${p.price_per_meter.toLocaleString('en-IN')}${(p as any).price_unit && (p as any).price_unit !== 'm' ? `/${(p as any).price_unit}` : '/m'}` : '—'}
                           </td>
                           <td className="p-3">
                             <Badge variant="soft" color={sb.color} size="sm">{sb.label}</Badge>
@@ -446,7 +654,7 @@ export default function UserProductsPage() {
                       </div>
                       <div className="mt-auto">
                         {p.price_per_meter != null ? (
-                          <p className="text-lg font-bold text-ghost-white">₹{p.price_per_meter.toLocaleString('en-IN')}<span className="text-xs text-muted-silver font-normal">/m</span></p>
+                          <p className="text-lg font-bold text-ghost-white">₹{p.price_per_meter.toLocaleString('en-IN')}<span className="text-xs text-muted-silver font-normal">{(p as any).price_unit && (p as any).price_unit !== 'm' ? `/${(p as any).price_unit}` : '/m'}</span></p>
                         ) : (
                           <p className="text-sm text-muted-silver italic">Price on request</p>
                         )}

@@ -648,7 +648,7 @@ function AnalysisDetailView({
                               <span className="text-electric-cyan font-medium">{topMatch.product_name || topMatch.product_code}</span>
                               <span className="text-muted-silver">{topMatch.oem}</span>
                               <span className="text-muted-silver">{topMatch.conductor_size}mm\u00B2 {topMatch.cores}C</span>
-                              {topMatch.price_per_meter > 0 && <span className="text-neon-emerald">{fmtINR(topMatch.price_per_meter)}/m</span>}
+                              {topMatch.price_per_meter > 0 && <span className="text-neon-emerald">{fmtINR(topMatch.price_per_meter)}{topMatch.price_unit && topMatch.price_unit !== 'm' ? `/${topMatch.price_unit}` : '/m'}</span>}
                             </div>
                           )}
                         </div>
