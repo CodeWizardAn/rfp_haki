@@ -37,6 +37,7 @@ haki-fmcg-frontend/.vite/
 *.db
 *.sqlite3
 *.sqlite
+database/users.json
 
 # ── Vector Store (ChromaDB) ─────────────────────
 database/db_vector/

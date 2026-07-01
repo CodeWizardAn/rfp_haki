@@ -1,0 +1,56 @@
+# Core Web Framework
+Flask==2.3.3
+Flask-CORS==4.0.0
+Werkzeug==2.3.7
+
+# Database & ORM
+SQLAlchemy==2.0.21
+psycopg2-binary==2.9.7
+
+# Data Processing & Analysis
+numpy>=2.1.0
+pandas>=2.2.2
+
+# Data Validation
+pydantic>=2.9.0
+chromadb>=0.5.5
+sentence-transformers>=3.0.1
+setuptools>=75.0.0
+wheel>=0.44.0
+
+# LLM & AI Agents
+langchain==0.0.304
+langchain-core==0.0.9
+langchain-groq==0.0.1
+
+# PDF Processing
+pdfplumber==0.10.3
+PyPDF2==3.0.1
+pymupdf==1.23.2
+pytesseract==0.3.10
+Pillow==10.0.0
+
+# Web Scraping & HTTP
+requests==2.31.0
+beautifulsoup4==4.12.2
+
+# Environment & Configuration
+python-dotenv==1.0.0
+
+# Testing
+pytest==7.4.0
+pytest-cov==4.1.0
+pytest-asyncio==0.21.1
+
+# Excel Processing (if needed)
+openpyxl==3.1.2
+xlrd==2.0.1
+xlwt==1.3.0
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3
+click==8.1.7
+
+# Development & Debugging
+pdbpp==0.10.3
