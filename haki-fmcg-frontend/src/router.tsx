@@ -102,6 +102,17 @@ const UserAnalyticsPage = lazy(() => import('@/pages/user/UserAnalyticsPage'));
 const UserHistoryPage = lazy(() => import('@/pages/user/UserHistoryPage'));
 const CompanyProfilesPage = lazy(() => import('@/pages/user/CompanyProfilesPage'));
 const BidGeneratorPage = lazy(() => import('@/pages/user/BidGeneratorPage'));
+const UserBidsPage = lazy(() => import('@/pages/user/UserBidsPage'));
+const UserCatalogPage = lazy(() => import('@/pages/user/UserCatalogPage'));
+const UserHelpPage = lazy(() => import('@/pages/user/UserHelpPage'));
+const UserNewRequestPage = lazy(() => import('@/pages/user/UserNewRequestPage'));
+const UserNotificationsPage = lazy(() => import('@/pages/user/UserNotificationsPage'));
+const UserProductDetailPage = lazy(() => import('@/pages/user/UserProductDetailPage'));
+const UserProfilePage = lazy(() => import('@/pages/user/UserProfilePage'));
+const UserQuotesPage = lazy(() => import('@/pages/user/UserQuotesPage'));
+const UserRequestsPage = lazy(() => import('@/pages/user/UserRequestsPage'));
+const UserVendorsPage = lazy(() => import('@/pages/user/UserVendorsPage'));
+const UserWishlistPage = lazy(() => import('@/pages/user/UserWishlistPage'));
 
 function SuspenseWrap({ children }: { children: React.ReactNode }) {
   return <Suspense fallback={<PageLoader />}>{children}</Suspense>;
@@ -673,6 +684,50 @@ export const router = createBrowserRouter([
       {
         path: 'bid-generator',
         element: (<SuspenseWrap><BidGeneratorPage /></SuspenseWrap>),
+      },
+      {
+        path: 'my-bids',
+        element: (<SuspenseWrap><UserBidsPage /></SuspenseWrap>),
+      },
+      {
+        path: 'catalog',
+        element: (<SuspenseWrap><UserCatalogPage /></SuspenseWrap>),
+      },
+      {
+        path: 'catalog/:sku',
+        element: (<SuspenseWrap><UserProductDetailPage /></SuspenseWrap>),
+      },
+      {
+        path: 'help',
+        element: (<SuspenseWrap><UserHelpPage /></SuspenseWrap>),
+      },
+      {
+        path: 'new-request',
+        element: (<SuspenseWrap><UserNewRequestPage /></SuspenseWrap>),
+      },
+      {
+        path: 'notifications',
+        element: (<SuspenseWrap><UserNotificationsPage /></SuspenseWrap>),
+      },
+      {
+        path: 'profile',
+        element: (<SuspenseWrap><UserProfilePage /></SuspenseWrap>),
+      },
+      {
+        path: 'quotes',
+        element: (<SuspenseWrap><UserQuotesPage /></SuspenseWrap>),
+      },
+      {
+        path: 'requests',
+        element: (<SuspenseWrap><UserRequestsPage /></SuspenseWrap>),
+      },
+      {
+        path: 'vendors',
+        element: (<SuspenseWrap><UserVendorsPage /></SuspenseWrap>),
+      },
+      {
+        path: 'wishlist',
+        element: (<SuspenseWrap><UserWishlistPage /></SuspenseWrap>),
       },
       {
         path: '*',

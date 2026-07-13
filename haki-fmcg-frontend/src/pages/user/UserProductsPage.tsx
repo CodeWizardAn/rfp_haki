@@ -416,7 +416,7 @@ export default function UserProductsPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [addOpen, setAddOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
-  const searchTimer = useRef<ReturnType<typeof setTimeout>>();
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Debounced search
   const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -467,7 +467,7 @@ export default function UserProductsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <Button variant="outline" size="sm" onClick={() => setImportOpen(true)}>
+          <Button variant="secondary" size="sm" onClick={() => setImportOpen(true)}>
             <Upload size={14} className="mr-1.5" />Connect Catalog
           </Button>
           <Button variant="primary" size="sm" onClick={() => setAddOpen(true)}>
@@ -567,7 +567,7 @@ export default function UserProductsPage() {
       {/* ── Loading State ── */}
       {loading && (
         <div className="flex items-center justify-center py-16 gap-3">
-          <Spinner size="md" />
+          <Spinner size={24} />
           <span className="text-muted-silver text-sm">Loading products...</span>
         </div>
       )}
@@ -676,7 +676,7 @@ export default function UserProductsPage() {
             {debouncedSearch ? `No results for "${debouncedSearch}". Try a different search term.` : 'Your product catalog is empty.'}
           </p>
           <div className="flex items-center justify-center gap-3">
-            <Button variant="outline" size="sm" onClick={() => setImportOpen(true)}>
+            <Button variant="secondary" size="sm" onClick={() => setImportOpen(true)}>
               <Upload size={14} className="mr-1.5" />Import Catalog
             </Button>
             <Button variant="primary" size="sm" onClick={() => setAddOpen(true)}>

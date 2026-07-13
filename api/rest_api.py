@@ -364,7 +364,17 @@ class PaginatedResponse(BaseModel):
 
 class JWTConfig:
     """JWT configuration"""
-    SECRET_KEY = os.getenv("JWT_SECRET_KEY", "haki-fmcg-dev-secret-key-change-in-production")
+    _env_secret = os.getenv("JWT_SECRET_KEY")
+    if _env_secret:
+        SECRET_KEY = _env_secret
+    else:
+        # No env secret configured — generate a random one for this process instead
+        # of falling back to a fixed string (which would let anyone who has read
+        # this source forge valid tokens). Set JWT_SECRET_KEY in production so
+        # tokens survive restarts and stay valid across multiple worker processes.
+        SECRET_KEY = secrets.token_hex(32)
+        print("WARNING: JWT_SECRET_KEY not set — using a random per-process secret. "
+              "All existing tokens will be invalidated on restart. Set JWT_SECRET_KEY for production.")
     ALGORITHM = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES = 30
     REFRESH_TOKEN_EXPIRE_DAYS = 7
@@ -1248,6 +1258,32 @@ async def get_optional_user(
     return auth_manager.validate_token(credentials.credentials)
 
 
+async def get_current_user_sse(
+    token: Optional[str] = Query(None),
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+) -> TokenData:
+    """
+    Dependency for SSE endpoints, which browsers connect to via EventSource —
+    an API that cannot set an Authorization header. Accepts the JWT via a
+    `token` query param as a fallback when no bearer header is present.
+    """
+    raw_token = credentials.credentials if credentials else token
+    if not raw_token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication required",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    token_data = auth_manager.validate_token(raw_token)
+    if not token_data:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return token_data
+
+
 # =============================================================================
 # Feature 10: Health Check Endpoint
 # =============================================================================
@@ -1360,10 +1396,10 @@ async def register_user(user_data: UserCreate):
     """
     Register a new user account (public).
 
-    Anyone can create an account.  Role defaults to VIEWER
-    unless explicitly set (only admins should pass role != viewer
-    in a real deployment, but for the demo we allow it).
+    Anyone can create an account, but it is always created as VIEWER —
+    role escalation must go through an authenticated admin action.
     """
+    user_data.role = UserRole.VIEWER
     result = await auth_manager.create_user(user_data)
     if not result:
         raise HTTPException(
@@ -2326,7 +2362,7 @@ async def upload_batch_files(
 @app.get("/api/v1/rfps/{rfp_id}/progress/stream", tags=["Streaming"])
 async def stream_rfp_progress(
     rfp_id: str,
-    current_user: TokenData = Depends(get_current_user)
+    current_user: TokenData = Depends(get_current_user_sse)
 ):
     """
     Stream RFP processing progress
@@ -2373,7 +2409,7 @@ async def stream_rfp_progress(
 @app.get("/api/v1/events/stream", tags=["Streaming"])
 async def stream_events(
     events: List[str] = Query(["*"]),
-    current_user: TokenData = Depends(get_current_user)
+    current_user: TokenData = Depends(get_current_user_sse)
 ):
     """
     Stream system events
@@ -4819,7 +4855,7 @@ async def analyze_linked_document(
         return ResponseFormatter.success(data=content_result, message="Document analyzed")
 
     except ImportError as ie:
-        raise HTTPException(status_code=500, detail=f"PDF extraction module not available: {ie}")
+        raise HTTPException(status_code=503, detail=f"PDF extraction module not available: {ie}")
     except Exception as e:
         logger.error(f"Linked doc analysis failed: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
@@ -5552,7 +5588,7 @@ async def record_bid_outcome(
                 
                 logger.info(f"✅ Recorded bid outcome for RFP {outcome_data.rfp_id}")
                 
-                return wrap_response({
+                return JSONResponse(content={
                     "success": True,
                     "message": f"Bid outcome recorded for RFP {outcome_data.rfp_id}",
                     "record_id": record.id,
@@ -5597,7 +5633,7 @@ async def get_win_loss_ratio(rfp_id: str):
                 result = win_loss_analytics.get_win_loss_ratio_by_rfp(session, rfp_id)
                 session.close()
                 
-                return wrap_response(result)
+                return result
             except Exception as e:
                 session.close()
                 logger.error(f"Error calculating win/loss ratio: {e}")
@@ -5677,7 +5713,7 @@ async def bulk_record_outcomes(
                 
                 logger.info(f"✅ Recorded {len(records)} bid outcomes")
                 
-                return wrap_response({
+                return JSONResponse(content={
                     "success": True,
                     "message": f"Recorded {len(records)} bid outcomes",
                     "count": len(records),

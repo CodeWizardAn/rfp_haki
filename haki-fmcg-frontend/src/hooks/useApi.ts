@@ -484,7 +484,8 @@ export function useSendAgentMessage() {
 export function useStartAgentWorkflow() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (rfpId: number) => agentService.startWorkflow(rfpId),
+    mutationFn: ({ rfpId, agentType }: { rfpId: number; agentType?: AgentType }) =>
+      agentService.startWorkflow(rfpId, agentType),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['agents'] }),
   });
 }
@@ -588,6 +589,55 @@ export function useUpdateConfig() {
   });
 }
 
+export function useResetConfig() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => api.post('/config/reset'),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['config'] }),
+  });
+}
+
+// ─────────────────────── Portal Scraping ───────────────────────
+
+export interface PortalScrapeStatus {
+  running: boolean;
+  started_at?: string;
+  portals_done: number;
+  total_rfps: number;
+  errors: string[];
+}
+
+export function usePortalScrapeStatus(enabled = true) {
+  return useQuery({
+    queryKey: ['portals', 'scrape', 'status'],
+    queryFn: async () => {
+      const { data } = await api.get<ApiResponse<PortalScrapeStatus>>('/portals/scrape/status');
+      return data.data;
+    },
+    enabled,
+    refetchInterval: (query) => (query.state.data?.running ? 2000 : false),
+  });
+}
+
+export function useScrapePortals() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => api.post('/portals/scrape'),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['portals', 'scrape', 'status'] }),
+  });
+}
+
+export function usePortalRFPs() {
+  return useQuery({
+    queryKey: ['portals', 'rfps'],
+    queryFn: async () => {
+      const { data } = await api.get<ApiResponse<Record<string, any>[]>>('/portals/rfps');
+      return data.data;
+    },
+    staleTime: STALE_TIME_SHORT,
+  });
+}
+
 // ─────────────────────── Webhooks ───────────────────────
 
 export function useWebhooks() {
@@ -637,7 +687,7 @@ export function useUploadRFPDocument() {
 export function useRunPipeline() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: { rfp_id?: string; file_path?: string }) => {
+    mutationFn: async (payload: { text?: string; use_agents?: boolean; rfp_urls?: string[] }) => {
       const { data } = await api.post<ApiResponse<PipelineRun>>('/pipeline/run', payload);
       return data.data;
     },

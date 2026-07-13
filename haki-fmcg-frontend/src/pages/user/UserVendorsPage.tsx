@@ -42,7 +42,7 @@ export default function UserVendorsPage() {
   const { data: vendorResponse } = useVendors();
 
   const vendors = useMemo(() => {
-    const apiItems = vendorResponse?.data ?? vendorResponse?.items;
+    const apiItems = vendorResponse?.data ?? (vendorResponse as Record<string, any> | undefined)?.items;
     if (Array.isArray(apiItems) && apiItems.length > 0) {
       return apiItems.map((v: any) => ({
         id: v.id ?? v.vendor_id,
@@ -73,7 +73,7 @@ export default function UserVendorsPage() {
     .sort((a, b) => {
       if (sortBy === 'rating') return b.rating - a.rating;
       if (sortBy === 'orders') return b.orders - a.orders;
-      if (sortBy === 'tier') return tierOrder[b.tier] - tierOrder[a.tier];
+      if (sortBy === 'tier') return (tierOrder[b.tier] ?? 0) - (tierOrder[a.tier] ?? 0);
       return a.name.localeCompare(b.name);
     });
 
@@ -151,7 +151,7 @@ export default function UserVendorsPage() {
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 mb-3">
-                  {vendor.categories.map((cat) => (
+                  {vendor.categories.map((cat: string) => (
                     <Badge key={cat} variant="outline" color="cyan" size="sm">{cat}</Badge>
                   ))}
                 </div>

@@ -28,9 +28,10 @@ export const agentService = {
     return data.data;
   },
 
-  startWorkflow: async (rfpId: number): Promise<AgentConversation> => {
+  startWorkflow: async (rfpId: number, agentType?: AgentType): Promise<AgentConversation> => {
     const { data } = await api.post<ApiResponse<AgentConversation>>('/agents/workflow/start', {
       rfp_id: rfpId,
+      agent_type: agentType,
     });
     return data.data;
   },

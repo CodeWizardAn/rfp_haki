@@ -58,7 +58,7 @@ export default function UserBidsPage() {
   const { data: bidResponse } = useBids();
 
   const bids = useMemo(() => {
-    const apiItems = bidResponse?.data ?? bidResponse?.items;
+    const apiItems = bidResponse?.data ?? (bidResponse as Record<string, any> | undefined)?.items;
     if (Array.isArray(apiItems) && apiItems.length > 0) {
       return apiItems.map((b: any) => ({
         id: b.id ?? b.bid_id ?? `BID-${b.id}`,
@@ -66,7 +66,7 @@ export default function UserBidsPage() {
         title: b.title ?? b.rfp_title ?? 'Untitled Bid',
         status: b.status ?? 'draft',
         value: b.value ?? b.total_value ?? b.amount ?? 0,
-        items: b.items ?? b.item_count ?? b.line_items?.length ?? 0,
+        items: Array.isArray(b.items) ? b.items.length : b.item_count ?? b.line_items?.length ?? 0,
         techScore: b.techScore ?? b.technical_score ?? 0,
         commercialScore: b.commercialScore ?? b.commercial_score ?? 0,
         created: b.created ?? b.created_at ?? '',
@@ -171,7 +171,7 @@ export default function UserBidsPage() {
       {/* Bid list */}
       <div className="space-y-3">
         {filteredBids.map((bid) => {
-          const config = bidStatusConfig[bid.status];
+          const config = bidStatusConfig[bid.status] ?? bidStatusConfig.draft!;
           return (
             <Card key={bid.id} variant="interactive">
               <div className="flex items-start justify-between">

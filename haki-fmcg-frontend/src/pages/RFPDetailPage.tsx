@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -372,9 +372,8 @@ export default function RFPDetailPage() {
                   </thead>
                   <tbody>
                     {mockRequirements.map((r) => (
-                      <>
+                      <Fragment key={r.id}>
                         <tr
-                          key={r.id}
                           className="border-b border-steel-slate/15 hover:bg-steel-slate/10 transition-colors cursor-pointer"
                           onClick={() => setExpandedReq(expandedReq === r.id ? null : r.id)}
                         >
@@ -418,7 +417,7 @@ export default function RFPDetailPage() {
                             </td>
                           </tr>
                         )}
-                      </>
+                      </Fragment>
                     ))}
                   </tbody>
                 </table>

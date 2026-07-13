@@ -147,7 +147,7 @@ def setup_api_performance(app):
         return {
             "cache_stats": pm.cache.get_stats() if hasattr(pm.cache, 'get_stats') else {},
             "embedding_cache_stats": pm.embedding_cache.get_stats(),
-            "monitor_snapshot": pm.monitor.get_snapshot().to_dict() if pm.monitor else {},
+            "monitor_snapshot": pm.monitor.get_stats() if pm.monitor else {},
             "request_stats": _request_stats
         }
     

@@ -79,7 +79,8 @@ const quickTemplates = [
 
 export default function VendorCommunicationPage() {
   const { vendorId: paramVendorId } = useParams();
-  const [activeThread, setActiveThread] = useState(paramVendorId || 'v-001');
+  const initialThread = threads.some((t) => t.vendorId === paramVendorId) ? paramVendorId! : 'v-001';
+  const [activeThread, setActiveThread] = useState(initialThread);
   const [msgInput, setMsgInput] = useState('');
   const [msgType, setMsgType] = useState<MsgType>('general');
   const [messages, setMessages] = useState(messagesData);
@@ -90,7 +91,8 @@ export default function VendorCommunicationPage() {
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [activeThread, messages]);
 
-  const activeVendor = threads.find((t) => t.vendorId === activeThread)!;
+  // `threads` is a non-empty module-level constant, so the fallback is always defined.
+  const activeVendor = threads.find((t) => t.vendorId === activeThread) ?? threads[0]!;
   const activeMessages = (messages[activeThread] ?? []).filter((m) => filterType === 'all' || m.type === filterType);
 
   const sendMessage = () => {

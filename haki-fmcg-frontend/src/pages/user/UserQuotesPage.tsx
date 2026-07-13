@@ -138,7 +138,7 @@ export default function UserQuotesPage() {
       {/* Quotes list */}
       <div className="space-y-3">
         {filtered.map((quote) => {
-          const config = quoteStatusConfig[quote.status];
+          const config = quoteStatusConfig[quote.status] ?? quoteStatusConfig.pending!;
           const savings = quote.quotedPrice ? quote.requestedPrice - quote.quotedPrice : 0;
           return (
             <Card key={quote.id} variant="interactive">

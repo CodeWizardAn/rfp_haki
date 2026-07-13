@@ -646,5 +646,37 @@
     "source": "PDF Import",
     "source_file": "1core-aluminium-pvc-armoured.pdf",
     "added_at": "2026-02-24T17:07:09.939331"
+  },
+  {
+    "product_code": "USR-B97871C4",
+    "name": "Test Product",
+    "oem": "Custom",
+    "category": "Cables & Wires",
+    "price_per_meter": null,
+    "voltage_rating": null,
+    "conductor_size": null,
+    "cores": null,
+    "insulation": null,
+    "conductor_material": null,
+    "standard": null,
+    "quality_score": null,
+    "source": "User Added",
+    "added_at": "2026-07-01T22:00:15.923104"
+  },
+  {
+    "product_code": "USR-6A76D7FF",
+    "name": "Test Product",
+    "oem": "Custom",
+    "category": "Cables & Wires",
+    "price_per_meter": null,
+    "voltage_rating": null,
+    "conductor_size": null,
+    "cores": null,
+    "insulation": null,
+    "conductor_material": null,
+    "standard": null,
+    "quality_score": null,
+    "source": "User Added",
+    "added_at": "2026-07-02T20:14:28.181562"
   }
 ]

@@ -517,13 +517,14 @@ class RFPIntakePipeline:
             repos = self.loader.get_crud_repos()
             if repos and repos.get('rfp'):
                 rfp_repo = repos['rfp']
-                rfp_record = rfp_repo.create({
-                    'rfp_number': ctx.rfp_id or f"RFP-{uuid.uuid4().hex[:8].upper()}",
-                    'title': f"RFP {ctx.rfp_id}",
-                    'status': 'in_progress',
-                    'extracted_text': ctx.extracted_text[:5000] if ctx.extracted_text else '',
-                    'requirements_count': len(ctx.requirements),
-                })
+                from database.models import RFPStatus
+
+                rfp_record = rfp_repo.create(
+                    rfp_id=ctx.rfp_id or f"RFP-{uuid.uuid4().hex[:8].upper()}",
+                    title=f"RFP {ctx.rfp_id}",
+                    status=RFPStatus.IN_PROGRESS,
+                    raw_text=ctx.extracted_text[:5000] if ctx.extracted_text else '',
+                )
                 if rfp_record:
                     ctx.rfp_id = str(getattr(rfp_record, 'id', ctx.rfp_id))
                 ctx.add_stage_result(StageResult(

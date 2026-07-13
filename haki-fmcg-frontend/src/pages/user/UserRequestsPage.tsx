@@ -151,7 +151,7 @@ export default function UserRequestsPage() {
       {/* Request list */}
       <div className="space-y-3">
         {filteredRequests.map((req) => {
-          const config = statusConfig[req.status] || statusConfig.draft;
+          const config = statusConfig[req.status] || statusConfig.draft!;
           return (
             <Link key={req.id} to={`/user/requests/${req.id}`}>
               <Card variant="interactive">

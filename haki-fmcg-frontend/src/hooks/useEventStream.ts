@@ -32,7 +32,14 @@ export function useEventStream({
         eventSourceRef.current.close();
       }
 
-      const es = new EventSource(url);
+      // EventSource can't set an Authorization header — pass the JWT as a
+      // query param instead (the backend accepts either for SSE routes).
+      const token = localStorage.getItem('access_token');
+      const authedUrl = token
+        ? `${url}${url.includes('?') ? '&' : '?'}token=${encodeURIComponent(token)}`
+        : url;
+
+      const es = new EventSource(authedUrl);
       eventSourceRef.current = es;
 
       es.onopen = () => {

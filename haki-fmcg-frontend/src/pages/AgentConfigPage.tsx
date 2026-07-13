@@ -129,7 +129,13 @@ export default function AgentConfigPage() {
           return (
             <Card key={agent.id} variant="glass" className={`overflow-hidden transition-all ${!agent.enabled ? 'opacity-50' : ''}`}>
               {/* Header */}
-              <button onClick={() => toggleExpand(agent.id)} className="w-full flex items-center gap-3 p-4 hover:bg-steel-slate/5 transition-colors text-left">
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => toggleExpand(agent.id)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleExpand(agent.id); } }}
+                className="w-full flex items-center gap-3 p-4 hover:bg-steel-slate/5 transition-colors text-left cursor-pointer"
+              >
                 <Bot size={16} className={agent.enabled ? 'text-electric-cyan' : 'text-muted-silver/40'} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
@@ -149,7 +155,7 @@ export default function AgentConfigPage() {
                   </button>
                   {isExpanded ? <ChevronDown size={14} className="text-muted-silver" /> : <ChevronRight size={14} className="text-muted-silver" />}
                 </div>
-              </button>
+              </div>
 
               {/* Expanded Settings */}
               <AnimatePresence>

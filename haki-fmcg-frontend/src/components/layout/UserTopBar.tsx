@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
-import { Bell, Search, Sun, Moon, User, ChevronRight, LogOut, Shield } from 'lucide-react';
+import { Bell, Search, User, ChevronRight, LogOut, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUIStore, useNotificationStore, useAuthStore } from '@/stores';
 import { Badge } from '@/components/ui';
@@ -20,7 +20,6 @@ function useBreadcrumbs() {
 }
 
 export function UserTopBar() {
-  const { theme, toggleTheme } = useUIStore();
   const { unreadCount } = useNotificationStore();
   const { user, logout } = useAuthStore();
   const breadcrumbs = useBreadcrumbs();
@@ -79,16 +78,10 @@ export function UserTopBar() {
           </Link>
         )}
 
-        {/* Theme toggle */}
+        {/* Notifications */}
         <button
-          onClick={toggleTheme}
-          className="p-2 rounded-lg text-muted-silver hover:text-ghost-white hover:bg-steel-slate/30 transition-colors"
-        >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
-
-        {/* Notifications (indicator only) */}
-        <button
+          onClick={() => navigate('/user/notifications')}
+          title="Notifications"
           className="relative p-2 rounded-lg text-muted-silver hover:text-ghost-white hover:bg-steel-slate/30 transition-colors"
         >
           <Bell size={18} />
@@ -101,7 +94,11 @@ export function UserTopBar() {
 
         {/* User avatar & logout */}
         <div className="flex items-center gap-2 pl-2 ml-1 border-l border-steel-slate/30">
-          <div className="flex items-center gap-2">
+          <button
+            onClick={() => navigate('/user/profile')}
+            title="Profile"
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+          >
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neon-emerald to-teal-depth flex items-center justify-center">
               {user?.avatar_url ? (
                 <img src={user.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
@@ -117,7 +114,7 @@ export function UserTopBar() {
                 {user?.role || 'viewer'}
               </p>
             </div>
-          </div>
+          </button>
 
           <button
             onClick={handleLogout}

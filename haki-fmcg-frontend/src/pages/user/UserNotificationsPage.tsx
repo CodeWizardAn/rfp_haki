@@ -108,7 +108,7 @@ export default function UserNotificationsPage() {
       {/* Notification list */}
       <div className="space-y-2">
         {filtered.map((notif) => {
-          const config = typeConfig[notif.type];
+          const config = typeConfig[notif.type] ?? typeConfig.info!;
           return (
             <motion.div
               key={notif.id}

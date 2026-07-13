@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import { Bell, Search, Sun, Moon, User, ChevronRight } from 'lucide-react';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { Bell, Search, User, ChevronRight, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUIStore, useNotificationStore, useAuthStore } from '@/stores';
 import { Badge } from '@/components/ui';
@@ -19,10 +19,16 @@ function useBreadcrumbs() {
 }
 
 export function TopBar() {
-  const { theme, toggleTheme, setCommandPaletteOpen } = useUIStore();
+  const { setCommandPaletteOpen } = useUIStore();
   const { unreadCount } = useNotificationStore();
-  const { user } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const breadcrumbs = useBreadcrumbs();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
 
   return (
     <header className="h-16 border-b border-steel-slate/20 bg-deep-navy/80 backdrop-blur-md flex items-center justify-between px-6 sticky top-0 z-30">
@@ -69,14 +75,6 @@ export function TopBar() {
           <span className="text-xs text-neon-emerald font-medium">Healthy</span>
         </div>
 
-        {/* Theme toggle */}
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-lg text-muted-silver hover:text-ghost-white hover:bg-steel-slate/30 transition-colors"
-        >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
-
         {/* Notifications */}
         <button className="relative p-2 rounded-lg text-muted-silver hover:text-ghost-white hover:bg-steel-slate/30 transition-colors">
           <Bell size={18} />
@@ -104,6 +102,14 @@ export function TopBar() {
               {user?.role || 'admin'}
             </Badge>
           </div>
+
+          <button
+            onClick={handleLogout}
+            title="Sign out"
+            className="p-1.5 rounded-lg text-muted-silver hover:text-coral-flame hover:bg-coral-flame/10 transition-colors"
+          >
+            <LogOut size={16} />
+          </button>
         </div>
       </div>
     </header>

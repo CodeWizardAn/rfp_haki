@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { Button, Card, Input, Select, Badge } from '@/components/ui';
 import { RFPCard, RFPStatsBar } from '@/components/rfp';
-import { useRFPs, useDeleteRFP } from '@/hooks/useApi';
+import { useRFPs, useDeleteRFP, useScrapePortals, usePortalScrapeStatus } from '@/hooks/useApi';
 import type { RFPStatus, Priority } from '@/types';
 
 /* ───── Portal definitions (mirrors e_procure_portals/portal_config.py) ───── */
@@ -31,15 +31,7 @@ const mockRfps = [
   { rfpId: 'RFP23', title: 'Armoured Cable — Substation Delta', deadline: '2026-03-05', priority: 'medium', budget: 1_80_00_000, status: 'scraped', progress: 10, vendorsMatched: 0, portal: 'eProcure Hub', portalId: 'portal_3', scrapedAt: '2026-02-04 09:19' },
 ];
 
-const statusTabs = [
-  { label: 'All', count: 15 },
-  { label: 'Scraped', count: 3 },
-  { label: 'Extracting', count: 2 },
-  { label: 'Analyzing', count: 2 },
-  { label: 'Analyzed', count: 4 },
-  { label: 'Review', count: 2 },
-  { label: 'Submitted', count: 2 },
-];
+const STATUS_TAB_LABELS = ['All', 'Scraped', 'Extracting', 'Analyzing', 'Analyzed', 'Review', 'Submitted'];
 
 
 
@@ -51,7 +43,13 @@ export default function RFPListPage() {
   const [portalFilter, setPortalFilter] = useState('all');
   const [activeTab, setActiveTab] = useState('All');
   const [page, setPage] = useState(1);
-  const [scrapeStatus, setScrapeStatus] = useState<'idle' | 'scraping' | 'done'>('idle');
+  const scrapePortalsMutation = useScrapePortals();
+  const { data: scrapeStatusData } = usePortalScrapeStatus();
+  const scrapeStatus: 'idle' | 'scraping' | 'done' = scrapeStatusData?.running
+    ? 'scraping'
+    : scrapeStatusData?.started_at
+      ? 'done'
+      : 'idle';
 
   // ── Backend data with mock fallback ──
   const { data: apiData, isLoading } = useRFPs({
@@ -65,19 +63,20 @@ export default function RFPListPage() {
 
   // Map backend RFPs to card props, or fall back to mock
   const rfpCards = useMemo(() => {
-    if (apiData?.data?.length) {
-      return apiData.data.map((r) => ({
+    const items = (apiData as unknown as { items?: Record<string, any>[] })?.items;
+    if (items?.length) {
+      return items.map((r) => ({
         rfpId: r.rfp_id,
         title: r.title,
-        deadline: r.submission_deadline ?? '',
+        deadline: r.due_date ?? '',
         priority: r.priority as Priority,
-        budget: r.budget_amount ?? 0,
+        budget: r.estimated_value ?? 0,
         status: r.status as RFPStatus,
         progress: r.status === 'won' ? 100 : r.status === 'submitted' ? 100 : r.status === 'review' ? 85 : r.status === 'pricing' ? 65 : r.status === 'matching' ? 45 : r.status === 'extracting' ? 25 : 10,
-        vendorsMatched: Object.keys(r.matched_products ?? {}).length || 0,
+        vendorsMatched: 0,
         portal: 'API Source',
         portalId: 'portal_1',
-        scrapedAt: '',
+        scrapedAt: r.created_at ?? '',
       }));
     }
     return mockRfps;
@@ -95,12 +94,36 @@ export default function RFPListPage() {
     return cards;
   }, [rfpCards, portalFilter, activeTab]);
 
-  const totalItems = apiData?.total ?? 15;
-  const totalPages = apiData?.total_pages ?? 1;
+  // Tab badge counts reflect the RFPs actually loaded, not hardcoded numbers
+  const statusTabs = useMemo(
+    () =>
+      STATUS_TAB_LABELS.map((label) => ({
+        label,
+        count: label === 'All' ? rfpCards.length : rfpCards.filter((r) => r.status.toLowerCase() === label.toLowerCase()).length,
+      })),
+    [rfpCards],
+  );
+
+  const totalItems = (apiData as unknown as { total?: number })?.total ?? rfpCards.length;
+  const totalPages = (apiData as unknown as { total_pages?: number })?.total_pages ?? 1;
 
   const handleScrapeAll = () => {
-    setScrapeStatus('scraping');
-    setTimeout(() => setScrapeStatus('done'), 3000);
+    scrapePortalsMutation.mutate();
+  };
+
+  const handleExport = () => {
+    const header = ['RFP ID', 'Title', 'Status', 'Priority', 'Deadline', 'Budget', 'Vendors Matched'];
+    const rows = filteredCards.map((r) => [r.rfpId, r.title, r.status, r.priority, r.deadline, r.budget, r.vendorsMatched]);
+    const csv = [header, ...rows]
+      .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+      .join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `rfps-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -126,7 +149,7 @@ export default function RFPListPage() {
           <Button variant="secondary" leftIcon={<Upload size={16} />} onClick={() => navigate('/rfps/upload')}>
             Upload RFP
           </Button>
-          <Button variant="secondary" leftIcon={<Download size={16} />}>
+          <Button variant="secondary" leftIcon={<Download size={16} />} onClick={handleExport} disabled={filteredCards.length === 0}>
             Export
           </Button>
         </div>
@@ -153,20 +176,10 @@ export default function RFPListPage() {
                   </p>
                   <p className="text-xs text-muted-silver">
                     {scrapeStatus === 'scraping'
-                      ? 'Extracting RFPs from 5 portals — this may take a moment'
-                      : '15 RFPs scraped from 5 portals — 0 failures'}
+                      ? `Extracting RFPs from portals — ${scrapeStatusData?.portals_done ?? 0} done so far`
+                      : `${scrapeStatusData?.total_rfps ?? 0} RFPs scraped from ${scrapeStatusData?.portals_done ?? 0} portals — ${scrapeStatusData?.errors?.length ?? 0} failures`}
                   </p>
                 </div>
-                {scrapeStatus === 'scraping' && (
-                  <div className="w-32 h-1.5 rounded-full bg-steel-slate/30">
-                    <motion.div
-                      className="h-full rounded-full bg-electric-cyan"
-                      initial={{ width: '5%' }}
-                      animate={{ width: '90%' }}
-                      transition={{ duration: 3, ease: 'easeInOut' }}
-                    />
-                  </div>
-                )}
               </div>
             </Card>
           </motion.div>

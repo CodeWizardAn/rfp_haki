@@ -81,10 +81,28 @@ export default function VendorsPage() {
 
   /* Merge with mock fallback */
   const allVendors = useMemo(() => {
-    const items = (apiVendors as unknown as { data?: typeof mockVendors })?.data;
-    if (items?.length) return items as typeof mockVendors;
-    if (Array.isArray(apiVendors) && apiVendors.length) return apiVendors as unknown as typeof mockVendors;
-    return mockVendors;
+    const raw = (apiVendors as unknown as { data?: Record<string, any>[] })?.data
+      ?? (Array.isArray(apiVendors) ? (apiVendors as unknown as Record<string, any>[]) : undefined);
+    if (!raw?.length) return mockVendors;
+    // API vendor shape (categories, is_active, total_orders, compliance_score, flat
+    // email/phone) doesn't match the mock shape — map fields explicitly.
+    return raw.map((v): (typeof mockVendors)[number] => ({
+      id: v.vendor_id ?? String(v.id ?? ''),
+      name: v.name ?? 'Unknown Vendor',
+      category: v.categories?.[0] ?? 'Vendor',
+      rating: v.rating ?? 0,
+      totalBids: v.total_orders ?? 0,
+      wonBids: 0,
+      avgDelivery: v.on_time_delivery_rate != null ? `${v.on_time_delivery_rate}% on-time` : '—',
+      revenue: 0,
+      products: Array.isArray(v.products) ? v.products.length : 0,
+      location: v.city || v.address || '—',
+      contact: { email: v.email ?? '', phone: v.phone ?? '' },
+      tags: v.categories ?? [],
+      status: v.is_active ? 'active' : 'inactive',
+      compliance: v.compliance_score ?? 0,
+      trend: 'stable' as const,
+    }));
   }, [apiVendors]);
 
   const filtered = allVendors.filter((v) =>

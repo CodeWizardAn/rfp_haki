@@ -52,7 +52,7 @@ export function RFPCard({
   onDelete,
 }: RFPCardProps) {
   const deadlineLabel = getDeadlineLabel(deadline);
-  const statusColors = RFP_STATUS_COLORS[status];
+  const statusColors = RFP_STATUS_COLORS[status] ?? RFP_STATUS_COLORS.draft;
   const priorityStyle = priorityColor[priority];
 
   return (

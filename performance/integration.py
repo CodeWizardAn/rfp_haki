@@ -300,9 +300,22 @@ class PerformanceManager:
     def get_recommendations(self) -> List[Dict[str, Any]]:
         """Get performance optimization recommendations"""
         optimizer = self._components.get('optimizer')
-        if optimizer:
-            return optimizer.analyze()
-        return []
+        if not optimizer:
+            return []
+
+        from performance.optimizer import AnalysisContext
+
+        monitor = self._components.get('resource_monitor')
+        monitor_stats = monitor.get_stats() if monitor else {}
+        cache = self._components.get('redis_cache')
+        cache_stats = cache.get_stats() if cache and hasattr(cache, 'get_stats') else {}
+
+        context = AnalysisContext(
+            cpu_usage=monitor_stats.get('current', {}).get('cpu_percent', 0.0),
+            memory_usage=monitor_stats.get('current', {}).get('memory_percent', 0.0),
+            cache_hit_rate=cache_stats.get('hit_rate', 0.0),
+        )
+        return optimizer.analyze(context)
 
 
 # Global performance manager instance

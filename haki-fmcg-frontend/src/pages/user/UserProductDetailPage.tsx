@@ -85,11 +85,10 @@ export default function UserProductDetailPage() {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const product = mockProduct;
 
-  const priceTrend = product.priceHistory[product.priceHistory.length - 1].price < product.priceHistory[0].price
-    ? 'falling' : product.priceHistory[product.priceHistory.length - 1].price > product.priceHistory[0].price
-    ? 'rising' : 'stable';
-
-  const priceChange = ((product.priceHistory[product.priceHistory.length - 1].price - product.priceHistory[0].price) / product.priceHistory[0].price * 100).toFixed(1);
+  const firstPrice = product.priceHistory[0]!.price;
+  const lastPrice = product.priceHistory[product.priceHistory.length - 1]!.price;
+  const priceTrend = lastPrice < firstPrice ? 'falling' : lastPrice > firstPrice ? 'rising' : 'stable';
+  const priceChange = ((lastPrice - firstPrice) / firstPrice * 100).toFixed(1);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">

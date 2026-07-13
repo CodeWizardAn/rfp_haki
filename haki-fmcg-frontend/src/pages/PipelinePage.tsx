@@ -11,7 +11,6 @@ import {
   FileText,
   Braces,
   Search,
-  Globe,
   Shield,
   BarChart3,
   RefreshCw,
@@ -20,7 +19,7 @@ import {
 } from 'lucide-react';
 import { Button, Card, CardHeader, CardTitle, Badge } from '@/components/ui';
 import { PipelineStatsPanel, PipelineErrorRecovery } from '@/components/pipeline';
-import { usePipelineRuns, useRunPipeline, useCancelPipeline } from '@/hooks/useApi';
+import { usePipelineRuns, useRunPipeline, useCancelPipeline, useRetryPipeline } from '@/hooks/useApi';
 
 /* ───── pipeline stages definition ───── */
 const STAGES = [
@@ -43,12 +42,14 @@ type StageStatus = 'idle' | 'running' | 'success' | 'error' | 'skipped';
 
 interface PipelineRun {
   id: string;
+  numericId?: number;
   rfpId: string;
   status: 'running' | 'completed' | 'failed';
   stages: Record<string, { status: StageStatus; duration: string; items?: number }>;
   startedAt: string;
   completedAt?: string;
   mode: string;
+  errorMessage?: string | null;
 }
 
 /* mock history */
@@ -120,20 +121,75 @@ const nodeColors: Record<StageStatus, { bg: string; border: string; text: string
 const statusBadgeColor = (s: string) =>
   s === 'running' ? 'cyan' : s === 'completed' ? 'emerald' : 'coral';
 
+/* The backend has two pipeline execution paths with different stage-name
+ * vocabularies (neither matches the 8 visual node ids above) — map every
+ * variant we've seen down to a node id; unrecognized stage names are dropped
+ * rather than guessed at. */
+const STAGE_NAME_MAP: Record<string, string> = {
+  intake: 'rfp_intake', rfp_intake: 'rfp_intake',
+  extraction: 'pdf_extraction', pdf_extraction: 'pdf_extraction',
+  term_matching: 'term_matching',
+  vector_search: 'vector_search',
+  matching: 'spec_matching', spec_matching: 'spec_matching',
+  pricing: 'pricing', pricing_calculation: 'pricing',
+  compliance: 'compliance', compliance_check: 'compliance',
+  submission: 'bid_generation', bid_generation: 'bid_generation',
+};
+
+const STAGE_STATUS_MAP: Record<string, StageStatus> = {
+  completed: 'success', success: 'success',
+  running: 'running',
+  failed: 'error', error: 'error',
+  skipped: 'skipped',
+  pending: 'idle', idle: 'idle',
+};
+
+interface ApiPipelineRun {
+  id: number;
+  pipeline_id: string;
+  rfp_id: number;
+  status: string;
+  stages: { stage: string; status: string; duration_ms?: number | null }[];
+  started_at: string;
+  completed_at?: string | null;
+  error_message?: string | null;
+}
+
+function mapApiRun(r: ApiPipelineRun): PipelineRun {
+  const stages: PipelineRun['stages'] = {};
+  for (const s of r.stages) {
+    const nodeId = STAGE_NAME_MAP[s.stage];
+    if (!nodeId) continue;
+    stages[nodeId] = {
+      status: STAGE_STATUS_MAP[s.status] ?? 'idle',
+      duration: s.duration_ms != null ? `${(s.duration_ms / 1000).toFixed(1)}s` : '—',
+    };
+  }
+  return {
+    id: r.pipeline_id,
+    numericId: r.id,
+    rfpId: String(r.rfp_id),
+    status: (r.status as PipelineRun['status']) ?? 'running',
+    stages,
+    startedAt: r.started_at,
+    completedAt: r.completed_at ?? undefined,
+    mode: r.stages.length >= 7 ? 'Standard (8-stage)' : 'Agent-driven (5-stage)',
+    errorMessage: r.error_message,
+  };
+}
+
 /* ═══════════════════════════════════════════════════ */
 export default function PipelinePage() {
   /* ── Backend hooks ── */
   const { data: apiRuns } = usePipelineRuns();
   const runPipelineMutation = useRunPipeline();
   const cancelPipelineMutation = useCancelPipeline();
+  const retryPipelineMutation = useRetryPipeline();
 
   /* ── Merge backend runs with mock fallback ── */
   const allRuns: PipelineRun[] = useMemo(() => {
-    if (apiRuns && Array.isArray(apiRuns) && apiRuns.length > 0) {
-      return (apiRuns as unknown as PipelineRun[]);
-    }
-    const runs = (apiRuns as unknown as { data?: PipelineRun[] })?.data;
-    if (runs?.length) return runs;
+    const runs = apiRuns as unknown as ApiPipelineRun[] | undefined;
+    if (runs?.length) return runs.map(mapApiRun);
     return mockRuns;
   }, [apiRuns]);
 
@@ -141,6 +197,8 @@ export default function PipelinePage() {
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [showHistory, setShowHistory] = useState(false);
   const [showNewRun, setShowNewRun] = useState(false);
+  const [newRunText, setNewRunText] = useState('');
+  const [newRunUseAgents, setNewRunUseAgents] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
 
   // Keep selectedRun synced when backend data arrives
@@ -335,7 +393,18 @@ export default function PipelinePage() {
                   <Badge variant="soft" color={statusBadgeColor(selectedRun.stages[selectedStage]?.status || 'idle')}>
                     {selectedRun.stages[selectedStage]?.status || 'idle'}
                   </Badge>
-                  <Button variant="secondary" size="xs" leftIcon={<RefreshCw size={10} />}>Re-run Stage</Button>
+                  {/* The backend only supports retrying the whole run, not a single stage */}
+                  {selectedRun.numericId != null && (
+                    <Button
+                      variant="secondary"
+                      size="xs"
+                      leftIcon={<RefreshCw size={10} />}
+                      onClick={() => retryPipelineMutation.mutate({ id: String(selectedRun.numericId) })}
+                      loading={retryPipelineMutation.isPending}
+                    >
+                      Retry Run
+                    </Button>
+                  )}
                 </div>
               </CardHeader>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
@@ -418,7 +487,13 @@ export default function PipelinePage() {
       <PipelineStatsPanel />
 
       {/* ── Error Recovery ── */}
-      <PipelineErrorRecovery />
+      <PipelineErrorRecovery
+        failedRuns={allRuns.filter((r) => r.status === 'failed').map((r) => ({
+          id: r.id, numericId: r.numericId, rfpId: r.rfpId, errorMessage: r.errorMessage, startedAt: r.startedAt,
+        }))}
+        onRetry={(numericId) => retryPipelineMutation.mutate({ id: String(numericId) })}
+        isRetrying={retryPipelineMutation.isPending}
+      />
 
       {/* ── New Pipeline Run Modal ── */}
       <AnimatePresence>
@@ -442,36 +517,16 @@ export default function PipelinePage() {
                 <p className="text-xs text-muted-silver mt-1">Configure and start a new processing pipeline</p>
               </div>
               <div className="px-6 py-5 space-y-4">
-                {/* Input Type */}
+                {/* RFP text input — the only input the backend actually accepts */}
                 <div>
-                  <label className="text-xs text-muted-silver uppercase tracking-wider mb-2 block">Input Type</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {[
-                      { value: 'pdf', label: 'PDF Upload', icon: <FileText size={14} /> },
-                      { value: 'text', label: 'Text Paste', icon: <Braces size={14} /> },
-                      { value: 'json', label: 'Requirements JSON', icon: <Braces size={14} /> },
-                      { value: 'url', label: 'URL Scan', icon: <Globe size={14} /> },
-                    ].map((opt) => (
-                      <button
-                        key={opt.value}
-                        className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-steel-slate/30 text-muted-silver hover:border-electric-cyan/40 hover:text-electric-cyan transition-colors text-sm"
-                      >
-                        {opt.icon} {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                {/* Pipeline Mode */}
-                <div>
-                  <label className="text-xs text-muted-silver uppercase tracking-wider mb-2 block">Pipeline Mode</label>
-                  <div className="flex gap-2">
-                    <button className="flex-1 px-3 py-2.5 rounded-lg bg-electric-cyan/10 border border-electric-cyan/30 text-electric-cyan text-sm font-medium">
-                      Standard (8-stage)
-                    </button>
-                    <button className="flex-1 px-3 py-2.5 rounded-lg border border-steel-slate/30 text-muted-silver text-sm hover:border-steel-slate/50 transition-colors">
-                      Agent-driven (5-stage)
-                    </button>
-                  </div>
+                  <label className="text-xs text-muted-silver uppercase tracking-wider mb-2 block">RFP Text</label>
+                  <textarea
+                    rows={4}
+                    value={newRunText}
+                    onChange={(e) => setNewRunText(e.target.value)}
+                    placeholder="Paste RFP text to process…"
+                    className="w-full px-3 py-2 rounded-lg bg-steel-slate/15 border border-steel-slate/30 text-ghost-white text-sm placeholder:text-muted-silver/40 focus:outline-none focus:border-electric-cyan/50 resize-none"
+                  />
                 </div>
                 {/* Use Agents Toggle */}
                 <div className="flex items-center justify-between py-2">
@@ -479,14 +534,29 @@ export default function PipelinePage() {
                     <p className="text-sm text-ghost-white">Use AI Agents</p>
                     <p className="text-xs text-muted-silver">Enable agent-assisted processing</p>
                   </div>
-                  <div className="w-10 h-5 rounded-full bg-electric-cyan/30 relative cursor-pointer">
-                    <div className="absolute right-0.5 top-0.5 w-4 h-4 rounded-full bg-electric-cyan transition-transform" />
-                  </div>
+                  <button
+                    onClick={() => setNewRunUseAgents(!newRunUseAgents)}
+                    className={`w-10 h-5 rounded-full relative transition-colors ${newRunUseAgents ? 'bg-electric-cyan' : 'bg-steel-slate/40'}`}
+                  >
+                    <span
+                      className="absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all"
+                      style={{ left: newRunUseAgents ? 22 : 2 }}
+                    />
+                  </button>
                 </div>
               </div>
               <div className="px-6 py-4 border-t border-steel-slate/30 flex justify-end gap-2">
                 <Button variant="secondary" onClick={() => setShowNewRun(false)}>Cancel</Button>
-                <Button variant="primary" leftIcon={<Play size={14} />} onClick={() => { runPipelineMutation.mutate({}); setShowNewRun(false); }}>
+                <Button
+                  variant="primary"
+                  leftIcon={<Play size={14} />}
+                  disabled={!newRunText.trim()}
+                  onClick={() => {
+                    runPipelineMutation.mutate({ text: newRunText, use_agents: newRunUseAgents });
+                    setShowNewRun(false);
+                    setNewRunText('');
+                  }}
+                >
                   Start Pipeline
                 </Button>
               </div>

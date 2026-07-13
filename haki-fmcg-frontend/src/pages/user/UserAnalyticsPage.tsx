@@ -72,7 +72,7 @@ export default function UserAnalyticsPage() {
   const { data: perfMetrics } = usePerformanceMetrics();
 
   const stats = useMemo(() => {
-    const s = dashStats?.data ?? dashStats;
+    const s = (dashStats as Record<string, any> | undefined)?.data ?? (dashStats as Record<string, any> | undefined);
     return {
       rfpsProcessed: s?.total_rfps ?? s?.rfps_processed ?? 27,
       rfpsProcessedChange: s?.rfp_change ?? 12.5,
@@ -85,32 +85,35 @@ export default function UserAnalyticsPage() {
     };
   }, [dashStats]);
 
+  const rfpAnalyticsRaw = rfpAnalytics as Record<string, any> | undefined;
+  const perfMetricsRaw = perfMetrics as Record<string, any> | undefined;
+
   const rfpProcessingTrend = useMemo(() => {
-    const trend = rfpAnalytics?.data?.trend ?? rfpAnalytics?.trend;
+    const trend = rfpAnalyticsRaw?.data?.trend ?? rfpAnalyticsRaw?.trend;
     if (Array.isArray(trend) && trend.length > 0) return trend;
     return fallbackProcessingTrend;
   }, [rfpAnalytics]);
 
   const completionRateDonut = useMemo(() => {
-    const completion = rfpAnalytics?.data?.completion ?? rfpAnalytics?.completion;
+    const completion = rfpAnalyticsRaw?.data?.completion ?? rfpAnalyticsRaw?.completion;
     if (Array.isArray(completion) && completion.length > 0) return completion;
     return fallbackCompletionDonut;
   }, [rfpAnalytics]);
 
   const monthlyBarData = useMemo(() => {
-    const monthly = rfpAnalytics?.data?.monthly ?? rfpAnalytics?.monthly;
+    const monthly = rfpAnalyticsRaw?.data?.monthly ?? rfpAnalyticsRaw?.monthly;
     if (Array.isArray(monthly) && monthly.length > 0) return monthly;
     return fallbackMonthlyBar;
   }, [rfpAnalytics]);
 
   const avgProcessingTimes = useMemo(() => {
-    const times = perfMetrics?.data?.processing_times ?? perfMetrics?.processing_times;
+    const times = perfMetricsRaw?.data?.processing_times ?? perfMetricsRaw?.processing_times;
     if (Array.isArray(times) && times.length > 0) return times;
     return fallbackProcessingTimes;
   }, [perfMetrics]);
 
   const categoryBreakdown = useMemo(() => {
-    const cats = rfpAnalytics?.data?.categories ?? rfpAnalytics?.categories;
+    const cats = rfpAnalyticsRaw?.data?.categories ?? rfpAnalyticsRaw?.categories;
     if (Array.isArray(cats) && cats.length > 0) return cats;
     return fallbackCategoryBreakdown;
   }, [rfpAnalytics]);

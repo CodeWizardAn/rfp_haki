@@ -13,13 +13,13 @@ import {
   Banknote,
   Zap,
   ChevronRight,
-  ExternalLink,
 
   MessageSquare,
 } from 'lucide-react';
 import { Button, Card, CardHeader, CardTitle, Badge } from '@/components/ui';
 import { AgentPerformancePanel } from '@/components/agents';
 import { useAgentStatuses, useAgentConversations, useStartAgentWorkflow } from '@/hooks/useApi';
+import type { AgentType } from '@/types';
 
 /* ───── Agent definitions ───── */
 const agents = [
@@ -136,12 +136,24 @@ export default function AgentsPage() {
     if (!apiConversations) return mockConversations;
     const convs = Array.isArray(apiConversations) ? apiConversations : (apiConversations as { data?: unknown[] })?.data;
     if (!convs?.length) return mockConversations;
-    return convs as typeof mockConversations;
+    // API conversations don't share mock's shape (no `agents` list, `duration`, camelCase
+    // `rfpId`) — map fields explicitly instead of casting the raw response.
+    return (convs as Record<string, any>[]).map((c) => ({
+      id: String(c.conversation_id ?? c.id ?? ''),
+      rfpId: c.rfp_id != null ? String(c.rfp_id) : '',
+      status: c.status ?? 'completed',
+      agents: c.agent_type ? [c.agent_type] : [],
+      duration: c.duration ?? '—',
+      timestamp: c.started_at ?? c.messages?.[0]?.timestamp ?? '',
+      steps: Array.isArray(c.messages) ? c.messages.length : 0,
+    }));
   }, [apiConversations]);
 
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
   const [showWorkflow, setShowWorkflow] = useState(false);
   const [showLogs, setShowLogs] = useState(false);
+  const [workflowAgentType, setWorkflowAgentType] = useState('master');
+  const [workflowRfpId, setWorkflowRfpId] = useState('');
 
   // Animated flow particles
   const [flowPhase, setFlowPhase] = useState(0);
@@ -281,13 +293,12 @@ export default function AgentsPage() {
       <Card variant="glass">
         <CardHeader>
           <CardTitle>Recent Workflows</CardTitle>
-          <Button variant="ghost" size="sm">View All →</Button>
         </CardHeader>
         <div className="space-y-3">
           {mergedConversations.map((conv) => (
             <div
               key={conv.id}
-              className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl bg-steel-slate/10 hover:bg-steel-slate/15 transition-colors cursor-pointer"
+              className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl bg-steel-slate/10 hover:bg-steel-slate/15 transition-colors"
             >
               <div className="flex items-center gap-4">
                 <Badge variant="soft" color={statusColor(conv.status)}>{conv.status}</Badge>
@@ -324,7 +335,6 @@ export default function AgentsPage() {
                 <div className="flex items-center gap-1 text-xs text-muted-silver">
                   <Clock size={10} /> {conv.duration}
                 </div>
-                <Button variant="ghost" size="xs" leftIcon={<ExternalLink size={10} />}>View</Button>
               </div>
             </div>
           ))}
@@ -399,51 +409,50 @@ export default function AgentsPage() {
                 <p className="text-xs text-muted-silver mt-1">Configure agents and start processing</p>
               </div>
               <div className="px-6 py-5 space-y-4">
-                {/* Input */}
+                {/* RFP ID */}
                 <div>
-                  <label className="text-xs text-muted-silver uppercase tracking-wider mb-2 block">RFP Input</label>
-                  <textarea
-                    rows={3}
-                    placeholder="Paste RFP text or upload a file…"
-                    className="w-full px-3 py-2 rounded-lg bg-steel-slate/15 border border-steel-slate/30 text-ghost-white text-sm placeholder:text-muted-silver/40 focus:outline-none focus:border-electric-cyan/50 resize-none"
+                  <label className="text-xs text-muted-silver uppercase tracking-wider mb-2 block">RFP ID</label>
+                  <input
+                    type="number"
+                    value={workflowRfpId}
+                    onChange={(e) => setWorkflowRfpId(e.target.value)}
+                    placeholder="e.g. 1"
+                    className="w-full px-3 py-2 rounded-lg bg-steel-slate/15 border border-steel-slate/30 text-ghost-white text-sm placeholder:text-muted-silver/40 focus:outline-none focus:border-electric-cyan/50"
                   />
                 </div>
-                {/* Agent selection */}
+                {/* Agent selection (single — matches what the backend actually accepts) */}
                 <div>
-                  <label className="text-xs text-muted-silver uppercase tracking-wider mb-2 block">Agents</label>
+                  <label className="text-xs text-muted-silver uppercase tracking-wider mb-2 block">Agent</label>
                   <div className="grid grid-cols-2 gap-2">
                     {mergedAgents.map((a) => (
-                      <div
+                      <button
                         key={a.id}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-steel-slate/30 hover:border-electric-cyan/30 transition-colors cursor-pointer"
+                        onClick={() => setWorkflowAgentType(a.id)}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-left transition-colors ${
+                          workflowAgentType === a.id ? 'border-electric-cyan/40 bg-electric-cyan/8' : 'border-steel-slate/30 hover:border-electric-cyan/30'
+                        }`}
                       >
-                        <div className="w-3 h-3 rounded border-2 border-electric-cyan bg-electric-cyan flex items-center justify-center">
-                          <CheckCircle2 size={8} className="text-deep-navy" />
+                        <div className={`w-3 h-3 rounded border-2 flex items-center justify-center ${workflowAgentType === a.id ? 'border-electric-cyan bg-electric-cyan' : 'border-steel-slate/40'}`}>
+                          {workflowAgentType === a.id && <CheckCircle2 size={8} className="text-deep-navy" />}
                         </div>
                         <span className="text-sm" style={{ color: a.color }}>{a.name}</span>
-                      </div>
+                      </button>
                     ))}
-                  </div>
-                </div>
-                {/* Workflow template */}
-                <div>
-                  <label className="text-xs text-muted-silver uppercase tracking-wider mb-2 block">Template</label>
-                  <div className="flex gap-2">
-                    <button className="flex-1 px-3 py-2 rounded-lg bg-electric-cyan/10 border border-electric-cyan/30 text-electric-cyan text-sm font-medium">
-                      Quick Quote
-                    </button>
-                    <button className="flex-1 px-3 py-2 rounded-lg border border-steel-slate/30 text-muted-silver text-sm hover:border-steel-slate/50 transition-colors">
-                      Full Analysis
-                    </button>
-                    <button className="flex-1 px-3 py-2 rounded-lg border border-steel-slate/30 text-muted-silver text-sm hover:border-steel-slate/50 transition-colors">
-                      Custom
-                    </button>
                   </div>
                 </div>
               </div>
               <div className="px-6 py-4 border-t border-steel-slate/30 flex justify-end gap-2">
                 <Button variant="secondary" onClick={() => setShowWorkflow(false)}>Cancel</Button>
-                <Button variant="primary" leftIcon={<Play size={14} />} onClick={() => { startWorkflowMutation.mutate(1); setShowWorkflow(false); }}>
+                <Button
+                  variant="primary"
+                  leftIcon={<Play size={14} />}
+                  disabled={!workflowRfpId}
+                  onClick={() => {
+                    startWorkflowMutation.mutate({ rfpId: Number(workflowRfpId), agentType: workflowAgentType as AgentType });
+                    setShowWorkflow(false);
+                    setWorkflowRfpId('');
+                  }}
+                >
                   Start Workflow
                 </Button>
               </div>

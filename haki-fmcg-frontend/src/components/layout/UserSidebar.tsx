@@ -11,6 +11,12 @@ import {
   ChevronRight,
   Building2,
   FileText,
+  Briefcase,
+  ListChecks,
+  Receipt,
+  ClipboardList,
+  Heart,
+  HelpCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUIStore } from '@/stores';
@@ -30,6 +36,14 @@ const navItems: NavItem[] = [
   { label: 'History', path: '/user/history', icon: <Clock size={20} /> },
   { label: 'Company Profiles', path: '/user/profiles', icon: <Building2 size={20} /> },
   { label: 'Bid Generator', path: '/user/bid-generator', icon: <FileText size={20} /> },
+  { label: 'My Bids', path: '/user/my-bids', icon: <Briefcase size={20} /> },
+  { label: 'Catalog', path: '/user/catalog', icon: <ListChecks size={20} /> },
+  { label: 'Quotes', path: '/user/quotes', icon: <Receipt size={20} /> },
+  { label: 'Requests', path: '/user/requests', icon: <ClipboardList size={20} /> },
+  { label: 'New Request', path: '/user/new-request', icon: <Zap size={20} /> },
+  { label: 'Vendors', path: '/user/vendors', icon: <Building2 size={20} /> },
+  { label: 'Wishlist', path: '/user/wishlist', icon: <Heart size={20} /> },
+  { label: 'Help', path: '/user/help', icon: <HelpCircle size={20} /> },
 ];
 
 export function UserSidebar() {
