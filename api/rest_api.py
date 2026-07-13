@@ -167,6 +167,7 @@ try:
     logger.info("✅ Persistent catalog store available")
 except ImportError as _cse:
     CATALOG_STORE_AVAILABLE = False
+    logger.warning(f"⚠️ Catalog store unavailable: {_cse}")
 
 # Persistent analysis history store
 try:
@@ -181,7 +182,6 @@ try:
 except ImportError as _ase:
     ANALYSIS_STORE_AVAILABLE = False
     logger.warning(f"⚠️ Analysis store unavailable: {_ase}")
-    logger.warning(f"Catalog store not available: {_cse}")
 
 # Win/Loss Analytics Integration
 try:

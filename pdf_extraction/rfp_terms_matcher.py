@@ -49,11 +49,29 @@ class RFPTermsMatcher:
             use_100k: If True and no path specified, use 100k database
         """
         if database_path is None:
-            db_name = 'rfp_terms_database_100k.json' if use_100k else 'rfp_terms_database.json'
-            database_path = os.path.join(
-                os.path.dirname(__file__), 
-                db_name
-            )
+            # Prefer the central database config so this always agrees with
+            # every other module (db_config.py, app.py, db_paths.py) about
+            # where the 100k terms file actually lives.
+            database_path = None
+            try:
+                import sys as _sys
+                _project_root = str(Path(__file__).parent.parent)
+                if _project_root not in _sys.path:
+                    _sys.path.insert(0, _project_root)
+                from database.db_config import DatabaseConfig, DatabaseType
+                _candidate = DatabaseConfig.get_path(DatabaseType.RFP_TERMS)
+                if _candidate:
+                    database_path = str(_candidate)
+            except Exception as _cfg_err:
+                logger.warning(f"Could not resolve RFP_TERMS path from database.db_config: {_cfg_err}")
+
+            if database_path is None:
+                # Fallback: same filename convention, in this module's own folder
+                db_name = 'rfp_terms_database_100k_new.json' if use_100k else 'rfp_terms_database.json'
+                database_path = os.path.join(
+                    os.path.dirname(__file__),
+                    db_name
+                )
         
         self.database_path = database_path
         self.cache_dir = os.path.join(os.path.dirname(__file__), '.cache')

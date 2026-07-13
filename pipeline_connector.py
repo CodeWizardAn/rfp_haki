@@ -618,7 +618,24 @@ class ProductMatchingPipeline:
         start = time.time()
         try:
             spec_matcher = self.loader.get_spec_matcher()
-            if spec_matcher and ctx.requirements:
+            # Metadata fields (dates, bid numbers, booleans, admin flags) are not
+            # products and should never be sent to OEM spec-matching — doing so
+            # guarantees no match and wastes the matching pass.
+            _NON_PRODUCT_FIELD_TYPES = {'datetime', 'boolean'}
+            _NON_PRODUCT_FIELD_NAMES = {
+                'bid number', 'bid end date/time', 'bid opening date/time',
+                'bid validity', 'total quantity', 'emd amount', 'epbg percentage',
+                'mse exemption for experience and turnover',
+                'startup exemption for experience and turnover',
+            }
+            product_requirements = [
+                req for req in ctx.requirements
+                if req.get('value')
+                and isinstance(req.get('value'), dict)
+                and req['value'].get('field_type') not in _NON_PRODUCT_FIELD_TYPES
+                and req.get('field', '').strip().lower() not in _NON_PRODUCT_FIELD_NAMES
+            ]
+            if spec_matcher and product_requirements:
                 rfp_context = {
                     'rfp_id': ctx.rfp_id,
                     'products_in_scope': [
@@ -628,8 +645,7 @@ class ProductMatchingPipeline:
                             'quantity': 1,
                             'unit': 'lot',
                         }
-                        for req in ctx.requirements
-                        if req.get('value')
+                        for req in product_requirements
                     ],
                 }
                 match_result = spec_matcher.process_rfp(rfp_context)

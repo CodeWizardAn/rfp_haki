@@ -5,7 +5,12 @@ Preserves diacritics, vowel marks (vilantis/ukaars), and complex scripts
 """
 
 import pdfplumber
-import pytesseract
+try:
+    import pytesseract
+    PYTESSERACT_AVAILABLE = True
+except ImportError:
+    pytesseract = None
+    PYTESSERACT_AVAILABLE = False
 from PIL import Image
 import io
 import re
@@ -19,6 +24,12 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+if not PYTESSERACT_AVAILABLE:
+    logger.warning(
+        "pytesseract not installed — OCR fallback for scanned PDF pages will be "
+        "disabled, but normal digital-text extraction is unaffected."
+    )
 
 
 class MultilingualExtractor:
@@ -328,6 +339,9 @@ class MultilingualExtractor:
         Perform OCR on a page using Tesseract
         Falls back to this when text extraction fails
         """
+        if not PYTESSERACT_AVAILABLE:
+            logger.warning("OCR requested but pytesseract is not installed; skipping OCR for this page")
+            return ""
         try:
             # Convert PDF page to image
             img = page.to_image()

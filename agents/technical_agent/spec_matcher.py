@@ -308,25 +308,39 @@ class TechnicalAgent:
             'processed_date': datetime.now().isoformat(),
             'products_analyzed': len(products_in_scope),
             'recommendations': [
-                {
-                    'rfp_product': rec.rfp_product_name,
-                    'quantity': rec.quantity,
-                    'unit': rec.unit,
-                    'selected_sku': rec.selected_recommendation.oem_product.sku,
-                    'product_name': rec.selected_recommendation.oem_product.product_name,
-                    'manufacturer': rec.selected_recommendation.oem_product.manufacturer,
-                    'spec_match_percent': rec.selected_recommendation.spec_match_percent,
-                    'top_3_options': [
-                        {
-                            'rank': idx + 1,
-                            'sku': r.oem_product.sku,
-                            'product_name': r.oem_product.product_name,
-                            'manufacturer': r.oem_product.manufacturer,
-                            'spec_match_percent': r.spec_match_percent
-                        }
-                        for idx, r in enumerate(rec.top_recommendations[:3])
-                    ]
-                }
+                (
+                    {
+                        'rfp_product': rec.rfp_product_name,
+                        'quantity': rec.quantity,
+                        'unit': rec.unit,
+                        'selected_sku': rec.selected_recommendation.oem_product.sku,
+                        'product_name': rec.selected_recommendation.oem_product.product_name,
+                        'manufacturer': rec.selected_recommendation.oem_product.manufacturer,
+                        'spec_match_percent': rec.selected_recommendation.spec_match_percent,
+                        'top_3_options': [
+                            {
+                                'rank': idx + 1,
+                                'sku': r.oem_product.sku,
+                                'product_name': r.oem_product.product_name,
+                                'manufacturer': r.oem_product.manufacturer,
+                                'spec_match_percent': r.spec_match_percent
+                            }
+                            for idx, r in enumerate(rec.top_recommendations[:3])
+                        ]
+                    }
+                    if rec.selected_recommendation else
+                    {
+                        'rfp_product': rec.rfp_product_name,
+                        'quantity': rec.quantity,
+                        'unit': rec.unit,
+                        'selected_sku': None,
+                        'product_name': None,
+                        'manufacturer': None,
+                        'spec_match_percent': 0,
+                        'top_3_options': [],
+                        'note': 'No OEM product met the minimum spec-match threshold for this item',
+                    }
+                )
                 for rec in recommendations
             ],
             'comparison_table': comparison_tables,
