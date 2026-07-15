@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Upload,
@@ -248,6 +248,7 @@ const nlpBulletPoints = (text: string): string[] => {
 
 export default function UserRFPAnalyzerPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [analysisStep, setAnalysisStep] = useState<AnalysisStep>('idle');
   const [analysisSaved, setAnalysisSaved] = useState(false);
   const [savingAnalysis, setSavingAnalysis] = useState(false);
@@ -288,7 +289,47 @@ export default function UserRFPAnalyzerPage() {
   }, []);
 
   // Clean up timer on unmount
+  // Clean up timer on unmount
   useEffect(() => () => stopTimer(), [stopTimer]);
+
+  // ── Load a specific saved analysis when navigated here with an analysisId ──
+  useEffect(() => {
+    const analysisId = (location.state as { analysisId?: string } | null)?.analysisId;
+    if (!analysisId) return;
+
+    let cancelled = false;
+    const loadSavedAnalysis = async () => {
+      setAnalysisStep('analyzing');
+      setError(null);
+      try {
+        const token = localStorage.getItem('haki_token');
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await fetch(`${baseUrl}/api/v1/saved-analyses/${analysisId}`, {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        });
+        if (!res.ok) throw new Error(`Could not load saved analysis (${res.status})`);
+        const json = await res.json();
+        const record = json?.data;
+        if (!record) throw new Error('Saved analysis not found');
+        if (cancelled) return;
+        setResult(record.analysis_result ?? null);
+        setFileName(record.file_name ?? '');
+        setInputMode('upload');
+        setAnalysisStep('complete');
+        setAnalysisSaved(true);
+      } catch (err) {
+        if (cancelled) return;
+        setError(err instanceof Error ? err.message : 'Failed to load saved analysis');
+        setAnalysisStep('idle');
+      }
+    };
+
+    loadSavedAnalysis();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state]);
 
   // ── Poll for background linked-doc downloads ──
   useEffect(() => {

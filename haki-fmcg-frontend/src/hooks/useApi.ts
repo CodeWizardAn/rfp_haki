@@ -220,6 +220,7 @@ export function useAnalyzeRFP() {
         include_calculations?: boolean;
         include_recommendations?: boolean;
         include_budget?: boolean;
+        include_win_loss?: boolean;
         cable_length?: number;
         application?: string;
       };

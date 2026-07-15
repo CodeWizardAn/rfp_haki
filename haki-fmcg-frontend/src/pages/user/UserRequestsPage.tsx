@@ -153,7 +153,7 @@ export default function UserRequestsPage() {
         {filteredRequests.map((req) => {
           const config = statusConfig[req.status] || statusConfig.draft!;
           return (
-            <Link key={req.id} to={`/user/requests/${req.id}`}>
+            <Link key={req.id} to="/user/rfp-analyzer" state={{ analysisId: req.id }}>
               <Card variant="interactive">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4 flex-1 min-w-0">
