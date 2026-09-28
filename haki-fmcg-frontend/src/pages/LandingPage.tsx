@@ -14,6 +14,9 @@ import {
   FileCheck,
   TrendingUp,
   Database,
+  UploadCloud,
+  FileSpreadsheet,
+  Building2,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores';
 
@@ -106,7 +109,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
-      {/* ── Fixed Top Navbar (BOSS | CONSOLE Style) ── */}
+      {/* ── Fixed Top Navbar (HAKI | FMCG 2.0) ── */}
       <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-black/[0.06]">
         <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
           {/* Brand Logo */}
@@ -116,16 +119,16 @@ export default function LandingPage() {
                 HAKI
               </span>
               <span className="text-slate-300 font-light text-xl">|</span>
-              <span className="text-[11px] font-semibold text-slate-500 tracking-[0.2em] uppercase">
-                CONSOLE
+              <span className="text-[12px] font-bold text-[#2563EB] tracking-[0.16em] uppercase">
+                FMCG 2.0
               </span>
             </Link>
           </div>
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-            <a href="#solutions" className="hover:text-slate-900 transition-colors">
-              Product
+            <a href="#pipeline" className="hover:text-slate-900 transition-colors">
+              RFP Pipeline
             </a>
             <a href="#catalog" className="hover:text-slate-900 transition-colors">
               22K+ Catalog
@@ -133,9 +136,12 @@ export default function LandingPage() {
             <a href="#matcher" className="hover:text-slate-900 transition-colors">
               Spec Matcher
             </a>
-            <a href="#pipeline" className="hover:text-slate-900 transition-colors">
-              AI Pipeline
+            <a href="#solutions" className="hover:text-slate-900 transition-colors">
+              AI Agents
             </a>
+            <Link to="/vendors" className="hover:text-slate-900 transition-colors">
+              Vendors
+            </Link>
             <a
               href="http://localhost:8000/api/v1/docs"
               target="_blank"
@@ -149,28 +155,20 @@ export default function LandingPage() {
 
           {/* Right Action Buttons */}
           <div className="hidden sm:flex items-center gap-4">
-            <a
-              href="https://github.com/CodeWizardAn/rfp_haki"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/user"
               className="text-sm font-medium text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition-colors"
             >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                />
-              </svg>
-              GitHub
-            </a>
+              <Building2 size={15} className="text-slate-500" />
+              Vendor Portal
+            </Link>
 
             {isAuthenticated ? (
               <Link
                 to={user?.role === 'admin' || user?.role === 'manager' ? '/dashboard' : '/user'}
                 className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-md bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold transition-all shadow-sm"
               >
-                Launch Console
+                Go to Platform
                 <ArrowRight size={14} />
               </Link>
             ) : (
@@ -185,8 +183,8 @@ export default function LandingPage() {
                   to="/login"
                   className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-md bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold transition-all shadow-sm"
                 >
-                  Launch Console
-                  <ArrowRight size={14} />
+                  <UploadCloud size={14} />
+                  Upload RFP
                 </Link>
               </>
             )}
@@ -206,11 +204,11 @@ export default function LandingPage() {
         {mobileMenuOpen && (
           <div className="md:hidden bg-[#FAF8F5] border-b border-black/[0.08] px-6 py-4 space-y-3">
             <a
-              href="#solutions"
+              href="#pipeline"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-slate-700"
             >
-              Product
+              RFP Pipeline
             </a>
             <a
               href="#catalog"
@@ -227,30 +225,31 @@ export default function LandingPage() {
               Spec Matcher
             </a>
             <a
-              href="#pipeline"
+              href="#solutions"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-slate-700"
             >
-              AI Pipeline
+              AI Agents
             </a>
             <div className="pt-2 border-t border-slate-200 flex flex-col gap-2">
               <Link
                 to="/login"
-                className="w-full text-center py-2 text-sm font-semibold text-white bg-[#2563EB] rounded-md"
+                className="w-full text-center py-2 text-sm font-semibold text-white bg-[#2563EB] rounded-md flex items-center justify-center gap-1.5"
               >
-                Launch Console
+                <UploadCloud size={14} />
+                Upload RFP
               </Link>
             </div>
           </div>
         )}
       </header>
 
-      {/* ── Hero Section (Matches BOSS Reference Image) ── */}
+      {/* ── Hero Section (Matches Editorial Craft Layout) ── */}
       <section className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
         {/* Category kicker / tag */}
         <div className="mb-6">
           <span className="text-[#2563EB] text-[11px] font-bold tracking-[0.2em] uppercase font-mono">
-            THE PLATFORM BEHIND FAST FMCG & ELECTRICAL PROCUREMENT
+            THE AI PROCUREMENT & TENDER ENGINE FOR FMCG & ELECTRICALS
           </span>
         </div>
 
@@ -273,25 +272,25 @@ export default function LandingPage() {
                 href="#catalog"
                 className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1.5 group"
               >
-                Explore the catalog
+                Explore 22K+ catalog
                 <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
               </a>
               <a
                 href="#matcher"
                 className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1.5 group"
               >
-                Contribution highlights
+                Interactive spec matcher
                 <ChevronDown size={14} className="group-hover:translate-y-0.5 transition-transform" />
               </a>
             </div>
           </div>
         </div>
 
-        {/* Tinted Banner Card (Soft blue box with CTA button) */}
+        {/* Tinted Banner Card (Matches Soft Blue Accent Container) */}
         <div className="mt-14 p-8 md:p-10 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE]/80 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-[0_2px_12px_rgba(37,99,235,0.06)]">
           <div className="space-y-2 max-w-2xl">
             <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Build with teams who demand exact specs.
+              Procure with teams who demand exact specs.
             </h3>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
               Upload technical tender PDFs or query 22,028 wire and cable SKUs. Instant compliance scores, margin calculations, and automated vendor proposal generation.
@@ -302,7 +301,7 @@ export default function LandingPage() {
               to="/login"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#1D4ED8] hover:bg-[#1E40AF] text-white font-semibold text-sm transition-all shadow-sm hover:shadow-md"
             >
-              Join the console
+              Start RFP Processing
               <span className="text-base font-bold">↗</span>
             </Link>
           </div>
@@ -567,7 +566,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
-              WORKFLOW PIPELINE
+              END-TO-END TENDER FLOW
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
               From raw tender PDF to winning bid in 60 seconds.
@@ -623,7 +622,7 @@ export default function LandingPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
-              COMPREHENSIVE INVENTORY
+              PRE-INDEXED MANUFACTURER CATALOG
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
               Wires, Cables, & FMCG Standards
@@ -633,7 +632,7 @@ export default function LandingPage() {
             to="/products"
             className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1.5"
           >
-            Search full database in console →
+            Explore all 22,028 products →
           </Link>
         </div>
 
@@ -664,7 +663,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Call To Action Footer Banner ── */}
+      {/* ── Call To Action Banner ── */}
       <section className="py-20 px-6 max-w-7xl mx-auto">
         <div className="p-10 md:p-14 rounded-2xl bg-slate-900 text-white flex flex-col lg:flex-row lg:items-center justify-between gap-8 shadow-xl">
           <div className="space-y-3 max-w-2xl">
@@ -672,7 +671,7 @@ export default function LandingPage() {
               Ready to automate your technical procurement?
             </h3>
             <p className="text-slate-400 text-base leading-relaxed">
-              Access the complete suite of autonomous agents, 22K+ catalog matcher, and pricing analytics now.
+              Upload your tender specifications now or browse our comprehensive 22,000+ electrical inventory with instant margin optimization.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4">
@@ -680,17 +679,16 @@ export default function LandingPage() {
               to="/login"
               className="px-6 py-3.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm transition-all shadow-md flex items-center gap-2"
             >
-              Launch Console
-              <ArrowRight size={16} />
+              <UploadCloud size={16} />
+              Upload RFP Document
             </Link>
-            <a
-              href="https://github.com/CodeWizardAn/rfp_haki"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700"
+            <Link
+              to="/products"
+              className="px-6 py-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700 flex items-center gap-2"
             >
-              Star on GitHub
-            </a>
+              <FileSpreadsheet size={16} />
+              Browse Product Catalog
+            </Link>
           </div>
         </div>
       </section>
@@ -703,29 +701,31 @@ export default function LandingPage() {
               HAKI
             </span>
             <span className="text-slate-300 font-light">|</span>
-            <span className="font-mono text-[10px] text-slate-500 uppercase tracking-widest">
-              CONSOLE 2.0
+            <span className="font-mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">
+              FMCG 2.0
             </span>
+            <span className="text-slate-400 hidden sm:inline">— Enterprise RFP & Procurement Platform</span>
           </div>
 
           <div className="flex items-center gap-6">
-            <a href="#solutions" className="hover:text-slate-900 transition-colors">
-              Product
+            <a href="#pipeline" className="hover:text-slate-900 transition-colors">
+              RFP Pipeline
             </a>
             <a href="#catalog" className="hover:text-slate-900 transition-colors">
               Catalog
             </a>
-            <a href="http://localhost:8000/api/v1/docs" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">
+            <Link to="/vendors" className="hover:text-slate-900 transition-colors">
+              Vendors
+            </Link>
+            <a href="http://localhost:8000/api/v1/docs" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors flex items-center gap-1">
               API Docs
-            </a>
-            <a href="https://github.com/CodeWizardAn/rfp_haki" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">
-              GitHub
+              <ExternalLink size={11} />
             </a>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>All Systems Operational</span>
+            <span>All Procurement Services Operational</span>
           </div>
         </div>
       </footer>
