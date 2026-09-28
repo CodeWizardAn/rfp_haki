@@ -63,6 +63,8 @@ POA_docs/
 .pytest_cache/
 .coverage
 htmlcov/
+coverage.xml
+coverage/
 .mypy_cache/
 
 # ── Logs ────────────────────────────────────────
