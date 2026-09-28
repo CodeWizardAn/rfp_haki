@@ -1,15 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  HelpCircle,
   Search,
   Book,
   MessageCircle,
   Mail,
   Phone,
   ChevronDown,
-  ChevronRight,
-  ExternalLink,
   FileText,
   Video,
   Zap,

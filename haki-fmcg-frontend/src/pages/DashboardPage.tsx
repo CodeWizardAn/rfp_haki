@@ -115,9 +115,10 @@ export default function DashboardPage() {
         totalBidValue: backendStats.total_bid_value ?? prev.totalBidValue,
         productsMatched: backendStats.products_count ?? prev.productsMatched,
         activeVendors: backendStats.active_vendors ?? prev.activeVendors,
+        pipelineHealth: (healthData as any)?.system_health_score ?? (healthData as any)?.score ?? prev.pipelineHealth,
       }));
     }
-  }, [backendStats]);
+  }, [backendStats, healthData]);
 
   const [alerts, setAlerts] = useState(mockAlerts);
   const [pipelineRuns, setPipelineRuns] = useState(mockPipelineRuns);

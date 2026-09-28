@@ -2,8 +2,7 @@ import { useMemo } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { Bell, Search, User, ChevronRight, LogOut, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useUIStore, useNotificationStore, useAuthStore } from '@/stores';
-import { Badge } from '@/components/ui';
+import { useNotificationStore, useAuthStore } from '@/stores';
 
 function useBreadcrumbs() {
   const location = useLocation();

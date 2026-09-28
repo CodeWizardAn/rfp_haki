@@ -7,9 +7,6 @@ import {
   Plus,
   Trash2,
   ArrowLeft,
-  Calendar,
-  Package,
-  AlertTriangle,
 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, Button, Input, TextArea } from '@/components/ui';
 
@@ -51,7 +48,7 @@ export default function UserNewRequestPage() {
     setLineItems(lineItems.map((item) => item.id === id ? { ...item, [field]: value } : item));
   };
 
-  const handleSubmit = (asDraft: boolean) => {
+  const handleSubmit = (_asDraft?: boolean) => {
     // Would call API here
     navigate('/user/requests');
   };

@@ -3,13 +3,11 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   Search,
-  SlidersHorizontal,
   Grid3X3,
   List,
   Heart,
   ShoppingCart,
   Star,
-  ChevronDown,
   Filter,
   X,
 } from 'lucide-react';

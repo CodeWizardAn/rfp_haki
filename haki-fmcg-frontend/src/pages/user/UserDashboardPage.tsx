@@ -1,4 +1,4 @@
-﻿import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Clock,
@@ -6,7 +6,6 @@ import {
   BarChart3,
   Trophy,
   TrendingUp,
-  TrendingDown,
   AlertTriangle,
   CheckCircle2,
   Cpu,
@@ -71,10 +70,6 @@ const roiItems = [
   { icon: <DollarSign size={16} className="text-neon-emerald" />, label: 'Savings per RFP', value: '₹29,000', highlight: true },
 ];
 
-const automationData = [
-  { month: 'Last Month', value: 30000, color: '#7C3AED' },
-  { month: 'This Month', value: 310000, color: '#7C3AED' },
-];
 
 const alertRows = [
   { resource: 'CPU Usage', warning: '70%', critical: '90%', icon: <Cpu size={14} /> },
@@ -135,7 +130,7 @@ export default function UserDashboardPage() {
               {new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </div>
-          <Badge variant="soft" color="emerald" size="lg">System Operational</Badge>
+          <Badge variant="soft" color="emerald" size="md">System Operational</Badge>
         </div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-violet-pulse/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
       </motion.div>
@@ -217,7 +212,7 @@ export default function UserDashboardPage() {
               </div>
               {/* Gradient bar */}
               <div className="relative h-4 rounded-full overflow-hidden flex">
-                {winProbSegments.map((seg, i) => (
+                {winProbSegments.map((seg) => (
                   <div key={seg.label} className="flex-1 h-full" style={{ background: seg.color, opacity: 0.85 }} />
                 ))}
                 {/* Thumb */}
@@ -272,10 +267,10 @@ export default function UserDashboardPage() {
                   tickFormatter={(v: number) => v >= 1000 ? `${v / 1000}k` : String(v)} />
                 <Tooltip
                   contentStyle={{ background: '#0D1117', border: '1px solid #1E2642', borderRadius: 8, color: '#CDD6F4' }}
-                  formatter={(v: number) => [`Rs ${v.toLocaleString('en-IN')}`, 'Savings']}
+                  formatter={(v: any) => [`Rs ${Number(v || 0).toLocaleString('en-IN')}`, 'Savings']}
                 />
                 <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                  {savingsData.map((entry, index) => (
+                  {savingsData.map((_, index) => (
                     <Cell key={index} fill={index === 1 ? '#7C3AED' : '#4C1D95'} />
                   ))}
                 </Bar>

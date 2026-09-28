@@ -1,21 +1,15 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import {
   Building2,
   Search,
   Star,
   MapPin,
-  Phone,
-  Mail,
-  Globe,
-  ChevronRight,
-  ArrowUpDown,
   Shield,
   Clock,
   Package,
 } from 'lucide-react';
-import { Card, Badge, Button, Input } from '@/components/ui';
+import { Card, Badge, Input } from '@/components/ui';
 import { useVendors } from '@/hooks/useApi';
 
 const fallbackVendors = [

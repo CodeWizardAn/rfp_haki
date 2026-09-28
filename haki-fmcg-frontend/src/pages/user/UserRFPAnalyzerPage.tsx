@@ -302,7 +302,7 @@ export default function UserRFPAnalyzerPage() {
       setAnalysisStep('analyzing');
       setError(null);
       try {
-        const token = localStorage.getItem('haki_token');
+        const token = localStorage.getItem('haki_token') || localStorage.getItem('access_token');
         const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
         const res = await fetch(`${baseUrl}/api/v1/saved-analyses/${analysisId}`, {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -337,7 +337,7 @@ export default function UserRFPAnalyzerPage() {
     let cancelled = false;
     const poll = async () => {
       try {
-        const token = localStorage.getItem('haki_token');
+        const token = localStorage.getItem('haki_token') || localStorage.getItem('access_token');
         const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
         const res = await fetch(
           `${baseUrl}/api/v1/rfps/analyze/${result.analysis_id}/linked-docs`,
@@ -369,7 +369,7 @@ export default function UserRFPAnalyzerPage() {
     let cancelled = false;
     const poll = async () => {
       try {
-        const token = localStorage.getItem('haki_token');
+        const token = localStorage.getItem('haki_token') || localStorage.getItem('access_token');
         const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
         const res = await fetch(
           `${baseUrl}/api/v1/rfps/analyze/${result.analysis_id}/enrichment`,

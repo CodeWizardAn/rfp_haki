@@ -8,7 +8,6 @@ import {
   Receipt,
   Package,
   Star,
-  X,
 } from 'lucide-react';
 import { Card, Badge, Button } from '@/components/ui';
 

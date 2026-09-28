@@ -543,7 +543,7 @@ class EnhancedRFPMatcher:
 def generate_implementation_guide():
     """Generate implementation guide for developers"""
     
-    guide = '''
+    guide = r'''
 # IMPLEMENTATION GUIDE: Integrating Optimized CSV Columns
 
 ## Quick Start

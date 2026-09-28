@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import {
   Banknote,
   Search,
@@ -13,7 +12,7 @@ import {
   TrendingUp,
   Eye,
 } from 'lucide-react';
-import { Card, CardHeader, CardTitle, Badge, Button, Input } from '@/components/ui';
+import { Card, Badge, Input } from '@/components/ui';
 import { useBids } from '@/hooks/useApi';
 
 const bidStatusConfig: Record<string, { label: string; color: 'cyan' | 'emerald' | 'amber' | 'coral' | 'silver'; icon: React.ReactNode }> = {

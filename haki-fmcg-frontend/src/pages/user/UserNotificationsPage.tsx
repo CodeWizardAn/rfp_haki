@@ -9,9 +9,8 @@ import {
   Clock,
   Check,
   Trash2,
-  Filter,
 } from 'lucide-react';
-import { Card, Badge, Button } from '@/components/ui';
+import { Card, Button } from '@/components/ui';
 
 interface NotificationItem {
   id: string;

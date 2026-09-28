@@ -1,20 +1,16 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import {
   Receipt,
   Plus,
   Search,
   Clock,
   CheckCircle2,
-  XCircle,
   ChevronRight,
   Building2,
-  Package,
-  FileText,
   MessageSquare,
 } from 'lucide-react';
-import { Card, CardHeader, CardTitle, Badge, Button, Input } from '@/components/ui';
+import { Card, Badge, Button, Input } from '@/components/ui';
 
 const quoteStatusConfig: Record<string, { label: string; color: 'cyan' | 'emerald' | 'amber' | 'coral' | 'silver' | 'violet' }> = {
   pending: { label: 'Pending', color: 'amber' },

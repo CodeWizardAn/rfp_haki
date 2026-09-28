@@ -5,16 +5,13 @@ import {
   FileText,
   Plus,
   Search,
-  Filter,
   Clock,
   CheckCircle2,
-  AlertTriangle,
-  Eye,
   ChevronRight,
   Calendar,
   Package,
 } from 'lucide-react';
-import { Card, CardHeader, CardTitle, Badge, Button, Input } from '@/components/ui';
+import { Card, Badge, Button, Input } from '@/components/ui';
 
 const statusConfig: Record<string, { label: string; color: 'cyan' | 'emerald' | 'amber' | 'coral' | 'rose' | 'violet' | 'silver' }> = {
   draft: { label: 'Draft', color: 'silver' },

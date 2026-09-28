@@ -17,11 +17,9 @@ import { authService } from '@/services/auth.service';
 import api from '@/services/api';
 import type {
   RFP,
-  Product,
   Vendor,
   Bid,
   PipelineRun,
-  DashboardStats,
   AuditLogEntry,
   ComplianceCheck,
   AgentType,

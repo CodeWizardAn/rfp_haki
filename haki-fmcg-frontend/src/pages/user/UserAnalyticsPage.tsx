@@ -1,9 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
-  BarChart3,
-  TrendingUp,
-  TrendingDown,
   Clock,
   CheckCircle2,
   FileText,

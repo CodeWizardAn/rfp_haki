@@ -71,19 +71,12 @@ const mockProduct = {
   ],
 };
 
-const tierColors: Record<string, { bg: string; text: string }> = {
-  platinum: { bg: 'bg-ghost-white/10', text: 'text-ghost-white' },
-  gold: { bg: 'bg-amber-glow/10', text: 'text-amber-glow' },
-  silver: { bg: 'bg-muted-silver/10', text: 'text-muted-silver' },
-  bronze: { bg: 'bg-amber-glow/10', text: 'text-amber-glow' },
-};
-
 export default function UserProductDetailPage() {
   const { sku } = useParams();
   const [activeTab, setActiveTab] = useState<'specs' | 'vendors' | 'history'>('specs');
   const [quantity, setQuantity] = useState(mockProduct.moq);
   const [isWishlisted, setIsWishlisted] = useState(false);
-  const product = mockProduct;
+  const product = { ...mockProduct, ...(sku ? { sku } : {}) };
 
   const firstPrice = product.priceHistory[0]!.price;
   const lastPrice = product.priceHistory[product.priceHistory.length - 1]!.price;

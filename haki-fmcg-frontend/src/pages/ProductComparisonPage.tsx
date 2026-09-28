@@ -135,6 +135,7 @@ const CATALOG: Product[] = [
     oem: 'RR Kabel',
     oemColor: '#A855F7',
     price: 4650,
+    priceUnit: '/m',
     rating: 4.0,
     specs: {
       'Voltage Rating': '11 kV',
