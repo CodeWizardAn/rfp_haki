@@ -358,69 +358,91 @@ export default function LandingPage() {
         </div>
 
         {/* Marquee Wrapper with edge fade */}
-        <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-          <div className="animate-marquee hover:[animation-play-state:paused] flex gap-5 py-2">
-            {/* First Set of Cards */}
+        <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <div className="animate-marquee hover:[animation-play-state:paused] flex gap-6 py-2">
+            {/* First Set of Pipeline Cards */}
             {PIPELINE_CARDS.map((card, idx) => (
               <div
                 key={`pipe-1-${idx}`}
-                className={`w-[260px] md:w-[290px] flex-shrink-0 p-6 rounded-xl border transition-all ${
+                className={`w-[340px] md:w-[360px] h-[190px] flex-shrink-0 p-7 rounded-2xl border transition-all flex flex-col justify-between ${
                   card.highlight
                     ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
-                    : 'bg-white border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.03)]'
+                    : 'bg-white border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)]'
                 }`}
               >
-                <span className="text-xs font-bold text-[#2563EB] font-mono">{card.step}</span>
-                <h4 className="text-base font-bold text-slate-900 mt-2">{card.title}</h4>
-                <p className="text-xs text-slate-600 mt-2 leading-relaxed">{card.description}</p>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-extrabold text-[#2563EB] font-mono tracking-wider">
+                      STAGE {card.step}
+                    </span>
+                    <span className="w-2 h-2 rounded-full bg-blue-500/40"></span>
+                  </div>
+                  <h4 className="text-lg font-bold text-slate-900 mt-2 tracking-tight">{card.title}</h4>
+                </div>
+                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{card.description}</p>
               </div>
             ))}
             {/* Duplicated Set for Gapless Infinite Right-to-Left Scroll */}
             {PIPELINE_CARDS.map((card, idx) => (
               <div
                 key={`pipe-2-${idx}`}
-                className={`w-[260px] md:w-[290px] flex-shrink-0 p-6 rounded-xl border transition-all ${
+                className={`w-[340px] md:w-[360px] h-[190px] flex-shrink-0 p-7 rounded-2xl border transition-all flex flex-col justify-between ${
                   card.highlight
                     ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
-                    : 'bg-white border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.03)]'
+                    : 'bg-white border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)]'
                 }`}
               >
-                <span className="text-xs font-bold text-[#2563EB] font-mono">{card.step}</span>
-                <h4 className="text-base font-bold text-slate-900 mt-2">{card.title}</h4>
-                <p className="text-xs text-slate-600 mt-2 leading-relaxed">{card.description}</p>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-extrabold text-[#2563EB] font-mono tracking-wider">
+                      STAGE {card.step}
+                    </span>
+                    <span className="w-2 h-2 rounded-full bg-blue-500/40"></span>
+                  </div>
+                  <h4 className="text-lg font-bold text-slate-900 mt-2 tracking-tight">{card.title}</h4>
+                </div>
+                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{card.description}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Secondary Marquee: Catalog Categories (Right to Left at Steady Speed) */}
-        <div className="relative w-full overflow-hidden mt-6 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-          <div className="animate-marquee-slow hover:[animation-play-state:paused] flex gap-5 py-2">
+        <div className="relative w-full overflow-hidden mt-6 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <div className="animate-marquee-slow hover:[animation-play-state:paused] flex gap-6 py-2">
             {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
               <div
                 key={`cat-1-${idx}`}
-                className="w-[240px] md:w-[260px] flex-shrink-0 p-5 rounded-xl bg-white border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
+                className="w-[340px] md:w-[360px] h-[190px] flex-shrink-0 p-7 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-semibold text-slate-500 uppercase">{cat.brand}</span>
-                  <span className="text-xs font-bold text-[#2563EB]">{cat.count}</span>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{cat.brand}</span>
+                    <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200/50">
+                      {cat.count}
+                    </span>
+                  </div>
+                  <h5 className="text-lg font-bold text-slate-900 mt-2 tracking-tight">{cat.title}</h5>
                 </div>
-                <h5 className="font-bold text-slate-900 text-sm mt-1.5">{cat.title}</h5>
-                <p className="text-xs text-slate-500 mt-1">{cat.subtitle}</p>
+                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{cat.subtitle}</p>
               </div>
             ))}
             {/* Duplicate Set for Gapless Infinite Scroll */}
             {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
               <div
                 key={`cat-2-${idx}`}
-                className="w-[240px] md:w-[260px] flex-shrink-0 p-5 rounded-xl bg-white border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
+                className="w-[340px] md:w-[360px] h-[190px] flex-shrink-0 p-7 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-semibold text-slate-500 uppercase">{cat.brand}</span>
-                  <span className="text-xs font-bold text-[#2563EB]">{cat.count}</span>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{cat.brand}</span>
+                    <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200/50">
+                      {cat.count}
+                    </span>
+                  </div>
+                  <h5 className="text-lg font-bold text-slate-900 mt-2 tracking-tight">{cat.title}</h5>
                 </div>
-                <h5 className="font-bold text-slate-900 text-sm mt-1.5">{cat.title}</h5>
-                <p className="text-xs text-slate-500 mt-1">{cat.subtitle}</p>
+                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{cat.subtitle}</p>
               </div>
             ))}
           </div>
