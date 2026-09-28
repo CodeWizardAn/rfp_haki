@@ -11,7 +11,7 @@ export function AppShell() {
   useKeyboardShortcuts();
 
   return (
-    <div className="min-h-screen bg-deep-navy">
+    <div className="min-h-screen bg-faded-grid text-slate-900">
       <Sidebar />
 
       <motion.div

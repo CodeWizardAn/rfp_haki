@@ -8,7 +8,7 @@ export function UserAppShell() {
   const { sidebarCollapsed } = useUIStore();
 
   return (
-    <div className="min-h-screen bg-deep-navy">
+    <div className="min-h-screen bg-faded-grid text-slate-900">
       <UserSidebar />
 
       <motion.div

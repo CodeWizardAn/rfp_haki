@@ -28,7 +28,7 @@ interface NavItem {
 const navSections: { title?: string; items: NavItem[] }[] = [
   {
     items: [
-      { label: 'Dashboard', path: '/', icon: <LayoutDashboard size={20} /> },
+      { label: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={20} /> },
     ],
   },
   {

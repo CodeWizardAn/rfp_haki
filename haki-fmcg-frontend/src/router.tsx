@@ -6,6 +6,7 @@ import { PageLoader } from '@/components/ui';
 import { AuthGuard, GuestGuard } from '@/components/auth/AuthGuard';
 
 // Lazy-loaded pages
+const LandingPage = lazy(() => import('@/pages/LandingPage'));
 const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/RegisterPage'));
@@ -140,8 +141,24 @@ export const router = createBrowserRouter([
       </GuestGuard>
     ),
   },
+  // Public Landing Page
   {
     path: '/',
+    element: (
+      <SuspenseWrap>
+        <LandingPage />
+      </SuspenseWrap>
+    ),
+  },
+  {
+    path: '/landing',
+    element: (
+      <SuspenseWrap>
+        <LandingPage />
+      </SuspenseWrap>
+    ),
+  },
+  {
     element: (
       <AuthGuard>
         <AppShell />
@@ -149,7 +166,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        index: true,
+        path: 'dashboard',
         element: (
           <SuspenseWrap>
             <DashboardPage />

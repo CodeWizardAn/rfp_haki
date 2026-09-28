@@ -23,7 +23,7 @@ export function GuestGuard({ children }: { children: React.ReactNode }) {
   const hasToken = !!localStorage.getItem('access_token');
 
   if (hasToken && isAuthenticated) {
-    return <Navigate to={role === 'admin' || role === 'manager' ? '/' : '/user'} replace />;
+    return <Navigate to={role === 'admin' || role === 'manager' ? '/dashboard' : '/user'} replace />;
   }
 
   return <>{children}</>;
