@@ -345,106 +345,126 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Continuous Moving Marquee: 5-Stage Pipeline Cards (Right to Left at Steady Speed) ── */}
-      <section id="pipeline" className="py-12 border-y border-black/[0.06] overflow-hidden bg-white/40">
-        <div className="max-w-7xl mx-auto px-6 mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse"></span>
-            <span className="text-xs uppercase tracking-widest font-bold text-slate-700 font-mono">
-              CONTINUOUS TENDER PIPELINE FLOW
+      {/* ── Continuous Moving Marquees: Workflow Pipeline & Catalog Categories ── */}
+      <section id="pipeline" className="py-16 border-y border-black/[0.06] overflow-hidden bg-white/40 space-y-12">
+        {/* Track 1: Workflow Pipeline Heading */}
+        <div>
+          <div className="max-w-7xl mx-auto px-6 mb-5 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] animate-pulse"></span>
+              <span className="text-xs uppercase tracking-[0.18em] font-extrabold text-slate-800 font-mono">
+                END-TO-END TENDER WORKFLOW PIPELINE
+              </span>
+            </div>
+            <span className="text-xs font-semibold text-slate-500 hidden sm:inline">
+              Continuous multi-agent flow • Ingestion to commercial bid
             </span>
           </div>
-          <span className="text-xs text-slate-400">Glide preview • 60-second processing</span>
-        </div>
 
-        {/* Marquee Wrapper with edge fade */}
-        <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <div className="animate-marquee hover:[animation-play-state:paused] flex gap-6 py-2">
-            {/* First Set of Pipeline Cards */}
-            {PIPELINE_CARDS.map((card, idx) => (
-              <div
-                key={`pipe-1-${idx}`}
-                className={`w-[340px] md:w-[360px] h-[190px] flex-shrink-0 p-7 rounded-2xl border transition-all flex flex-col justify-between ${
-                  card.highlight
-                    ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
-                    : 'bg-white border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)]'
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-extrabold text-[#2563EB] font-mono tracking-wider">
-                      STAGE {card.step}
-                    </span>
-                    <span className="w-2 h-2 rounded-full bg-blue-500/40"></span>
+          {/* Marquee Wrapper: Pipeline Flow */}
+          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <div className="animate-marquee hover:[animation-play-state:paused] flex gap-6 py-2">
+              {/* First Set of Pipeline Cards */}
+              {PIPELINE_CARDS.map((card, idx) => (
+                <div
+                  key={`pipe-1-${idx}`}
+                  className={`w-[390px] md:w-[420px] h-[220px] flex-shrink-0 p-8 rounded-2xl border transition-all flex flex-col justify-between ${
+                    card.highlight
+                      ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
+                      : 'bg-white border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)]'
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-[#2563EB] font-mono tracking-wider">
+                        STAGE {card.step}
+                      </span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-500/30"></span>
+                    </div>
+                    <h4 className="text-xl font-extrabold text-slate-900 mt-2.5 tracking-tight">{card.title}</h4>
                   </div>
-                  <h4 className="text-lg font-bold text-slate-900 mt-2 tracking-tight">{card.title}</h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">{card.description}</p>
                 </div>
-                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{card.description}</p>
-              </div>
-            ))}
-            {/* Duplicated Set for Gapless Infinite Right-to-Left Scroll */}
-            {PIPELINE_CARDS.map((card, idx) => (
-              <div
-                key={`pipe-2-${idx}`}
-                className={`w-[340px] md:w-[360px] h-[190px] flex-shrink-0 p-7 rounded-2xl border transition-all flex flex-col justify-between ${
-                  card.highlight
-                    ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
-                    : 'bg-white border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)]'
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-extrabold text-[#2563EB] font-mono tracking-wider">
-                      STAGE {card.step}
-                    </span>
-                    <span className="w-2 h-2 rounded-full bg-blue-500/40"></span>
+              ))}
+              {/* Duplicated Set for Gapless Infinite Right-to-Left Scroll */}
+              {PIPELINE_CARDS.map((card, idx) => (
+                <div
+                  key={`pipe-2-${idx}`}
+                  className={`w-[390px] md:w-[420px] h-[220px] flex-shrink-0 p-8 rounded-2xl border transition-all flex flex-col justify-between ${
+                    card.highlight
+                      ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
+                      : 'bg-white border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)]'
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-[#2563EB] font-mono tracking-wider">
+                        STAGE {card.step}
+                      </span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-500/30"></span>
+                    </div>
+                    <h4 className="text-xl font-extrabold text-slate-900 mt-2.5 tracking-tight">{card.title}</h4>
                   </div>
-                  <h4 className="text-lg font-bold text-slate-900 mt-2 tracking-tight">{card.title}</h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">{card.description}</p>
                 </div>
-                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{card.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Secondary Marquee: Catalog Categories (Right to Left at Steady Speed) */}
-        <div className="relative w-full overflow-hidden mt-6 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <div className="animate-marquee-slow hover:[animation-play-state:paused] flex gap-6 py-2">
-            {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
-              <div
-                key={`cat-1-${idx}`}
-                className="w-[340px] md:w-[360px] h-[190px] flex-shrink-0 p-7 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{cat.brand}</span>
-                    <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200/50">
-                      {cat.count}
-                    </span>
+        {/* Track 2: Catalog Inventory Heading */}
+        <div>
+          <div className="max-w-7xl mx-auto px-6 mb-5 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="text-xs uppercase tracking-[0.18em] font-extrabold text-slate-800 font-mono">
+                22,028 PRE-INDEXED WIRES & CABLES INVENTORY
+              </span>
+            </div>
+            <span className="text-xs font-semibold text-slate-500 hidden sm:inline">
+              Live manufacturer database • Polycab, Havells, KEI, Finolex, RR Kabel
+            </span>
+          </div>
+
+          {/* Marquee Wrapper: Catalog Categories */}
+          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <div className="animate-marquee-slow hover:[animation-play-state:paused] flex gap-6 py-2">
+              {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
+                <div
+                  key={`cat-1-${idx}`}
+                  className="w-[390px] md:w-[420px] h-[220px] flex-shrink-0 p-8 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{cat.brand}</span>
+                      <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200/50">
+                        {cat.count}
+                      </span>
+                    </div>
+                    <h5 className="text-xl font-extrabold text-slate-900 mt-2.5 tracking-tight">{cat.title}</h5>
                   </div>
-                  <h5 className="text-lg font-bold text-slate-900 mt-2 tracking-tight">{cat.title}</h5>
+                  <p className="text-sm text-slate-600 leading-relaxed">{cat.subtitle}</p>
                 </div>
-                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{cat.subtitle}</p>
-              </div>
-            ))}
-            {/* Duplicate Set for Gapless Infinite Scroll */}
-            {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
-              <div
-                key={`cat-2-${idx}`}
-                className="w-[340px] md:w-[360px] h-[190px] flex-shrink-0 p-7 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{cat.brand}</span>
-                    <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200/50">
-                      {cat.count}
-                    </span>
+              ))}
+              {/* Duplicate Set for Gapless Infinite Scroll */}
+              {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
+                <div
+                  key={`cat-2-${idx}`}
+                  className="w-[390px] md:w-[420px] h-[220px] flex-shrink-0 p-8 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{cat.brand}</span>
+                      <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200/50">
+                        {cat.count}
+                      </span>
+                    </div>
+                    <h5 className="text-xl font-extrabold text-slate-900 mt-2.5 tracking-tight">{cat.title}</h5>
                   </div>
-                  <h5 className="text-lg font-bold text-slate-900 mt-2 tracking-tight">{cat.title}</h5>
+                  <p className="text-sm text-slate-600 leading-relaxed">{cat.subtitle}</p>
                 </div>
-                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{cat.subtitle}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
