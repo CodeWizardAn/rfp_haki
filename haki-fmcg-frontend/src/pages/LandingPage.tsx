@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import {
   Search,
   ArrowRight,
-  ShieldCheck,
-  Cpu,
-  Layers,
   CheckCircle2,
   ExternalLink,
   ChevronDown,
@@ -99,6 +96,48 @@ const SAMPLE_SPECS: SpecSample[] = [
   },
 ];
 
+const PIPELINE_CARDS = [
+  {
+    step: '01',
+    title: 'Intake & OCR',
+    description: 'PyPDF + Tesseract parses complex PDF, scanned images, and Excel BOQs.',
+    highlight: false,
+  },
+  {
+    step: '02',
+    title: 'Normalization',
+    description: 'Standardizes voltage (1.1kV vs 1100V), core counts, and AWG to mm².',
+    highlight: false,
+  },
+  {
+    step: '03',
+    title: 'Vector Search',
+    description: 'Dense 384-dim semantic matching queries 22,028 products in under 50ms.',
+    highlight: false,
+  },
+  {
+    step: '04',
+    title: 'Pricing Engine',
+    description: 'Commodity index lookup and automated margin optimizations.',
+    highlight: false,
+  },
+  {
+    step: '05',
+    title: 'Commercial Bid',
+    description: 'Full compliance matrix and exportable tender response.',
+    highlight: true,
+  },
+];
+
+const CATALOG_MARQUEE_CARDS = [
+  { title: 'LT Power Cables', subtitle: '1.1 kV XLPE & PVC Armoured', count: '7,420 SKUs', brand: 'Polycab / Havells' },
+  { title: 'HT Power Cables', subtitle: '3.3 kV to 33 kV Heavy Duty', count: '4,810 SKUs', brand: 'KEI / Universal' },
+  { title: 'Flexible Multicore', subtitle: 'Industrial Grade Copper', count: '5,140 SKUs', brand: 'Finolex / RR Kabel' },
+  { title: 'Specialty & Solar', subtitle: 'FR-LSH, Fire Survival, PV', count: '4,658 SKUs', brand: 'Polycab / Siechem' },
+  { title: 'Control & Shielded', subtitle: 'Armoured Instrumentation Pairs', count: '3,210 SKUs', brand: 'Havells / KEI' },
+  { title: 'Building Wires', subtitle: 'IS 694 FR / FRLSH Pure Copper', count: '3,980 SKUs', brand: 'Finolex / Polycab' },
+];
+
 export default function LandingPage() {
   const { isAuthenticated, user } = useAuthStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -108,7 +147,7 @@ export default function LandingPage() {
   const currentSpec = SAMPLE_SPECS[activeSpecIndex] ?? SAMPLE_SPECS[0]!;
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen bg-faded-grid text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 relative overflow-x-hidden">
       {/* ── Fixed Top Navbar (HAKI | FMCG 2.0) ── */}
       <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-black/[0.06]">
         <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
@@ -136,8 +175,8 @@ export default function LandingPage() {
             <a href="#matcher" className="hover:text-slate-900 transition-colors">
               Spec Matcher
             </a>
-            <a href="#solutions" className="hover:text-slate-900 transition-colors">
-              AI Agents
+            <a href="#snapshots" className="hover:text-slate-900 transition-colors">
+              Platform Modules
             </a>
             <Link to="/vendors" className="hover:text-slate-900 transition-colors">
               Vendors
@@ -225,11 +264,11 @@ export default function LandingPage() {
               Spec Matcher
             </a>
             <a
-              href="#solutions"
+              href="#snapshots"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-slate-700"
             >
-              AI Agents
+              Platform Modules
             </a>
             <div className="pt-2 border-t border-slate-200 flex flex-col gap-2">
               <Link
@@ -244,16 +283,14 @@ export default function LandingPage() {
         )}
       </header>
 
-      {/* ── Hero Section (Matches Editorial Craft Layout) ── */}
-      <section className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-        {/* Category kicker / tag */}
+      {/* ── Hero Section ── */}
+      <section className="pt-32 pb-16 px-6 max-w-7xl mx-auto">
         <div className="mb-6">
           <span className="text-[#2563EB] text-[11px] font-bold tracking-[0.2em] uppercase font-mono">
             THE AI PROCUREMENT & TENDER ENGINE FOR FMCG & ELECTRICALS
           </span>
         </div>
 
-        {/* Two-column headline + description */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-7">
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-black text-slate-900 tracking-[-0.035em] leading-[1.04]">
@@ -269,10 +306,10 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-wrap items-center gap-6 pt-1">
               <a
-                href="#catalog"
+                href="#snapshots"
                 className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1.5 group"
               >
-                Explore 22K+ catalog
+                Explore platform modules
                 <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
               </a>
               <a
@@ -286,7 +323,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Tinted Banner Card (Matches Soft Blue Accent Container) */}
+        {/* Tinted Banner Card */}
         <div className="mt-14 p-8 md:p-10 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE]/80 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-[0_2px_12px_rgba(37,99,235,0.06)]">
           <div className="space-y-2 max-w-2xl">
             <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -308,38 +345,384 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Key Metrics Bar ── */}
-      <section className="border-y border-black/[0.06] bg-white/60 py-10 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div>
-            <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">22,028</div>
-            <div className="text-xs uppercase tracking-wider font-semibold text-slate-500 mt-1">
-              Catalog SKUs Pre-Indexed
+      {/* ── Continuous Moving Marquee: 5-Stage Pipeline Cards (Right to Left at Steady Speed) ── */}
+      <section id="pipeline" className="py-12 border-y border-black/[0.06] overflow-hidden bg-white/40">
+        <div className="max-w-7xl mx-auto px-6 mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse"></span>
+            <span className="text-xs uppercase tracking-widest font-bold text-slate-700 font-mono">
+              CONTINUOUS TENDER PIPELINE FLOW
+            </span>
+          </div>
+          <span className="text-xs text-slate-400">Glide preview • 60-second processing</span>
+        </div>
+
+        {/* Marquee Wrapper with edge fade */}
+        <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+          <div className="animate-marquee hover:[animation-play-state:paused] flex gap-5 py-2">
+            {/* First Set of Cards */}
+            {PIPELINE_CARDS.map((card, idx) => (
+              <div
+                key={`pipe-1-${idx}`}
+                className={`w-[260px] md:w-[290px] flex-shrink-0 p-6 rounded-xl border transition-all ${
+                  card.highlight
+                    ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
+                    : 'bg-white border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.03)]'
+                }`}
+              >
+                <span className="text-xs font-bold text-[#2563EB] font-mono">{card.step}</span>
+                <h4 className="text-base font-bold text-slate-900 mt-2">{card.title}</h4>
+                <p className="text-xs text-slate-600 mt-2 leading-relaxed">{card.description}</p>
+              </div>
+            ))}
+            {/* Duplicated Set for Gapless Infinite Right-to-Left Scroll */}
+            {PIPELINE_CARDS.map((card, idx) => (
+              <div
+                key={`pipe-2-${idx}`}
+                className={`w-[260px] md:w-[290px] flex-shrink-0 p-6 rounded-xl border transition-all ${
+                  card.highlight
+                    ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
+                    : 'bg-white border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.03)]'
+                }`}
+              >
+                <span className="text-xs font-bold text-[#2563EB] font-mono">{card.step}</span>
+                <h4 className="text-base font-bold text-slate-900 mt-2">{card.title}</h4>
+                <p className="text-xs text-slate-600 mt-2 leading-relaxed">{card.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Secondary Marquee: Catalog Categories (Right to Left at Steady Speed) */}
+        <div className="relative w-full overflow-hidden mt-6 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+          <div className="animate-marquee-slow hover:[animation-play-state:paused] flex gap-5 py-2">
+            {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
+              <div
+                key={`cat-1-${idx}`}
+                className="w-[240px] md:w-[260px] flex-shrink-0 p-5 rounded-xl bg-white border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-semibold text-slate-500 uppercase">{cat.brand}</span>
+                  <span className="text-xs font-bold text-[#2563EB]">{cat.count}</span>
+                </div>
+                <h5 className="font-bold text-slate-900 text-sm mt-1.5">{cat.title}</h5>
+                <p className="text-xs text-slate-500 mt-1">{cat.subtitle}</p>
+              </div>
+            ))}
+            {/* Duplicate Set for Gapless Infinite Scroll */}
+            {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
+              <div
+                key={`cat-2-${idx}`}
+                className="w-[240px] md:w-[260px] flex-shrink-0 p-5 rounded-xl bg-white border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-semibold text-slate-500 uppercase">{cat.brand}</span>
+                  <span className="text-xs font-bold text-[#2563EB]">{cat.count}</span>
+                </div>
+                <h5 className="font-bold text-slate-900 text-sm mt-1.5">{cat.title}</h5>
+                <p className="text-xs text-slate-500 mt-1">{cat.subtitle}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Staggered Website Snapshots with Window Controls (🔴 ⚪ 🟢) ── */}
+      <section id="snapshots" className="py-24 px-6 max-w-7xl mx-auto space-y-28">
+        <div className="text-center max-w-3xl mx-auto">
+          <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
+            LIVE PLATFORM MODULES
+          </span>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
+            Inside the HAKI FMCG Engine
+          </h2>
+          <p className="text-slate-600 text-sm md:text-base mt-3">
+            Precise technical intelligence modules built for tenders, specifications, and margin security.
+          </p>
+        </div>
+
+        {/* ── Snapshot 1: Left Aligned (RFP Intake & OCR Parser) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Window Snapshot */}
+          <div className="lg:col-span-7">
+            <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
+              {/* macOS Style Window Bar with Red, White, Green Controls */}
+              <div className="h-10 bg-slate-100/90 border-b border-slate-200 px-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
+                </div>
+                <div className="text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5">
+                  <FileCheck size={12} className="text-blue-600" />
+                  haki-rfp-parser-v2.pdf [Processed: 99.4% Confidence]
+                </div>
+                <div className="w-10"></div>
+              </div>
+
+              {/* Realistic App Content */}
+              <div className="p-6 bg-slate-50/50 space-y-4">
+                <div className="flex items-center justify-between bg-white p-3 rounded-lg border border-slate-200">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-700 text-xs font-bold font-mono">
+                      NIT-ELECTRICAL-2026-09
+                    </span>
+                    <span className="text-xs text-slate-600 font-medium">Bokaro Steel Substation Cable Supply</span>
+                  </div>
+                  <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1">
+                    <CheckCircle2 size={13} /> OCR Verified
+                  </span>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs text-left">
+                    <thead>
+                      <tr className="border-b border-slate-200 text-slate-500 uppercase font-semibold">
+                        <th className="pb-2">Line</th>
+                        <th className="pb-2">Parsed Specification</th>
+                        <th className="pb-2">Standard</th>
+                        <th className="pb-2">Normalized Gauge</th>
+                        <th className="pb-2">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 font-medium text-slate-800">
+                      <tr>
+                        <td className="py-2.5 font-mono text-slate-500">01</td>
+                        <td>3C x 2.5 sq mm Armoured Cu Cable</td>
+                        <td>IS 7098 Pt 1</td>
+                        <td className="font-mono text-blue-600">2.5 mm² (1100V)</td>
+                        <td><span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">MATCHED</span></td>
+                      </tr>
+                      <tr>
+                        <td className="py-2.5 font-mono text-slate-500">02</td>
+                        <td>4 Core 16 sq mm Aluminium LT Cable</td>
+                        <td>IS 1554 Pt 1</td>
+                        <td className="font-mono text-blue-600">16.0 mm² (1100V)</td>
+                        <td><span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">MATCHED</span></td>
+                      </tr>
+                      <tr>
+                        <td className="py-2.5 font-mono text-slate-500">03</td>
+                        <td>1.5 sq mm Multicore Flexible Copper</td>
+                        <td>IS 694</td>
+                        <td className="font-mono text-blue-600">1.5 mm² (Class 5)</td>
+                        <td><span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">MATCHED</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-slate-200/80 text-xs">
+                  <span className="text-slate-500">Tesseract OCR multilingual engine auto-detected</span>
+                  <span className="font-bold text-[#2563EB]">14 Line Items Extracted • 0 Errors</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div>
-            <div className="text-3xl md:text-4xl font-black text-[#2563EB] tracking-tight">&lt; 1.2s</div>
-            <div className="text-xs uppercase tracking-wider font-semibold text-slate-500 mt-1">
-              Semantic Search Latency
+
+          {/* Right Text Description */}
+          <div className="lg:col-span-5 space-y-4">
+            <span className="text-xs font-bold text-[#2563EB] tracking-widest uppercase font-mono">
+              01 • INGESTION & EXTRACTION
+            </span>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+              Automated Tender PDF & OCR Extraction
+            </h3>
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+              Upload raw government NITs, private enterprise RFPs, and scanned tender specifications. The engine automatically executes optical character recognition, strips watermarks, and parses tabular schedules into normalized data structures.
+            </p>
+            <div className="pt-2">
+              <Link
+                to="/login"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
+              >
+                Upload sample tender PDF →
+              </Link>
             </div>
           </div>
-          <div>
-            <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">99.4%</div>
-            <div className="text-xs uppercase tracking-wider font-semibold text-slate-500 mt-1">
-              Spec Extraction Precision
+        </div>
+
+        {/* ── Snapshot 2: Right Aligned (22,000+ Vector Product Catalog) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Text Description */}
+          <div className="lg:col-span-5 space-y-4 order-2 lg:order-1">
+            <span className="text-xs font-bold text-[#2563EB] tracking-widest uppercase font-mono">
+              02 • VECTOR SIMILARITY ENGINE
+            </span>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+              22,028 Pre-Indexed Wires & Cables Catalog
+            </h3>
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+              Cross-standard vector matching powered by domain-specialized 384-dimensional embeddings. Automatically translates American Wire Gauge (AWG) to metric mm², XLPE vs PVC insulation grades, and matches exact SKUs across Polycab, Havells, KEI, and Finolex.
+            </p>
+            <div className="pt-2">
+              <Link
+                to="/products"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
+              >
+                Search all 22,028 catalog products →
+              </Link>
             </div>
           </div>
-          <div>
-            <div className="text-3xl md:text-4xl font-black text-emerald-600 tracking-tight">526 / 526</div>
-            <div className="text-xs uppercase tracking-wider font-semibold text-slate-500 mt-1">
-              CI Test Cases Passing
+
+          {/* Right Window Snapshot */}
+          <div className="lg:col-span-7 order-1 lg:order-2">
+            <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
+              {/* Window Bar with Red, White, Green Controls */}
+              <div className="h-10 bg-slate-100/90 border-b border-slate-200 px-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
+                </div>
+                <div className="text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5">
+                  <Database size={12} className="text-blue-600" />
+                  haki-vector-catalog-22k.index [Active: 22,028 SKUs]
+                </div>
+                <div className="w-10"></div>
+              </div>
+
+              {/* Realistic App Content */}
+              <div className="p-6 bg-slate-50/50 space-y-4">
+                <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-slate-200 text-xs">
+                  <Search size={14} className="text-slate-400" />
+                  <span className="font-mono text-slate-900 font-medium">3C 2.5 mm² XLPE Armoured Cu</span>
+                  <span className="ml-auto text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">
+                    Query Latency: 42ms
+                  </span>
+                </div>
+
+                <div className="space-y-2.5">
+                  <div className="bg-white p-3.5 rounded-lg border border-slate-200 flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-slate-900 text-xs">Polycab 3C x 2.5 sq mm Armoured XLPE Cable</span>
+                        <span className="px-1.5 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded">
+                          99.4% Match
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 mt-0.5">IS 7098 Pt 1 • 1100V • Electrolytic Copper</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-slate-900 text-xs">₹ 148.50 / m</div>
+                      <span className="text-[10px] font-semibold text-emerald-600">+18.2% margin</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-3.5 rounded-lg border border-slate-200 flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-slate-900 text-xs">Havells 3 Core 2.5 mm² Heavy Duty Armoured</span>
+                        <span className="px-1.5 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded">
+                          97.8% Match
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 mt-0.5">IS 1554 Pt 1 • 1100V • Copper Conductor</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-slate-900 text-xs">₹ 152.00 / m</div>
+                      <span className="text-[10px] font-semibold text-emerald-600">+16.5% margin</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between text-xs pt-1 text-slate-500">
+                  <span>Cross-standard equivalence verified against BIS standard matrices</span>
+                  <span className="font-bold text-slate-700">Top 3 Candidates Selected</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Snapshot 3: Left Aligned (Pricing Engine & Margin Optimizer) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Window Snapshot */}
+          <div className="lg:col-span-7">
+            <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
+              {/* Window Bar with Red, White, Green Controls */}
+              <div className="h-10 bg-slate-100/90 border-b border-slate-200 px-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
+                </div>
+                <div className="text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5">
+                  <TrendingUp size={12} className="text-emerald-600" />
+                  haki-pricing-margin-engine.live [Commodity Index Linked]
+                </div>
+                <div className="w-10"></div>
+              </div>
+
+              {/* Realistic App Content */}
+              <div className="p-6 bg-slate-50/50 space-y-4">
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="bg-white p-3 rounded-lg border border-slate-200">
+                    <span className="text-[10px] uppercase font-bold text-slate-500 block">MCX Copper Spot</span>
+                    <span className="font-bold text-slate-900 text-sm">₹ 784.50 / kg</span>
+                    <span className="text-[10px] text-emerald-600 font-semibold block">+0.8% today</span>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg border border-slate-200">
+                    <span className="text-[10px] uppercase font-bold text-slate-500 block">MCX Aluminium</span>
+                    <span className="font-bold text-slate-900 text-sm">₹ 212.80 / kg</span>
+                    <span className="text-[10px] text-slate-500 font-semibold block">-0.2% today</span>
+                  </div>
+                  <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                    <span className="text-[10px] uppercase font-bold text-blue-700 block">Target Floor Margin</span>
+                    <span className="font-bold text-blue-900 text-sm">18.5% Protected</span>
+                    <span className="text-[10px] text-blue-600 font-semibold block">Risk Controlled</span>
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-600 font-medium">Estimated Tender Cost Basis</span>
+                    <span className="font-mono font-bold text-slate-900">₹ 42,85,600</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-600 font-medium">Recommended Bid Rate (Competitive L1)</span>
+                    <span className="font-mono font-bold text-[#2563EB]">₹ 51,20,000</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
+                    <span className="text-slate-900 font-bold">Projected Net Commercial Margin</span>
+                    <span className="font-mono font-extrabold text-emerald-600 text-sm">₹ 8,34,400 (19.47%)</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between text-xs pt-1">
+                  <span className="text-slate-500">Automated volume discounting curves applied</span>
+                  <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+                    Optimal Margin Score: 96/100
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Text Description */}
+          <div className="lg:col-span-5 space-y-4">
+            <span className="text-xs font-bold text-[#2563EB] tracking-widest uppercase font-mono">
+              03 • PRICING & MARGIN INTELLIGENCE
+            </span>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+              Commodity Cost & Margin Optimization Engine
+            </h3>
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+              Price bids with complete confidence. HAKI dynamically tracks copper and aluminium indices against manufacturer master price lists, automatically recommending winning L1 bid numbers while enforcing your mandatory margin floors.
+            </p>
+            <div className="pt-2">
+              <Link
+                to="/bids"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
+              >
+                Open bid margin builder →
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Interactive Live Spec Matcher Sandbox ── */}
-      <section id="matcher" className="py-20 px-6 max-w-7xl mx-auto">
+      <section id="matcher" className="py-20 px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
         <div className="mb-10 text-center max-w-2xl mx-auto">
           <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
             LIVE INTERACTIVE SPEC ENGINE
@@ -466,203 +849,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── 6 Core Platform Pillars Grid ── */}
-      <section id="solutions" className="py-20 px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
-        <div className="mb-14">
-          <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
-            BUILT FOR SCALE & RIGOR
-          </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
-            Engineered for high-stakes electrical RFPs.
-          </h2>
-          <p className="text-slate-600 text-base md:text-lg max-w-2xl mt-3">
-            Every layer—from optical character recognition to multi-agent pricing logic—is constructed to eliminate proposal errors and capture higher gross margins.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Card 1 */}
-          <div className="bg-white p-8 rounded-xl border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-slate-300 transition-all group">
-            <div className="w-10 h-10 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center font-bold mb-6">
-              <Database size={20} />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 tracking-tight group-hover:text-[#2563EB] transition-colors">
-              22,028 Verified SKUs
-            </h3>
-            <p className="text-slate-600 text-sm mt-2 leading-relaxed">
-              Curated catalog covering Polycab, Havells, KEI, RR Kabel, and Finolex with voltage tiers, conductor metallurgy, armor configurations, and standard ratings.
-            </p>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-white p-8 rounded-xl border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-slate-300 transition-all group">
-            <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold mb-6">
-              <FileCheck size={20} />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 tracking-tight group-hover:text-emerald-700 transition-colors">
-              Tesseract OCR & Document AI
-            </h3>
-            <p className="text-slate-600 text-sm mt-2 leading-relaxed">
-              Automatic discovery of local OCR binaries. Extracts tabular technical annexures, scanned NIT notices, and multilingual Hindi/English specifications with 99.4% accuracy.
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white p-8 rounded-xl border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-slate-300 transition-all group">
-            <div className="w-10 h-10 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center font-bold mb-6">
-              <Cpu size={20} />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 tracking-tight group-hover:text-violet-700 transition-colors">
-              Multi-Agent LangChain System
-            </h3>
-            <p className="text-slate-600 text-sm mt-2 leading-relaxed">
-              Autonomous coordination: Intake Agent extracts parameters, Matcher calculates cross-standard fits, and Pricing Agent computes competitive margins with fallback synthesis.
-            </p>
-          </div>
-
-          {/* Card 4 */}
-          <div className="bg-white p-8 rounded-xl border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-slate-300 transition-all group">
-            <div className="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold mb-6">
-              <TrendingUp size={20} />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 tracking-tight group-hover:text-amber-700 transition-colors">
-              Margin & Pricing Intelligence
-            </h3>
-            <p className="text-slate-600 text-sm mt-2 leading-relaxed">
-              Commodity-linked cost tracking. Recommends aggressive winning bid prices while protecting floor margins based on historical tender victory analytics.
-            </p>
-          </div>
-
-          {/* Card 5 */}
-          <div className="bg-white p-8 rounded-xl border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-slate-300 transition-all group">
-            <div className="w-10 h-10 rounded-lg bg-cyan-50 text-[#2563EB] flex items-center justify-center font-bold mb-6">
-              <Layers size={20} />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 tracking-tight group-hover:text-[#2563EB] transition-colors">
-              384-Dim Vector Embedder
-            </h3>
-            <p className="text-slate-600 text-sm mt-2 leading-relaxed">
-              Ultra-lightweight embedded semantic representation specialized for electrical terminology, wire gauge conversion (AWG to mm²), and cross-manufacturer equivalence.
-            </p>
-          </div>
-
-          {/* Card 6 */}
-          <div className="bg-white p-8 rounded-xl border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-slate-300 transition-all group">
-            <div className="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold mb-6">
-              <ShieldCheck size={20} />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 tracking-tight group-hover:text-rose-700 transition-colors">
-              Compliance & Audit Trail
-            </h3>
-            <p className="text-slate-600 text-sm mt-2 leading-relaxed">
-              Cryptographic trace IDs for every agent action, immutable bid revision histories, and webhook events for automated ERP integration.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Architecture Pipeline ── */}
-      <section id="pipeline" className="py-20 px-6 bg-white/70 border-t border-black/[0.06]">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
-              END-TO-END TENDER FLOW
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
-              From raw tender PDF to winning bid in 60 seconds.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
-            <div className="bg-[#FAF8F5] p-6 rounded-xl border border-slate-200 relative">
-              <span className="text-xs font-bold text-[#2563EB] font-mono">01</span>
-              <h4 className="text-base font-bold text-slate-900 mt-2">Intake & OCR</h4>
-              <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                PyPDF + Tesseract parses complex PDF, scanned images, and Excel BOQs.
-              </p>
-            </div>
-
-            <div className="bg-[#FAF8F5] p-6 rounded-xl border border-slate-200 relative">
-              <span className="text-xs font-bold text-[#2563EB] font-mono">02</span>
-              <h4 className="text-base font-bold text-slate-900 mt-2">Normalization</h4>
-              <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                Standardizes voltage (1.1kV vs 1100V), core counts, and AWG to mm².
-              </p>
-            </div>
-
-            <div className="bg-[#FAF8F5] p-6 rounded-xl border border-slate-200 relative">
-              <span className="text-xs font-bold text-[#2563EB] font-mono">03</span>
-              <h4 className="text-base font-bold text-slate-900 mt-2">Vector Search</h4>
-              <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                Dense 384-dim semantic matching queries 22,028 products in under 50ms.
-              </p>
-            </div>
-
-            <div className="bg-[#FAF8F5] p-6 rounded-xl border border-slate-200 relative">
-              <span className="text-xs font-bold text-[#2563EB] font-mono">04</span>
-              <h4 className="text-base font-bold text-slate-900 mt-2">Pricing Engine</h4>
-              <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                Commodity index lookup and automated margin optimizations.
-              </p>
-            </div>
-
-            <div className="bg-[#EFF6FF] p-6 rounded-xl border border-blue-200 relative">
-              <span className="text-xs font-bold text-[#2563EB] font-mono">05</span>
-              <h4 className="text-base font-bold text-slate-900 mt-2">Commercial Bid</h4>
-              <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                Full compliance matrix and exportable tender response.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Catalog Showcase ── */}
-      <section id="catalog" className="py-20 px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
-              PRE-INDEXED MANUFACTURER CATALOG
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
-              Wires, Cables, & FMCG Standards
-            </h2>
-          </div>
-          <Link
-            to="/products"
-            className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1.5"
-          >
-            Explore all 22,028 products →
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="p-5 bg-white rounded-xl border border-slate-200">
-            <h5 className="font-bold text-slate-900 text-sm">LT Power Cables</h5>
-            <p className="text-xs text-slate-500 mt-1">1.1 kV XLPE & PVC Armoured</p>
-            <span className="text-xs font-semibold text-[#2563EB] mt-3 inline-block">7,420 SKUs</span>
-          </div>
-
-          <div className="p-5 bg-white rounded-xl border border-slate-200">
-            <h5 className="font-bold text-slate-900 text-sm">HT Power Cables</h5>
-            <p className="text-xs text-slate-500 mt-1">3.3 kV to 33 kV Heavy Duty</p>
-            <span className="text-xs font-semibold text-[#2563EB] mt-3 inline-block">4,810 SKUs</span>
-          </div>
-
-          <div className="p-5 bg-white rounded-xl border border-slate-200">
-            <h5 className="font-bold text-slate-900 text-sm">Flexible Multicore</h5>
-            <p className="text-xs text-slate-500 mt-1">Industrial Grade Copper</p>
-            <span className="text-xs font-semibold text-[#2563EB] mt-3 inline-block">5,140 SKUs</span>
-          </div>
-
-          <div className="p-5 bg-white rounded-xl border border-slate-200">
-            <h5 className="font-bold text-slate-900 text-sm">Specialty & Solar</h5>
-            <p className="text-xs text-slate-500 mt-1">FR-LSH, Fire Survival, PV</p>
-            <span className="text-xs font-semibold text-[#2563EB] mt-3 inline-block">4,658 SKUs</span>
-          </div>
-        </div>
-      </section>
-
       {/* ── Call To Action Banner ── */}
       <section className="py-20 px-6 max-w-7xl mx-auto">
         <div className="p-10 md:p-14 rounded-2xl bg-slate-900 text-white flex flex-col lg:flex-row lg:items-center justify-between gap-8 shadow-xl">
@@ -711,8 +897,8 @@ export default function LandingPage() {
             <a href="#pipeline" className="hover:text-slate-900 transition-colors">
               RFP Pipeline
             </a>
-            <a href="#catalog" className="hover:text-slate-900 transition-colors">
-              Catalog
+            <a href="#snapshots" className="hover:text-slate-900 transition-colors">
+              Modules
             </a>
             <Link to="/vendors" className="hover:text-slate-900 transition-colors">
               Vendors
