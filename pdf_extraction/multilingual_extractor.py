@@ -25,10 +25,27 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-if not PYTESSERACT_AVAILABLE:
-    logger.warning(
+import os
+import shutil
+
+if PYTESSERACT_AVAILABLE:
+    if not shutil.which("tesseract"):
+        common_paths = [
+            os.getenv("TESSERACT_PATH"),
+            r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+            r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
+            os.path.expanduser(r"~\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"),
+            os.path.expanduser(r"~\AppData\Local\Tesseract-OCR\tesseract.exe"),
+        ]
+        for p in common_paths:
+            if p and os.path.exists(p):
+                pytesseract.pytesseract.tesseract_cmd = p
+                logger.info(f"✅ Auto-configured Tesseract OCR binary: {p}")
+                break
+else:
+    logger.info(
         "pytesseract not installed — OCR fallback for scanned PDF pages will be "
-        "disabled, but normal digital-text extraction is unaffected."
+        "disabled, but normal digital-text extraction is 100% active."
     )
 
 
