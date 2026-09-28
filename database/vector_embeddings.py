@@ -186,21 +186,25 @@ class EmbeddingModelManager:
     _default_model: str = EmbeddingModel.MINILM_L6.value
     
     @classmethod
-    def get_model(cls, model_name: str = None) -> Optional['SentenceTransformer']:
+    def get_model(cls, model_name: str = None, allow_fallback: bool = False) -> Optional['SentenceTransformer']:
         """
         Get or load a sentence transformer model.
         
         Args:
             model_name: Name of the model to load
+            allow_fallback: Whether to return lightweight embedder if sentence-transformers is missing
             
         Returns:
-            Loaded SentenceTransformer model
+            Loaded SentenceTransformer model or LightweightSemanticEmbedder
         """
         if not SENTENCE_TRANSFORMERS_AVAILABLE:
-            if "_lightweight" not in cls._instances:
-                logger.info("Using built-in LightweightSemanticEmbedder (384 dim)")
-                cls._instances["_lightweight"] = LightweightSemanticEmbedder()
-            return cls._instances["_lightweight"]
+            if allow_fallback:
+                if "_lightweight" not in cls._instances:
+                    logger.info("Using built-in LightweightSemanticEmbedder (384 dim)")
+                    cls._instances["_lightweight"] = LightweightSemanticEmbedder()
+                return cls._instances["_lightweight"]
+            logger.error("sentence-transformers not available")
+            return None
         
         model_name = model_name or cls._default_model
         
@@ -422,7 +426,7 @@ class EmbeddingPipeline:
     def model(self):
         """Lazy load the model"""
         if self._model is None:
-            self._model = EmbeddingModelManager.get_model(self.model_name)
+            self._model = EmbeddingModelManager.get_model(self.model_name, allow_fallback=True)
         return self._model
     
     def generate_embedding(self, text: str) -> Optional[List[float]]:
