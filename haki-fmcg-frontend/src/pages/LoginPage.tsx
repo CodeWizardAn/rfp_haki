@@ -58,16 +58,8 @@ export default function LoginPage() {
       >
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <div className="mb-3">
-            <HakiLogo size="xl" variant="tile" animate={true} />
-          </div>
-          <div className="flex items-center gap-2 mt-1">
-            <h1 className="text-h2 font-extrabold text-[#0F172A] tracking-tight">HAKI</h1>
-            <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-[#EFF6FF] text-[#2563EB] border border-[#BFDBFE]">
-              FMCG 2.0
-            </span>
-          </div>
-          <p className="text-body text-[#64748B] mt-1.5 text-center font-medium">
+          <HakiLogo size="xl" asLink to="/" />
+          <p className="text-body text-[#64748B] mt-3 text-center font-medium">
             AI-Powered RFP &amp; Electrical Procurement Platform
           </p>
         </div>

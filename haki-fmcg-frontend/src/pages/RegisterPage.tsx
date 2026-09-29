@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, Zap, UserPlus, ArrowLeft } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
+import { HakiLogo } from '@/components/common';
 import { authService, type RegisterPayload } from '@/services/auth.service';
 
 export default function RegisterPage() {
@@ -74,11 +75,11 @@ export default function RegisterPage() {
       >
         {/* Logo */}
         <div className="flex flex-col items-center mb-6">
-          <div className="w-14 h-14 rounded-2xl gradient-pipeline flex items-center justify-center mb-4">
-            <Zap size={28} className="text-white" />
+          <div className="mb-3">
+            <HakiLogo size="xl" asLink to="/" />
           </div>
-          <h1 className="text-h2 text-ghost-white">Create Account</h1>
-          <p className="text-body text-muted-silver mt-1">Join HAKI FMCG Platform</p>
+          <h1 className="text-h2 font-extrabold text-[#0F172A] tracking-tight">Create Account</h1>
+          <p className="text-body text-[#64748B] mt-1 font-medium">Join HAKI FMCG Platform</p>
         </div>
 
         {success ? (

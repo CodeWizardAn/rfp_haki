@@ -16,6 +16,7 @@ import {
   Building2,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores';
+import { HakiLogo } from '@/components/common';
 
 interface SpecSample {
   query: string;
@@ -153,15 +154,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
           {/* Brand Logo */}
           <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-2.5">
-              <span className="font-extrabold text-2xl tracking-tight text-slate-900 font-sans">
-                HAKI
-              </span>
-              <span className="text-slate-300 font-light text-xl">|</span>
-              <span className="text-[12px] font-bold text-[#2563EB] tracking-[0.16em] uppercase">
-                FMCG 2.0
-              </span>
-            </Link>
+            <HakiLogo size="lg" asLink to="/" />
           </div>
 
           {/* Desktop Nav Links */}
@@ -925,13 +918,7 @@ export default function LandingPage() {
       <footer className="border-t border-black/[0.06] bg-[#FAF8F5] py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-500">
           <div className="flex items-center gap-3">
-            <span className="font-extrabold text-slate-900 tracking-tight text-sm font-sans">
-              HAKI
-            </span>
-            <span className="text-slate-300 font-light">|</span>
-            <span className="font-mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">
-              FMCG 2.0
-            </span>
+            <HakiLogo size="sm" asLink to="/" />
             <span className="text-slate-400 hidden sm:inline">— Enterprise RFP & Procurement Platform</span>
           </div>
 

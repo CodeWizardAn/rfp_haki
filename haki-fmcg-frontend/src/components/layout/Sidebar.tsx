@@ -74,11 +74,12 @@ export function Sidebar() {
       className="fixed left-0 top-0 h-screen z-40 glass-sidebar flex flex-col"
     >
       {/* Logo */}
-      <div className="h-16 flex items-center px-3.5 border-b border-steel-slate/20 overflow-hidden">
+      <div className="h-16 flex items-center px-4 border-b border-steel-slate/20 overflow-hidden">
         <HakiLogo
           size="sm"
-          showText={!sidebarCollapsed}
-          animate={true}
+          collapsed={sidebarCollapsed}
+          asLink
+          to="/dashboard"
         />
       </div>
 
