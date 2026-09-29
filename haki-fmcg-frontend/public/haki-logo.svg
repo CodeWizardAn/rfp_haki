@@ -1,82 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 96" fill="none">
-  <defs>
-    <linearGradient id="fullShield" x1="12" y1="12" x2="84" y2="84" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0F172A"/>
-      <stop offset="100%" stop-color="#050B18"/>
-    </linearGradient>
-    <linearGradient id="fullBorder" x1="8" y1="8" x2="88" y2="88" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="35%" stop-color="#2563EB"/>
-      <stop offset="70%" stop-color="#7C3AED"/>
-      <stop offset="100%" stop-color="#F59E0B"/>
-    </linearGradient>
-    <linearGradient id="fullCopper" x1="22" y1="18" x2="40" y2="78" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FBBF24"/>
-      <stop offset="30%" stop-color="#F59E0B"/>
-      <stop offset="75%" stop-color="#D97706"/>
-      <stop offset="100%" stop-color="#B45309"/>
-    </linearGradient>
-    <linearGradient id="fullNeural" x1="56" y1="18" x2="74" y2="78" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="45%" stop-color="#2563EB"/>
-      <stop offset="85%" stop-color="#1D4ED8"/>
-      <stop offset="100%" stop-color="#7C3AED"/>
-    </linearGradient>
-    <linearGradient id="fullBridge" x1="32" y1="48" x2="64" y2="48" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#F59E0B"/>
-      <stop offset="40%" stop-color="#38BDF8"/>
-      <stop offset="100%" stop-color="#818CF8"/>
-    </linearGradient>
-    <linearGradient id="textGrad" x1="110" y1="48" x2="260" y2="48" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0F172A"/>
-      <stop offset="70%" stop-color="#1E293B"/>
-      <stop offset="100%" stop-color="#2563EB"/>
-    </linearGradient>
-    <radialGradient id="fullGlow" cx="48" cy="48" r="14" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="40%" stop-color="#38BDF8" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#2563EB" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none">
+  <!-- Minimalist HAKI Brand Lockup -->
+  <!-- Mark (H Monogram) -->
+  <g transform="translate(4, 2) scale(0.6)">
+    <!-- Left Pillar: Electric Blue #2563EB -->
+    <path d="
+      M 22 22
+      C 22 17.6 25.6 14 30 14
+      H 30
+      C 34.4 14 38 17.6 38 22
+      V 42
+      H 51.5
+      C 52.8 42 53.6 43.2 53.0 44.4
+      L 45.0 57.2
+      C 44.5 57.7 43.8 58 43.0 58
+      H 38
+      V 78
+      C 38 82.4 34.4 86 30 86
+      H 30
+      C 25.6 86 22 82.4 22 78
+      Z
+    " fill="#2563EB"/>
 
-  <!-- Emblem Mark Group -->
-  <g transform="translate(4, 4)">
-    <rect x="4" y="4" width="80" height="80" rx="20" fill="url(#fullShield)"/>
-    <rect x="4" y="4" width="80" height="80" rx="20" stroke="url(#fullBorder)" stroke-width="2"/>
-
-    <!-- Left Cable Pillar -->
-    <rect x="22" y="18" width="13" height="52" rx="4" fill="url(#fullCopper)"/>
-    <line x1="24" y1="30" x2="33" y2="30" stroke="#FFF" stroke-width="1.2" stroke-opacity="0.4"/>
-    <line x1="24" y1="58" x2="33" y2="58" stroke="#FFF" stroke-width="1.2" stroke-opacity="0.4"/>
-    <line x1="25" y1="20" x2="25" y2="68" stroke="#FEF08A" stroke-width="1.2" stroke-opacity="0.6"/>
-
-    <!-- Right Neural Pillar -->
-    <rect x="53" y="18" width="13" height="52" rx="4" fill="url(#fullNeural)"/>
-    <line x1="55" y1="20" x2="55" y2="68" stroke="#93C5FD" stroke-width="1.2" stroke-opacity="0.6"/>
-    <circle cx="60" cy="27" r="2" fill="#FFFFFF"/>
-    <circle cx="60" cy="61" r="2" fill="#FFFFFF"/>
-
-    <!-- Bridge -->
-    <rect x="31" y="41" width="26" height="14" rx="2" fill="url(#fullBridge)"/>
-    <polygon points="44,35 49,48 44,61 39,48" fill="#FFFFFF"/>
-    <circle cx="44" cy="48" r="2" fill="#2563EB"/>
+    <!-- Right Pillar: Deep Slate #0F172A -->
+    <path d="
+      M 78 78
+      C 78 82.4 74.4 86 70 86
+      H 70
+      C 65.6 86 62 82.4 62 78
+      V 58
+      H 48.5
+      C 47.2 58 46.4 56.8 47.0 55.6
+      L 55.0 42.8
+      C 55.5 42.3 56.2 42 57.0 42
+      H 62
+      V 22
+      C 62 17.6 65.6 14 70 14
+      H 70
+      C 74.4 14 78 17.6 78 22
+      Z
+    " fill="#0F172A"/>
   </g>
 
-  <!-- Brand Typography -->
-  <text x="108" y="53" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="36" font-weight="800" letter-spacing="-0.5" fill="#0F172A">
+  <!-- Typography -->
+  <text x="76" y="38" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="28" font-weight="800" letter-spacing="-0.8" fill="#0F172A">
     HAKI
   </text>
-  
+
   <!-- FMCG 2.0 Badge -->
-  <g transform="translate(225, 27)">
-    <rect x="0" y="0" width="88" height="24" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
-    <text x="44" y="16" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-size="11" font-weight="700" fill="#2563EB" text-anchor="middle" letter-spacing="0.8">
+  <g transform="translate(162, 18)">
+    <rect width="72" height="22" rx="5" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+    <text x="36" y="15" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-size="10.5" font-weight="700" fill="#2563EB" text-anchor="middle" letter-spacing="0.5">
       FMCG 2.0
     </text>
   </g>
 
-  <!-- Subtitle Descriptor -->
-  <text x="108" y="74" font-family="'Inter', sans-serif" font-size="11.5" font-weight="500" fill="#64748B" letter-spacing="0.5">
-    AI RFP &amp; PROCUREMENT INTELLIGENCE
+  <!-- Subtitle -->
+  <text x="76" y="54" font-family="'Inter', -apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#64748B" letter-spacing="1.2">
+    AI PROCUREMENT INTELLIGENCE
   </text>
 </svg>

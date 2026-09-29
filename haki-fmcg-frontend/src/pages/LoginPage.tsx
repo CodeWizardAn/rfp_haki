@@ -51,7 +51,7 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
           <div className="mb-3">
-            <HakiLogo size="xl" animate={true} />
+            <HakiLogo size="xl" variant="tile" animate={true} />
           </div>
           <div className="flex items-center gap-2 mt-1">
             <h1 className="text-h2 font-extrabold text-ghost-white tracking-tight">HAKI</h1>

@@ -5,166 +5,117 @@ export interface HakiLogoProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   showText?: boolean;
   subtitle?: string;
+  variant?: 'default' | 'tile';
   className?: string;
   animate?: boolean;
 }
 
-const sizeMap = {
-  xs: { markSize: 24, fontSize: 'text-sm', badgeSize: 'text-[9px] px-1 py-0.2', subSize: 'text-[9px]' },
-  sm: { markSize: 32, fontSize: 'text-base font-bold', badgeSize: 'text-[10px] px-1.5 py-0.5', subSize: 'text-[10px]' },
-  md: { markSize: 40, fontSize: 'text-lg font-bold', badgeSize: 'text-[11px] px-2 py-0.5', subSize: 'text-xs' },
-  lg: { markSize: 52, fontSize: 'text-2xl font-extrabold', badgeSize: 'text-xs px-2.5 py-1', subSize: 'text-sm' },
-  xl: { markSize: 64, fontSize: 'text-3xl font-extrabold', badgeSize: 'text-xs px-3 py-1', subSize: 'text-sm' },
+const sizeConfig = {
+  xs: { mark: 22, text: 'text-sm font-bold', badge: 'text-[9px] px-1 py-0.2', sub: 'text-[9px]' },
+  sm: { mark: 28, text: 'text-base font-bold', badge: 'text-[10px] px-1.5 py-0.5', sub: 'text-[10px]' },
+  md: { mark: 36, text: 'text-lg font-extrabold', badge: 'text-[11px] px-2 py-0.5', sub: 'text-xs' },
+  lg: { mark: 48, text: 'text-2xl font-extrabold', badge: 'text-xs px-2.5 py-1', sub: 'text-sm' },
+  xl: { mark: 64, text: 'text-3xl font-extrabold', badge: 'text-xs px-3 py-1', sub: 'text-sm' },
 };
 
 export const HakiLogo: React.FC<HakiLogoProps> = ({
   size = 'md',
   showText = false,
   subtitle,
+  variant = 'default',
   className = '',
   animate = true,
 }) => {
-  const cfg = sizeMap[size];
+  const cfg = sizeConfig[size];
 
-  const Mark = (
+  const MarkSvg = (
     <svg
-      width={cfg.markSize}
-      height={cfg.markSize}
-      viewBox="0 0 120 120"
+      width={cfg.mark}
+      height={cfg.mark}
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="flex-shrink-0 transition-transform duration-300 group-hover:scale-105"
+      className="flex-shrink-0 transition-transform duration-200 group-hover:scale-105"
     >
-      <defs>
-        {/* Shield background */}
-        <linearGradient id={`hl-shield-${size}`} x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#0F172A" />
-          <stop offset="50%" stopColor="#0A1124" />
-          <stop offset="100%" stopColor="#050B18" />
-        </linearGradient>
+      {variant === 'tile' && (
+        <rect width="100" height="100" rx="24" fill="#0F172A" />
+      )}
 
-        {/* Dynamic border glow */}
-        <linearGradient id={`hl-border-${size}`} x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#38BDF8" />
-          <stop offset="35%" stopColor="#2563EB" />
-          <stop offset="70%" stopColor="#7C3AED" />
-          <stop offset="100%" stopColor="#F59E0B" />
-        </linearGradient>
-
-        {/* Industrial Copper Cable */}
-        <linearGradient id={`hl-copper-${size}`} x1="26" y1="20" x2="48" y2="100" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#FBBF24" />
-          <stop offset="25%" stopColor="#F59E0B" />
-          <stop offset="65%" stopColor="#D97706" />
-          <stop offset="100%" stopColor="#B45309" />
-        </linearGradient>
-
-        {/* Neural AI Pipeline */}
-        <linearGradient id={`hl-neural-${size}`} x1="72" y1="20" x2="94" y2="100" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#38BDF8" />
-          <stop offset="40%" stopColor="#2563EB" />
-          <stop offset="85%" stopColor="#1D4ED8" />
-          <stop offset="100%" stopColor="#7C3AED" />
-        </linearGradient>
-
-        {/* Central Energy Crossbar */}
-        <linearGradient id={`hl-bridge-${size}`} x1="38" y1="60" x2="82" y2="60" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#F59E0B" />
-          <stop offset="30%" stopColor="#38BDF8" />
-          <stop offset="70%" stopColor="#60A5FA" />
-          <stop offset="100%" stopColor="#818CF8" />
-        </linearGradient>
-
-        {/* Central Nexus Glow */}
-        <radialGradient id={`hl-glow-${size}`} cx="60" cy="60" r="16" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#FFFFFF" />
-          <stop offset="35%" stopColor="#38BDF8" stopOpacity="0.9" />
-          <stop offset="75%" stopColor="#2563EB" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-
-      {/* Hex-rounded Shield Container */}
-      <rect x="8" y="8" width="104" height="104" rx="26" fill={`url(#hl-shield-${size})`} />
-      <rect
-        x="8"
-        y="8"
-        width="104"
-        height="104"
-        rx="26"
-        stroke={`url(#hl-border-${size})`}
-        strokeWidth="2.5"
-        strokeOpacity="0.8"
-      />
-
-      {/* Grid Guide */}
-      <path d="M22 60 H98 M60 22 V98" stroke="#334155" strokeWidth="1" strokeOpacity="0.25" strokeDasharray="2 3" />
-
-      {/* Left Pillar: Physical Cable & Conductors */}
+      {/* Left Pillar + Diagonal Crossbar: Electric Blue (#2563EB) */}
       <path
-        d="M30 25 C30 23.5 31.5 22 33 22 H42 C44 22 45 23.5 45 25 V95 C45 96.5 44 98 42 98 H33 C31.5 98 30 96.5 30 95 Z"
-        fill={`url(#hl-copper-${size})`}
+        d="
+          M 22 22
+          C 22 17.6 25.6 14 30 14
+          H 30
+          C 34.4 14 38 17.6 38 22
+          V 42
+          H 51.5
+          C 52.8 42 53.6 43.2 53.0 44.4
+          L 45.0 57.2
+          C 44.5 57.7 43.8 58 43.0 58
+          H 38
+          V 78
+          C 38 82.4 34.4 86 30 86
+          H 30
+          C 25.6 86 22 82.4 22 78
+          Z
+        "
+        fill="#2563EB"
       />
-      <path d="M31 36 H44 M31 50 H44 M31 70 H44 M31 84 H44" stroke="#FFF" strokeOpacity="0.35" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M34 24 V96" stroke="#FEF08A" strokeOpacity="0.55" strokeWidth="1.5" strokeLinecap="round" />
 
-      {/* Right Pillar: AI Neural Network Trace */}
+      {/* Right Pillar + Diagonal Crossbar: Slate/White (#0F172A or #FFFFFF on tile) */}
       <path
-        d="M75 25 C75 23.5 76 22 78 22 H87 C88.5 22 90 23.5 90 25 V95 C90 96.5 88.5 98 87 98 H78 C76 98 75 96.5 75 95 Z"
-        fill={`url(#hl-neural-${size})`}
+        d="
+          M 78 78
+          C 78 82.4 74.4 86 70 86
+          H 70
+          C 65.6 86 62 82.4 62 78
+          V 58
+          H 48.5
+          C 47.2 58 46.4 56.8 47.0 55.6
+          L 55.0 42.8
+          C 55.5 42.3 56.2 42 57.0 42
+          H 62
+          V 22
+          C 62 17.6 65.6 14 70 14
+          H 70
+          C 74.4 14 78 17.6 78 22
+          Z
+        "
+        fill={variant === 'tile' ? '#FFFFFF' : '#0F172A'}
+        className={variant === 'tile' ? '' : 'dark:fill-white'}
       />
-      <path d="M76 24 V96" stroke="#93C5FD" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="82.5" cy="33" r="2.5" fill="#FFFFFF" />
-      <circle cx="82.5" cy="47" r="2" fill="#BAE6FD" />
-      <circle cx="82.5" cy="73" r="2" fill="#BAE6FD" />
-      <circle cx="82.5" cy="87" r="2.5" fill="#FFFFFF" />
-      <path d="M82.5 33 L88 38 M82.5 87 L77 82" stroke="#60A5FA" strokeWidth="1.5" strokeLinecap="round" />
-
-      {/* Crossbar & Energy Chevron (Interlocking 'H') */}
-      <path d="M42 53 H78 V67 H42 Z" fill={`url(#hl-bridge-${size})`} />
-      <path
-        d="M48 60 L57 60 L62 55 L59 65 L66 60 L73 60"
-        stroke="#FFFFFF"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* Core Intelligence Nexus */}
-      <circle cx="60" cy="60" r="14" fill={`url(#hl-glow-${size})`} />
-      <polygon points="60,52 64,60 60,68 56,60" fill="#FFFFFF" />
-      <circle cx="60" cy="60" r="2" fill="#2563EB" />
     </svg>
   );
 
   return (
-    <div className={`inline-flex items-center gap-3 select-none group ${className}`}>
+    <div className={`inline-flex items-center gap-2.5 select-none group ${className}`}>
       {animate ? (
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative flex items-center justify-center"
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.96 }}
+          className="relative flex items-center justify-center flex-shrink-0"
         >
-          {Mark}
+          {MarkSvg}
         </motion.div>
       ) : (
-        Mark
+        MarkSvg
       )}
 
       {showText && (
-        <div className="flex flex-col leading-tight">
+        <div className="flex flex-col leading-none">
           <div className="flex items-center gap-1.5">
-            <span className={`tracking-tight text-slate-900 dark:text-white font-extrabold ${cfg.fontSize}`}>
+            <span className={`tracking-tight text-slate-900 dark:text-white font-extrabold ${cfg.text}`}>
               HAKI
             </span>
             <span
-              className={`font-bold tracking-wider rounded-md bg-blue-50 text-blue-600 border border-blue-200/80 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800 ${cfg.badgeSize}`}
+              className={`font-bold tracking-wider rounded bg-blue-50 text-blue-600 border border-blue-200/80 dark:bg-blue-950/70 dark:text-blue-300 dark:border-blue-800 ${cfg.badge}`}
             >
               FMCG 2.0
             </span>
           </div>
           {subtitle && (
-            <span className={`text-slate-500 dark:text-slate-400 font-medium tracking-wide ${cfg.subSize}`}>
+            <span className={`text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-0.5 ${cfg.sub}`}>
               {subtitle}
             </span>
           )}
