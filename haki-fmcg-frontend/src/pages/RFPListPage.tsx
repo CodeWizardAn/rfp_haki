@@ -104,8 +104,22 @@ export default function RFPListPage() {
     [rfpCards],
   );
 
-  const totalItems = (apiData as unknown as { total?: number })?.total ?? rfpCards.length;
-  const totalPages = (apiData as unknown as { total_pages?: number })?.total_pages ?? 1;
+  const totalItems = useMemo(() => {
+    const rawTotal = (apiData as unknown as { total?: number })?.total;
+    const hasBackendItems = Boolean((apiData as unknown as { items?: Record<string, any>[] })?.items?.length);
+    if (hasBackendItems && typeof rawTotal === 'number' && rawTotal > 0) {
+      return Math.max(rawTotal, rfpCards.length, filteredCards.length);
+    }
+    return Math.max(rfpCards.length, filteredCards.length);
+  }, [apiData, rfpCards.length, filteredCards.length]);
+
+  const totalPages = useMemo(() => {
+    const rawPages = (apiData as unknown as { total_pages?: number })?.total_pages;
+    if (typeof rawPages === 'number' && rawPages > 0) {
+      return rawPages;
+    }
+    return Math.max(1, Math.ceil(totalItems / 25));
+  }, [apiData, totalItems]);
 
   const handleScrapeAll = () => {
     scrapePortalsMutation.mutate();
@@ -338,7 +352,30 @@ export default function RFPListPage() {
 
       {/* Pagination */}
       <div className="flex items-center justify-between text-sm text-muted-silver">
-        <div>Showing {filteredCards.length} of {totalItems} RFPs across {PORTALS.length} portals</div>
+        <div>
+          {filteredCards.length === 0 ? (
+            <span>No RFPs matching filters (out of <strong className="text-ghost-white">{totalItems}</strong> total)</span>
+          ) : filteredCards.length === totalItems ? (
+            <span>
+              Showing all <strong className="text-ghost-white">{filteredCards.length}</strong> RFPs{' '}
+              {portalFilter !== 'all' ? (
+                <span>in <strong className="text-ghost-white">{PORTALS.find((p) => p.id === portalFilter)?.name || portalFilter}</strong></span>
+              ) : (
+                <span>across {PORTALS.length} portals</span>
+              )}
+            </span>
+          ) : (
+            <span>
+              Showing <strong className="text-ghost-white">{filteredCards.length}</strong> of{' '}
+              <strong className="text-ghost-white">{totalItems}</strong> RFPs{' '}
+              {portalFilter !== 'all' ? (
+                <span>in <strong className="text-ghost-white">{PORTALS.find((p) => p.id === portalFilter)?.name || portalFilter}</strong></span>
+              ) : (
+                <span>across {PORTALS.length} portals</span>
+              )}
+            </span>
+          )}
+        </div>
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))}>← Prev</Button>
           <span className="text-ghost-white">{page}</span>
