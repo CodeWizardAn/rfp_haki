@@ -6,13 +6,14 @@ export interface HakiLogoProps {
   showText?: boolean;
   subtitle?: string;
   variant?: 'default' | 'tile';
+  onDark?: boolean;
   className?: string;
   animate?: boolean;
 }
 
 const sizeConfig = {
-  xs: { mark: 22, text: 'text-sm font-bold', badge: 'text-[9px] px-1 py-0.2', sub: 'text-[9px]' },
-  sm: { mark: 28, text: 'text-base font-bold', badge: 'text-[10px] px-1.5 py-0.5', sub: 'text-[10px]' },
+  xs: { mark: 22, text: 'text-sm font-extrabold', badge: 'text-[9px] px-1 py-0.2', sub: 'text-[9px]' },
+  sm: { mark: 28, text: 'text-base font-extrabold', badge: 'text-[10px] px-1.5 py-0.5', sub: 'text-[10.5px]' },
   md: { mark: 36, text: 'text-lg font-extrabold', badge: 'text-[11px] px-2 py-0.5', sub: 'text-xs' },
   lg: { mark: 48, text: 'text-2xl font-extrabold', badge: 'text-xs px-2.5 py-1', sub: 'text-sm' },
   xl: { mark: 64, text: 'text-3xl font-extrabold', badge: 'text-xs px-3 py-1', sub: 'text-sm' },
@@ -23,10 +24,19 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
   showText = false,
   subtitle,
   variant = 'default',
+  onDark = false,
   className = '',
   animate = true,
 }) => {
   const cfg = sizeConfig[size];
+
+  // Resolve fill colors explicitly based on variant & onDark background
+  const rightPillarColor = variant === 'tile' || onDark ? '#FFFFFF' : '#0F172A';
+  const textColor = onDark ? 'text-white' : 'text-[#0F172A]';
+  const badgeClasses = onDark
+    ? 'bg-blue-900/60 text-blue-200 border-blue-700/60'
+    : 'bg-[#EFF6FF] text-[#2563EB] border-[#BFDBFE]';
+  const subColor = onDark ? 'text-slate-300' : 'text-[#64748B]';
 
   const MarkSvg = (
     <svg
@@ -63,7 +73,7 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
         fill="#2563EB"
       />
 
-      {/* Right Pillar + Diagonal Crossbar: Slate/White (#0F172A or #FFFFFF on tile) */}
+      {/* Right Pillar + Diagonal Crossbar: Deep Slate (#0F172A) on light, White (#FFFFFF) on dark */}
       <path
         d="
           M 78 78
@@ -82,8 +92,7 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
           C 74.4 14 78 17.6 78 22
           Z
         "
-        fill={variant === 'tile' ? '#FFFFFF' : '#0F172A'}
-        className={variant === 'tile' ? '' : 'dark:fill-white'}
+        fill={rightPillarColor}
       />
     </svg>
   );
@@ -105,17 +114,17 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
       {showText && (
         <div className="flex flex-col leading-none">
           <div className="flex items-center gap-1.5">
-            <span className={`tracking-tight text-slate-900 dark:text-white font-extrabold ${cfg.text}`}>
+            <span className={`tracking-tight font-extrabold ${textColor} ${cfg.text}`}>
               HAKI
             </span>
             <span
-              className={`font-bold tracking-wider rounded bg-blue-50 text-blue-600 border border-blue-200/80 dark:bg-blue-950/70 dark:text-blue-300 dark:border-blue-800 ${cfg.badge}`}
+              className={`font-bold tracking-wider rounded border ${badgeClasses} ${cfg.badge}`}
             >
               FMCG 2.0
             </span>
           </div>
           {subtitle && (
-            <span className={`text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-0.5 ${cfg.sub}`}>
+            <span className={`font-semibold tracking-wide mt-1 ${subColor} ${cfg.sub}`}>
               {subtitle}
             </span>
           )}

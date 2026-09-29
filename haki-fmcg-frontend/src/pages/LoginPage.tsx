@@ -62,12 +62,12 @@ export default function LoginPage() {
             <HakiLogo size="xl" variant="tile" animate={true} />
           </div>
           <div className="flex items-center gap-2 mt-1">
-            <h1 className="text-h2 font-extrabold text-ghost-white tracking-tight">HAKI</h1>
-            <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-electric-cyan/10 text-electric-cyan border border-electric-cyan/20">
+            <h1 className="text-h2 font-extrabold text-[#0F172A] tracking-tight">HAKI</h1>
+            <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-[#EFF6FF] text-[#2563EB] border border-[#BFDBFE]">
               FMCG 2.0
             </span>
           </div>
-          <p className="text-body text-muted-silver mt-1.5 text-center font-medium">
+          <p className="text-body text-[#64748B] mt-1.5 text-center font-medium">
             AI-Powered RFP &amp; Electrical Procurement Platform
           </p>
         </div>
