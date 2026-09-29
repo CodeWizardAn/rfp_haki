@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, Shield, User, UserPlus } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
@@ -13,14 +13,22 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const redirectTo = searchParams.get('redirect');
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await login(username, password);
-      // Route based on role after login
+      // Route based on role or explicit redirect query param
+      if (redirectTo && redirectTo.startsWith('/')) {
+        navigate(redirectTo);
+        return;
+      }
       const user = useAuthStore.getState().user;
       if (user?.role === 'admin' || user?.role === 'manager') {
-        navigate('/');
+        navigate('/dashboard');
       } else {
         navigate('/user');
       }

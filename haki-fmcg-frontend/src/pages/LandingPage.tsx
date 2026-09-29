@@ -219,7 +219,7 @@ export default function LandingPage() {
                   Sign In
                 </Link>
                 <Link
-                  to="/login"
+                  to="/login?redirect=/user/rfp-analyzer"
                   className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-md bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold transition-all shadow-sm"
                 >
                   <UploadCloud size={14} />
@@ -272,7 +272,7 @@ export default function LandingPage() {
             </a>
             <div className="pt-2 border-t border-slate-200 flex flex-col gap-2">
               <Link
-                to="/login"
+                to="/login?redirect=/user/rfp-analyzer"
                 className="w-full text-center py-2 text-sm font-semibold text-white bg-[#2563EB] rounded-md flex items-center justify-center gap-1.5"
               >
                 <UploadCloud size={14} />
@@ -904,7 +904,7 @@ export default function LandingPage() {
           </div>
           <div className="flex flex-wrap items-center gap-4">
             <Link
-              to="/login"
+              to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? '/rfps/upload' : '/user/rfp-analyzer') : '/login?redirect=/user/rfp-analyzer'}
               className="px-6 py-3.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm transition-all shadow-md flex items-center gap-2"
             >
               <UploadCloud size={16} />

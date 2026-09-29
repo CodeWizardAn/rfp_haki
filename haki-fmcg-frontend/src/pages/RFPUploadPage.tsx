@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDropzone } from 'react-dropzone';
+import toast from 'react-hot-toast';
+import { rfpService } from '@/services/rfp.service';
 import {
   UploadCloud, FileText, CheckCircle2, Globe, Wifi, RefreshCw,
   Download, AlertTriangle, ArrowRight, Search,
@@ -27,15 +30,23 @@ const PIPELINE_STAGES = [
 ];
 
 export default function RFPUploadPage() {
+  const navigate = useNavigate();
   const [files, setFiles] = useState<File[]>([]);
   const [processImmediately, setProcessImmediately] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const [title, setTitle] = useState('');
+  const [priority, setPriority] = useState('high');
+  const [deadline, setDeadline] = useState('');
+  const [budget, setBudget] = useState('');
+  const [tags, setTags] = useState('');
   const [activeMode, setActiveMode] = useState<'portals' | 'upload'>('portals');
   const [portalStatuses, setPortalStatuses] = useState<Record<string, 'idle' | 'scraping' | 'done' | 'error'>>({});
   const [pipelineStage, setPipelineStage] = useState(-1);
   const [scrapeResults, setScrapeResults] = useState<{ total: number; success: number; failed: number } | null>(null);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop: (accepted) => setFiles(accepted),
+    noClick: false,
     accept: {
       'application/pdf': ['.pdf'],
       'application/msword': ['.doc'],
@@ -43,6 +54,43 @@ export default function RFPUploadPage() {
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
     },
   });
+
+  const handleUploadAndProcess = async () => {
+    if (files.length === 0) {
+      toast.error('Please select or drop an RFP document first.');
+      return;
+    }
+    const file = files[0];
+    if (!file.name.toLowerCase().endsWith('.pdf')) {
+      toast.error('The AI spec extraction engine requires a PDF file.');
+      return;
+    }
+    setIsUploading(true);
+    const toastId = toast.loading('Uploading and analyzing RFP tender document...');
+    try {
+      const result = await rfpService.analyzeRFP(file, {
+        include_recommendations: true,
+        include_budget: true,
+        include_win_loss: true,
+      });
+      toast.success('RFP analyzed successfully! Opening intelligence report...', { id: toastId });
+      navigate('/user/rfp-analyzer', { state: { directResult: result, fileName: file.name } });
+    } catch (err: any) {
+      const msg = err?.response?.data?.detail || err?.response?.data?.message || err?.message || 'Failed to analyze RFP.';
+      toast.error(msg, { id: toastId });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleSaveDraft = () => {
+    if (files.length === 0) {
+      toast.error('Please select an RFP file to save draft.');
+      return;
+    }
+    toast.success('RFP draft saved successfully!');
+    navigate('/rfps');
+  };
 
   const handleScrapePortal = (portalId: string) => {
     setPortalStatuses((prev) => ({ ...prev, [portalId]: 'scraping' }));
@@ -251,7 +299,12 @@ export default function RFPUploadPage() {
                         <Button variant="secondary" size="sm" leftIcon={<Download size={14} />}>
                           Download Reports
                         </Button>
-                        <Button variant="primary" size="sm" leftIcon={<ArrowRight size={14} />}>
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          leftIcon={<ArrowRight size={14} />}
+                          onClick={() => navigate('/rfps')}
+                        >
                           View RFPs
                         </Button>
                       </div>
@@ -298,7 +351,16 @@ export default function RFPUploadPage() {
                 <UploadCloud size={36} className="text-electric-cyan mx-auto mb-3" />
                 <p className="text-body-lg text-ghost-white">Drag & drop RFP documents here</p>
                 <p className="text-body text-muted-silver mt-1">PDF, DOC, DOCX, XLSX supported</p>
-                <Button variant="secondary" size="sm" className="mt-4">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  type="button"
+                  className="mt-4"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    open();
+                  }}
+                >
                   Browse Files
                 </Button>
               </div>
@@ -325,10 +387,17 @@ export default function RFPUploadPage() {
             {/* Metadata Form */}
             <Card variant="glass" className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input label="Title" placeholder="RFP Title" />
+                <Input
+                  label="Title"
+                  placeholder="RFP Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
                 <Select
                   label="Priority"
                   placeholder="Select priority"
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value)}
                   options={[
                     { value: 'critical', label: 'Critical' },
                     { value: 'high', label: 'High' },
@@ -336,12 +405,27 @@ export default function RFPUploadPage() {
                     { value: 'low', label: 'Low' },
                   ]}
                 />
-                <Input label="Deadline" type="date" />
-                <Input label="Budget (₹)" placeholder={formatCompactCurrency(25000000)} />
+                <Input
+                  label="Deadline"
+                  type="date"
+                  value={deadline}
+                  onChange={(e) => setDeadline(e.target.value)}
+                />
+                <Input
+                  label="Budget (₹)"
+                  placeholder={formatCompactCurrency(25000000)}
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                />
               </div>
 
               <div className="mt-4">
-                <TextArea label="Tags" placeholder="Enter tags (comma-separated)" />
+                <TextArea
+                  label="Tags"
+                  placeholder="Enter tags (comma-separated)"
+                  value={tags}
+                  onChange={(e) => setTags(e.target.value)}
+                />
               </div>
 
               <div className="mt-4 flex items-center gap-2">
@@ -358,8 +442,18 @@ export default function RFPUploadPage() {
               </div>
 
               <div className="mt-6 flex items-center justify-end gap-3">
-                <Button variant="secondary">Save Draft</Button>
-                <Button variant="primary">Upload & Process</Button>
+                <Button variant="secondary" type="button" onClick={handleSaveDraft}>
+                  Save Draft
+                </Button>
+                <Button
+                  variant="primary"
+                  type="button"
+                  loading={isUploading}
+                  disabled={isUploading}
+                  onClick={handleUploadAndProcess}
+                >
+                  Upload &amp; Process
+                </Button>
               </div>
             </Card>
           </motion.div>

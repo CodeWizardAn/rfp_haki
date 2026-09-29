@@ -4482,7 +4482,7 @@ async def analyze_rfp(
     cable_length: float = Query(100),
     application: str = Query("auto"),
     background_tasks: BackgroundTasks = BackgroundTasks(),
-    current_user: TokenData = Depends(get_current_user),
+    current_user: Optional[TokenData] = Depends(get_optional_user),
 ):
     """
     Comprehensive RFP analysis: extract → parse → match against 22k+ OEM products.

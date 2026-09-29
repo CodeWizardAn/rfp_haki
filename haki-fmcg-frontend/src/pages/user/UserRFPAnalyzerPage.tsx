@@ -294,7 +294,16 @@ export default function UserRFPAnalyzerPage() {
 
   // ── Load a specific saved analysis when navigated here with an analysisId ──
   useEffect(() => {
-    const analysisId = (location.state as { analysisId?: string } | null)?.analysisId;
+    const stateObj = location.state as { analysisId?: string; directResult?: any; fileName?: string } | null;
+    if (stateObj?.directResult) {
+      setResult(stateObj.directResult);
+      if (stateObj.fileName) setFileName(stateObj.fileName);
+      setInputMode('upload');
+      setAnalysisStep('complete');
+      return;
+    }
+
+    const analysisId = stateObj?.analysisId;
     if (!analysisId) return;
 
     let cancelled = false;
@@ -719,9 +728,9 @@ export default function UserRFPAnalyzerPage() {
                   type="file"
                   accept=".pdf"
                   onChange={handleFileSelect}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
-                <div className="flex flex-col items-center gap-4">
+                <div className="flex flex-col items-center gap-4 pointer-events-none">
                   <div className="w-20 h-20 rounded-2xl bg-neon-emerald/10 flex items-center justify-center">
                     <Upload size={36} className="text-neon-emerald" />
                   </div>
