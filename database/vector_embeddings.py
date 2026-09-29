@@ -36,6 +36,7 @@ SENTENCE_TRANSFORMERS_AVAILABLE = False
 CHROMADB_AVAILABLE = False
 
 try:
+    # pyrefly: ignore [missing-import]
     from sentence_transformers import SentenceTransformer
     SENTENCE_TRANSFORMERS_AVAILABLE = True
 except ImportError:

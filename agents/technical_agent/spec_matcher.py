@@ -313,10 +313,14 @@ class TechnicalAgent:
                         'rfp_product': rec.rfp_product_name,
                         'quantity': rec.quantity,
                         'unit': rec.unit,
+                        'sku': rec.selected_recommendation.oem_product.sku,
                         'selected_sku': rec.selected_recommendation.oem_product.sku,
+                        'name': rec.selected_recommendation.oem_product.product_name,
                         'product_name': rec.selected_recommendation.oem_product.product_name,
                         'manufacturer': rec.selected_recommendation.oem_product.manufacturer,
                         'spec_match_percent': rec.selected_recommendation.spec_match_percent,
+                        'unit_price': rec.selected_recommendation.oem_product.price_range[0] if rec.selected_recommendation.oem_product.price_range else 0,
+                        'specifications': rec.selected_recommendation.oem_product.specifications,
                         'top_3_options': [
                             {
                                 'rank': idx + 1,
