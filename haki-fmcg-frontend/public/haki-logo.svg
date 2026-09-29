@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 96" fill="none">
+  <defs>
+    <linearGradient id="fullShield" x1="12" y1="12" x2="84" y2="84" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#050B18"/>
+    </linearGradient>
+    <linearGradient id="fullBorder" x1="8" y1="8" x2="88" y2="88" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="35%" stop-color="#2563EB"/>
+      <stop offset="70%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="fullCopper" x1="22" y1="18" x2="40" y2="78" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="30%" stop-color="#F59E0B"/>
+      <stop offset="75%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="fullNeural" x1="56" y1="18" x2="74" y2="78" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="45%" stop-color="#2563EB"/>
+      <stop offset="85%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="fullBridge" x1="32" y1="48" x2="64" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="40%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="110" y1="48" x2="260" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="70%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <radialGradient id="fullGlow" cx="48" cy="48" r="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="40%" stop-color="#38BDF8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#2563EB" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Emblem Mark Group -->
+  <g transform="translate(4, 4)">
+    <rect x="4" y="4" width="80" height="80" rx="20" fill="url(#fullShield)"/>
+    <rect x="4" y="4" width="80" height="80" rx="20" stroke="url(#fullBorder)" stroke-width="2"/>
+
+    <!-- Left Cable Pillar -->
+    <rect x="22" y="18" width="13" height="52" rx="4" fill="url(#fullCopper)"/>
+    <line x1="24" y1="30" x2="33" y2="30" stroke="#FFF" stroke-width="1.2" stroke-opacity="0.4"/>
+    <line x1="24" y1="58" x2="33" y2="58" stroke="#FFF" stroke-width="1.2" stroke-opacity="0.4"/>
+    <line x1="25" y1="20" x2="25" y2="68" stroke="#FEF08A" stroke-width="1.2" stroke-opacity="0.6"/>
+
+    <!-- Right Neural Pillar -->
+    <rect x="53" y="18" width="13" height="52" rx="4" fill="url(#fullNeural)"/>
+    <line x1="55" y1="20" x2="55" y2="68" stroke="#93C5FD" stroke-width="1.2" stroke-opacity="0.6"/>
+    <circle cx="60" cy="27" r="2" fill="#FFFFFF"/>
+    <circle cx="60" cy="61" r="2" fill="#FFFFFF"/>
+
+    <!-- Bridge -->
+    <rect x="31" y="41" width="26" height="14" rx="2" fill="url(#fullBridge)"/>
+    <polygon points="44,35 49,48 44,61 39,48" fill="#FFFFFF"/>
+    <circle cx="44" cy="48" r="2" fill="#2563EB"/>
+  </g>
+
+  <!-- Brand Typography -->
+  <text x="108" y="53" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="36" font-weight="800" letter-spacing="-0.5" fill="#0F172A">
+    HAKI
+  </text>
+  
+  <!-- FMCG 2.0 Badge -->
+  <g transform="translate(225, 27)">
+    <rect x="0" y="0" width="88" height="24" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+    <text x="44" y="16" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-size="11" font-weight="700" fill="#2563EB" text-anchor="middle" letter-spacing="0.8">
+      FMCG 2.0
+    </text>
+  </g>
+
+  <!-- Subtitle Descriptor -->
+  <text x="108" y="74" font-family="'Inter', sans-serif" font-size="11.5" font-weight="500" fill="#64748B" letter-spacing="0.5">
+    AI RFP &amp; PROCUREMENT INTELLIGENCE
+  </text>
+</svg>

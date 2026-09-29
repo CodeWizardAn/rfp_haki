@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUIStore } from '@/stores';
+import { HakiLogo } from '@/components/common';
 
 interface NavItem {
   label: string;
@@ -73,25 +74,12 @@ export function Sidebar() {
       className="fixed left-0 top-0 h-screen z-40 glass-sidebar flex flex-col"
     >
       {/* Logo */}
-      <div className="h-16 flex items-center px-4 border-b border-steel-slate/20">
-        <div className="flex items-center gap-2.5 overflow-hidden">
-          <div className="w-8 h-8 rounded-lg gradient-pipeline flex items-center justify-center flex-shrink-0">
-            <Zap size={18} className="text-white" />
-          </div>
-          <AnimatePresence>
-            {!sidebarCollapsed && (
-              <motion.div
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: 'auto' }}
-                exit={{ opacity: 0, width: 0 }}
-                className="overflow-hidden whitespace-nowrap"
-              >
-                <span className="text-h3 text-gradient-cyan font-bold">HAKI</span>
-                <span className="text-caption text-muted-silver ml-1">FMCG</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+      <div className="h-16 flex items-center px-3.5 border-b border-steel-slate/20 overflow-hidden">
+        <HakiLogo
+          size="sm"
+          showText={!sidebarCollapsed}
+          animate={true}
+        />
       </div>
 
       {/* Navigation */}

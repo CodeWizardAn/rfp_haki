@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Zap, Shield, User, UserPlus } from 'lucide-react';
+import { Eye, EyeOff, Shield, User, UserPlus } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
+import { HakiLogo } from '@/components/common';
 import { useAuthStore } from '@/stores';
 
 export default function LoginPage() {
@@ -49,11 +50,18 @@ export default function LoginPage() {
       >
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-14 h-14 rounded-2xl gradient-pipeline flex items-center justify-center mb-4">
-            <Zap size={28} className="text-white" />
+          <div className="mb-3">
+            <HakiLogo size="xl" animate={true} />
           </div>
-          <h1 className="text-h2 text-ghost-white">HAKI FMCG</h1>
-          <p className="text-body text-muted-silver mt-1">Procurement Intelligence Platform</p>
+          <div className="flex items-center gap-2 mt-1">
+            <h1 className="text-h2 font-extrabold text-ghost-white tracking-tight">HAKI</h1>
+            <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-electric-cyan/10 text-electric-cyan border border-electric-cyan/20">
+              FMCG 2.0
+            </span>
+          </div>
+          <p className="text-body text-muted-silver mt-1.5 text-center font-medium">
+            AI-Powered RFP &amp; Electrical Procurement Platform
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

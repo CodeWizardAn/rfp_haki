@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <!-- Background Shield Gradient -->
+    <linearGradient id="shieldBg" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="50%" stop-color="#0B1329"/>
+      <stop offset="100%" stop-color="#050B18"/>
+    </linearGradient>
+
+    <!-- Outer Border Glow Gradient -->
+    <linearGradient id="borderGlow" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="35%" stop-color="#2563EB"/>
+      <stop offset="70%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+
+    <!-- Industrial Cable Conductor (Copper / Amber) -->
+    <linearGradient id="copperConductor" x1="26" y1="20" x2="48" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="25%" stop-color="#F59E0B"/>
+      <stop offset="60%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+
+    <!-- Neural Circuit Pipeline (Electric Cyan / Royal Blue) -->
+    <linearGradient id="neuralFlow" x1="72" y1="20" x2="94" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="40%" stop-color="#2563EB"/>
+      <stop offset="85%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+
+    <!-- High-Voltage Energy Bridge (Pulse / Lightning) -->
+    <linearGradient id="energyBridge" x1="38" y1="60" x2="82" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="30%" stop-color="#38BDF8"/>
+      <stop offset="70%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+
+    <!-- Core Nexus Glow -->
+    <radialGradient id="nexusGlow" cx="60" cy="60" r="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="35%" stop-color="#38BDF8" stop-opacity="0.9"/>
+      <stop offset="75%" stop-color="#2563EB" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#2563EB" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="markShadow" x="-10" y="-10" width="140" height="140" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <filter id="coreGlow" x="40" y="40" width="40" height="40" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Base Rounded Hex Shield Container -->
+  <rect x="8" y="8" width="104" height="104" rx="26" fill="url(#shieldBg)" filter="url(#markShadow)"/>
+  <rect x="8" y="8" width="104" height="104" rx="26" stroke="url(#borderGlow)" stroke-width="2.5" stroke-opacity="0.75"/>
+
+  <!-- Subtle Internal Grid Pattern Lines -->
+  <path d="M22 60 H98 M60 22 V98" stroke="#334155" stroke-width="1" stroke-opacity="0.25" stroke-dasharray="2 3"/>
+
+  <!-- Left Pillar: Physical Cable & Industrial Conductor (Symbolizing FMCG Cables) -->
+  <!-- Outer cable insulation jacket -->
+  <path d="M30 25 C30 23.5 31.5 22 33 22 H42 C44 22 45 23.5 45 25 V95 C45 96.5 44 98 42 98 H33 C31.5 98 30 96.5 30 95 Z" 
+        fill="url(#copperConductor)"/>
+  <!-- Conductor strand segmentation stripes -->
+  <path d="M31 36 H44 M31 50 H44 M31 70 H44 M31 84 H44" stroke="#FFF" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Highlight sheen on copper cable -->
+  <path d="M34 24 V96" stroke="#FEF08A" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Right Pillar: AI Neural Circuit & Digital Data Flow (Symbolizing Platform Intelligence) -->
+  <!-- Digital pipeline spine -->
+  <path d="M75 25 C75 23.5 76 22 78 22 H87 C88.5 22 90 23.5 90 25 V95 C90 96.5 88.5 98 87 98 H78 C76 98 75 96.5 75 95 Z" 
+        fill="url(#neuralFlow)"/>
+  <!-- Neural circuit track lines & data points -->
+  <path d="M76 24 V96" stroke="#93C5FD" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="82.5" cy="33" r="2.5" fill="#FFFFFF"/>
+  <circle cx="82.5" cy="47" r="2" fill="#BAE6FD"/>
+  <circle cx="82.5" cy="73" r="2" fill="#BAE6FD"/>
+  <circle cx="82.5" cy="87" r="2.5" fill="#FFFFFF"/>
+  <!-- Circuit branch notch -->
+  <path d="M82.5 33 L88 38 M82.5 87 L77 82" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Horizontal Energy Crossbar & Tender Match Nexus (Forming the 'H' and Dynamic Synergy) -->
+  <!-- Main interlocking bridge -->
+  <path d="M42 53 H78 V67 H42 Z" fill="url(#energyBridge)"/>
+  
+  <!-- High-voltage angular chevron pulse -->
+  <path d="M48 60 L57 60 L62 55 L59 65 L66 60 L73 60" 
+        stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Core Intelligence Nexus Spark Node (Center of 'H') -->
+  <circle cx="60" cy="60" r="14" fill="url(#nexusGlow)" filter="url(#coreGlow)"/>
+  <polygon points="60,52 64,60 60,68 56,60" fill="#FFFFFF"/>
+  <circle cx="60" cy="60" r="2" fill="#2563EB"/>
+</svg>
