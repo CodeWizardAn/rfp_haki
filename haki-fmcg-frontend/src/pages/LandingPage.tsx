@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   Search,
@@ -150,10 +150,11 @@ export default function LandingPage() {
     <div className="min-h-screen bg-faded-grid text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 relative overflow-x-hidden">
       {/* ── Fixed Top Navbar (Haki) ── */}
       <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-black/[0.06]">
-        <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
           {/* Brand Logo */}
           <div className="flex items-center gap-3">
-            <HakiLogo size="lg" asLink to="/" />
+            <HakiLogo size="md" className="sm:hidden" asLink to="/" />
+            <HakiLogo size="lg" className="hidden sm:inline-flex" asLink to="/" />
           </div>
 
           {/* Desktop Nav Links */}
@@ -215,7 +216,7 @@ export default function LandingPage() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-slate-600 hover:text-slate-900"
+            className="md:hidden p-2 rounded-lg bg-slate-100/90 active:bg-slate-200 text-slate-700 transition-colors focus:outline-none"
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -223,67 +224,117 @@ export default function LandingPage() {
         </div>
 
         {/* Mobile Dropdown */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-[#FAF8F5] border-b border-black/[0.08] px-6 py-4 space-y-3">
-            <a
-              href="#pipeline"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-slate-700"
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              className="md:hidden bg-[#FAF8F5]/98 backdrop-blur-xl border-b border-black/[0.08] px-5 py-4 space-y-2 shadow-xl"
             >
-              RFP Pipeline
-            </a>
-            <a
-              href="#catalog"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-slate-700"
-            >
-              22K+ Catalog
-            </a>
-            <a
-              href="#matcher"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-slate-700"
-            >
-              Spec Matcher
-            </a>
-            <a
-              href="#snapshots"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-slate-700"
-            >
-              Platform Modules
-            </a>
-            <div className="pt-2 border-t border-slate-200 flex flex-col gap-2">
-              <Link
-                to="/login?redirect=/user/rfp-analyzer"
-                className="w-full text-center py-2 text-sm font-semibold text-white bg-[#2563EB] rounded-md flex items-center justify-center gap-1.5"
+              <a
+                href="#pipeline"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
-                <UploadCloud size={14} />
-                Upload RFP
+                <span>RFP Pipeline</span>
+                <ArrowRight size={14} className="text-slate-400" />
+              </a>
+              <a
+                href="#catalog"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>22K+ Catalog</span>
+                <ArrowRight size={14} className="text-slate-400" />
+              </a>
+              <a
+                href="#matcher"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>Spec Matcher</span>
+                <ArrowRight size={14} className="text-slate-400" />
+              </a>
+              <a
+                href="#snapshots"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>Platform Modules</span>
+                <ArrowRight size={14} className="text-slate-400" />
+              </a>
+              <Link
+                to="/vendors"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>Vendors</span>
+                <ArrowRight size={14} className="text-slate-400" />
               </Link>
-            </div>
-          </div>
-        )}
+              <Link
+                to="/user"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>Vendor Portal</span>
+                <Building2 size={14} className="text-slate-400" />
+              </Link>
+
+              <div className="pt-3 border-t border-slate-200/80 flex flex-col gap-2">
+                {!isAuthenticated ? (
+                  <>
+                    <Link
+                      to="/login"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full text-center py-2.5 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl active:bg-slate-50 transition-colors shadow-sm"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      to="/login?redirect=/user/rfp-analyzer"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full text-center py-2.5 text-sm font-semibold text-white bg-[#2563EB] rounded-xl active:bg-[#1D4ED8] flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                    >
+                      <UploadCloud size={15} />
+                      Upload RFP Document
+                    </Link>
+                  </>
+                ) : (
+                  <Link
+                    to={user?.role === 'admin' || user?.role === 'manager' ? '/dashboard' : '/user'}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center py-2.5 text-sm font-semibold text-white bg-[#2563EB] rounded-xl active:bg-[#1D4ED8] flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                  >
+                    Go to Platform
+                    <ArrowRight size={15} />
+                  </Link>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* ── Hero Section ── */}
-      <section className="pt-24 md:pt-28 pb-16 px-6 max-w-7xl mx-auto">
-        <div className="mb-4">
-          <span className="text-[#2563EB] text-xs sm:text-sm md:text-[15px] font-bold tracking-[0.16em] uppercase font-mono">
+      <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="mb-3 sm:mb-4">
+          <span className="text-[#2563EB] text-[10.5px] sm:text-xs md:text-sm font-bold tracking-[0.13em] sm:tracking-[0.16em] uppercase font-mono leading-relaxed block">
             THE AI PROCUREMENT & TENDER ENGINE FOR ELECTRICALS & INDUSTRIAL GOODS
           </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           <div className="lg:col-span-7">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-black text-slate-900 tracking-[-0.035em] leading-[1.04]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.25rem] font-black text-slate-900 tracking-tight leading-[1.08] sm:leading-[1.04]">
               Smart RFPs.
               <br />
               <span className="text-[#2563EB]">Lasting precision.</span>
             </h1>
 
             {/* Minimalist divider line below headline */}
-            <div className="w-full mt-7 mb-7 border-b border-slate-200/90" />
+            <div className="w-full mt-6 sm:mt-7 mb-6 sm:mb-7 border-b border-slate-200/90" />
 
             {/* Cohesive paragraph in normal weight with beautiful Outfit typography */}
             <p className="text-base sm:text-lg md:text-[1.2rem] font-normal text-slate-600 font-['Outfit',sans-serif] leading-relaxed tracking-[-0.01em] max-w-2xl">
@@ -291,9 +342,9 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="lg:col-span-5 flex items-center justify-center lg:justify-end relative lg:pt-2">
+          <div className="lg:col-span-5 flex items-center justify-center lg:justify-end relative mt-6 lg:mt-0 lg:pt-2">
             {/* Ambient soft glow behind robot */}
-            <div className="absolute w-64 h-64 sm:w-72 sm:h-72 rounded-full bg-gradient-to-tr from-blue-400/20 via-cyan-300/15 to-transparent blur-3xl pointer-events-none" />
+            <div className="absolute w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-tr from-blue-400/20 via-cyan-300/15 to-transparent blur-3xl pointer-events-none" />
             <motion.div
               initial={{ opacity: 0, scale: 0.92, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -303,7 +354,7 @@ export default function LandingPage() {
               <img
                 src="/haki-mascot.png"
                 alt="Haki AI Mascot"
-                className="w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_20px_35px_rgba(37,99,235,0.18)] transition-transform duration-500 hover:scale-105"
+                className="w-44 h-44 sm:w-60 sm:h-60 lg:w-72 lg:h-72 object-contain drop-shadow-[0_20px_35px_rgba(37,99,235,0.18)] transition-transform duration-500 hover:scale-105"
               />
             </motion.div>
           </div>
@@ -315,20 +366,20 @@ export default function LandingPage() {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: false, amount: 0.2, margin: '0px 0px -70px 0px' }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-14 p-8 md:p-10 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE]/80 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-[0_2px_12px_rgba(37,99,235,0.06)]"
+          className="mt-10 sm:mt-14 p-5 sm:p-8 md:p-10 rounded-2xl bg-[#EFF6FF] border border-[#BFDBFE]/80 flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6 shadow-[0_2px_12px_rgba(37,99,235,0.06)]"
         >
           <div className="space-y-2 max-w-2xl">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
               Procure with teams who demand exact specs.
             </h3>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
               Upload technical tender PDFs or query 22,028 wire and cable SKUs. Instant compliance scores, margin calculations, and automated vendor proposal generation.
             </p>
           </div>
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 w-full sm:w-auto">
             <Link
               to="/login"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#1D4ED8] hover:bg-[#1E40AF] text-white font-semibold text-sm transition-all shadow-sm hover:shadow-md"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#1D4ED8] hover:bg-[#1E40AF] text-white font-semibold text-sm transition-all shadow-sm hover:shadow-md"
             >
               Start RFP Processing
               <span className="text-base font-bold">↗</span>
@@ -338,13 +389,13 @@ export default function LandingPage() {
       </section>
 
       {/* ── Continuous Moving Marquees: Workflow Pipeline & Catalog Categories ── */}
-      <section id="pipeline" className="py-16 border-y border-black/[0.06] overflow-hidden bg-white/40 space-y-12">
+      <section id="pipeline" className="py-12 sm:py-16 border-y border-black/[0.06] overflow-hidden bg-white/40 space-y-10 sm:space-y-12">
         {/* Track 1: Workflow Pipeline Heading */}
         <div>
-          <div className="max-w-7xl mx-auto px-6 mb-5 flex items-center justify-between">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-4 sm:mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
             <div className="flex items-center gap-2.5">
               <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] animate-pulse"></span>
-              <span className="text-xs uppercase tracking-[0.18em] font-extrabold text-slate-800 font-mono">
+              <span className="text-xs uppercase tracking-[0.15em] sm:tracking-[0.18em] font-extrabold text-slate-800 font-mono">
                 END-TO-END TENDER WORKFLOW PIPELINE
               </span>
             </div>
@@ -354,13 +405,13 @@ export default function LandingPage() {
           </div>
 
           {/* Marquee Wrapper: Pipeline Flow */}
-          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-            <div className="animate-marquee flex gap-6 py-2">
+          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)] sm:[mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <div className="animate-marquee flex gap-4 sm:gap-6 py-2">
               {/* First Set of Pipeline Cards */}
               {PIPELINE_CARDS.map((card, idx) => (
                 <div
                   key={`pipe-1-${idx}`}
-                  className={`w-[390px] md:w-[420px] h-[220px] flex-shrink-0 p-8 rounded-2xl border transition-all flex flex-col justify-between ${
+                  className={`w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between ${
                     card.highlight
                       ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
                       : 'bg-white border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)]'
@@ -373,16 +424,16 @@ export default function LandingPage() {
                       </span>
                       <span className="w-2.5 h-2.5 rounded-full bg-blue-500/30"></span>
                     </div>
-                    <h4 className="text-xl font-extrabold text-slate-900 mt-2.5 tracking-tight">{card.title}</h4>
+                    <h4 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight">{card.title}</h4>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">{card.description}</p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3 sm:line-clamp-none">{card.description}</p>
                 </div>
               ))}
               {/* Duplicated Set for Gapless Infinite Right-to-Left Scroll */}
               {PIPELINE_CARDS.map((card, idx) => (
                 <div
                   key={`pipe-2-${idx}`}
-                  className={`w-[390px] md:w-[420px] h-[220px] flex-shrink-0 p-8 rounded-2xl border transition-all flex flex-col justify-between ${
+                  className={`w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between ${
                     card.highlight
                       ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
                       : 'bg-white border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)]'
@@ -395,9 +446,9 @@ export default function LandingPage() {
                       </span>
                       <span className="w-2.5 h-2.5 rounded-full bg-blue-500/30"></span>
                     </div>
-                    <h4 className="text-xl font-extrabold text-slate-900 mt-2.5 tracking-tight">{card.title}</h4>
+                    <h4 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight">{card.title}</h4>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">{card.description}</p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3 sm:line-clamp-none">{card.description}</p>
                 </div>
               ))}
             </div>
@@ -406,10 +457,10 @@ export default function LandingPage() {
 
         {/* Track 2: Catalog Inventory Heading */}
         <div>
-          <div className="max-w-7xl mx-auto px-6 mb-5 flex items-center justify-between">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-4 sm:mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
             <div className="flex items-center gap-2.5">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span className="text-xs uppercase tracking-[0.18em] font-extrabold text-slate-800 font-mono">
+              <span className="text-xs uppercase tracking-[0.15em] sm:tracking-[0.18em] font-extrabold text-slate-800 font-mono">
                 22,028 PRE-INDEXED WIRES & CABLES INVENTORY
               </span>
             </div>
@@ -419,41 +470,41 @@ export default function LandingPage() {
           </div>
 
           {/* Marquee Wrapper: Catalog Categories */}
-          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-            <div className="animate-marquee-slow flex gap-6 py-2">
+          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)] sm:[mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <div className="animate-marquee-slow flex gap-4 sm:gap-6 py-2">
               {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
                 <div
                   key={`cat-1-${idx}`}
-                  className="w-[390px] md:w-[420px] h-[220px] flex-shrink-0 p-8 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between"
+                  className="w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{cat.brand}</span>
-                      <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200/50">
+                      <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200/50">
                         {cat.count}
                       </span>
                     </div>
-                    <h5 className="text-xl font-extrabold text-slate-900 mt-2.5 tracking-tight">{cat.title}</h5>
+                    <h5 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight">{cat.title}</h5>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">{cat.subtitle}</p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3 sm:line-clamp-none">{cat.subtitle}</p>
                 </div>
               ))}
               {/* Duplicate Set for Gapless Infinite Scroll */}
               {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
                 <div
                   key={`cat-2-${idx}`}
-                  className="w-[390px] md:w-[420px] h-[220px] flex-shrink-0 p-8 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between"
+                  className="w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{cat.brand}</span>
-                      <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200/50">
+                      <span className="text-xs font-extrabold text-[#2563EB] font-mono bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200/50">
                         {cat.count}
                       </span>
                     </div>
-                    <h5 className="text-xl font-extrabold text-slate-900 mt-2.5 tracking-tight">{cat.title}</h5>
+                    <h5 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight">{cat.title}</h5>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">{cat.subtitle}</p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3 sm:line-clamp-none">{cat.subtitle}</p>
                 </div>
               ))}
             </div>
@@ -462,15 +513,15 @@ export default function LandingPage() {
       </section>
 
       {/* ── Staggered Website Snapshots with Window Controls (🔴 ⚪ 🟢) ── */}
-      <section id="snapshots" className="py-24 px-6 max-w-7xl mx-auto space-y-28">
+      <section id="snapshots" className="py-14 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto space-y-16 sm:space-y-28">
         <div className="text-center max-w-3xl mx-auto">
           <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
             LIVE PLATFORM MODULES
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
             Inside the Haki Engine
           </h2>
-          <p className="text-slate-600 text-sm md:text-base mt-3">
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-3">
             Precise technical intelligence modules built for tenders, specifications, and margin security.
           </p>
         </div>
@@ -481,41 +532,41 @@ export default function LandingPage() {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: false, amount: 0.2, margin: '0px 0px -80px 0px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center"
         >
           {/* Left Window Snapshot */}
           <div className="lg:col-span-7">
             <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
               {/* macOS Style Window Bar with Red, White, Green Controls */}
-              <div className="h-10 bg-slate-100/90 border-b border-slate-200 px-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
-                  <span className="w-3 h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
-                  <span className="w-3 h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
+              <div className="h-9 sm:h-10 bg-slate-100/90 border-b border-slate-200 px-3 sm:px-4 flex items-center justify-between">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
                 </div>
-                <div className="text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5">
-                  <FileCheck size={12} className="text-blue-600" />
-                  haki-rfp-parser-v2.pdf [Processed: 99.4% Confidence]
+                <div className="text-[11px] sm:text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
+                  <FileCheck size={12} className="text-blue-600 flex-shrink-0" />
+                  <span className="truncate">haki-rfp-parser-v2.pdf [Processed: 99.4%]</span>
                 </div>
-                <div className="w-10"></div>
+                <div className="w-6 sm:w-10 flex-shrink-0"></div>
               </div>
 
               {/* Realistic App Content */}
-              <div className="p-6 bg-slate-50/50 space-y-4">
-                <div className="flex items-center justify-between bg-white p-3 rounded-lg border border-slate-200">
+              <div className="p-4 sm:p-6 bg-slate-50/50 space-y-3 sm:space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-3 rounded-lg border border-slate-200 gap-1.5 sm:gap-2">
                   <div className="flex items-center gap-2">
                     <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-700 text-xs font-bold font-mono">
                       NIT-ELECTRICAL-2026-09
                     </span>
-                    <span className="text-xs text-slate-600 font-medium">Bokaro Steel Substation Cable Supply</span>
+                    <span className="text-xs text-slate-600 font-medium truncate">Bokaro Steel Substation</span>
                   </div>
                   <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1">
                     <CheckCircle2 size={13} /> OCR Verified
                   </span>
                 </div>
 
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs text-left">
+                <div className="overflow-x-auto -mx-1 px-1">
+                  <table className="w-full min-w-[480px] text-xs text-left">
                     <thead>
                       <tr className="border-b border-slate-200 text-slate-500 uppercase font-semibold">
                         <th className="pb-2">Line</th>
@@ -551,7 +602,7 @@ export default function LandingPage() {
                   </table>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-slate-200/80 text-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-2 border-t border-slate-200/80 text-[11px] sm:text-xs gap-1">
                   <span className="text-slate-500">Tesseract OCR multilingual engine auto-detected</span>
                   <span className="font-bold text-[#2563EB]">14 Line Items Extracted • 0 Errors</span>
                 </div>
@@ -560,11 +611,11 @@ export default function LandingPage() {
           </div>
 
           {/* Right Text Description */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-3 sm:space-y-4">
             <span className="text-xs font-bold text-[#2563EB] tracking-widest uppercase font-mono">
               01 • INGESTION & EXTRACTION
             </span>
-            <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Automated Tender PDF & OCR Extraction
             </h3>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
@@ -587,14 +638,14 @@ export default function LandingPage() {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: false, amount: 0.2, margin: '0px 0px -80px 0px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center"
         >
           {/* Left Text Description */}
-          <div className="lg:col-span-5 space-y-4 order-2 lg:order-1">
+          <div className="lg:col-span-5 space-y-3 sm:space-y-4 order-2 lg:order-1">
             <span className="text-xs font-bold text-[#2563EB] tracking-widest uppercase font-mono">
               02 • VECTOR SIMILARITY ENGINE
             </span>
-            <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               22,028 Pre-Indexed Wires & Cables Catalog
             </h3>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
@@ -614,64 +665,64 @@ export default function LandingPage() {
           <div className="lg:col-span-7 order-1 lg:order-2">
             <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
               {/* Window Bar with Red, White, Green Controls */}
-              <div className="h-10 bg-slate-100/90 border-b border-slate-200 px-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
-                  <span className="w-3 h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
-                  <span className="w-3 h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
+              <div className="h-9 sm:h-10 bg-slate-100/90 border-b border-slate-200 px-3 sm:px-4 flex items-center justify-between">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
                 </div>
-                <div className="text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5">
-                  <Database size={12} className="text-blue-600" />
-                  haki-vector-catalog-22k.index [Active: 22,028 SKUs]
+                <div className="text-[11px] sm:text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
+                  <Database size={12} className="text-blue-600 flex-shrink-0" />
+                  <span className="truncate">haki-vector-catalog-22k.index [Active: 22,028 SKUs]</span>
                 </div>
-                <div className="w-10"></div>
+                <div className="w-6 sm:w-10 flex-shrink-0"></div>
               </div>
 
               {/* Realistic App Content */}
-              <div className="p-6 bg-slate-50/50 space-y-4">
+              <div className="p-4 sm:p-6 bg-slate-50/50 space-y-3 sm:space-y-4">
                 <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-slate-200 text-xs">
-                  <Search size={14} className="text-slate-400" />
-                  <span className="font-mono text-slate-900 font-medium">3C 2.5 mm² XLPE Armoured Cu</span>
-                  <span className="ml-auto text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">
-                    Query Latency: 42ms
+                  <Search size={14} className="text-slate-400 flex-shrink-0" />
+                  <span className="font-mono text-slate-900 font-medium truncate">3C 2.5 mm² XLPE Armoured Cu</span>
+                  <span className="ml-auto text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded flex-shrink-0">
+                    42ms
                   </span>
                 </div>
 
                 <div className="space-y-2.5">
-                  <div className="bg-white p-3.5 rounded-lg border border-slate-200 flex items-center justify-between">
+                  <div className="bg-white p-3 sm:p-3.5 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-bold text-slate-900 text-xs">Polycab 3C x 2.5 sq mm Armoured XLPE Cable</span>
-                        <span className="px-1.5 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded">
+                        <span className="px-1.5 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded flex-shrink-0">
                           99.4% Match
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-500 mt-0.5">IS 7098 Pt 1 • 1100V • Electrolytic Copper</p>
                     </div>
-                    <div className="text-right">
+                    <div className="flex items-center sm:flex-col justify-between sm:justify-start sm:text-right border-t sm:border-t-0 pt-1.5 sm:pt-0 border-slate-100">
                       <div className="font-bold text-slate-900 text-xs">₹ 148.50 / m</div>
                       <span className="text-[10px] font-semibold text-emerald-600">+18.2% margin</span>
                     </div>
                   </div>
 
-                  <div className="bg-white p-3.5 rounded-lg border border-slate-200 flex items-center justify-between">
+                  <div className="bg-white p-3 sm:p-3.5 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-bold text-slate-900 text-xs">Havells 3 Core 2.5 mm² Heavy Duty Armoured</span>
-                        <span className="px-1.5 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded">
+                        <span className="px-1.5 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded flex-shrink-0">
                           97.8% Match
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-500 mt-0.5">IS 1554 Pt 1 • 1100V • Copper Conductor</p>
                     </div>
-                    <div className="text-right">
+                    <div className="flex items-center sm:flex-col justify-between sm:justify-start sm:text-right border-t sm:border-t-0 pt-1.5 sm:pt-0 border-slate-100">
                       <div className="font-bold text-slate-900 text-xs">₹ 152.00 / m</div>
                       <span className="text-[10px] font-semibold text-emerald-600">+16.5% margin</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs pt-1 text-slate-500">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs pt-1 text-slate-500 gap-1">
                   <span>Cross-standard equivalence verified against BIS standard matrices</span>
                   <span className="font-bold text-slate-700">Top 3 Candidates Selected</span>
                 </div>
@@ -686,28 +737,28 @@ export default function LandingPage() {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: false, amount: 0.2, margin: '0px 0px -80px 0px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center"
         >
           {/* Left Window Snapshot */}
           <div className="lg:col-span-7">
             <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
               {/* Window Bar with Red, White, Green Controls */}
-              <div className="h-10 bg-slate-100/90 border-b border-slate-200 px-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
-                  <span className="w-3 h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
-                  <span className="w-3 h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
+              <div className="h-9 sm:h-10 bg-slate-100/90 border-b border-slate-200 px-3 sm:px-4 flex items-center justify-between">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
                 </div>
-                <div className="text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5">
-                  <TrendingUp size={12} className="text-emerald-600" />
-                  haki-pricing-margin-engine.live [Commodity Index Linked]
+                <div className="text-[11px] sm:text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
+                  <TrendingUp size={12} className="text-emerald-600 flex-shrink-0" />
+                  <span className="truncate">haki-pricing-margin-engine.live</span>
                 </div>
-                <div className="w-10"></div>
+                <div className="w-6 sm:w-10 flex-shrink-0"></div>
               </div>
 
               {/* Realistic App Content */}
-              <div className="p-6 bg-slate-50/50 space-y-4">
-                <div className="grid grid-cols-3 gap-3">
+              <div className="p-4 sm:p-6 bg-slate-50/50 space-y-3 sm:space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
                   <div className="bg-white p-3 rounded-lg border border-slate-200">
                     <span className="text-[10px] uppercase font-bold text-slate-500 block">MCX Copper Spot</span>
                     <span className="font-bold text-slate-900 text-sm">₹ 784.50 / kg</span>
@@ -725,7 +776,7 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+                <div className="bg-white p-3.5 sm:p-4 rounded-lg border border-slate-200 space-y-2.5 sm:space-y-3">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-slate-600 font-medium">Estimated Tender Cost Basis</span>
                     <span className="font-mono font-bold text-slate-900">₹ 42,85,600</span>
@@ -736,13 +787,13 @@ export default function LandingPage() {
                   </div>
                   <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
                     <span className="text-slate-900 font-bold">Projected Net Commercial Margin</span>
-                    <span className="font-mono font-extrabold text-emerald-600 text-sm">₹ 8,34,400 (19.47%)</span>
+                    <span className="font-mono font-extrabold text-emerald-600 text-xs sm:text-sm">₹ 8,34,400 (19.47%)</span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs pt-1">
-                  <span className="text-slate-500">Automated volume discounting curves applied</span>
-                  <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs pt-1 text-slate-500 gap-1">
+                  <span>Automated volume discounting curves applied</span>
+                  <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded self-start sm:self-auto">
                     Optimal Margin Score: 96/100
                   </span>
                 </div>
@@ -751,11 +802,11 @@ export default function LandingPage() {
           </div>
 
           {/* Right Text Description */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-3 sm:space-y-4">
             <span className="text-xs font-bold text-[#2563EB] tracking-widest uppercase font-mono">
               03 • PRICING & MARGIN INTELLIGENCE
             </span>
-            <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Commodity Cost & Margin Optimization Engine
             </h3>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
@@ -774,21 +825,21 @@ export default function LandingPage() {
       </section>
 
       {/* ── Interactive Live Spec Matcher Sandbox ── */}
-      <section id="matcher" className="py-20 px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
-        <div className="mb-10 text-center max-w-2xl mx-auto">
+      <section id="matcher" className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
+        <div className="mb-8 sm:mb-10 text-center max-w-2xl mx-auto">
           <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
             LIVE INTERACTIVE SPEC ENGINE
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-2">
             Test Instant Wire & Cable Matching
           </h2>
-          <p className="text-slate-600 text-sm md:text-base mt-2">
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2">
             Click a real-world tender requirement or enter specifications to test vector similarity and compliance scoring in real time.
           </p>
         </div>
 
         {/* Query Selector Tabs */}
-        <div className="flex flex-wrap gap-2 justify-center mb-8">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center mb-6 sm:mb-8">
           {SAMPLE_SPECS.map((sample, idx) => (
             <button
               key={idx}
@@ -796,7 +847,7 @@ export default function LandingPage() {
                 setActiveSpecIndex(idx);
                 setCustomSearch('');
               }}
-              className={`px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all ${
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs md:text-sm font-medium transition-all ${
                 activeSpecIndex === idx && !customSearch
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-300'
@@ -808,89 +859,89 @@ export default function LandingPage() {
         </div>
 
         {/* Interactive Query Box */}
-        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-6 md:p-8">
-          <div className="relative mb-6">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+        <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-4 sm:p-6 md:p-8">
+          <div className="relative mb-5 sm:mb-6">
+            <Search className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 text-slate-400" size={17} />
             <input
               type="text"
               value={customSearch || currentSpec.query}
               onChange={(e) => setCustomSearch(e.target.value)}
               placeholder="e.g. 3 Core 2.5 sq mm XLPE Armoured Copper Cable..."
-              className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium text-sm md:text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full pl-10 sm:pl-12 pr-4 py-3 sm:py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium text-xs sm:text-sm md:text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
 
           {/* Result Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-slate-50/80 rounded-xl p-6 border border-slate-200/70">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 bg-slate-50/80 rounded-xl p-4 sm:p-6 border border-slate-200/70">
             {/* Left Result Details */}
-            <div className="lg:col-span-8 space-y-4">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="px-2.5 py-1 rounded bg-blue-100 text-blue-800 text-xs font-bold font-mono">
+            <div className="lg:col-span-8 space-y-3 sm:space-y-4">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <span className="px-2.5 py-1 rounded bg-blue-100 text-blue-800 text-[11px] sm:text-xs font-bold font-mono">
                   {currentSpec.matchedSku}
                 </span>
-                <span className="px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 text-xs font-semibold flex items-center gap-1">
+                <span className="px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 text-[11px] sm:text-xs font-semibold flex items-center gap-1">
                   <CheckCircle2 size={13} />
                   {currentSpec.score}% Match Confidence
                 </span>
-                <span className="px-2.5 py-1 rounded bg-slate-200 text-slate-800 text-xs font-semibold">
+                <span className="px-2.5 py-1 rounded bg-slate-200 text-slate-800 text-[11px] sm:text-xs font-semibold">
                   {currentSpec.brand} Catalog
                 </span>
               </div>
 
-              <h4 className="text-xl md:text-2xl font-bold text-slate-900">
+              <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">
                 {currentSpec.brand} {currentSpec.size} {currentSpec.cores} {currentSpec.category}
               </h4>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs md:text-sm pt-2">
-                <div className="bg-white p-3 rounded-lg border border-slate-200/70">
-                  <span className="text-slate-500 block text-[11px] uppercase font-semibold">Conductor</span>
-                  <span className="font-semibold text-slate-900">{currentSpec.conductor}</span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 text-xs md:text-sm pt-1 sm:pt-2">
+                <div className="bg-white p-2.5 sm:p-3 rounded-lg border border-slate-200/70">
+                  <span className="text-slate-500 block text-[10px] sm:text-[11px] uppercase font-semibold">Conductor</span>
+                  <span className="font-semibold text-slate-900 truncate block">{currentSpec.conductor}</span>
                 </div>
-                <div className="bg-white p-3 rounded-lg border border-slate-200/70">
-                  <span className="text-slate-500 block text-[11px] uppercase font-semibold">Insulation</span>
-                  <span className="font-semibold text-slate-900">{currentSpec.insulation}</span>
+                <div className="bg-white p-2.5 sm:p-3 rounded-lg border border-slate-200/70">
+                  <span className="text-slate-500 block text-[10px] sm:text-[11px] uppercase font-semibold">Insulation</span>
+                  <span className="font-semibold text-slate-900 truncate block">{currentSpec.insulation}</span>
                 </div>
-                <div className="bg-white p-3 rounded-lg border border-slate-200/70">
-                  <span className="text-slate-500 block text-[11px] uppercase font-semibold">Voltage Rating</span>
+                <div className="bg-white p-2.5 sm:p-3 rounded-lg border border-slate-200/70">
+                  <span className="text-slate-500 block text-[10px] sm:text-[11px] uppercase font-semibold">Voltage Rating</span>
                   <span className="font-semibold text-slate-900">{currentSpec.voltage}</span>
                 </div>
-                <div className="bg-white p-3 rounded-lg border border-slate-200/70">
-                  <span className="text-slate-500 block text-[11px] uppercase font-semibold">Standard Code</span>
+                <div className="bg-white p-2.5 sm:p-3 rounded-lg border border-slate-200/70">
+                  <span className="text-slate-500 block text-[10px] sm:text-[11px] uppercase font-semibold">Standard Code</span>
                   <span className="font-semibold text-slate-900">{currentSpec.standards}</span>
                 </div>
-                <div className="bg-white p-3 rounded-lg border border-slate-200/70">
-                  <span className="text-slate-500 block text-[11px] uppercase font-semibold">Cores & Size</span>
+                <div className="bg-white p-2.5 sm:p-3 rounded-lg border border-slate-200/70">
+                  <span className="text-slate-500 block text-[10px] sm:text-[11px] uppercase font-semibold">Cores & Size</span>
                   <span className="font-semibold text-slate-900">{currentSpec.cores} • {currentSpec.size}</span>
                 </div>
-                <div className="bg-white p-3 rounded-lg border border-slate-200/70">
-                  <span className="text-slate-500 block text-[11px] uppercase font-semibold">Vector Index</span>
+                <div className="bg-white p-2.5 sm:p-3 rounded-lg border border-slate-200/70">
+                  <span className="text-slate-500 block text-[10px] sm:text-[11px] uppercase font-semibold">Vector Index</span>
                   <span className="font-semibold text-blue-700">384-Dim Normalized</span>
                 </div>
               </div>
             </div>
 
             {/* Right Pricing & Quick CTA */}
-            <div className="lg:col-span-4 bg-white rounded-xl p-5 border border-slate-200 flex flex-col justify-between">
+            <div className="lg:col-span-4 bg-white rounded-xl p-4 sm:p-5 border border-slate-200 flex flex-col justify-between mt-2 lg:mt-0">
               <div>
-                <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-slate-500 font-semibold">
                   Benchmarked Unit Rate
                 </span>
-                <div className="text-3xl font-black text-slate-900 mt-1">
+                <div className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
                   {currentSpec.price}
                 </div>
                 <div className="inline-block mt-2 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
                   {currentSpec.margin}
                 </div>
 
-                <p className="text-xs text-slate-500 mt-4 leading-relaxed">
+                <p className="text-[11px] sm:text-xs text-slate-500 mt-3 sm:mt-4 leading-relaxed">
                   Calculated against daily MCX Copper / Aluminium base indices with manufacturing cost matrix.
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100">
+              <div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100">
                 <Link
                   to="/login"
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs transition-colors shadow-sm"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs sm:text-sm transition-colors shadow-sm"
                 >
                   Generate Tender Proposal
                   <ArrowRight size={14} />
@@ -902,27 +953,27 @@ export default function LandingPage() {
       </section>
 
       {/* ── Call To Action Banner ── */}
-      <section className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="p-10 md:p-14 rounded-2xl bg-slate-900 text-white flex flex-col lg:flex-row lg:items-center justify-between gap-8 shadow-xl">
-          <div className="space-y-3 max-w-2xl">
-            <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="p-6 sm:p-10 md:p-14 rounded-2xl bg-slate-900 text-white flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8 shadow-xl">
+          <div className="space-y-2 sm:space-y-3 max-w-2xl">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
               Ready to automate your technical procurement?
             </h3>
-            <p className="text-slate-400 text-base leading-relaxed">
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
               Upload your tender specifications now or browse our comprehensive 22,000+ electrical inventory with instant margin optimization.
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto flex-shrink-0">
             <Link
               to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? '/rfps/upload' : '/user/rfp-analyzer') : '/login?redirect=/user/rfp-analyzer'}
-              className="px-6 py-3.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm transition-all shadow-md flex items-center gap-2"
+              className="w-full sm:w-auto justify-center px-6 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm transition-all shadow-md flex items-center gap-2"
             >
               <UploadCloud size={16} />
               Upload RFP Document
             </Link>
             <Link
               to="/products"
-              className="px-6 py-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700 flex items-center gap-2"
+              className="w-full sm:w-auto justify-center px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700 flex items-center gap-2"
             >
               <FileSpreadsheet size={16} />
               Browse Product Catalog
@@ -932,14 +983,14 @@ export default function LandingPage() {
       </section>
 
       {/* ── Clean Craft Footer ── */}
-      <footer className="border-t border-black/[0.06] bg-[#FAF8F5] py-12 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-500">
+      <footer className="border-t border-black/[0.06] bg-[#FAF8F5] py-10 sm:py-12 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6 text-xs text-slate-500 text-center md:text-left">
           <div className="flex items-center gap-3">
             <HakiLogo size="sm" asLink to="/" />
             <span className="text-slate-400 hidden sm:inline">— Enterprise RFP & Procurement Platform</span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
             <a href="#pipeline" className="hover:text-slate-900 transition-colors">
               RFP Pipeline
             </a>
@@ -951,7 +1002,7 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
             <span>All Procurement Services Operational</span>
           </div>
