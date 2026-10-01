@@ -19,6 +19,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    clearError();
     try {
       await login(username, password);
       // Route based on role or explicit redirect query param

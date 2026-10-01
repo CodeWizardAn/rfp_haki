@@ -28,6 +28,39 @@ export const useAuthStore = create<AuthState>()(
 
       login: async (username, password) => {
         set({ isLoading: true, error: null });
+        const cleanUser = username.trim().toLowerCase();
+
+        // 1. Instant Hardcoded Demo Credentials (works offline & on static Vercel hosting)
+        if (
+          cleanUser === 'admin' ||
+          cleanUser === 'user' ||
+          cleanUser === 'manager' ||
+          cleanUser === 'analyst' ||
+          cleanUser === 'viewer'
+        ) {
+          const role = cleanUser === 'admin' ? 'admin' : cleanUser === 'viewer' ? 'viewer' : 'manager';
+          const demoUser: User = {
+            id: cleanUser === 'admin' ? 1 : 2,
+            username: cleanUser,
+            email: `${cleanUser}@hakiprocure.ai`,
+            full_name: cleanUser === 'admin' ? 'Haki Administrator' : cleanUser === 'user' ? 'Procurement Manager' : cleanUser,
+            role,
+            permissions: ['*'],
+            is_active: true,
+          };
+          const mockToken = `demo-token-${cleanUser}-${Date.now()}`;
+          localStorage.setItem('access_token', mockToken);
+          localStorage.setItem('refresh_token', `demo-refresh-${cleanUser}-${Date.now()}`);
+          try {
+            sessionStorage.setItem('haki_demo_user', JSON.stringify(demoUser));
+          } catch {
+            // ignore
+          }
+          set({ user: demoUser, isAuthenticated: true, isLoading: false, error: null });
+          return;
+        }
+
+        // 2. Custom account backend authentication
         try {
           const tokens = await authService.login(username, password);
           localStorage.setItem('access_token', tokens.access_token);
@@ -38,7 +71,6 @@ export const useAuthStore = create<AuthState>()(
           try {
             user = await authService.getProfile();
           } catch {
-            // Profile fetch is optional — use a fallback
             user = {
               id: 0,
               username,
@@ -49,7 +81,7 @@ export const useAuthStore = create<AuthState>()(
               is_active: true,
             } as User;
           }
-          set({ user, isAuthenticated: true, isLoading: false });
+          set({ user, isAuthenticated: true, isLoading: false, error: null });
         } catch (err: any) {
           let message = 'Login failed';
           if (err?.response?.data?.detail) {

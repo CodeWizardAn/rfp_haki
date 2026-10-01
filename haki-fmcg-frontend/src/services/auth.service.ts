@@ -51,6 +51,21 @@ function createDemoSession(username: string): { tokens: AuthTokens; user: User }
 
 export const authService = {
   login: async (username: string, password: string): Promise<AuthTokens> => {
+    const cleanUser = username.trim().toLowerCase();
+
+    // 1. Instant Hardcoded Demo Check
+    if (
+      cleanUser === 'admin' ||
+      cleanUser === 'user' ||
+      cleanUser === 'manager' ||
+      cleanUser === 'analyst' ||
+      cleanUser === 'viewer'
+    ) {
+      const { tokens } = createDemoSession(cleanUser);
+      return tokens;
+    }
+
+    // 2. Custom accounts via backend
     try {
       const { data } = await api.post<AuthTokens | ApiResponse<AuthTokens>>('/auth/login', { username, password });
       // Backend returns TokenResponse directly (not wrapped in ApiResponse)
