@@ -283,11 +283,13 @@ export default function LandingPage() {
             </h1>
 
             {/* Minimalist divider line below headline */}
-            <div className="w-full my-5 border-b border-slate-200/90" />
+            <div className="w-full mt-8 mb-8 border-b border-slate-200/80" />
 
-            {/* Single elegant sentence with refined typography */}
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 font-normal leading-relaxed tracking-tight max-w-2xl">
-              Turn complex technical tender specifications into verified, audit-ready commercial bids with absolute precision.
+            {/* Single elegant sentence with beautiful Outfit typography */}
+            <p className="text-lg sm:text-xl md:text-[1.35rem] font-light text-slate-500 font-['Outfit',sans-serif] leading-[1.65] tracking-[-0.015em] max-w-2xl">
+              Turn complex technical tender specifications into{" "}
+              <span className="text-slate-900 font-medium">verified, audit-ready commercial bids</span>{" "}
+              with absolute precision.
             </p>
           </div>
 

@@ -30,6 +30,7 @@
 
   /* Typography */
   --font-sans: 'Plus Jakarta Sans', 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-outfit: 'Outfit', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 
   /* Spacing scale */
