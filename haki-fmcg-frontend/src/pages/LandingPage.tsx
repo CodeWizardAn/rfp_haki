@@ -302,7 +302,13 @@ export default function LandingPage() {
         </div>
 
         {/* Tinted Banner Card */}
-        <div className="mt-14 p-8 md:p-10 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE]/80 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-[0_2px_12px_rgba(37,99,235,0.06)]">
+        <motion.div
+          initial={{ opacity: 0.25, y: 55, filter: 'blur(3px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: false, amount: 0.2, margin: '0px 0px -70px 0px' }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-14 p-8 md:p-10 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE]/80 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-[0_2px_12px_rgba(37,99,235,0.06)]"
+        >
           <div className="space-y-2 max-w-2xl">
             <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
               Procure with teams who demand exact specs.
@@ -320,7 +326,7 @@ export default function LandingPage() {
               <span className="text-base font-bold">↗</span>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Continuous Moving Marquees: Workflow Pipeline & Catalog Categories ── */}
@@ -341,7 +347,7 @@ export default function LandingPage() {
 
           {/* Marquee Wrapper: Pipeline Flow */}
           <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-            <div className="animate-marquee hover:[animation-play-state:paused] flex gap-6 py-2">
+            <div className="animate-marquee flex gap-6 py-2">
               {/* First Set of Pipeline Cards */}
               {PIPELINE_CARDS.map((card, idx) => (
                 <div
@@ -406,7 +412,7 @@ export default function LandingPage() {
 
           {/* Marquee Wrapper: Catalog Categories */}
           <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-            <div className="animate-marquee-slow hover:[animation-play-state:paused] flex gap-6 py-2">
+            <div className="animate-marquee-slow flex gap-6 py-2">
               {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
                 <div
                   key={`cat-1-${idx}`}
@@ -454,7 +460,7 @@ export default function LandingPage() {
             LIVE PLATFORM MODULES
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
-            Inside the HAKI FMCG Engine
+            Inside the Haki Engine
           </h2>
           <p className="text-slate-600 text-sm md:text-base mt-3">
             Precise technical intelligence modules built for tenders, specifications, and margin security.
@@ -462,7 +468,13 @@ export default function LandingPage() {
         </div>
 
         {/* ── Snapshot 1: Left Aligned (RFP Intake & OCR Parser) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <motion.div
+          initial={{ opacity: 0.2, y: 60, filter: 'blur(4px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: false, amount: 0.2, margin: '0px 0px -80px 0px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+        >
           {/* Left Window Snapshot */}
           <div className="lg:col-span-7">
             <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
@@ -559,10 +571,16 @@ export default function LandingPage() {
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* ── Snapshot 2: Right Aligned (22,000+ Vector Product Catalog) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <motion.div
+          initial={{ opacity: 0.2, y: 60, filter: 'blur(4px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: false, amount: 0.2, margin: '0px 0px -80px 0px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+        >
           {/* Left Text Description */}
           <div className="lg:col-span-5 space-y-4 order-2 lg:order-1">
             <span className="text-xs font-bold text-[#2563EB] tracking-widest uppercase font-mono">
@@ -652,10 +670,16 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* ── Snapshot 3: Left Aligned (Pricing Engine & Margin Optimizer) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <motion.div
+          initial={{ opacity: 0.2, y: 60, filter: 'blur(4px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: false, amount: 0.2, margin: '0px 0px -80px 0px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+        >
           {/* Left Window Snapshot */}
           <div className="lg:col-span-7">
             <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
@@ -738,7 +762,7 @@ export default function LandingPage() {
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Interactive Live Spec Matcher Sandbox ── */}

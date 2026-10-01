@@ -140,20 +140,26 @@ body {
    ============================================ */
 
 @keyframes marquee-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 @utility animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 24s linear infinite;
+  will-change: transform;
+  animation: marquee-scroll 32s linear infinite;
 }
 
 @utility animate-marquee-slow {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 30s linear infinite;
+  will-change: transform;
+  animation: marquee-scroll 44s linear infinite;
 }
 
 @utility bg-faded-grid {
