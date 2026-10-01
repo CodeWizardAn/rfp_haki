@@ -19,6 +19,7 @@ import { BidAnalyticsWidget } from '@/components/bids';
 import { formatCompactCurrency } from '@/utils/formatters';
 import { useBids } from '@/hooks/useApi';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 type BidStatus = 'draft' | 'submitted' | 'under_review' | 'approved' | 'won' | 'lost';
 
@@ -78,6 +79,21 @@ export default function BidsPage() {
   const totalValue = allBids.reduce((s, b) => s + b.amount, 0);
   const wonValue = allBids.filter((b) => b.status === 'won').reduce((s, b) => s + b.amount, 0);
 
+  const handleDownloadBid = (bid: Bid) => {
+    const csvContent = 'data:text/csv;charset=utf-8,' + [
+      'Bid ID,RFP Reference,Vendor,Amount,Status,Deadline,Probability',
+      `"${bid.id}","${bid.rfpId}","${bid.vendor}",Rs ${bid.amount},"${bid.status}","${bid.deadline}",${bid.probability}%`,
+    ].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `${bid.id.toLowerCase()}_proposal.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success(`Commercial bid ${bid.id} proposal downloaded!`);
+  };
+
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
       {/* Header */}
@@ -92,8 +108,12 @@ export default function BidsPage() {
           </div>
         </div>
         <div className="flex gap-2 flex-shrink-0">
-          <Button variant="secondary" leftIcon={<FileText size={14} />}>Templates</Button>
-          <Button variant="primary" leftIcon={<Plus size={14} />}>New Bid</Button>
+          <Button variant="secondary" leftIcon={<FileText size={14} />} onClick={() => navigate('/bids/templates')}>
+            Templates
+          </Button>
+          <Button variant="primary" leftIcon={<Plus size={14} />} onClick={() => navigate('/bids/builder')}>
+            New Bid
+          </Button>
         </div>
       </div>
 
@@ -234,8 +254,22 @@ export default function BidsPage() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1">
-                        <Button variant="ghost" size="xs" leftIcon={<Eye size={10} />}>View</Button>
-                        <Button variant="ghost" size="xs" leftIcon={<Download size={10} />}>PDF</Button>
+                        <Button
+                          variant="ghost"
+                          size="xs"
+                          leftIcon={<Eye size={10} />}
+                          onClick={() => navigate(`/bids/${bid.id}/preview`)}
+                        >
+                          View
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="xs"
+                          leftIcon={<Download size={10} />}
+                          onClick={() => handleDownloadBid(bid)}
+                        >
+                          PDF
+                        </Button>
                       </div>
                     </td>
                   </tr>

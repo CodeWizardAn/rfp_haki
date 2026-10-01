@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   Trophy,
   Star,
@@ -59,6 +60,22 @@ export default function VendorRankingsPage() {
   const categories = ['All', ...Array.from(new Set(vendors.map((v) => v.category)))];
   const filtered = categoryFilter === 'All' ? vendors : vendors.filter((v) => v.category === categoryFilter);
 
+  const handleExportRankings = () => {
+    const headers = 'Rank,Vendor ID,Name,Category,Score,Rating,Badge,Bids Won,Total Bids,On-Time Rate,Quality Score';
+    const rows = filtered.map((v, i) =>
+      `${i + 1},"${v.id}","${v.name}","${v.category}",${v.score},${v.rating},"${v.badge}",${v.bidsWon},${v.bidsTotal},${v.onTimeRate}%,${v.qualityScore}%`
+    );
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers, ...rows].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `haki_vendor_rankings_${timeRange}_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success(`Exported ${filtered.length} ranked vendors to CSV!`);
+  };
+
   // Top 3 podium
   const top3 = filtered.slice(0, 3);
 
@@ -92,7 +109,9 @@ export default function VendorRankingsPage() {
               </button>
             ))}
           </div>
-          <Button variant="secondary" leftIcon={<Download size={14} />}>Export</Button>
+          <Button variant="secondary" leftIcon={<Download size={14} />} onClick={handleExportRankings}>
+            Export
+          </Button>
         </div>
       </div>
 

@@ -123,7 +123,9 @@ export default function VendorsPage() {
           </div>
         </div>
         <div className="flex gap-2 flex-shrink-0">
-          <Button variant="primary" leftIcon={<Plus size={14} />}>Add Vendor</Button>
+          <Button variant="primary" leftIcon={<Plus size={14} />} onClick={() => navigate('/vendors/register')}>
+            Add Vendor
+          </Button>
         </div>
       </div>
 

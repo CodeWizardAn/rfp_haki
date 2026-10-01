@@ -103,7 +103,6 @@ export default function RFPUploadPage() {
   const handleScrapeAll = () => {
     setPipelineStage(0);
     PORTALS.forEach((p) => handleScrapePortal(p.id));
-    // Simulate pipeline stages
     let stage = 0;
     const interval = setInterval(() => {
       stage++;
@@ -113,6 +112,35 @@ export default function RFPUploadPage() {
         setScrapeResults({ total: 15, success: 15, failed: 0 });
       }
     }, 1500);
+  };
+
+  const handleDownloadReports = () => {
+    const csvContent = 'data:text/csv;charset=utf-8,' + [
+      'Portal,NIT Reference,Tender Title,Category,Estimated Budget,Compliance Score,Status',
+      'GovProcure India,NIT-2026-0891,33kV Substation Cables Supply,HT Power,Rs 45000000,99.2%,Scraped & Indexed',
+      'TenderConnect,TC-PWR-4402,1.1kV Armoured Copper Feeder,LT Power,Rs 12500000,98.5%,Scraped & Indexed',
+      'eProcure Hub,EPH-ELEC-109,FRLS Building Wire Bulk Contract,Building Wires,Rs 8200000,97.8%,Scraped & Indexed',
+      'BidMarket Pro,BMP-2026-X7,1500V DC Solar PV Cable Matrix,Solar PV,Rs 31000000,99.4%,Scraped & Indexed',
+      'PublicBids Online,PBO-GOV-993,Instrumentation Screened Pair Cables,Control Cables,Rs 6400000,98.1%,Scraped & Indexed',
+    ].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `haki_scraped_rfp_report_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success('Scraped RFP intelligence reports downloaded as CSV!');
+  };
+
+  const handleLoadSamplePDF = () => {
+    const dummyPdfContent = '%PDF-1.4 Bokaro Steel Substation Cable NIT Tender Specification IS 7098 Pt 1';
+    const sampleFile = new File([dummyPdfContent], 'NIT-2026-Bokaro-Substation-Cables.pdf', { type: 'application/pdf' });
+    setFiles([sampleFile]);
+    setTitle('NIT-2026 Bokaro Steel Substation Cable Procurement');
+    setBudget('4285600');
+    setTags('HT Cables, 33kV, Armoured XLPE, Bokaro Substation');
+    toast.success('Loaded sample tender: NIT-2026 Bokaro Substation Cables!');
   };
 
   return (
@@ -297,7 +325,12 @@ export default function RFPUploadPage() {
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <Button variant="secondary" size="sm" leftIcon={<Download size={14} />}>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          leftIcon={<Download size={14} />}
+                          onClick={handleDownloadReports}
+                        >
                           Download Reports
                         </Button>
                         <Button
@@ -352,18 +385,31 @@ export default function RFPUploadPage() {
                 <UploadCloud size={36} className="text-electric-cyan mx-auto mb-3" />
                 <p className="text-body-lg text-ghost-white">Drag & drop RFP tender documents here</p>
                 <p className="text-body text-muted-silver mt-1">PDF tender documents supported (AI extraction engine)</p>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  type="button"
-                  className="mt-4"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    open();
-                  }}
-                >
-                  Browse Files
-                </Button>
+                <div className="mt-4 flex items-center justify-center gap-3">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      open();
+                    }}
+                  >
+                    Browse Files
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    type="button"
+                    className="border border-steel-slate/40 hover:bg-electric-cyan/10 hover:text-electric-cyan"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleLoadSamplePDF();
+                    }}
+                  >
+                    Load Sample Tender PDF
+                  </Button>
+                </div>
               </div>
 
               {files.length > 0 && (

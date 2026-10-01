@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import {
   Receipt,
   Plus,
@@ -33,6 +34,7 @@ const quotes = [
 const tabs = ['All', 'Pending', 'Received', 'Accepted', 'Expired'];
 
 export default function UserQuotesPage() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('All');
 
@@ -61,7 +63,7 @@ export default function UserQuotesPage() {
           <h1 className="text-2xl font-bold text-ghost-white">Price Quotes</h1>
           <p className="text-body text-muted-silver mt-1">Request and manage vendor price quotations</p>
         </div>
-        <Button variant="primary" leftIcon={<Plus size={16} />}>
+        <Button variant="primary" leftIcon={<Plus size={16} />} onClick={() => navigate('/user/new-request')}>
           Request Quote
         </Button>
       </div>

@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import toast from 'react-hot-toast';
 import {
   Package,
   Search,
@@ -72,10 +73,22 @@ export default function ProductsPage() {
     return mockProducts;
   }, [apiProducts]);
 
+  const [showFilters, setShowFilters] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newSku, setNewSku] = useState('');
+  const [newName, setNewName] = useState('');
+  const [newOem, setNewOem] = useState('Polycab');
+  const [newPrice, setNewPrice] = useState('');
+  const [customProducts, setCustomProducts] = useState<(typeof mockProducts)[0][]>([]);
+
   const totalProducts = (apiProducts as unknown as { total?: number })?.total || 22028;
   const totalPages = (apiProducts as unknown as { total_pages?: number })?.total_pages || 2203;
 
-  const filteredProducts = allProducts.filter((p) => {
+  const combinedProducts = useMemo(() => {
+    return [...customProducts, ...allProducts];
+  }, [customProducts, allProducts]);
+
+  const filteredProducts = combinedProducts.filter((p) => {
     if (activeOem !== 'all' && p.oem.toLowerCase().replace(' ', '') !== activeOem) return false;
     if (searchQuery && !p.name.toLowerCase().includes(searchQuery.toLowerCase()) && !p.sku.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     return true;
@@ -85,6 +98,49 @@ export default function ProductsPage() {
     setCompareList((prev) =>
       prev.includes(sku) ? prev.filter((s) => s !== sku) : prev.length < 5 ? [...prev, sku] : prev,
     );
+
+  const handleExport = () => {
+    const headers = 'SKU,Name,OEM,Size,Cores,Voltage,Type,Price,Unit,Available';
+    const rows = filteredProducts.map((p) =>
+      `"${p.sku}","${p.name}","${p.oem}","${p.size || ''}",${p.cores || ''},"${p.voltage || ''}","${p.type || ''}",Rs ${p.price},"${p.unit || 'm'}",${p.available}`
+    );
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers, ...rows].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `haki_products_catalog_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success(`Exported ${filteredProducts.length} catalog products to CSV!`);
+  };
+
+  const handleCreateProduct = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newSku || !newName || !newPrice) {
+      toast.error('Please enter SKU, name, and price.');
+      return;
+    }
+    const created = {
+      sku: newSku,
+      name: newName,
+      oem: newOem,
+      size: '2.5 sq mm',
+      cores: 3,
+      voltage: '1100V',
+      type: 'LT Power',
+      price: Number(newPrice) || 120,
+      unit: 'm',
+      available: true,
+      rating: 5.0,
+    };
+    setCustomProducts((prev) => [created, ...prev]);
+    setShowAddModal(false);
+    setNewSku('');
+    setNewName('');
+    setNewPrice('');
+    toast.success(`Product ${newSku} added to catalog successfully!`);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -100,10 +156,86 @@ export default function ProductsPage() {
           </div>
         </div>
         <div className="flex gap-2 flex-shrink-0">
-          <Button variant="secondary" leftIcon={<Download size={14} />}>Export</Button>
-          <Button variant="primary" leftIcon={<Plus size={14} />}>Add Product</Button>
+          <Button variant="secondary" leftIcon={<Download size={14} />} onClick={handleExport}>
+            Export
+          </Button>
+          <Button variant="primary" leftIcon={<Plus size={14} />} onClick={() => setShowAddModal(true)}>
+            Add Product
+          </Button>
         </div>
       </div>
+
+      {/* Add Product Modal */}
+      <AnimatePresence>
+        {showAddModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-[#121833] border border-steel-slate/60 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4"
+            >
+              <h3 className="text-lg font-bold text-ghost-white">Add New Product to Catalog</h3>
+              <form onSubmit={handleCreateProduct} className="space-y-3">
+                <div>
+                  <label className="text-xs text-muted-silver block mb-1">Product SKU</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. POL-XLPE-3C-2.5"
+                    value={newSku}
+                    onChange={(e) => setNewSku(e.target.value)}
+                    className="w-full bg-deep-navy px-3 py-2 rounded-lg border border-steel-slate text-sm text-ghost-white focus:outline-none focus:border-electric-cyan"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-muted-silver block mb-1">Product Name</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 3 Core 2.5 sq mm Armoured Copper"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    className="w-full bg-deep-navy px-3 py-2 rounded-lg border border-steel-slate text-sm text-ghost-white focus:outline-none focus:border-electric-cyan"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs text-muted-silver block mb-1">Manufacturer OEM</label>
+                    <select
+                      value={newOem}
+                      onChange={(e) => setNewOem(e.target.value)}
+                      className="w-full bg-deep-navy px-3 py-2 rounded-lg border border-steel-slate text-sm text-ghost-white focus:outline-none focus:border-electric-cyan"
+                    >
+                      <option value="Polycab">Polycab</option>
+                      <option value="Havells">Havells</option>
+                      <option value="Finolex">Finolex</option>
+                      <option value="KEI">KEI</option>
+                      <option value="RR Kabel">RR Kabel</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs text-muted-silver block mb-1">Unit Rate (₹)</label>
+                    <input
+                      type="number"
+                      placeholder="148"
+                      value={newPrice}
+                      onChange={(e) => setNewPrice(e.target.value)}
+                      className="w-full bg-deep-navy px-3 py-2 rounded-lg border border-steel-slate text-sm text-ghost-white focus:outline-none focus:border-electric-cyan"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center justify-end gap-2 pt-3">
+                  <Button variant="ghost" size="sm" type="button" onClick={() => setShowAddModal(false)}>
+                    Cancel
+                  </Button>
+                  <Button variant="primary" size="sm" type="submit">
+                    Save Product
+                  </Button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Search + View Toggle */}
       <div className="flex flex-col sm:flex-row gap-3">
@@ -130,8 +262,34 @@ export default function ProductsPage() {
             <List size={16} />
           </button>
         </div>
-        <Button variant="secondary" leftIcon={<SlidersHorizontal size={14} />}>Filters</Button>
+        <Button
+          variant="secondary"
+          leftIcon={<SlidersHorizontal size={14} />}
+          onClick={() => {
+            setShowFilters(!showFilters);
+            toast(showFilters ? 'Filters hidden' : 'Filters panel expanded', { icon: '🔍' });
+          }}
+        >
+          Filters
+        </Button>
       </div>
+
+      {/* Expandable Filter Strip */}
+      <AnimatePresence>
+        {showFilters && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="p-3 rounded-xl bg-steel-slate/10 border border-steel-slate/20 flex flex-wrap items-center gap-3 text-xs text-muted-silver"
+          >
+            <span>Showing verified active SKUs</span>
+            <span className="text-electric-cyan">• High-voltage & LT certified</span>
+            <span className="text-neon-emerald">• Immediate dispatch ready</span>
+            <span className="ml-auto font-mono text-ghost-white">{filteredProducts.length} items matched</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* OEM Tabs */}
       <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-none">

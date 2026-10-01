@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   Search,
   ArrowRight,
@@ -13,6 +14,9 @@ import {
   UploadCloud,
   FileSpreadsheet,
   Building2,
+  Copy,
+  Download,
+  Sparkles,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores';
 import { HakiLogo } from '@/components/common';
@@ -94,6 +98,36 @@ const SAMPLE_SPECS: SpecSample[] = [
     margin: '+19.4% margin',
     standards: 'TÜV 2 Pfg 1169/08.2007',
   },
+  {
+    query: '3.5 Core 25 sq mm Aluminium XLPE Armoured HT Feeder Cable',
+    matchedSku: 'KEI-XLPE-3.5C-25-AL-HT',
+    brand: 'KEI',
+    category: 'HT Power Cables',
+    conductor: 'Compacted Stranded Aluminium',
+    cores: '3.5 Core',
+    size: '25.0 sq mm',
+    insulation: 'Cross-Linked Polyethylene (XLPE)',
+    voltage: '3.3kV / 11kV Grade',
+    score: 99.2,
+    price: '₹ 188.00 / m',
+    margin: '+20.5% margin',
+    standards: 'IS 7098 (Pt 2), IEC 60502-2',
+  },
+  {
+    query: '2 Pair 1.0 sq mm Shielded Armoured Instrumentation Cable',
+    matchedSku: 'SIE-INST-2P-1.0-SH-ARM',
+    brand: 'Siechem',
+    category: 'Control & Shielded',
+    conductor: 'Tinned Copper Multi-Strand',
+    cores: '2 Pair (4 Core)',
+    size: '1.0 sq mm',
+    insulation: 'FRLS Heavy Duty Outer Sheath',
+    voltage: '300/500V IS 5608',
+    score: 98.1,
+    price: '₹ 86.40 / m',
+    margin: '+24.1% margin',
+    standards: 'BS 5308 Pt 2, IS 5608',
+  },
 ];
 
 const PIPELINE_CARDS = [
@@ -102,40 +136,45 @@ const PIPELINE_CARDS = [
     title: 'Intake & OCR',
     description: 'PyPDF + Tesseract parses complex PDF, scanned images, and Excel BOQs.',
     highlight: false,
+    route: '/rfps/upload',
   },
   {
     step: '02',
     title: 'Normalization',
     description: 'Standardizes voltage (1.1kV vs 1100V), core counts, and AWG to mm².',
     highlight: false,
+    route: '/pipeline',
   },
   {
     step: '03',
     title: 'Vector Search',
     description: 'Dense 384-dim semantic matching queries 22,028 products in under 50ms.',
     highlight: false,
+    route: '/products',
   },
   {
     step: '04',
     title: 'Pricing Engine',
     description: 'Commodity index lookup and automated margin optimizations.',
     highlight: false,
+    route: '/bids',
   },
   {
     step: '05',
     title: 'Commercial Bid',
     description: 'Full compliance matrix and exportable tender response.',
     highlight: true,
+    route: '/bids/builder',
   },
 ];
 
 const CATALOG_MARQUEE_CARDS = [
-  { title: 'LT Power Cables', subtitle: '1.1 kV XLPE & PVC Armoured', count: '7,420 SKUs', brand: 'Polycab / Havells' },
-  { title: 'HT Power Cables', subtitle: '3.3 kV to 33 kV Heavy Duty', count: '4,810 SKUs', brand: 'KEI / Universal' },
-  { title: 'Flexible Multicore', subtitle: 'Industrial Grade Copper', count: '5,140 SKUs', brand: 'Finolex / RR Kabel' },
-  { title: 'Specialty & Solar', subtitle: 'FR-LSH, Fire Survival, PV', count: '4,658 SKUs', brand: 'Polycab / Siechem' },
-  { title: 'Control & Shielded', subtitle: 'Armoured Instrumentation Pairs', count: '3,210 SKUs', brand: 'Havells / KEI' },
-  { title: 'Building Wires', subtitle: 'IS 694 FR / FRLSH Pure Copper', count: '3,980 SKUs', brand: 'Finolex / Polycab' },
+  { title: 'LT Power Cables', subtitle: '1.1 kV XLPE & PVC Armoured', count: '7,420 SKUs', brand: 'Polycab / Havells', query: 'LT Power Cables 1.1kV XLPE' },
+  { title: 'HT Power Cables', subtitle: '3.3 kV to 33 kV Heavy Duty', count: '4,810 SKUs', brand: 'KEI / Universal', query: 'HT Power Cables 11kV' },
+  { title: 'Flexible Multicore', subtitle: 'Industrial Grade Copper', count: '5,140 SKUs', brand: 'Finolex / RR Kabel', query: 'Flexible Multicore Copper 1.5' },
+  { title: 'Specialty & Solar', subtitle: 'FR-LSH, Fire Survival, PV', count: '4,658 SKUs', brand: 'Polycab / Siechem', query: 'Solar PV DC Cable 1500V' },
+  { title: 'Control & Shielded', subtitle: 'Armoured Instrumentation Pairs', count: '3,210 SKUs', brand: 'Havells / KEI', query: 'Shielded Instrumentation Pair' },
+  { title: 'Building Wires', subtitle: 'IS 694 FR / FRLSH Pure Copper', count: '3,980 SKUs', brand: 'Finolex / Polycab', query: 'Building Wires IS 694' },
 ];
 
 export default function LandingPage() {
@@ -144,7 +183,95 @@ export default function LandingPage() {
   const [activeSpecIndex, setActiveSpecIndex] = useState(0);
   const [customSearch, setCustomSearch] = useState('');
 
-  const currentSpec = SAMPLE_SPECS[activeSpecIndex] ?? SAMPLE_SPECS[0]!;
+  // Dynamic real-time spec matching
+  const currentSpec = useMemo(() => {
+    if (!customSearch.trim()) {
+      return SAMPLE_SPECS[activeSpecIndex] ?? SAMPLE_SPECS[0]!;
+    }
+    const q = customSearch.toLowerCase();
+    const found = SAMPLE_SPECS.find(
+      (s) =>
+        s.brand.toLowerCase().includes(q) ||
+        s.query.toLowerCase().includes(q) ||
+        s.size.toLowerCase().includes(q) ||
+        s.category.toLowerCase().includes(q)
+    );
+    if (found) return found;
+
+    const isAlum = q.includes('alum') || q.includes('al');
+    const brand = q.includes('havells')
+      ? 'Havells'
+      : q.includes('kei')
+      ? 'KEI'
+      : q.includes('finolex')
+      ? 'Finolex'
+      : q.includes('rr')
+      ? 'RR Kabel'
+      : q.includes('siechem')
+      ? 'Siechem'
+      : 'Polycab';
+    const cores = q.includes('1 core') || q.includes('single')
+      ? 'Single Core'
+      : q.includes('4 core')
+      ? '4 Core'
+      : q.includes('3.5')
+      ? '3.5 Core'
+      : '3 Core';
+    const size = q.includes('1.5')
+      ? '1.5 sq mm'
+      : q.includes('4')
+      ? '4.0 sq mm'
+      : q.includes('16')
+      ? '16.0 sq mm'
+      : q.includes('10')
+      ? '10.0 sq mm'
+      : q.includes('25')
+      ? '25.0 sq mm'
+      : '2.5 sq mm';
+
+    return {
+      query: customSearch,
+      matchedSku: `${brand.toUpperCase().slice(0, 3)}-${isAlum ? 'AL' : 'CU'}-${cores.replace(/\s+/g, '')}-${size.replace(/[^0-9.]/g, '')}-ARM`,
+      brand,
+      category: isAlum ? 'HT Power Cables' : 'LT Power Cables',
+      conductor: isAlum ? 'Grade EC Stranded Aluminium' : 'Electrolytic Copper (Class 2)',
+      cores,
+      size,
+      insulation: q.includes('pvc') ? 'Heavy Duty PVC (Type A)' : 'Cross-Linked Polyethylene (XLPE)',
+      voltage: q.includes('33') ? '33kV Heavy Duty' : q.includes('11') ? '11kV (IS 7098 Pt 2)' : '1100V (IS 7098 Pt 1)',
+      score: 98.4,
+      price: isAlum ? '₹ 92.50 / m' : '₹ 156.20 / m',
+      margin: '+17.8% margin',
+      standards: 'IS 7098 (Pt 1), IS 8130, IEC 60502',
+    };
+  }, [customSearch, activeSpecIndex]);
+
+  const handleCopySpec = () => {
+    const text = `SKU: ${currentSpec.matchedSku} | Brand: ${currentSpec.brand} | Spec: ${currentSpec.size} ${currentSpec.cores} ${currentSpec.conductor} | Voltage: ${currentSpec.voltage} | Rate: ${currentSpec.price} (${currentSpec.margin}) | Standards: ${currentSpec.standards}`;
+    navigator.clipboard.writeText(text);
+    toast.success(`Copied ${currentSpec.matchedSku} specifications to clipboard!`);
+  };
+
+  const handleDownloadBOQ = () => {
+    const csvContent = `data:text/csv;charset=utf-8,Item,SKU,Brand,Specification,Voltage,Standards,MatchScore,UnitRate,Margin\n1,"${currentSpec.matchedSku}","${currentSpec.brand}","${currentSpec.size} ${currentSpec.cores} ${currentSpec.conductor} ${currentSpec.insulation}","${currentSpec.voltage}","${currentSpec.standards}",${currentSpec.score}%,"${currentSpec.price}","${currentSpec.margin}"`;
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `haki_boq_spec_${currentSpec.matchedSku.toLowerCase()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success(`Downloaded BOQ line item for ${currentSpec.matchedSku}!`);
+  };
+
+  const handleSelectCategory = (cat: (typeof CATALOG_MARQUEE_CARDS)[0]) => {
+    setCustomSearch(cat.query);
+    const elem = document.getElementById('matcher');
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth' });
+    }
+    toast.success(`Filtered spec engine for ${cat.title}`);
+  };
 
   return (
     <div className="min-h-screen bg-faded-grid text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 relative overflow-x-hidden">
@@ -339,6 +466,50 @@ export default function LandingPage() {
             <p className="text-base sm:text-lg md:text-[1.2rem] font-normal text-slate-600 font-['Outfit',sans-serif] leading-relaxed tracking-[-0.01em] max-w-2xl">
               Transform complex tender documentation into compliant, competitive bids. Autonomous specification extraction, multi-OEM catalog matching, and instant commercial pricing.
             </p>
+
+            {/* Primary Action Buttons */}
+            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
+              <Link
+                to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? '/rfps/upload' : '/user/rfp-analyzer') : '/login?redirect=/rfps/upload'}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
+              >
+                <UploadCloud size={17} />
+                <span>Start RFP Processing</span>
+                <ArrowRight size={15} />
+              </Link>
+
+              <a
+                href="#matcher"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-semibold text-sm border border-slate-200 hover:border-slate-300 transition-all shadow-sm active:scale-[0.98]"
+              >
+                <Search size={16} className="text-[#2563EB]" />
+                <span>Test Live Spec Matcher</span>
+              </a>
+
+              <Link
+                to={isAuthenticated ? (user?.role === 'admin' ? '/products' : '/user/products') : '/login?redirect=/products'}
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-slate-600 hover:text-slate-900 font-semibold text-sm transition-colors"
+              >
+                <FileSpreadsheet size={16} />
+                <span>22K+ Catalog</span>
+              </Link>
+            </div>
+
+            {/* Micro trust indicators */}
+            <div className="mt-5 flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-slate-500 font-medium">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 size={13} className="text-emerald-600" />
+                22,028 Verified Electrical SKUs
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 size={13} className="text-emerald-600" />
+                Sub-50ms Vector Similarity
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 size={13} className="text-emerald-600" />
+                0-Error Compliance Engine
+              </span>
+            </div>
           </div>
 
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end relative mt-6 lg:mt-0 lg:pt-2">
@@ -377,7 +548,7 @@ export default function LandingPage() {
           </div>
           <div className="flex-shrink-0 w-full sm:w-auto">
             <Link
-              to="/login"
+              to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? '/rfps/upload' : '/user/rfp-analyzer') : '/login?redirect=/rfps/upload'}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#1D4ED8] hover:bg-[#1E40AF] text-white font-semibold text-sm transition-all shadow-sm hover:shadow-md"
             >
               Start RFP Processing
@@ -408,12 +579,13 @@ export default function LandingPage() {
             <div className="animate-marquee flex gap-4 sm:gap-6 py-2">
               {/* First Set of Pipeline Cards */}
               {PIPELINE_CARDS.map((card, idx) => (
-                <div
+                <Link
                   key={`pipe-1-${idx}`}
-                  className={`w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between ${
+                  to={isAuthenticated ? card.route : `/login?redirect=${encodeURIComponent(card.route)}`}
+                  className={`w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between group hover:shadow-lg hover:-translate-y-0.5 ${
                     card.highlight
-                      ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
-                      : 'bg-white border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)]'
+                      ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm hover:border-blue-400'
+                      : 'bg-white border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-slate-300'
                   }`}
                 >
                   <div>
@@ -421,21 +593,24 @@ export default function LandingPage() {
                       <span className="text-xs font-extrabold text-[#2563EB] font-mono tracking-wider">
                         STAGE {card.step}
                       </span>
-                      <span className="w-2.5 h-2.5 rounded-full bg-blue-500/30"></span>
+                      <span className="text-xs font-semibold text-slate-400 group-hover:text-blue-600 transition-colors flex items-center gap-1">
+                        Open Stage ↗
+                      </span>
                     </div>
-                    <h4 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight">{card.title}</h4>
+                    <h4 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight group-hover:text-blue-700 transition-colors">{card.title}</h4>
                   </div>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3 sm:line-clamp-none">{card.description}</p>
-                </div>
+                </Link>
               ))}
               {/* Duplicated Set for Gapless Infinite Right-to-Left Scroll */}
               {PIPELINE_CARDS.map((card, idx) => (
-                <div
+                <Link
                   key={`pipe-2-${idx}`}
-                  className={`w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between ${
+                  to={isAuthenticated ? card.route : `/login?redirect=${encodeURIComponent(card.route)}`}
+                  className={`w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between group hover:shadow-lg hover:-translate-y-0.5 ${
                     card.highlight
-                      ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm'
-                      : 'bg-white border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)]'
+                      ? 'bg-[#EFF6FF] border-[#BFDBFE] shadow-sm hover:border-blue-400'
+                      : 'bg-white border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-slate-300'
                   }`}
                 >
                   <div>
@@ -443,12 +618,14 @@ export default function LandingPage() {
                       <span className="text-xs font-extrabold text-[#2563EB] font-mono tracking-wider">
                         STAGE {card.step}
                       </span>
-                      <span className="w-2.5 h-2.5 rounded-full bg-blue-500/30"></span>
+                      <span className="text-xs font-semibold text-slate-400 group-hover:text-blue-600 transition-colors flex items-center gap-1">
+                        Open Stage ↗
+                      </span>
                     </div>
-                    <h4 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight">{card.title}</h4>
+                    <h4 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight group-hover:text-blue-700 transition-colors">{card.title}</h4>
                   </div>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3 sm:line-clamp-none">{card.description}</p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -472,9 +649,10 @@ export default function LandingPage() {
           <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)] sm:[mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
             <div className="animate-marquee-slow flex gap-4 sm:gap-6 py-2">
               {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
-                <div
+                <button
                   key={`cat-1-${idx}`}
-                  className="w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between"
+                  onClick={() => handleSelectCategory(cat)}
+                  className="w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between text-left transition-all group hover:shadow-lg hover:border-blue-400 hover:-translate-y-0.5 cursor-pointer"
                 >
                   <div>
                     <div className="flex items-center justify-between">
@@ -483,16 +661,20 @@ export default function LandingPage() {
                         {cat.count}
                       </span>
                     </div>
-                    <h5 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight">{cat.title}</h5>
+                    <h5 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight group-hover:text-blue-700 transition-colors flex items-center justify-between">
+                      <span>{cat.title}</span>
+                      <span className="text-xs font-semibold text-slate-400 group-hover:text-blue-600 transition-colors">Test ↗</span>
+                    </h5>
                   </div>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3 sm:line-clamp-none">{cat.subtitle}</p>
-                </div>
+                </button>
               ))}
               {/* Duplicate Set for Gapless Infinite Scroll */}
               {CATALOG_MARQUEE_CARDS.map((cat, idx) => (
-                <div
+                <button
                   key={`cat-2-${idx}`}
-                  className="w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between"
+                  onClick={() => handleSelectCategory(cat)}
+                  className="w-[285px] sm:w-[350px] md:w-[420px] h-[190px] sm:h-[220px] flex-shrink-0 p-5 sm:p-8 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between text-left transition-all group hover:shadow-lg hover:border-blue-400 hover:-translate-y-0.5 cursor-pointer"
                 >
                   <div>
                     <div className="flex items-center justify-between">
@@ -501,10 +683,13 @@ export default function LandingPage() {
                         {cat.count}
                       </span>
                     </div>
-                    <h5 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight">{cat.title}</h5>
+                    <h5 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-2 tracking-tight group-hover:text-blue-700 transition-colors flex items-center justify-between">
+                      <span>{cat.title}</span>
+                      <span className="text-xs font-semibold text-slate-400 group-hover:text-blue-600 transition-colors">Test ↗</span>
+                    </h5>
                   </div>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3 sm:line-clamp-none">{cat.subtitle}</p>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -622,7 +807,7 @@ export default function LandingPage() {
             </p>
             <div className="pt-2">
               <Link
-                to="/login"
+                to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? '/rfps/upload' : '/user/rfp-analyzer') : '/login?redirect=/rfps/upload'}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
               >
                 Upload sample tender PDF →
@@ -652,7 +837,7 @@ export default function LandingPage() {
             </p>
             <div className="pt-2">
               <Link
-                to="/products"
+                to={isAuthenticated ? (user?.role === 'admin' ? '/products' : '/user/products') : '/login?redirect=/products'}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
               >
                 Search all 22,028 catalog products →
@@ -813,7 +998,7 @@ export default function LandingPage() {
             </p>
             <div className="pt-2">
               <Link
-                to="/bids"
+                to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? '/bids/builder' : '/user/bids') : '/login?redirect=/bids/builder'}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
               >
                 Open bid margin builder →
@@ -846,7 +1031,7 @@ export default function LandingPage() {
                 setActiveSpecIndex(idx);
                 setCustomSearch('');
               }}
-              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs md:text-sm font-medium transition-all ${
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs md:text-sm font-medium transition-all cursor-pointer ${
                 activeSpecIndex === idx && !customSearch
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-300'
@@ -919,7 +1104,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right Pricing & Quick CTA */}
+            {/* Right Pricing & Quick Actions */}
             <div className="lg:col-span-4 bg-white rounded-xl p-4 sm:p-5 border border-slate-200 flex flex-col justify-between mt-2 lg:mt-0">
               <div>
                 <span className="text-[11px] sm:text-xs uppercase tracking-wider text-slate-500 font-semibold">
@@ -937,14 +1122,35 @@ export default function LandingPage() {
                 </p>
               </div>
 
-              <div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100">
+              <div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100 space-y-2">
                 <Link
-                  to="/login"
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs sm:text-sm transition-colors shadow-sm"
+                  to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? `/bids/builder?spec=${encodeURIComponent(currentSpec.matchedSku)}` : `/user/bid-generator?spec=${encodeURIComponent(currentSpec.matchedSku)}`) : `/login?redirect=${encodeURIComponent('/bids/builder?spec=' + currentSpec.matchedSku)}`}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs sm:text-sm transition-colors shadow-sm"
                 >
+                  <Sparkles size={14} />
                   Generate Tender Proposal
                   <ArrowRight size={14} />
                 </Link>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={handleCopySpec}
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
+                  >
+                    <Copy size={13} />
+                    Copy Specs
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleDownloadBOQ}
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
+                  >
+                    <Download size={13} />
+                    Download BOQ
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -964,14 +1170,14 @@ export default function LandingPage() {
           </div>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto flex-shrink-0">
             <Link
-              to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? '/rfps/upload' : '/user/rfp-analyzer') : '/login?redirect=/user/rfp-analyzer'}
+              to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? '/rfps/upload' : '/user/rfp-analyzer') : '/login?redirect=/rfps/upload'}
               className="w-full sm:w-auto justify-center px-6 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm transition-all shadow-md flex items-center gap-2"
             >
               <UploadCloud size={16} />
               Upload RFP Document
             </Link>
             <Link
-              to="/products"
+              to={isAuthenticated ? (user?.role === 'admin' ? '/products' : '/user/products') : '/login?redirect=/products'}
               className="w-full sm:w-auto justify-center px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700 flex items-center gap-2"
             >
               <FileSpreadsheet size={16} />
@@ -996,7 +1202,7 @@ export default function LandingPage() {
             <a href="#snapshots" className="hover:text-slate-900 transition-colors">
               Modules
             </a>
-            <Link to="/vendors" className="hover:text-slate-900 transition-colors">
+            <Link to={isAuthenticated ? '/vendors' : '/login?redirect=/vendors'} className="hover:text-slate-900 transition-colors">
               Vendors
             </Link>
           </div>

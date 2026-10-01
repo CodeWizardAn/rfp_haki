@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   ArrowLeft,
   FileText,
@@ -92,6 +93,22 @@ export default function BidDocumentPreviewPage() {
   const gstTotal = pricingItems.reduce((s, i) => s + i.qty * i.rate * (i.gst / 100), 0);
   const grandTotal = subtotal + gstTotal;
 
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleEmail = () => {
+    window.open('mailto:?subject=Bid Proposal BID-2026-001 (LT Power Cables)&body=Attached is the commercial bid proposal generated via HAKI procurement engine.');
+    toast.success('Email draft opened in your mail client!');
+  };
+
+  const handleExportPDF = () => {
+    toast.loading('Preparing PDF document for BID-2026-001...', { duration: 1500 });
+    setTimeout(() => {
+      window.print();
+    }, 800);
+  };
+
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
       {/* Header */}
@@ -106,9 +123,15 @@ export default function BidDocumentPreviewPage() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="secondary" leftIcon={<Printer size={14} />}>Print</Button>
-          <Button variant="secondary" leftIcon={<Mail size={14} />}>Email</Button>
-          <Button leftIcon={<Download size={14} />}>Export PDF</Button>
+          <Button variant="secondary" leftIcon={<Printer size={14} />} onClick={handlePrint}>
+            Print
+          </Button>
+          <Button variant="secondary" leftIcon={<Mail size={14} />} onClick={handleEmail}>
+            Email
+          </Button>
+          <Button leftIcon={<Download size={14} />} onClick={handleExportPDF}>
+            Export PDF
+          </Button>
         </div>
       </div>
 

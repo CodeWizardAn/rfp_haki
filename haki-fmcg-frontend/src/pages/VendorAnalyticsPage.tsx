@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   AreaChart,
   Area,
@@ -93,6 +94,24 @@ const kpis = [
 export default function VendorAnalyticsPage() {
   const [range, setRange] = useState('6m');
 
+  const handleExport = () => {
+    const csvContent = 'data:text/csv;charset=utf-8,' + [
+      'Month,Havells,Finolex,Polycab,KEI,RR Kabel',
+      ...performanceTrend.map((p) => `${p.month},${p.havells},${p.finolex},${p.polycab},${p.kei},${p.rr}`),
+      '',
+      'Category,Top Vendor,Score',
+      ...topByCategory.map((t) => `"${t.category}","${t.vendor}",${t.score}`),
+    ].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `haki_vendor_analytics_${range}_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success('Exported vendor analytics dataset to CSV!');
+  };
+
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
       {/* Header */}
@@ -114,7 +133,9 @@ export default function VendorAnalyticsPage() {
               </button>
             ))}
           </div>
-          <Button variant="secondary" leftIcon={<Download size={14} />}>Export</Button>
+          <Button variant="secondary" leftIcon={<Download size={14} />} onClick={handleExport}>
+            Export
+          </Button>
         </div>
       </div>
 

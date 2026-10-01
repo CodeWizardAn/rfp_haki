@@ -72,7 +72,7 @@ export default function UserRequestsPage() {
           <h1 className="text-2xl font-bold text-ghost-white">My Requests</h1>
           <p className="text-body text-muted-silver mt-1">Manage your procurement requests and track their progress</p>
         </div>
-        <Link to="/user/requests/new">
+        <Link to="/user/new-request">
           <Button variant="primary" leftIcon={<Plus size={16} />}>
             New Request
           </Button>
@@ -206,7 +206,7 @@ export default function UserRequestsPage() {
           <Card className="flex flex-col items-center justify-center py-12">
             <FileText size={40} className="text-muted-silver/30 mb-3" />
             <p className="text-sm text-muted-silver">No requests found</p>
-            <Link to="/user/requests/new">
+            <Link to="/user/new-request">
               <Button variant="primary" size="sm" className="mt-3" leftIcon={<Plus size={14} />}>
                 Create Request
               </Button>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   ArrowLeft,
   Building2,
@@ -107,7 +108,26 @@ export default function VendorProfilePage() {
   const { vendorId } = useParams();
   const [activeTab, setActiveTab] = useState<TabId>('performance');
   const v = mockVendor;
+  const [vendorRating, setVendorRating] = useState(v.rating);
+  const [ratingModal, setRatingModal] = useState(false);
+  const [selectedStars, setSelectedStars] = useState(5);
+  const [isEditing, setIsEditing] = useState(false);
+  const [contactEmail, setContactEmail] = useState(v.email);
+  const [contactPhone, setContactPhone] = useState(v.phone);
+
   const winRate = Math.round((v.metrics.bidsWon / v.metrics.bidsTotal) * 100);
+
+  const handleSaveContact = () => {
+    setIsEditing(false);
+    toast.success('Vendor contact details updated successfully!');
+  };
+
+  const handleRateSubmit = () => {
+    const updated = Number(((vendorRating * 4 + selectedStars) / 5).toFixed(1));
+    setVendorRating(updated);
+    setRatingModal(false);
+    toast.success(`Rating submitted! Vendor rating updated to ${updated} ★`);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -130,14 +150,103 @@ export default function VendorProfilePage() {
             <div className="flex items-center gap-3 text-xs text-muted-silver">
               <span className="font-mono">{vendorId || v.id}</span>
               <span className="flex items-center gap-1"><MapPin size={10} />{v.address.split(',').slice(-2).join(',')}</span>
+              <span className="flex items-center gap-1 text-amber-glow font-semibold"><Star size={11} className="fill-amber-glow" />{vendorRating}</span>
             </div>
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="secondary" leftIcon={<Edit3 size={14} />}>Edit</Button>
-          <Button variant="primary" leftIcon={<Star size={14} />}>Rate Vendor</Button>
+          <Button
+            variant="secondary"
+            leftIcon={<Edit3 size={14} />}
+            onClick={() => setIsEditing(!isEditing)}
+          >
+            {isEditing ? 'Cancel Edit' : 'Edit Contact'}
+          </Button>
+          <Button
+            variant="primary"
+            leftIcon={<Star size={14} />}
+            onClick={() => setRatingModal(true)}
+          >
+            Rate Vendor
+          </Button>
         </div>
       </div>
+
+      {/* Quick Edit Contact Bar if Active */}
+      <AnimatePresence>
+        {isEditing && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="p-4 rounded-xl bg-electric-cyan/10 border border-electric-cyan/30 flex flex-wrap items-center justify-between gap-3"
+          >
+            <div className="flex flex-wrap items-center gap-4 flex-1">
+              <div>
+                <label className="text-xs text-muted-silver block mb-1">Email</label>
+                <input
+                  type="email"
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                  className="bg-deep-navy px-3 py-1.5 rounded-lg border border-steel-slate text-sm text-ghost-white"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-silver block mb-1">Phone</label>
+                <input
+                  type="text"
+                  value={contactPhone}
+                  onChange={(e) => setContactPhone(e.target.value)}
+                  className="bg-deep-navy px-3 py-1.5 rounded-lg border border-steel-slate text-sm text-ghost-white"
+                />
+              </div>
+            </div>
+            <Button variant="primary" size="sm" onClick={handleSaveContact}>
+              Save Contact
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Rate Vendor Modal */}
+      <AnimatePresence>
+        {ratingModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-[#121833] border border-steel-slate/60 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4"
+            >
+              <h3 className="text-lg font-bold text-ghost-white">Rate {v.name}</h3>
+              <p className="text-xs text-muted-silver">Submit your performance and delivery rating for this vendor.</p>
+              <div className="flex items-center justify-center gap-2 py-4">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    onClick={() => setSelectedStars(star)}
+                    className="p-2 transition-transform hover:scale-125 focus:outline-none"
+                  >
+                    <Star
+                      size={28}
+                      className={star <= selectedStars ? 'text-amber-glow fill-amber-glow' : 'text-steel-slate'}
+                    />
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center justify-end gap-2 pt-2">
+                <Button variant="ghost" size="sm" onClick={() => setRatingModal(false)}>
+                  Cancel
+                </Button>
+                <Button variant="primary" size="sm" onClick={handleRateSubmit}>
+                  Submit Rating
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Top Row: Info + Score */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

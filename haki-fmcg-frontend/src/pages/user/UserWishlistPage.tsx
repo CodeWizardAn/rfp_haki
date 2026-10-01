@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   Heart,
   Trash2,
@@ -20,10 +21,27 @@ const wishlistItems = [
 ];
 
 export default function UserWishlistPage() {
+  const navigate = useNavigate();
   const [items, setItems] = useState(wishlistItems);
 
   const removeItem = (id: number) => {
     setItems(items.filter((item) => item.id !== id));
+    toast.success('Removed item from wishlist');
+  };
+
+  const handleQuoteAll = () => {
+    toast.success(`Prepared quotation request for all ${items.length} items!`);
+    navigate('/user/new-request', { state: { prefilledItems: items.map((i) => i.name) } });
+  };
+
+  const handleAddAllToRequest = () => {
+    toast.success(`Added ${items.length} items to new procurement request!`);
+    navigate('/user/new-request', { state: { prefilledItems: items.map((i) => i.name) } });
+  };
+
+  const handleQuoteItem = (item: typeof wishlistItems[0]) => {
+    toast.success(`Requesting quote for ${item.name}`);
+    navigate('/user/new-request', { state: { prefilledTitle: `Quote: ${item.name}`, prefilledBrand: item.brand } });
   };
 
   return (
@@ -35,10 +53,20 @@ export default function UserWishlistPage() {
         </div>
         {items.length > 0 && (
           <div className="flex gap-2">
-            <Button variant="secondary" size="sm" leftIcon={<Receipt size={16} />}>
+            <Button
+              variant="secondary"
+              size="sm"
+              leftIcon={<Receipt size={16} />}
+              onClick={handleQuoteAll}
+            >
               Quote All
             </Button>
-            <Button variant="primary" size="sm" leftIcon={<ShoppingCart size={16} />}>
+            <Button
+              variant="primary"
+              size="sm"
+              leftIcon={<ShoppingCart size={16} />}
+              onClick={handleAddAllToRequest}
+            >
               Add All to Request
             </Button>
           </div>
@@ -95,7 +123,14 @@ export default function UserWishlistPage() {
                       <p className="text-[10px] text-muted-silver">{item.unit}</p>
                     </div>
                     <div className="flex flex-col gap-1">
-                      <Button variant="secondary" size="xs" leftIcon={<Receipt size={12} />}>Quote</Button>
+                      <Button
+                        variant="secondary"
+                        size="xs"
+                        leftIcon={<Receipt size={12} />}
+                        onClick={() => handleQuoteItem(item)}
+                      >
+                        Quote
+                      </Button>
                       <button
                         onClick={() => removeItem(item.id)}
                         className="p-1.5 rounded-lg text-muted-silver hover:text-coral-flame hover:bg-coral-flame/10 transition-colors text-center"

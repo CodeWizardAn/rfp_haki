@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 import {
   User,
   Mail,
@@ -34,6 +35,7 @@ export default function UserProfilePage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPasswords, setShowPasswords] = useState(false);
+  const [revokedSession, setRevokedSession] = useState(false);
 
   // Preferences
   const [emailNotifs, setEmailNotifs] = useState(true);
@@ -42,6 +44,38 @@ export default function UserProfilePage() {
   const [deadlineReminders, setDeadlineReminders] = useState(true);
   const [priceAlerts, setPriceAlerts] = useState(false);
   const [weeklyDigest, setWeeklyDigest] = useState(true);
+
+  const handleSaveProfile = () => {
+    toast.success('Profile details saved successfully!');
+  };
+
+  const handleUpdatePassword = () => {
+    if (!currentPassword) {
+      toast.error('Please enter your current password.');
+      return;
+    }
+    if (!newPassword || newPassword.length < 6) {
+      toast.error('New password must be at least 6 characters.');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      toast.error('Passwords do not match.');
+      return;
+    }
+    toast.success('Password updated successfully!');
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+  };
+
+  const handleRevokeSession = () => {
+    setRevokedSession(true);
+    toast.success('macOS Safari session revoked successfully.');
+  };
+
+  const handleSavePreferences = () => {
+    toast.success('Notification preferences updated successfully!');
+  };
 
   const sections = [
     { id: 'profile' as const, label: 'Profile', icon: <User size={16} /> },
@@ -155,7 +189,7 @@ export default function UserProfilePage() {
                   />
                 </div>
                 <div className="flex justify-end">
-                  <Button variant="primary" leftIcon={<Save size={16} />}>
+                  <Button variant="primary" leftIcon={<Save size={16} />} onClick={handleSaveProfile}>
                     Save Changes
                   </Button>
                 </div>
@@ -197,7 +231,7 @@ export default function UserProfilePage() {
                   error={confirmPassword && newPassword !== confirmPassword ? 'Passwords do not match' : undefined}
                 />
                 <div className="flex justify-end pt-2">
-                  <Button variant="primary" leftIcon={<Shield size={16} />}>
+                  <Button variant="primary" leftIcon={<Shield size={16} />} onClick={handleUpdatePassword}>
                     Update Password
                   </Button>
                 </div>
@@ -213,13 +247,20 @@ export default function UserProfilePage() {
                     </div>
                     <span className="text-[10px] text-neon-emerald">Active now</span>
                   </div>
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-steel-slate/10">
-                    <div>
-                      <p className="text-sm text-ghost-white">macOS — Safari</p>
-                      <p className="text-[10px] text-muted-silver">Mumbai, India · 2 days ago</p>
+                  {!revokedSession ? (
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-steel-slate/10">
+                      <div>
+                        <p className="text-sm text-ghost-white">macOS — Safari</p>
+                        <p className="text-[10px] text-muted-silver">Mumbai, India · 2 days ago</p>
+                      </div>
+                      <Button variant="ghost" size="xs" onClick={handleRevokeSession}>Revoke</Button>
                     </div>
-                    <Button variant="ghost" size="xs">Revoke</Button>
-                  </div>
+                  ) : (
+                    <div className="p-2.5 rounded-lg bg-coral-flame/10 border border-coral-flame/20 text-xs text-coral-flame flex items-center justify-between">
+                      <span>macOS Safari session revoked</span>
+                      <span className="text-[10px] text-muted-silver">Disconnected</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </Card>
@@ -255,7 +296,7 @@ export default function UserProfilePage() {
                   </div>
                 ))}
                 <div className="flex justify-end pt-4 border-t border-steel-slate/20">
-                  <Button variant="primary" leftIcon={<Save size={16} />}>
+                  <Button variant="primary" leftIcon={<Save size={16} />} onClick={handleSavePreferences}>
                     Save Preferences
                   </Button>
                 </div>
