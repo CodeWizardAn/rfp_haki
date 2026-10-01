@@ -54,7 +54,7 @@ const ALL_EVENTS = [
 
 const initialWebhooks: WebhookConfig[] = [
   {
-    id: 'wh-001', name: 'ERP Integration', url: 'https://erp.hakifmcg.com/webhooks/procurement',
+    id: 'wh-001', name: 'ERP Integration', url: 'https://erp.haki.com/webhooks/procurement',
     events: ['rfp.created', 'bid.approved', 'pipeline.completed'],
     secret: 'whsec_abc123def456', active: true,
     lastDelivery: '2 min ago', lastStatus: 'success', failCount: 0, createdAt: '2024-01-15',
@@ -66,7 +66,7 @@ const initialWebhooks: WebhookConfig[] = [
     lastDelivery: '15 min ago', lastStatus: 'success', failCount: 0, createdAt: '2024-02-10',
   },
   {
-    id: 'wh-003', name: 'Vendor Portal Sync', url: 'https://vendors.hakifmcg.com/api/sync',
+    id: 'wh-003', name: 'Vendor Portal Sync', url: 'https://vendors.haki.com/api/sync',
     events: ['vendor.registered', 'vendor.compliance_updated'],
     secret: 'whsec_mno345pqr678', active: false,
     lastDelivery: '3 days ago', lastStatus: 'failed', failCount: 5, createdAt: '2024-03-01',

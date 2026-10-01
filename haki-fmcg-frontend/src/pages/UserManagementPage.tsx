@@ -57,12 +57,12 @@ const permissions = [
 ];
 
 const initialUsers: User[] = [
-  { id: 'usr-001', name: 'Rajesh Kumar', email: 'rajesh.kumar@hakifmcg.com', role: 'Admin', active: true, lastLogin: '5 min ago', createdAt: '2023-06-15', sessions: 2 },
-  { id: 'usr-002', name: 'Priya Sharma', email: 'priya.sharma@hakifmcg.com', role: 'Manager', active: true, lastLogin: '1 hr ago', createdAt: '2023-08-22', sessions: 1 },
-  { id: 'usr-003', name: 'Amit Patel', email: 'amit.patel@hakifmcg.com', role: 'Analyst', active: true, lastLogin: '30 min ago', createdAt: '2023-09-10', sessions: 1 },
-  { id: 'usr-004', name: 'Neha Gupta', email: 'neha.gupta@hakifmcg.com', role: 'Analyst', active: true, lastLogin: '2 hr ago', createdAt: '2023-11-05', sessions: 0 },
-  { id: 'usr-005', name: 'Vikram Singh', email: 'vikram.singh@hakifmcg.com', role: 'Viewer', active: false, lastLogin: '3 days ago', createdAt: '2024-01-12', sessions: 0 },
-  { id: 'usr-006', name: 'Ananya Desai', email: 'ananya.desai@hakifmcg.com', role: 'Manager', active: true, lastLogin: '4 hr ago', createdAt: '2024-02-20', sessions: 1 },
+  { id: 'usr-001', name: 'Rajesh Kumar', email: 'rajesh.kumar@haki.com', role: 'Admin', active: true, lastLogin: '5 min ago', createdAt: '2023-06-15', sessions: 2 },
+  { id: 'usr-002', name: 'Priya Sharma', email: 'priya.sharma@haki.com', role: 'Manager', active: true, lastLogin: '1 hr ago', createdAt: '2023-08-22', sessions: 1 },
+  { id: 'usr-003', name: 'Amit Patel', email: 'amit.patel@haki.com', role: 'Analyst', active: true, lastLogin: '30 min ago', createdAt: '2023-09-10', sessions: 1 },
+  { id: 'usr-004', name: 'Neha Gupta', email: 'neha.gupta@haki.com', role: 'Analyst', active: true, lastLogin: '2 hr ago', createdAt: '2023-11-05', sessions: 0 },
+  { id: 'usr-005', name: 'Vikram Singh', email: 'vikram.singh@haki.com', role: 'Viewer', active: false, lastLogin: '3 days ago', createdAt: '2024-01-12', sessions: 0 },
+  { id: 'usr-006', name: 'Ananya Desai', email: 'ananya.desai@haki.com', role: 'Manager', active: true, lastLogin: '4 hr ago', createdAt: '2024-02-20', sessions: 1 },
 ];
 
 export default function UserManagementPage() {
@@ -199,7 +199,7 @@ export default function UserManagementPage() {
                 </div>
                 <div>
                   <label className="text-xs text-muted-silver block mb-1">Email</label>
-                  <input value={formEmail} onChange={(e) => setFormEmail(e.target.value)} placeholder="john@hakifmcg.com" className="glass-input w-full rounded-lg px-3 py-2 text-sm text-ghost-white" />
+                  <input value={formEmail} onChange={(e) => setFormEmail(e.target.value)} placeholder="john@haki.com" className="glass-input w-full rounded-lg px-3 py-2 text-sm text-ghost-white" />
                 </div>
                 <div>
                   <label className="text-xs text-muted-silver block mb-1">Role</label>

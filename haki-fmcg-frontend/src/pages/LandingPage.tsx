@@ -1,11 +1,10 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   Search,
   ArrowRight,
   CheckCircle2,
-  ExternalLink,
-  ChevronDown,
   Menu,
   X,
   FileCheck,
@@ -149,7 +148,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-faded-grid text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 relative overflow-x-hidden">
-      {/* ── Fixed Top Navbar (HAKI | FMCG 2.0) ── */}
+      {/* ── Fixed Top Navbar (Haki) ── */}
       <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-black/[0.06]">
         <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
           {/* Brand Logo */}
@@ -174,15 +173,6 @@ export default function LandingPage() {
             <Link to="/vendors" className="hover:text-slate-900 transition-colors">
               Vendors
             </Link>
-            <a
-              href="http://localhost:8000/api/v1/docs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-slate-900 transition-colors flex items-center gap-1"
-            >
-              API Docs
-              <ExternalLink size={12} className="text-slate-400" />
-            </a>
           </nav>
 
           {/* Right Action Buttons */}
@@ -280,7 +270,7 @@ export default function LandingPage() {
       <section className="pt-32 pb-16 px-6 max-w-7xl mx-auto">
         <div className="mb-6">
           <span className="text-[#2563EB] text-[11px] font-bold tracking-[0.2em] uppercase font-mono">
-            THE AI PROCUREMENT & TENDER ENGINE FOR FMCG & ELECTRICALS
+            THE AI PROCUREMENT & TENDER ENGINE FOR ELECTRICALS & INDUSTRIAL GOODS
           </span>
         </div>
 
@@ -293,26 +283,21 @@ export default function LandingPage() {
             </h1>
           </div>
 
-          <div className="lg:col-span-5 flex flex-col justify-end space-y-5">
-            <p className="text-slate-600 text-base md:text-lg leading-relaxed font-normal">
-              HAKI FMCG transforms complex industrial procurement across 22,000+ catalog products, automated multi-page OCR parsing, LangChain agent reasoning, and real-time margin benchmarking.
-            </p>
-            <div className="flex flex-wrap items-center gap-6 pt-1">
-              <a
-                href="#snapshots"
-                className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1.5 group"
-              >
-                Explore platform modules
-                <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-              </a>
-              <a
-                href="#matcher"
-                className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1.5 group"
-              >
-                Interactive spec matcher
-                <ChevronDown size={14} className="group-hover:translate-y-0.5 transition-transform" />
-              </a>
-            </div>
+          <div className="lg:col-span-5 flex items-center justify-center lg:justify-end relative">
+            {/* Ambient soft glow behind robot */}
+            <div className="absolute w-64 h-64 sm:w-72 sm:h-72 rounded-full bg-gradient-to-tr from-blue-400/20 via-cyan-300/15 to-transparent blur-3xl pointer-events-none" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 flex flex-col items-center select-none"
+            >
+              <img
+                src="/haki-mascot.png"
+                alt="Haki AI Mascot"
+                className="w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_20px_35px_rgba(37,99,235,0.18)] transition-transform duration-500 hover:scale-105"
+              />
+            </motion.div>
           </div>
         </div>
 
@@ -932,10 +917,6 @@ export default function LandingPage() {
             <Link to="/vendors" className="hover:text-slate-900 transition-colors">
               Vendors
             </Link>
-            <a href="http://localhost:8000/api/v1/docs" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors flex items-center gap-1">
-              API Docs
-              <ExternalLink size={11} />
-            </a>
           </div>
 
           <div className="flex items-center gap-2">

@@ -1,5 +1,5 @@
 // ============================================
-// HAKI FMCG 2.0 — TypeScript Type Definitions
+// Haki — TypeScript Type Definitions
 // Matching backend database/models.py
 // ============================================
 

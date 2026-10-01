@@ -49,9 +49,6 @@ export default function RFPUploadPage() {
     noClick: false,
     accept: {
       'application/pdf': ['.pdf'],
-      'application/msword': ['.doc'],
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
     },
   });
 
@@ -61,6 +58,10 @@ export default function RFPUploadPage() {
       return;
     }
     const file = files[0];
+    if (!file) {
+      toast.error('Please select or drop an RFP document first.');
+      return;
+    }
     if (!file.name.toLowerCase().endsWith('.pdf')) {
       toast.error('The AI spec extraction engine requires a PDF file.');
       return;
@@ -349,8 +350,8 @@ export default function RFPUploadPage() {
               >
                 <input {...getInputProps()} />
                 <UploadCloud size={36} className="text-electric-cyan mx-auto mb-3" />
-                <p className="text-body-lg text-ghost-white">Drag & drop RFP documents here</p>
-                <p className="text-body text-muted-silver mt-1">PDF, DOC, DOCX, XLSX supported</p>
+                <p className="text-body-lg text-ghost-white">Drag & drop RFP tender documents here</p>
+                <p className="text-body text-muted-silver mt-1">PDF tender documents supported (AI extraction engine)</p>
                 <Button
                   variant="secondary"
                   size="sm"
@@ -397,7 +398,7 @@ export default function RFPUploadPage() {
                   label="Priority"
                   placeholder="Select priority"
                   value={priority}
-                  onChange={(e) => setPriority(e.target.value)}
+                  onChange={(val) => setPriority(val)}
                   options={[
                     { value: 'critical', label: 'Critical' },
                     { value: 'high', label: 'High' },

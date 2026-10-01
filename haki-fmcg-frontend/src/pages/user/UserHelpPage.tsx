@@ -181,7 +181,7 @@ export default function UserHelpPage() {
                 <Mail size={16} className="text-electric-cyan" />
                 <div>
                   <p className="text-sm text-ghost-white">Email</p>
-                  <p className="text-xs text-muted-silver">support@haki-fmcg.com</p>
+                  <p className="text-xs text-muted-silver">support@haki.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-steel-slate/10">

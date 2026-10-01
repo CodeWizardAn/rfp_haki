@@ -64,7 +64,7 @@ export default function SettingsPage() {
 
   // Profile state
   const [displayName, setDisplayName] = useState('Haki Admin');
-  const [email, setEmail] = useState('admin@hakifmcg.com');
+  const [email, setEmail] = useState('admin@haki.com');
   const [role] = useState('System Administrator');
 
   // Sync from backend config / user profile

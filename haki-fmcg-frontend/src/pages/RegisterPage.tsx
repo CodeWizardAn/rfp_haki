@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Zap, UserPlus, ArrowLeft } from 'lucide-react';
+import { Eye, EyeOff, UserPlus, ArrowLeft } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
 import { HakiLogo } from '@/components/common';
 import { authService, type RegisterPayload } from '@/services/auth.service';
@@ -79,7 +79,7 @@ export default function RegisterPage() {
             <HakiLogo size="xl" asLink to="/" />
           </div>
           <h1 className="text-h2 font-extrabold text-[#0F172A] tracking-tight">Create Account</h1>
-          <p className="text-body text-[#64748B] mt-1 font-medium">Join HAKI FMCG Platform</p>
+          <p className="text-body text-[#64748B] mt-1 font-medium">Join Haki Platform</p>
         </div>
 
         {success ? (

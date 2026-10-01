@@ -16,38 +16,33 @@ export interface HakiLogoProps {
 
 const sizeConfig = {
   xs: {
-    haki: 'text-sm font-extrabold',
-    divider: 'text-xs',
-    fmcg: 'text-[9px] tracking-[0.14em]',
-    gap: 'gap-1.5',
+    img: 'w-7 h-7',
+    text: 'text-base font-extrabold',
+    gap: 'gap-2',
     sub: 'text-[9px]',
   },
   sm: {
-    haki: 'text-base font-extrabold',
-    divider: 'text-sm',
-    fmcg: 'text-[10px] tracking-[0.15em]',
-    gap: 'gap-2',
+    img: 'w-9 h-9',
+    text: 'text-lg font-extrabold',
+    gap: 'gap-2.5',
     sub: 'text-[10px]',
   },
   md: {
-    haki: 'text-xl font-extrabold',
-    divider: 'text-lg',
-    fmcg: 'text-[11px] tracking-[0.16em]',
+    img: 'w-11 h-11',
+    text: 'text-xl font-extrabold',
     gap: 'gap-2.5',
     sub: 'text-xs',
   },
   lg: {
-    haki: 'text-2xl font-extrabold',
-    divider: 'text-xl',
-    fmcg: 'text-[12px] tracking-[0.16em]',
-    gap: 'gap-2.5',
+    img: 'w-12 h-12',
+    text: 'text-2xl font-extrabold',
+    gap: 'gap-3',
     sub: 'text-xs',
   },
   xl: {
-    haki: 'text-3xl sm:text-4xl font-extrabold',
-    divider: 'text-2xl sm:text-3xl',
-    fmcg: 'text-xs sm:text-sm tracking-[0.18em]',
-    gap: 'gap-3',
+    img: 'w-20 h-20 sm:w-24 sm:h-24',
+    text: 'text-3xl sm:text-4xl font-extrabold',
+    gap: 'gap-4',
     sub: 'text-sm',
   },
 };
@@ -65,45 +60,44 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
   const cfg = sizeConfig[size];
   const isCollapsed = collapsed || showText === false;
 
-  const hakiColor = onDark ? 'text-white' : 'text-slate-900';
-  const dividerColor = onDark ? 'text-white/30' : 'text-slate-300';
-  const fmcgColor = onDark ? 'text-indigo-400' : 'text-[#4F46E5]';
+  const textColor = onDark ? 'text-white' : 'text-slate-900';
   const subColor = onDark ? 'text-slate-400' : 'text-slate-500';
 
   if (isCollapsed) {
     return (
       <div className={`flex items-center justify-center w-full select-none ${className}`}>
-        <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-extrabold text-sm tracking-tight font-sans shadow-xs">
-          H
-        </div>
+        <img
+          src="/haki-mascot.png"
+          alt="Haki"
+          className="w-9 h-9 object-contain drop-shadow-sm transition-transform hover:scale-105"
+        />
       </div>
     );
   }
 
   const content = (
-    <div className={`inline-flex flex-col select-none ${className}`}>
-      <div className={`inline-flex items-center ${cfg.gap} leading-none`}>
-        <span className={`tracking-tight font-sans ${hakiColor} ${cfg.haki}`}>
-          HAKI
+    <div className={`inline-flex items-center ${cfg.gap} select-none ${className}`}>
+      <img
+        src="/haki-mascot.png"
+        alt="Haki Mascot Logo"
+        className={`${cfg.img} object-contain flex-shrink-0 drop-shadow-sm transition-transform hover:scale-105`}
+      />
+      <div className="flex flex-col justify-center leading-none">
+        <span className={`tracking-tight font-sans ${textColor} ${cfg.text}`}>
+          Haki
         </span>
-        <span className={`font-light select-none ${dividerColor} ${cfg.divider}`}>
-          |
-        </span>
-        <span className={`font-bold uppercase font-sans ${fmcgColor} ${cfg.fmcg}`}>
-          FMCG 2.0
-        </span>
+        {subtitle && (
+          <span className={`font-medium tracking-wide mt-1 ${subColor} ${cfg.sub}`}>
+            {subtitle}
+          </span>
+        )}
       </div>
-      {subtitle && (
-        <span className={`font-medium tracking-wide mt-1.5 ${subColor} ${cfg.sub}`}>
-          {subtitle}
-        </span>
-      )}
     </div>
   );
 
   if (asLink) {
     return (
-      <Link to={to} className="inline-flex hover:opacity-90 transition-opacity">
+      <Link to={to} className="inline-flex items-center hover:opacity-95 transition-opacity">
         {content}
       </Link>
     );

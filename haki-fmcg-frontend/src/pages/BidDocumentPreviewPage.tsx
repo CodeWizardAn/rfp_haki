@@ -33,7 +33,7 @@ const initialSections: Section[] = [
     id: 'cover',
     title: 'Cover Page',
     visible: true,
-    content: 'HAKI FMCG Procurement Intelligence\nBid Response Document\n\nBID-2026-001\nDate: February 7, 2026\n\nPrepared for: Municipal Corporation of Greater Mumbai\nRFP Reference: RFP-2024-089\nSubject: Supply of LT Power Cables — 240 sq mm, 3.5 Core',
+    content: 'Haki Procurement Intelligence\nBid Response Document\n\nBID-2026-001\nDate: February 7, 2026\n\nPrepared for: Municipal Corporation of Greater Mumbai\nRFP Reference: RFP-2024-089\nSubject: Supply of LT Power Cables — 240 sq mm, 3.5 Core',
   },
   {
     id: 'scope',
