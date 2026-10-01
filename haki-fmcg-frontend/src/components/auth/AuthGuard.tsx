@@ -19,11 +19,10 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 /** Redirects already-authenticated users away from login */
 export function GuestGuard({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-  const role = useAuthStore((s) => s.user?.role);
   const hasToken = !!localStorage.getItem('access_token');
 
   if (hasToken && isAuthenticated) {
-    return <Navigate to={role === 'admin' || role === 'manager' ? '/dashboard' : '/user'} replace />;
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;

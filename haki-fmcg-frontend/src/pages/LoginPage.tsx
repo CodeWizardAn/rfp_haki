@@ -22,17 +22,12 @@ export default function LoginPage() {
     clearError();
     try {
       await login(username, password);
-      // Route based on role or explicit redirect query param
-      if (redirectTo && redirectTo.startsWith('/')) {
+      // Route to landing page after sign-in
+      if (redirectTo && redirectTo.startsWith('/') && redirectTo !== '/dashboard' && redirectTo !== '/login') {
         navigate(redirectTo);
         return;
       }
-      const user = useAuthStore.getState().user;
-      if (user?.role === 'admin' || user?.role === 'manager') {
-        navigate('/dashboard');
-      } else {
-        navigate('/user');
-      }
+      navigate('/');
     } catch {
       // error handled in store
     }
@@ -45,16 +40,11 @@ export default function LoginPage() {
     clearError();
     try {
       await login(u, p);
-      if (redirectTo && redirectTo.startsWith('/')) {
+      if (redirectTo && redirectTo.startsWith('/') && redirectTo !== '/dashboard' && redirectTo !== '/login') {
         navigate(redirectTo);
         return;
       }
-      const currentUser = useAuthStore.getState().user;
-      if (currentUser?.role === 'admin' || currentUser?.role === 'manager') {
-        navigate('/dashboard');
-      } else {
-        navigate('/user');
-      }
+      navigate('/');
     } catch {
       // error handled in store
     }
