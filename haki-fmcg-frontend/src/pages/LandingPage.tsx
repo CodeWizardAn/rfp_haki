@@ -268,9 +268,8 @@ export default function LandingPage() {
 
       {/* ── Hero Section ── */}
       <section className="pt-24 md:pt-28 pb-16 px-6 max-w-7xl mx-auto">
-        <div className="flex items-center gap-2.5 mb-3">
-          <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
-          <span className="text-[#2563EB] text-[11px] font-bold tracking-[0.2em] uppercase font-mono">
+        <div className="mb-4">
+          <span className="text-[#2563EB] text-xs sm:text-sm md:text-[15px] font-bold tracking-[0.16em] uppercase font-mono">
             THE AI PROCUREMENT & TENDER ENGINE FOR ELECTRICALS & INDUSTRIAL GOODS
           </span>
         </div>
@@ -286,26 +285,10 @@ export default function LandingPage() {
             {/* Minimalist divider line below headline */}
             <div className="w-full my-5 border-b border-slate-200/90" />
 
-            {/* Minimalistic relevant value proposition — no numbers, no clutter */}
-            <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl">
-              Engineered for high-stakes electrical and industrial tenders. Parse intricate technical specifications, resolve manufacturer cross-equivalencies, and draft compliant commercial bids with absolute fidelity.
+            {/* Single elegant sentence with refined typography */}
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 font-normal leading-relaxed tracking-tight max-w-2xl">
+              Turn complex technical tender specifications into verified, audit-ready commercial bids with absolute precision.
             </p>
-
-            {/* Minimalistic capability tags */}
-            <div className="mt-5 flex flex-wrap items-center gap-2.5 text-xs text-slate-600 font-medium">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/90 border border-slate-200 shadow-[0_1px_2px_rgba(0,0,0,0.03)] text-slate-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                Specification Ingestion
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/90 border border-slate-200 shadow-[0_1px_2px_rgba(0,0,0,0.03)] text-slate-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                Catalog Intelligence
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/90 border border-slate-200 shadow-[0_1px_2px_rgba(0,0,0,0.03)] text-slate-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                Commercial Compliance
-              </span>
-            </div>
           </div>
 
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end relative lg:pt-2">
