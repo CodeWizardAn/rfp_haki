@@ -283,14 +283,17 @@ export default function LandingPage() {
             </h1>
 
             {/* Minimalist divider line below headline */}
-            <div className="w-full mt-8 mb-8 border-b border-slate-200/80" />
+            <div className="w-full mt-7 mb-7 border-b border-slate-200/90" />
 
-            {/* Single elegant sentence with beautiful Outfit typography */}
-            <p className="text-lg sm:text-xl md:text-[1.35rem] font-light text-slate-500 font-['Outfit',sans-serif] leading-[1.65] tracking-[-0.015em] max-w-2xl">
-              Turn complex technical tender specifications into{" "}
-              <span className="text-slate-900 font-medium">verified, audit-ready commercial bids</span>{" "}
-              with absolute precision.
-            </p>
+            {/* 2-line high-impact subtitle with beautiful Outfit typography */}
+            <div className="space-y-2 max-w-2xl font-['Outfit',sans-serif]">
+              <p className="text-xl sm:text-2xl md:text-[1.55rem] font-medium text-slate-900 tracking-[-0.025em] leading-snug">
+                Transform complex tender documentation into compliant, competitive bids.
+              </p>
+              <p className="text-base sm:text-lg md:text-[1.15rem] font-normal text-slate-500 tracking-[-0.01em] leading-relaxed">
+                Autonomous spec extraction, multi-OEM catalog matching, and instant commercial pricing.
+              </p>
+            </div>
           </div>
 
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end relative lg:pt-2">
