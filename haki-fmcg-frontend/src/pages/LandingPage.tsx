@@ -285,15 +285,10 @@ export default function LandingPage() {
             {/* Minimalist divider line below headline */}
             <div className="w-full mt-7 mb-7 border-b border-slate-200/90" />
 
-            {/* 2-line high-impact subtitle with beautiful Outfit typography */}
-            <div className="space-y-2 max-w-2xl font-['Outfit',sans-serif]">
-              <p className="text-xl sm:text-2xl md:text-[1.55rem] font-medium text-slate-900 tracking-[-0.025em] leading-snug">
-                Transform complex tender documentation into compliant, competitive bids.
-              </p>
-              <p className="text-base sm:text-lg md:text-[1.15rem] font-normal text-slate-500 tracking-[-0.01em] leading-relaxed">
-                Autonomous spec extraction, multi-OEM catalog matching, and instant commercial pricing.
-              </p>
-            </div>
+            {/* Cohesive paragraph in normal weight with beautiful Outfit typography */}
+            <p className="text-base sm:text-lg md:text-[1.2rem] font-normal text-slate-600 font-['Outfit',sans-serif] leading-relaxed tracking-[-0.01em] max-w-2xl">
+              Transform complex tender documentation into compliant, competitive bids. Autonomous specification extraction, multi-OEM catalog matching, and instant commercial pricing.
+            </p>
           </div>
 
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end relative lg:pt-2">
