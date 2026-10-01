@@ -1,17 +1,34 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, type ComponentType } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { AppShell } from '@/components/layout';
 import { UserAppShell } from '@/components/layout';
 import { PageLoader } from '@/components/ui';
 import { AuthGuard, GuestGuard } from '@/components/auth/AuthGuard';
+import { RouteErrorBoundary } from '@/components/common';
 
-// Lazy-loaded pages
-const LandingPage = lazy(() => import('@/pages/LandingPage'));
-const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
-const LoginPage = lazy(() => import('@/pages/LoginPage'));
-const RegisterPage = lazy(() => import('@/pages/RegisterPage'));
-const RFPListPage = lazy(() => import('@/pages/RFPListPage'));
-const RFPDetailPage = lazy(() => import('@/pages/RFPDetailPage'));
+// Statically imported critical auth pages (never fail on dynamic chunk fetch)
+import LoginPage from '@/pages/LoginPage';
+import RegisterPage from '@/pages/RegisterPage';
+
+// Resilient dynamic chunk loader that handles new Vercel deployments gracefully
+function lazyWithRetry<T extends ComponentType<any>>(factory: () => Promise<{ default: T }>) {
+  return lazy(() =>
+    factory().catch((error) => {
+      const key = 'chunk_reload_' + window.location.pathname;
+      if (!sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, 'true');
+        window.location.reload();
+      }
+      throw error;
+    })
+  );
+}
+
+// Lazy-loaded pages with auto-retry
+const LandingPage = lazyWithRetry(() => import('@/pages/LandingPage'));
+const DashboardPage = lazyWithRetry(() => import('@/pages/DashboardPage'));
+const RFPListPage = lazyWithRetry(() => import('@/pages/RFPListPage'));
+const RFPDetailPage = lazyWithRetry(() => import('@/pages/RFPDetailPage'));
 const RFPUploadPage = lazy(() => import('@/pages/RFPUploadPage'));
 const PipelinePage = lazy(() => import('@/pages/PipelinePage'));
 const AgentsPage = lazy(() => import('@/pages/AgentsPage'));
@@ -123,27 +140,26 @@ export const router = createBrowserRouter([
   // Default route — redirect to login
   {
     path: '/login',
+    errorElement: <RouteErrorBoundary />,
     element: (
       <GuestGuard>
-        <SuspenseWrap>
-          <LoginPage />
-        </SuspenseWrap>
+        <LoginPage />
       </GuestGuard>
     ),
   },
   {
     path: '/register',
+    errorElement: <RouteErrorBoundary />,
     element: (
       <GuestGuard>
-        <SuspenseWrap>
-          <RegisterPage />
-        </SuspenseWrap>
+        <RegisterPage />
       </GuestGuard>
     ),
   },
   // Public Landing Page
   {
     path: '/',
+    errorElement: <RouteErrorBoundary />,
     element: (
       <SuspenseWrap>
         <LandingPage />
@@ -152,6 +168,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/landing',
+    errorElement: <RouteErrorBoundary />,
     element: (
       <SuspenseWrap>
         <LandingPage />
@@ -164,6 +181,7 @@ export const router = createBrowserRouter([
         <AppShell />
       </AuthGuard>
     ),
+    errorElement: <RouteErrorBoundary />,
     children: [
       {
         path: 'dashboard',
@@ -664,6 +682,7 @@ export const router = createBrowserRouter([
   // ══════════════════════════════════════════
   {
     path: '/user',
+    errorElement: <RouteErrorBoundary />,
     element: (
       <AuthGuard>
         <UserAppShell />
