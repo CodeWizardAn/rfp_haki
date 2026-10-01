@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd haki-fmcg-frontend && npm install && npm run build",
+  "outputDirectory": "haki-fmcg-frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
