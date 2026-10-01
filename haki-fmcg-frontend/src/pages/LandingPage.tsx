@@ -153,8 +153,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
           {/* Brand Logo */}
           <div className="flex items-center gap-3">
-            <HakiLogo size="md" className="sm:hidden" asLink to="/" />
-            <HakiLogo size="lg" className="hidden sm:inline-flex" asLink to="/" />
+            <HakiLogo size="lg" asLink to="/" />
           </div>
 
           {/* Desktop Nav Links */}

@@ -34,15 +34,15 @@ const sizeConfig = {
     sub: 'text-xs',
   },
   lg: {
-    img: 'w-12 h-12',
-    text: 'text-2xl font-extrabold',
-    gap: 'gap-3',
+    img: 'w-9 h-9 sm:w-11 sm:h-11',
+    text: 'text-xl sm:text-2xl font-extrabold',
+    gap: 'gap-2.5 sm:gap-3',
     sub: 'text-xs',
   },
   xl: {
-    img: 'w-20 h-20 sm:w-24 sm:h-24',
-    text: 'text-3xl sm:text-4xl font-extrabold',
-    gap: 'gap-4',
+    img: 'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24',
+    text: 'text-2xl sm:text-3xl md:text-4xl font-extrabold',
+    gap: 'gap-3 sm:gap-4',
     sub: 'text-sm',
   },
 };
@@ -76,7 +76,7 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
   }
 
   const content = (
-    <div className={`inline-flex items-center ${cfg.gap} select-none ${className}`}>
+    <div className={`inline-flex items-center ${cfg.gap} select-none`}>
       <img
         src="/haki-mascot.png"
         alt="Haki Mascot Logo"
@@ -97,13 +97,13 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
 
   if (asLink) {
     return (
-      <Link to={to} className="inline-flex items-center hover:opacity-95 transition-opacity">
+      <Link to={to} className={`inline-flex items-center hover:opacity-95 transition-opacity ${className}`}>
         {content}
       </Link>
     );
   }
 
-  return content;
+  return <div className={className}>{content}</div>;
 };
 
 export default HakiLogo;
