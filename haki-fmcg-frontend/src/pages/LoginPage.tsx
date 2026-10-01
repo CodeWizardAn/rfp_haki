@@ -37,11 +37,26 @@ export default function LoginPage() {
     }
   };
 
-  // Quick-fill demo credentials
-  const fillDemo = (u: string, p: string) => {
+  // Quick-fill demo credentials & instant sign-in
+  const fillDemo = async (u: string, p: string) => {
     setUsername(u);
     setPassword(p);
     clearError();
+    try {
+      await login(u, p);
+      if (redirectTo && redirectTo.startsWith('/')) {
+        navigate(redirectTo);
+        return;
+      }
+      const currentUser = useAuthStore.getState().user;
+      if (currentUser?.role === 'admin' || currentUser?.role === 'manager') {
+        navigate('/dashboard');
+      } else {
+        navigate('/user');
+      }
+    } catch {
+      // error handled in store
+    }
   };
 
   return (

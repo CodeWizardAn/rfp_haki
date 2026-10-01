@@ -50,8 +50,15 @@ export const useAuthStore = create<AuthState>()(
             } as User;
           }
           set({ user, isAuthenticated: true, isLoading: false });
-        } catch (err) {
-          const message = err instanceof Error ? err.message : 'Login failed';
+        } catch (err: any) {
+          let message = 'Login failed';
+          if (err?.response?.data?.detail) {
+            message = typeof err.response.data.detail === 'string'
+              ? err.response.data.detail
+              : JSON.stringify(err.response.data.detail);
+          } else if (err?.message) {
+            message = err.message;
+          }
           set({ error: message, isLoading: false, isAuthenticated: false });
           throw err;
         }
