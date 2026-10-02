@@ -19,7 +19,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores';
-import { HakiLogo } from '@/components/common';
+import { HakiLogo, BackButton } from '@/components/common';
 
 interface SpecSample {
   query: string;
@@ -278,8 +278,9 @@ export default function LandingPage() {
       {/* ── Fixed Top Navbar (Haki) ── */}
       <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#FAF8ED]/90 backdrop-blur-md border-b border-black/[0.06]">
         <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
-          {/* Brand Logo */}
+          {/* Brand Logo & Back Button */}
           <div className="flex items-center gap-3">
+            <BackButton fallbackUrl="/dashboard" />
             <HakiLogo size="lg" asLink to="/" />
           </div>
 

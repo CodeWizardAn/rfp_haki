@@ -4,6 +4,7 @@ import { Bell, Search, User, ChevronRight, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUIStore, useNotificationStore, useAuthStore } from '@/stores';
 import { Badge } from '@/components/ui';
+import { BackButton } from '@/components/common';
 
 /** Auto-generate breadcrumbs from URL path */
 function useBreadcrumbs() {
@@ -32,24 +33,27 @@ export function TopBar() {
 
   return (
     <header className="h-16 border-b border-steel-slate/20 bg-deep-navy/80 backdrop-blur-md flex items-center justify-between px-6 sticky top-0 z-30">
-      {/* Left: Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-sm">
-        <Link to="/" className="text-muted-silver hover:text-ghost-white transition-colors">
-          Home
-        </Link>
-        {breadcrumbs.map((crumb) => (
-          <span key={crumb.path} className="flex items-center gap-1.5">
-            <ChevronRight size={14} className="text-steel-slate" />
-            {crumb.isLast ? (
-              <span className="text-ghost-white font-medium">{crumb.label}</span>
-            ) : (
-              <Link to={crumb.path} className="text-muted-silver hover:text-ghost-white transition-colors">
-                {crumb.label}
-              </Link>
-            )}
-          </span>
-        ))}
-      </nav>
+      {/* Left: Back button & Breadcrumb */}
+      <div className="flex items-center gap-3">
+        <BackButton fallbackUrl="/" />
+        <nav className="flex items-center gap-1.5 text-sm">
+          <Link to="/" className="text-muted-silver hover:text-ghost-white transition-colors">
+            Home
+          </Link>
+          {breadcrumbs.map((crumb) => (
+            <span key={crumb.path} className="flex items-center gap-1.5">
+              <ChevronRight size={14} className="text-steel-slate" />
+              {crumb.isLast ? (
+                <span className="text-ghost-white font-medium">{crumb.label}</span>
+              ) : (
+                <Link to={crumb.path} className="text-muted-silver hover:text-ghost-white transition-colors">
+                  {crumb.label}
+                </Link>
+              )}
+            </span>
+          ))}
+        </nav>
+      </div>
 
       {/* Right: Actions */}
       <div className="flex items-center gap-2">

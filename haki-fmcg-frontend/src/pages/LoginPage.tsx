@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, Shield, User, UserPlus } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
-import { HakiLogo } from '@/components/common';
+import { HakiLogo, BackButton } from '@/components/common';
 import { useAuthStore } from '@/stores';
 
 export default function LoginPage() {
@@ -51,7 +51,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center gradient-hero p-4">
+    <div className="min-h-screen flex items-center justify-center gradient-hero p-4 relative">
+      <BackButton variant="floating" fallbackUrl="/" />
       {/* Decorative blobs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-electric-cyan/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-pulse/5 rounded-full blur-3xl" />
