@@ -31,6 +31,7 @@ import hmac
 import io
 import json
 import logging
+import math
 import os
 import secrets
 import sys
@@ -41,6 +42,14 @@ from datetime import datetime, timedelta
 from enum import Enum
 from functools import wraps
 from pathlib import Path
+
+# Ensure UTF-8 output on Windows consoles to prevent UnicodeEncodeError
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
 
 # Load environment variables (.env file for GROQ_API_KEY etc.)
 try:
@@ -151,6 +160,21 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
+
+
+def clean_nan_values(obj: Any) -> Any:
+    """Recursively sanitize float NaN and Infinite values to None for valid JSON serialization."""
+    if isinstance(obj, float):
+        if math.isnan(obj) or math.isinf(obj):
+            return None
+        return obj
+    elif isinstance(obj, dict):
+        return {k: clean_nan_values(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [clean_nan_values(item) for item in obj]
+    elif 'pd' in globals() and pd is not None and hasattr(pd, 'isna') and pd.isna(obj):
+        return None
+    return obj
 
 # Persistent user/imported product catalog store
 try:

@@ -276,7 +276,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-faded-grid text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 relative overflow-x-hidden">
       {/* ── Fixed Top Navbar (Haki) ── */}
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-black/[0.06]">
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#FAF8ED]/90 backdrop-blur-md border-b border-black/[0.06]">
         <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
           {/* Brand Logo */}
           <div className="flex items-center gap-3">
@@ -357,7 +357,7 @@ export default function LandingPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
-              className="md:hidden bg-[#FAF8F5]/98 backdrop-blur-xl border-b border-black/[0.08] px-5 py-4 space-y-2 shadow-xl"
+              className="md:hidden bg-[#FAF8ED]/98 backdrop-blur-xl border-b border-black/[0.08] px-5 py-4 space-y-2 shadow-xl"
             >
               <a
                 href="#pipeline"
@@ -1188,7 +1188,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Clean Craft Footer ── */}
-      <footer className="border-t border-black/[0.06] bg-[#FAF8F5] py-10 sm:py-12 px-4 sm:px-6">
+      <footer className="border-t border-black/[0.06] bg-[#FAF8ED] py-10 sm:py-12 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6 text-xs text-slate-500 text-center md:text-left">
           <div className="flex items-center gap-3">
             <HakiLogo size="sm" asLink to="/" />

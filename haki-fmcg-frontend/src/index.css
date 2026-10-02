@@ -8,7 +8,7 @@
 /* stylelint-disable-next-line at-rule-no-unknown */
 @theme {
   /* Primary Palette — "Editorial Precision & Craft" */
-  --color-deep-navy: #FAF8F5;
+  --color-deep-navy: #FAF8ED;
   --color-midnight-blue: #FFFFFF;
   --color-steel-slate: #E2E8F0;
   --color-ghost-white: #0F172A;
@@ -122,14 +122,12 @@ html {
 
 body {
   margin: 0;
-  background-color: #FAF8F5;
+  background-color: #FAF8ED;
   color: #0F172A;
   font-family: var(--font-sans);
   min-height: 100vh;
-  background-image: 
-    linear-gradient(to right, rgba(15, 23, 42, 0.042) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.042) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-image: radial-gradient(circle, rgba(71, 85, 105, 0.2) 1.25px, transparent 1.25px);
+  background-size: 24px 24px;
 }
 
 #root {
@@ -164,11 +162,9 @@ body {
 }
 
 @utility bg-faded-grid {
-  background-color: #FAF8F5;
-  background-image: 
-    linear-gradient(to right, rgba(15, 23, 42, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-color: #FAF8ED;
+  background-image: radial-gradient(circle, rgba(71, 85, 105, 0.2) 1.25px, transparent 1.25px);
+  background-size: 24px 24px;
 }
 
 @utility glass-card {
@@ -188,7 +184,7 @@ body {
 }
 
 @utility glass-sidebar {
-  background: rgba(250, 248, 245, 0.96);
+  background: rgba(250, 248, 237, 0.96);
   backdrop-filter: blur(24px);
   border-right: 1px solid rgba(15, 23, 42, 0.08);
 }
@@ -213,7 +209,7 @@ body {
    ============================================ */
 
 @utility gradient-hero {
-  background: linear-gradient(135deg, #FAF8F5 0%, #F3F4F6 50%, #EFF6FF 100%);
+  background: linear-gradient(135deg, #FAF8ED 0%, #F5F3E9 50%, #EFF6FF 100%);
 }
 
 @utility gradient-card {
