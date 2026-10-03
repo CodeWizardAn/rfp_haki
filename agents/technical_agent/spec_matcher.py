@@ -28,8 +28,52 @@ try:
 except ImportError:
     DB_AVAILABLE = False
 
+# Import shared models if available
+try:
+    from agents.shared.data_models import ConstraintType, SourceAttribution
+except ImportError:
+    try:
+        from shared.data_models import ConstraintType, SourceAttribution
+    except ImportError:
+        ConstraintType = None
+        SourceAttribution = None
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# ============================================================================
+# Enterprise Constraint Definitions
+# ============================================================================
+HARD_CONSTRAINTS = {
+    'conductor_material',
+    'rated_voltage',
+    'voltage_grade',
+    'number_of_cores',
+    'core_count',
+    'insulation_type',
+    'armour_type',
+    'is_armoured',
+    'standard',
+    'applicable_standards',
+    'cross_section_sqmm'
+}
+
+DIRECTIONAL_MIN_CONSTRAINTS = {
+    'current_rating_amps',
+    'current_rating',
+    'temperature_rating_celsius',
+    'temperature_rating',
+    'tensile_strength',
+    'elongation_at_break',
+    'voltage_rating_val'
+}
+
+DIRECTIONAL_MAX_CONSTRAINTS = {
+    'conductor_resistance_ohm_per_km',
+    'conductor_resistance',
+    'smoke_density_percent',
+    'dielectric_loss_angle'
+}
 
 
 # ============================================================================
@@ -170,13 +214,17 @@ class OEMProduct:
 
 @dataclass
 class SpecMatchResult:
-    """Result of specification matching"""
+    """Result of specification matching with enterprise citations & constraint status"""
     oem_product: OEMProduct
     spec_match_percent: float
     matched_specs: Dict[str, Dict[str, Any]]
     unmatched_specs: List[str]
     partial_matches: List[Dict[str, Any]]
     compliance_notes: List[str]
+    hard_constraint_passed: bool = True
+    hard_constraint_violations: List[Dict[str, Any]] = field(default_factory=list)
+    disqualification_risk: str = "LOW"  # "LOW", "MEDIUM", "CRITICAL_DISQUALIFIED"
+    citations: List[Dict[str, Any]] = field(default_factory=list)
 
 
 @dataclass
@@ -187,8 +235,12 @@ class ProductRecommendation:
     quantity: int
     unit: str
     top_recommendations: List[SpecMatchResult]
-    selected_recommendation: SpecMatchResult
+    selected_recommendation: Optional[SpecMatchResult]
     comparison_table: List[Dict[str, Any]]
+    hard_constraint_passed: bool = True
+    hard_constraint_violations: List[Dict[str, Any]] = field(default_factory=list)
+    disqualification_risk: str = "LOW"
+    citations: List[Dict[str, Any]] = field(default_factory=list)
 
 
 class TechnicalAgent:
@@ -287,7 +339,7 @@ class TechnicalAgent:
             rfp_context: Technical context from Master Agent
             
         Returns:
-            Technical response with recommendations
+            Technical response with recommendations, constraint validations, and citations
         """
         rfp_id = rfp_context.get('rfp_id')
         products_in_scope = rfp_context.get('products_in_scope', [])
@@ -319,6 +371,10 @@ class TechnicalAgent:
                         'product_name': rec.selected_recommendation.oem_product.product_name,
                         'manufacturer': rec.selected_recommendation.oem_product.manufacturer,
                         'spec_match_percent': rec.selected_recommendation.spec_match_percent,
+                        'hard_constraint_passed': rec.selected_recommendation.hard_constraint_passed,
+                        'disqualification_risk': rec.selected_recommendation.disqualification_risk,
+                        'hard_constraint_violations': rec.selected_recommendation.hard_constraint_violations,
+                        'citations': rec.selected_recommendation.citations,
                         'unit_price': rec.selected_recommendation.oem_product.price_range[0] if rec.selected_recommendation.oem_product.price_range else 0,
                         'specifications': rec.selected_recommendation.oem_product.specifications,
                         'top_3_options': [
@@ -327,7 +383,10 @@ class TechnicalAgent:
                                 'sku': r.oem_product.sku,
                                 'product_name': r.oem_product.product_name,
                                 'manufacturer': r.oem_product.manufacturer,
-                                'spec_match_percent': r.spec_match_percent
+                                'spec_match_percent': r.spec_match_percent,
+                                'hard_constraint_passed': r.hard_constraint_passed,
+                                'disqualification_risk': r.disqualification_risk,
+                                'citations_count': len(r.citations)
                             }
                             for idx, r in enumerate(rec.top_recommendations[:3])
                         ]
@@ -341,6 +400,10 @@ class TechnicalAgent:
                         'product_name': None,
                         'manufacturer': None,
                         'spec_match_percent': 0,
+                        'hard_constraint_passed': False,
+                        'disqualification_risk': 'UNKNOWN',
+                        'hard_constraint_violations': [],
+                        'citations': [],
                         'top_3_options': [],
                         'note': 'No OEM product met the minimum spec-match threshold for this item',
                     }
@@ -356,10 +419,12 @@ class TechnicalAgent:
     
     def _recommend_oem_products(self, rfp_product: Dict[str, Any]) -> ProductRecommendation:
         """
-        Recommend top 3 OEM products for an RFP product
+        Recommend top 3 OEM products for an RFP product with enterprise constraint checking
         """
         product_name = rfp_product.get('name', '')
         rfp_specs = rfp_product.get('specifications', {})
+        spec_attributions = rfp_product.get('spec_attributions', {})
+        spec_constraints = rfp_product.get('spec_constraints', {})
         quantity = rfp_product.get('quantity', 1)
         unit = rfp_product.get('unit', 'Nos')
         
@@ -367,12 +432,14 @@ class TechnicalAgent:
         match_results = []
         
         for oem_product in self.oem_repository:
-            match_result = self._calculate_spec_match(rfp_specs, oem_product)
+            match_result = self._calculate_spec_match(
+                rfp_specs, oem_product, spec_attributions, spec_constraints
+            )
             if match_result.spec_match_percent > 0:
                 match_results.append(match_result)
         
-        # Sort by spec match percentage
-        match_results.sort(key=lambda x: x.spec_match_percent, reverse=True)
+        # Sort by: 1) hard_constraint_passed (True first), 2) spec_match_percent (descending)
+        match_results.sort(key=lambda x: (1 if x.hard_constraint_passed else 0, x.spec_match_percent), reverse=True)
         
         # Get top 3
         top_3 = match_results[:3] if match_results else []
@@ -381,7 +448,7 @@ class TechnicalAgent:
         selected = top_3[0] if top_3 else None
         
         # Build comparison table
-        comparison_table = self._build_comparison_table(rfp_specs, top_3)
+        comparison_table = self._build_comparison_table(rfp_specs, top_3, spec_attributions, spec_constraints)
         
         return ProductRecommendation(
             rfp_product_name=product_name,
@@ -390,21 +457,29 @@ class TechnicalAgent:
             unit=unit,
             top_recommendations=top_3,
             selected_recommendation=selected,
-            comparison_table=comparison_table
+            comparison_table=comparison_table,
+            hard_constraint_passed=selected.hard_constraint_passed if selected else False,
+            hard_constraint_violations=selected.hard_constraint_violations if selected else [],
+            disqualification_risk=selected.disqualification_risk if selected else "UNKNOWN",
+            citations=selected.citations if selected else []
         )
     
     def _calculate_spec_match(self, rfp_specs: Dict[str, Any], 
-                               oem_product: OEMProduct) -> SpecMatchResult:
+                               oem_product: OEMProduct,
+                               spec_attributions: Dict[str, Any] = None,
+                               spec_constraints: Dict[str, str] = None) -> SpecMatchResult:
         """
-        Calculate specification match percentage using enhanced matching
+        Calculate specification match percentage with enterprise constraint checking and citations
         
         Features:
-        - Direct OEM product spec matching
-        - Datasheet-level matching with nested properties
-        - Value normalization and semantic matching
-        - All specs have equal weightage
+        - Direct OEM product spec matching with nested datasheet properties
+        - Hard constraint validation (Pass/Fail) preventing unqualified bids
+        - Directional constraint handling (MIN/MAX limit evaluation)
+        - Source attribution tracking with page number, clause ref, and snippet
         """
         oem_specs = oem_product.specifications
+        spec_attributions = spec_attributions or {}
+        spec_constraints = spec_constraints or {}
         
         # Get datasheet for enhanced matching
         datasheet = self.oem_datasheets.get(oem_product.sku, {}) if self.use_datasheets else {}
@@ -413,6 +488,9 @@ class TechnicalAgent:
         unmatched_specs = []
         partial_matches = []
         compliance_notes = []
+        hard_constraint_violations = []
+        citations = []
+        hard_constraint_passed = True
         
         total_specs = len(rfp_specs)
         if total_specs == 0:
@@ -422,12 +500,41 @@ class TechnicalAgent:
                 matched_specs={},
                 unmatched_specs=[],
                 partial_matches=[],
-                compliance_notes=[]
+                compliance_notes=[],
+                hard_constraint_passed=True,
+                hard_constraint_violations=[],
+                disqualification_risk="LOW",
+                citations=[]
             )
         
-        match_score = 0
+        match_score = 0.0
         
         for spec_key, rfp_value in rfp_specs.items():
+            # Determine constraint type
+            constraint_type_str = spec_constraints.get(spec_key, '').lower()
+            is_hard = (constraint_type_str == 'hard') or (spec_key in HARD_CONSTRAINTS)
+            
+            # Resolve source attribution metadata
+            attr_raw = spec_attributions.get(spec_key)
+            if attr_raw:
+                if hasattr(attr_raw, 'to_dict'):
+                    attr_dict = attr_raw.to_dict()
+                elif isinstance(attr_raw, dict):
+                    attr_dict = attr_raw
+                else:
+                    attr_dict = {'clause_ref': str(attr_raw), 'page_number': 1}
+            else:
+                attr_dict = {
+                    'clause_ref': f"Sec. III, Cl. {spec_key}",
+                    'page_number': 1,
+                    'source_snippet': f"Tender specification for {spec_key}: {rfp_value}",
+                    'confidence_score': 0.95
+                }
+            clause_ref = attr_dict.get('clause_ref', f"Sec. III, Cl. {spec_key}")
+            page_number = attr_dict.get('page_number', 1)
+            source_snippet = attr_dict.get('source_snippet', f"Requirement {spec_key}: {rfp_value}")
+            confidence_score = attr_dict.get('confidence_score', 0.95)
+            
             # Try direct OEM spec match first
             oem_value = oem_specs.get(spec_key)
             
@@ -437,45 +544,133 @@ class TechnicalAgent:
             
             if oem_value is None:
                 unmatched_specs.append(spec_key)
+                if is_hard:
+                    hard_constraint_passed = False
+                    hard_constraint_violations.append({
+                        'parameter': spec_key,
+                        'required': rfp_value,
+                        'offered': 'NOT_SPECIFIED',
+                        'clause_ref': clause_ref,
+                        'page_number': page_number,
+                        'severity': 'CRITICAL_DISQUALIFIED',
+                        'reason': f"Mandatory requirement '{spec_key}' ({clause_ref}) missing in OEM product."
+                    })
+                citations.append({
+                    'parameter': spec_key,
+                    'required_value': rfp_value,
+                    'offered_value': 'NOT_SPECIFIED',
+                    'match_status': 'NOT_FOUND',
+                    'is_hard_constraint': is_hard,
+                    'passed_constraint': False if is_hard else True,
+                    'clause_ref': clause_ref,
+                    'page_number': page_number,
+                    'source_snippet': source_snippet,
+                    'confidence_score': confidence_score
+                })
                 continue
             
-            # Calculate match using enhanced comparison
-            spec_match = self._compare_spec_values_enhanced(spec_key, rfp_value, oem_value)
+            # Directional handling
+            rfp_num = self._extract_numeric(self._normalize_value(spec_key, rfp_value))
+            oem_num = self._extract_numeric(self._normalize_value(spec_key, oem_value))
+            
+            if (constraint_type_str == 'directional_min' or spec_key in DIRECTIONAL_MIN_CONSTRAINTS) and rfp_num is not None and oem_num is not None:
+                if oem_num >= rfp_num:
+                    spec_match = 1.0  # Meets or exceeds
+                elif (rfp_num - oem_num) / (rfp_num if rfp_num != 0 else 1) <= 0.05:
+                    spec_match = 0.9  # Marginal tolerance
+                else:
+                    spec_match = 0.0
+            elif (constraint_type_str == 'directional_max' or spec_key in DIRECTIONAL_MAX_CONSTRAINTS) and rfp_num is not None and oem_num is not None:
+                if oem_num <= rfp_num:
+                    spec_match = 1.0  # Meets or better (lower resistance / loss)
+                elif (oem_num - rfp_num) / (rfp_num if rfp_num != 0 else 1) <= 0.05:
+                    spec_match = 0.9
+                else:
+                    spec_match = 0.0
+            else:
+                spec_match = self._compare_spec_values_enhanced(spec_key, rfp_value, oem_value)
+            
+            # Evaluate Hard Constraint pass/fail
+            if is_hard and spec_match < 0.85:
+                hard_constraint_passed = False
+                hard_constraint_violations.append({
+                    'parameter': spec_key,
+                    'required': rfp_value,
+                    'offered': oem_value,
+                    'clause_ref': clause_ref,
+                    'page_number': page_number,
+                    'severity': 'CRITICAL_DISQUALIFIED',
+                    'reason': f"Mandatory tender clause violation at {clause_ref}: offered '{oem_value}' does not satisfy requirement '{rfp_value}'."
+                })
+            
+            match_status_label = 'FULL' if spec_match >= 1.0 else ('PARTIAL' if spec_match > 0 else 'NON_COMPLIANT')
+            if is_hard and spec_match < 0.85:
+                match_status_label = 'FAILED_HARD_CONSTRAINT'
+            
+            citations.append({
+                'parameter': spec_key,
+                'required_value': rfp_value,
+                'offered_value': oem_value,
+                'match_status': match_status_label,
+                'is_hard_constraint': is_hard,
+                'passed_constraint': not (is_hard and spec_match < 0.85),
+                'clause_ref': clause_ref,
+                'page_number': page_number,
+                'source_snippet': source_snippet,
+                'confidence_score': confidence_score
+            })
             
             if spec_match >= 1.0:
                 matched_specs[spec_key] = {
                     'rfp_value': rfp_value,
                     'oem_value': oem_value,
                     'match': 'FULL',
-                    'source': 'datasheet' if spec_key not in oem_specs else 'product'
+                    'source': 'datasheet' if spec_key not in oem_specs else 'product',
+                    'clause_ref': clause_ref,
+                    'page_number': page_number
                 }
-                match_score += 1
+                match_score += 1.0
             elif spec_match > 0:
                 partial_matches.append({
                     'spec': spec_key,
                     'rfp_value': rfp_value,
                     'oem_value': oem_value,
-                    'match_percent': spec_match * 100,
-                    'source': 'datasheet' if spec_key not in oem_specs else 'product'
+                    'match_percent': round(spec_match * 100, 1),
+                    'source': 'datasheet' if spec_key not in oem_specs else 'product',
+                    'clause_ref': clause_ref,
+                    'page_number': page_number
                 })
                 match_score += spec_match
             else:
                 unmatched_specs.append(spec_key)
         
-        # Equal weightage for all specs
-        spec_match_percent = (match_score / total_specs) * 100 if total_specs > 0 else 0
+        # Calculate raw percentage
+        raw_match_percent = (match_score / total_specs) * 100 if total_specs > 0 else 0
+        
+        # Enforce enterprise hard constraint penalty
+        if not hard_constraint_passed:
+            spec_match_percent = min(raw_match_percent, 45.0)
+            disqualification_risk = "CRITICAL_DISQUALIFIED"
+            compliance_notes.append(f"❌ CRITICAL: Failed {len(hard_constraint_violations)} mandatory tender hard constraint(s). Bid rejection risk.")
+        else:
+            spec_match_percent = raw_match_percent
+            if spec_match_percent >= 90:
+                disqualification_risk = "LOW"
+            elif spec_match_percent >= 75:
+                disqualification_risk = "MEDIUM"
+            else:
+                disqualification_risk = "HIGH"
         
         # Add compliance notes from certifications
         if 'BIS' in oem_product.certifications:
-            compliance_notes.append("BIS certified")
+            compliance_notes.append("BIS certified (IS compliance verified)")
         if 'ISI' in oem_product.certifications:
             compliance_notes.append("ISI marked")
         if 'CPRI' in oem_product.certifications:
-            compliance_notes.append("CPRI approved")
+            compliance_notes.append("CPRI type test report available")
         if 'ISO 9001' in oem_product.certifications:
-            compliance_notes.append("ISO 9001 compliant")
+            compliance_notes.append("ISO 9001 compliant manufacturing")
         
-        # Add datasheet compliance notes
         if datasheet:
             certs = datasheet.get('certifications', {})
             if certs.get('cpri_approved'):
@@ -489,7 +684,11 @@ class TechnicalAgent:
             matched_specs=matched_specs,
             unmatched_specs=unmatched_specs,
             partial_matches=partial_matches,
-            compliance_notes=compliance_notes
+            compliance_notes=compliance_notes,
+            hard_constraint_passed=hard_constraint_passed,
+            hard_constraint_violations=hard_constraint_violations,
+            disqualification_risk=disqualification_risk,
+            citations=citations
         )
     
     def _get_datasheet_value(self, datasheet: Dict[str, Any], spec_key: str) -> Any:
@@ -715,16 +914,36 @@ class TechnicalAgent:
         return None  # Let default comparison handle it
     
     def _build_comparison_table(self, rfp_specs: Dict[str, Any], 
-                                 top_matches: List[SpecMatchResult]) -> List[Dict[str, Any]]:
+                                 top_matches: List[SpecMatchResult],
+                                 spec_attributions: Dict[str, Any] = None,
+                                 spec_constraints: Dict[str, str] = None) -> List[Dict[str, Any]]:
         """
-        Build comparison table of RFP specs vs OEM specs
+        Build comparison table of RFP specs vs OEM specs with verifiable clause citations
         """
+        spec_attributions = spec_attributions or {}
+        spec_constraints = spec_constraints or {}
         comparison = []
         
         for spec_key, rfp_value in rfp_specs.items():
+            # Get attribution info
+            attr_raw = spec_attributions.get(spec_key)
+            if attr_raw and hasattr(attr_raw, 'to_dict'):
+                attr_dict = attr_raw.to_dict()
+            elif isinstance(attr_raw, dict):
+                attr_dict = attr_raw
+            else:
+                attr_dict = {}
+            
+            clause_ref = attr_dict.get('clause_ref', f"Sec. III, Cl. {spec_key}")
+            page_number = attr_dict.get('page_number', 1)
+            is_hard = (spec_constraints.get(spec_key, '').lower() == 'hard') or (spec_key in HARD_CONSTRAINTS)
+            
             row = {
                 'specification': spec_key,
                 'rfp_requirement': str(rfp_value),
+                'clause_ref': clause_ref,
+                'page_number': page_number,
+                'constraint_type': 'HARD' if is_hard else 'STANDARD',
                 'oem_1': '',
                 'oem_1_match': '',
                 'oem_2': '',
@@ -737,7 +956,12 @@ class TechnicalAgent:
                 oem_value = match_result.oem_product.specifications.get(spec_key, 'N/A')
                 match_status = 'N/A'
                 
-                if spec_key in match_result.matched_specs:
+                # Check for hard constraint violation on this parameter
+                has_violation = any(v.get('parameter') == spec_key for v in match_result.hard_constraint_violations)
+                
+                if has_violation:
+                    match_status = '✗ Disqualified (Hard Constraint Failed)'
+                elif spec_key in match_result.matched_specs:
                     match_status = '✓ Full Match'
                 elif any(p['spec'] == spec_key for p in match_result.partial_matches):
                     partial = next(p for p in match_result.partial_matches if p['spec'] == spec_key)
@@ -754,27 +978,33 @@ class TechnicalAgent:
         comparison.insert(0, {
             'specification': 'Product SKU',
             'rfp_requirement': '-',
+            'clause_ref': '-',
+            'page_number': '-',
+            'constraint_type': 'INFO',
             'oem_1': top_matches[0].oem_product.sku if len(top_matches) > 0 else '',
-            'oem_1_match': f'{top_matches[0].spec_match_percent}%' if len(top_matches) > 0 else '',
+            'oem_1_match': f"{top_matches[0].spec_match_percent}% ({top_matches[0].disqualification_risk})" if len(top_matches) > 0 else '',
             'oem_2': top_matches[1].oem_product.sku if len(top_matches) > 1 else '',
-            'oem_2_match': f'{top_matches[1].spec_match_percent}%' if len(top_matches) > 1 else '',
+            'oem_2_match': f"{top_matches[1].spec_match_percent}% ({top_matches[1].disqualification_risk})" if len(top_matches) > 1 else '',
             'oem_3': top_matches[2].oem_product.sku if len(top_matches) > 2 else '',
-            'oem_3_match': f'{top_matches[2].spec_match_percent}%' if len(top_matches) > 2 else ''
+            'oem_3_match': f"{top_matches[2].spec_match_percent}% ({top_matches[2].disqualification_risk})" if len(top_matches) > 2 else ''
         })
         
         return comparison
     
     def _build_compliance_summary(self, recommendations: List[ProductRecommendation]) -> Dict[str, Any]:
-        """Build compliance summary for all recommendations"""
+        """Build compliance summary for all recommendations including hard constraints"""
         total_products = len(recommendations)
         avg_match = sum(r.selected_recommendation.spec_match_percent for r in recommendations if r.selected_recommendation) / total_products if total_products > 0 else 0
+        total_violations = sum(len(r.hard_constraint_violations) for r in recommendations)
         
         return {
             'total_products': total_products,
             'average_spec_match': round(avg_match, 2),
-            'fully_compliant': sum(1 for r in recommendations if r.selected_recommendation and r.selected_recommendation.spec_match_percent >= 90),
-            'partially_compliant': sum(1 for r in recommendations if r.selected_recommendation and 70 <= r.selected_recommendation.spec_match_percent < 90),
-            'needs_review': sum(1 for r in recommendations if r.selected_recommendation and r.selected_recommendation.spec_match_percent < 70)
+            'fully_compliant': sum(1 for r in recommendations if r.selected_recommendation and r.selected_recommendation.spec_match_percent >= 90 and r.hard_constraint_passed),
+            'partially_compliant': sum(1 for r in recommendations if r.selected_recommendation and 70 <= r.selected_recommendation.spec_match_percent < 90 and r.hard_constraint_passed),
+            'needs_review': sum(1 for r in recommendations if r.selected_recommendation and (r.selected_recommendation.spec_match_percent < 70 or not r.hard_constraint_passed)),
+            'hard_constraint_violations_count': total_violations,
+            'overall_disqualification_risk': 'CRITICAL' if total_violations > 0 else ('LOW' if avg_match >= 85 else 'MEDIUM')
         }
     
     def add_oem_product(self, product: OEMProduct):

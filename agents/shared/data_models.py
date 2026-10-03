@@ -37,6 +37,36 @@ class TestType(Enum):
     SPECIAL = "special"           # Special/additional tests
 
 
+class ConstraintType(Enum):
+    """Types of engineering & tender constraints"""
+    HARD = "hard"                             # Absolute Pass/Fail; failure causes technical disqualification
+    DIRECTIONAL_MIN = "directional_min"       # Actual >= Required (e.g. current rating, tensile strength)
+    DIRECTIONAL_MAX = "directional_max"       # Actual <= Required (e.g. conductor resistance, smoke density)
+    TOLERANCE_BAND = "tolerance_band"         # Must fall within +/- percentage (e.g. outer diameter +/- 5%)
+    INFORMATIONAL = "informational"           # Non-blocking attribute (e.g. packaging color, drum length)
+
+
+@dataclass
+class SourceAttribution:
+    """Enterprise verifiable citation for an extracted RFP requirement"""
+    page_number: Optional[int] = None
+    clause_ref: str = ""
+    source_snippet: str = ""
+    bounding_box: Optional[List[float]] = None  # Normalized [x0, y0, x1, y1]
+    confidence_score: float = 1.0
+    extraction_method: str = "layout_table"
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'page_number': self.page_number,
+            'clause_ref': self.clause_ref,
+            'source_snippet': self.source_snippet,
+            'bounding_box': self.bounding_box,
+            'confidence_score': self.confidence_score,
+            'extraction_method': self.extraction_method
+        }
+
+
 @dataclass
 class RFPProduct:
     """Product in RFP scope of supply"""
@@ -49,6 +79,8 @@ class RFPProduct:
     mandatory_specs: List[str] = field(default_factory=list)
     preferred_specs: List[str] = field(default_factory=list)
     applicable_standards: List[str] = field(default_factory=list)
+    spec_attributions: Dict[str, Any] = field(default_factory=dict)   # Spec key -> SourceAttribution or dict
+    spec_constraints: Dict[str, str] = field(default_factory=dict)     # Spec key -> ConstraintType value
     notes: str = ""
 
 
@@ -131,7 +163,12 @@ class RFPDocument:
             'unit': p.unit,
             'specifications': p.specifications,
             'mandatory_specs': p.mandatory_specs,
-            'applicable_standards': p.applicable_standards
+            'applicable_standards': p.applicable_standards,
+            'spec_attributions': {
+                k: (v.to_dict() if hasattr(v, 'to_dict') else v)
+                for k, v in getattr(p, 'spec_attributions', {}).items()
+            },
+            'spec_constraints': getattr(p, 'spec_constraints', {})
         }
     
     def _test_to_dict(self, t: RFPTestRequirement) -> Dict:
@@ -147,7 +184,7 @@ class RFPDocument:
 
 @dataclass
 class OEMProductMatch:
-    """OEM product match result"""
+    """OEM product match result with enterprise constraint checking and citations"""
     rank: int
     sku: str
     product_name: str
@@ -159,6 +196,10 @@ class OEMProductMatch:
     matched_specs: Dict[str, Dict[str, Any]]
     unmatched_specs: List[str]
     compliance_notes: List[str]
+    hard_constraint_passed: bool = True
+    hard_constraint_violations: List[Dict[str, Any]] = field(default_factory=list)
+    disqualification_risk: str = "LOW"  # "LOW", "MEDIUM", "CRITICAL_DISQUALIFIED"
+    citations: List[Dict[str, Any]] = field(default_factory=list)
 
 
 @dataclass
@@ -178,6 +219,10 @@ class ProductRecommendationResult:
     selected_product_name: str = ""
     selected_manufacturer: str = ""
     selected_spec_match: float = 0.0
+    hard_constraint_passed: bool = True
+    hard_constraint_violations: List[Dict[str, Any]] = field(default_factory=list)
+    disqualification_risk: str = "LOW"
+    citations: List[Dict[str, Any]] = field(default_factory=list)
     
     # Comparison table (RFP spec vs OEM 1, 2, 3)
     comparison_table: List[Dict[str, Any]] = field(default_factory=list)
@@ -217,13 +262,19 @@ class TechnicalAgentResponse:
                     'selected_product_name': r.selected_product_name,
                     'selected_manufacturer': r.selected_manufacturer,
                     'spec_match_percent': r.selected_spec_match,
+                    'hard_constraint_passed': r.hard_constraint_passed,
+                    'disqualification_risk': r.disqualification_risk,
+                    'hard_constraint_violations': r.hard_constraint_violations,
+                    'citations': r.citations,
                     'top_3_options': [
                         {
                             'rank': m.rank,
                             'sku': m.sku,
                             'product_name': m.product_name,
                             'manufacturer': m.manufacturer,
-                            'spec_match_percent': m.spec_match_percent
+                            'spec_match_percent': m.spec_match_percent,
+                            'hard_constraint_passed': m.hard_constraint_passed,
+                            'disqualification_risk': m.disqualification_risk
                         }
                         for m in r.top_3_recommendations
                     ],

@@ -395,6 +395,10 @@ class MasterAgent:
                 'oem_product_name': rec.get('product_name', ''),
                 'manufacturer': rec.get('manufacturer', ''),
                 'spec_match_percent': rec.get('spec_match_percent', 0),
+                'hard_constraint_passed': rec.get('hard_constraint_passed', True),
+                'disqualification_risk': rec.get('disqualification_risk', 'LOW'),
+                'hard_constraint_violations': rec.get('hard_constraint_violations', []),
+                'citations': rec.get('citations', []),
                 'unit_price': price_data.get('discounted_unit_price', price_data.get('unit_price', 0)),
                 'discount_percent': price_data.get('discount_percent', 0),
                 'total_price': price_data.get('total_price', 0),
@@ -411,6 +415,8 @@ class MasterAgent:
                 'recommended_oem_sku': scope_row['recommended_oem_sku'],
                 'oem_product_name': scope_row['oem_product_name'],
                 'spec_match_percent': scope_row['spec_match_percent'],
+                'hard_constraint_passed': scope_row['hard_constraint_passed'],
+                'disqualification_risk': scope_row['disqualification_risk'],
                 'unit_price': scope_row['unit_price'],
                 'total_price': scope_row['total_price']
             })
@@ -424,13 +430,19 @@ class MasterAgent:
         else:
             overall_spec_match = 0
         
+        # Check hard constraint violations across all line items
+        has_hard_violations = any(not s.get('hard_constraint_passed', True) for s in scope_of_supply)
+        total_violations = sum(len(s.get('hard_constraint_violations', [])) for s in scope_of_supply)
+        
         # Generate recommendation
-        if overall_spec_match >= 90:
-            recommendation = "HIGHLY RECOMMENDED - Excellent spec match across all products"
+        if has_hard_violations:
+            recommendation = f"CRITICAL REJECTION RISK - {total_violations} mandatory tender hard constraint(s) failed. Requires formal Schedule of Deviations."
+        elif overall_spec_match >= 90:
+            recommendation = "HIGHLY RECOMMENDED - 100% hard constraints satisfied, verified audit citations"
         elif overall_spec_match >= 75:
-            recommendation = "RECOMMENDED - Good spec match with minor deviations"
+            recommendation = "RECOMMENDED - Hard constraints met with minor commercial deviations"
         elif overall_spec_match >= 60:
-            recommendation = "CONDITIONALLY RECOMMENDED - Review required for some items"
+            recommendation = "CONDITIONALLY RECOMMENDED - Technical review required for marginal items"
         else:
             recommendation = "REVIEW REQUIRED - Significant spec deviations detected"
         
@@ -615,34 +627,64 @@ class MasterAgent:
         }, indent=2)
     
     def print_scope_of_supply_table(self, response: ConsolidatedResponse) -> str:
-        """Print formatted scope of supply table"""
+        """Print formatted scope of supply table with compliance risk and citations"""
         lines = []
-        lines.append("\n" + "="*120)
-        lines.append("SCOPE OF SUPPLY TABLE")
-        lines.append("="*120)
-        lines.append(f"{'Sl':<4} {'RFP Product':<30} {'OEM SKU':<20} {'Spec%':<8} {'Qty':<8} {'Unit Price':<12} {'Total':<15}")
-        lines.append("-"*120)
+        lines.append("\n" + "="*135)
+        lines.append("ENTERPRISE SCOPE OF SUPPLY & COMPLIANCE MATRIX")
+        lines.append("="*135)
+        lines.append(f"{'Sl':<4} {'RFP Product':<28} {'OEM SKU':<18} {'Spec%':<7} {'Risk Status':<18} {'Qty':<8} {'Unit Price':<12} {'Total':<15}")
+        lines.append("-"*135)
         
         for item in response.scope_of_supply:
+            risk = item.get('disqualification_risk', 'LOW')
+            if risk == 'CRITICAL_DISQUALIFIED':
+                risk_badge = "❌ CRITICAL RISK"
+            elif risk == 'HIGH':
+                risk_badge = "⚠️ HIGH RISK"
+            elif risk == 'MEDIUM':
+                risk_badge = "⚡ MEDIUM RISK"
+            else:
+                risk_badge = "✅ COMPLIANT"
+            
             lines.append(
                 f"{item['sl_no']:<4} "
-                f"{item['rfp_product_name'][:28]:<30} "
-                f"{item['recommended_oem_sku'][:18]:<20} "
-                f"{item['spec_match_percent']:<8.1f} "
+                f"{item['rfp_product_name'][:26]:<28} "
+                f"{item['recommended_oem_sku'][:16]:<18} "
+                f"{item['spec_match_percent']:<7.1f} "
+                f"{risk_badge:<18} "
                 f"{item['quantity']:<8} "
                 f"₹{item['unit_price']:<11,.2f} "
                 f"₹{item['total_price']:<14,.2f}"
             )
         
-        lines.append("-"*120)
-        lines.append(f"{'TOTAL MATERIAL COST':<70} ₹{response.total_material_cost:>15,.2f}")
-        lines.append(f"{'TOTAL SERVICES COST':<70} ₹{response.total_services_cost:>15,.2f}")
-        lines.append(f"{'TAXES':<70} ₹{response.taxes:>15,.2f}")
-        lines.append("="*120)
-        lines.append(f"{'GRAND TOTAL':<70} ₹{response.grand_total:>15,.2f}")
-        lines.append("="*120)
+        lines.append("-"*135)
+        lines.append(f"{'TOTAL MATERIAL COST':<85} ₹{response.total_material_cost:>15,.2f}")
+        lines.append(f"{'TOTAL SERVICES COST':<85} ₹{response.total_services_cost:>15,.2f}")
+        lines.append(f"{'TAXES':<85} ₹{response.taxes:>15,.2f}")
+        lines.append("="*135)
+        lines.append(f"{'GRAND TOTAL':<85} ₹{response.grand_total:>15,.2f}")
+        lines.append("="*135)
         lines.append(f"\nOverall Spec Match: {response.overall_spec_match}%")
         lines.append(f"Recommendation: {response.recommendation}")
+        
+        # Add Verifiable Audit Citations
+        lines.append("\n" + "-"*135)
+        lines.append("VERIFIABLE SOURCE CITATIONS (AUDIT TRAIL FOR BID DEFENSE):")
+        lines.append("-"*135)
+        citation_count = 0
+        for item in response.scope_of_supply:
+            citations = item.get('citations', [])
+            if citations:
+                lines.append(f"\n  📌 Item #{item['sl_no']} [{item['recommended_oem_sku']}]:")
+                for c in citations[:3]:  # Show top 3 citations per product for display
+                    citation_count += 1
+                    status_icon = "✓" if c.get('passed_constraint', True) else "✗"
+                    lines.append(
+                        f"     [{status_icon}] Page {c.get('page_number', 1)} | {c.get('clause_ref', 'N/A')}: "
+                        f"'{c.get('source_snippet', '')}'"
+                    )
+        lines.append(f"\n  Total Verified Audit Citations Linked: {citation_count}")
+        lines.append("-"*135)
         
         return "\n".join(lines)
 

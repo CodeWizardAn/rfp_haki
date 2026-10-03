@@ -409,6 +409,65 @@ class SalesAgent:
                         'temperature_rating_celsius': 70,
                         'flame_retardant': True
                     },
+                    'spec_attributions': {
+                        'conductor_material': {
+                            'page_number': 8,
+                            'clause_ref': 'Sec. III, Cl. 4.1.1',
+                            'source_snippet': 'Conductor shall be high conductivity electrolytic grade annealed copper conforming to IS 8130 Class 2.',
+                            'confidence_score': 0.99
+                        },
+                        'conductor_type': {
+                            'page_number': 8,
+                            'clause_ref': 'Sec. III, Cl. 4.1.2',
+                            'source_snippet': 'Conductor construction shall be solid or stranded suitable for fixed installation.',
+                            'confidence_score': 0.97
+                        },
+                        'insulation_type': {
+                            'page_number': 9,
+                            'clause_ref': 'Sec. III, Cl. 4.2',
+                            'source_snippet': 'Insulation shall be PVC Type A compound conforming to IS 5831 with fire retardant properties.',
+                            'confidence_score': 0.98
+                        },
+                        'cross_section_sqmm': {
+                            'page_number': 6,
+                            'clause_ref': 'BoQ Item 1',
+                            'source_snippet': 'Nominal cross-sectional area: 1.5 sq mm single core insulated cable.',
+                            'confidence_score': 1.0
+                        },
+                        'rated_voltage': {
+                            'page_number': 8,
+                            'clause_ref': 'Sec. III, Cl. 4.0',
+                            'source_snippet': 'Cables shall be suitable for continuous operation at 1100V AC nominal system voltage.',
+                            'confidence_score': 0.99
+                        },
+                        'current_rating_amps': {
+                            'page_number': 11,
+                            'clause_ref': 'Tech Spec Annex A',
+                            'source_snippet': 'Current rating in conduit/casing shall be at least 14 Amperes at 40°C ambient.',
+                            'confidence_score': 0.94
+                        },
+                        'temperature_rating_celsius': {
+                            'page_number': 9,
+                            'clause_ref': 'Sec. III, Cl. 4.3',
+                            'source_snippet': 'Continuous operating conductor temperature limit: 70°C.',
+                            'confidence_score': 0.96
+                        },
+                        'flame_retardant': {
+                            'page_number': 14,
+                            'clause_ref': 'Sec. IV, Cl. 2.1',
+                            'source_snippet': 'Must pass flammability test on single cable in accordance with IS 10810 (Part 61).',
+                            'confidence_score': 0.98
+                        }
+                    },
+                    'spec_constraints': {
+                        'conductor_material': 'hard',
+                        'rated_voltage': 'hard',
+                        'insulation_type': 'hard',
+                        'cross_section_sqmm': 'hard',
+                        'current_rating_amps': 'directional_min',
+                        'temperature_rating_celsius': 'directional_min',
+                        'flame_retardant': 'hard'
+                    },
                     'quantity': 50000,
                     'unit': 'meters'
                 },
@@ -423,6 +482,45 @@ class SalesAgent:
                         'current_rating_amps': 18,
                         'temperature_rating_celsius': 70,
                         'flame_retardant': True
+                    },
+                    'spec_attributions': {
+                        'conductor_material': {
+                            'page_number': 8,
+                            'clause_ref': 'Sec. III, Cl. 4.1.1',
+                            'source_snippet': 'High conductivity electrolytic copper conductor annealed as per IS 8130.',
+                            'confidence_score': 0.99
+                        },
+                        'insulation_type': {
+                            'page_number': 9,
+                            'clause_ref': 'Sec. III, Cl. 4.2',
+                            'source_snippet': 'PVC Type A insulation with flame retardant characteristics.',
+                            'confidence_score': 0.98
+                        },
+                        'cross_section_sqmm': {
+                            'page_number': 6,
+                            'clause_ref': 'BoQ Item 2',
+                            'source_snippet': 'Nominal cross-sectional area: 2.5 sq mm single core.',
+                            'confidence_score': 1.0
+                        },
+                        'rated_voltage': {
+                            'page_number': 8,
+                            'clause_ref': 'Sec. III, Cl. 4.0',
+                            'source_snippet': 'Voltage rating: 1100V AC grade.',
+                            'confidence_score': 0.99
+                        },
+                        'current_rating_amps': {
+                            'page_number': 11,
+                            'clause_ref': 'Tech Spec Annex A',
+                            'source_snippet': 'Current rating shall not be less than 18 Amps.',
+                            'confidence_score': 0.95
+                        }
+                    },
+                    'spec_constraints': {
+                        'conductor_material': 'hard',
+                        'rated_voltage': 'hard',
+                        'insulation_type': 'hard',
+                        'cross_section_sqmm': 'hard',
+                        'current_rating_amps': 'directional_min'
                     },
                     'quantity': 30000,
                     'unit': 'meters'
@@ -442,6 +540,53 @@ class SalesAgent:
                         'temperature_rating_celsius': 90,
                         'flame_retardant': True
                     },
+                    'spec_attributions': {
+                        'conductor_material': {
+                            'page_number': 15,
+                            'clause_ref': 'Sec. III, Cl. 5.1',
+                            'source_snippet': 'Plain copper conductor, compacted circular stranded as per IS 8130 Class 2.',
+                            'confidence_score': 0.99
+                        },
+                        'insulation_type': {
+                            'page_number': 15,
+                            'clause_ref': 'Sec. III, Cl. 5.2',
+                            'source_snippet': 'Insulation shall be cross-linked polyethylene (XLPE) as per IS 7098 (Part 1).',
+                            'confidence_score': 0.99
+                        },
+                        'armour_type': {
+                            'page_number': 16,
+                            'clause_ref': 'Sec. III, Cl. 5.4',
+                            'source_snippet': 'Armour shall be single layer of galvanised steel wire conforming to IS 3975.',
+                            'confidence_score': 0.97
+                        },
+                        'rated_voltage': {
+                            'page_number': 15,
+                            'clause_ref': 'Sec. III, Cl. 5.0',
+                            'source_snippet': 'Working voltage grade: 1100 Volts (1.1 kV).',
+                            'confidence_score': 1.0
+                        },
+                        'current_rating_amps': {
+                            'page_number': 17,
+                            'clause_ref': 'Tech Spec Annex B',
+                            'source_snippet': 'Continuous current rating in ground at 30°C: not less than 68 Amperes.',
+                            'confidence_score': 0.95
+                        },
+                        'temperature_rating_celsius': {
+                            'page_number': 15,
+                            'clause_ref': 'Sec. III, Cl. 5.2.1',
+                            'source_snippet': 'Maximum continuous conductor operating temperature: 90°C.',
+                            'confidence_score': 0.98
+                        }
+                    },
+                    'spec_constraints': {
+                        'conductor_material': 'hard',
+                        'insulation_type': 'hard',
+                        'armour_type': 'hard',
+                        'number_of_cores': 'hard',
+                        'rated_voltage': 'hard',
+                        'current_rating_amps': 'directional_min',
+                        'temperature_rating_celsius': 'directional_min'
+                    },
                     'quantity': 10000,
                     'unit': 'meters'
                 },
@@ -456,6 +601,32 @@ class SalesAgent:
                         'rated_voltage': '1100V',
                         'temperature_rating_celsius': 70,
                         'flame_retardant': True
+                    },
+                    'spec_attributions': {
+                        'conductor_material': {
+                            'page_number': 22,
+                            'clause_ref': 'Sec. III, Cl. 7.1',
+                            'source_snippet': 'High conductivity annealed copper Class 5 flexible conductor as per IS 8130.',
+                            'confidence_score': 0.99
+                        },
+                        'number_of_cores': {
+                            'page_number': 7,
+                            'clause_ref': 'BoQ Item 4',
+                            'source_snippet': '3 Core flexible copper cable for industrial machinery power cord.',
+                            'confidence_score': 1.0
+                        },
+                        'rated_voltage': {
+                            'page_number': 22,
+                            'clause_ref': 'Sec. III, Cl. 7.0',
+                            'source_snippet': 'Rated voltage: 1100V AC nominal.',
+                            'confidence_score': 0.98
+                        }
+                    },
+                    'spec_constraints': {
+                        'conductor_material': 'hard',
+                        'number_of_cores': 'hard',
+                        'rated_voltage': 'hard',
+                        'insulation_type': 'hard'
                     },
                     'quantity': 5000,
                     'unit': 'meters'
