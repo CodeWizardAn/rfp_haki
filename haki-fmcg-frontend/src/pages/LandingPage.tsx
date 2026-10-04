@@ -467,49 +467,7 @@ export default function LandingPage() {
               Transform complex tender documentation into compliant, competitive bids. Autonomous specification extraction, multi-OEM catalog matching, and instant commercial pricing.
             </p>
 
-            {/* Primary Action Buttons */}
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
-              <Link
-                to={isAuthenticated ? (user?.role === 'admin' || user?.role === 'manager' ? '/rfps/upload' : '/user/rfp-analyzer') : '/login?redirect=/rfps/upload'}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
-              >
-                <UploadCloud size={17} />
-                <span>Start RFP Processing</span>
-                <ArrowRight size={15} />
-              </Link>
 
-              <a
-                href="#matcher"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-semibold text-sm border border-slate-200 hover:border-slate-300 transition-all shadow-sm active:scale-[0.98]"
-              >
-                <Search size={16} className="text-[#2563EB]" />
-                <span>Test Live Spec Matcher</span>
-              </a>
-
-              <Link
-                to={isAuthenticated ? (user?.role === 'admin' ? '/products' : '/user/products') : '/login?redirect=/products'}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-slate-600 hover:text-slate-900 font-semibold text-sm transition-colors"
-              >
-                <FileSpreadsheet size={16} />
-                <span>22K+ Catalog</span>
-              </Link>
-            </div>
-
-            {/* Micro trust indicators */}
-            <div className="mt-5 flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-slate-500 font-medium">
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={13} className="text-emerald-600" />
-                22,028 Verified Electrical SKUs
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={13} className="text-emerald-600" />
-                Sub-50ms Vector Similarity
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={13} className="text-emerald-600" />
-                0-Error Compliance Engine
-              </span>
-            </div>
           </div>
 
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end relative mt-6 lg:mt-0 lg:pt-2">
