@@ -60,10 +60,11 @@ export function UserTopBar() {
       <div className="flex items-center gap-2">
         {/* Search */}
         <button
+          onClick={() => navigate('/user/catalog')}
           className={cn(
             'flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm',
             'glass-input text-muted-silver hover:text-ghost-white hover:border-electric-cyan/30',
-            'transition-all duration-200',
+            'transition-all duration-200 cursor-pointer',
           )}
         >
           <Search size={16} />

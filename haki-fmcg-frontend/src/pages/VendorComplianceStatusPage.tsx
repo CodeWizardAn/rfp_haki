@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ArrowLeft, Shield, CheckCircle2, XCircle, Clock, AlertTriangle, RefreshCw } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
 
 interface ComplianceItem { vendor: string; cert: string; status: 'valid' | 'expiring' | 'expired' | 'pending'; issuedDate: string; expiryDate: string; issuer: string; }
 
-const items: ComplianceItem[] = [
+const initialItems: ComplianceItem[] = [
   { vendor: 'Havells India', cert: 'BIS ISI Mark (IS 7098)', status: 'valid', issuedDate: '2025-06-15', expiryDate: '2027-06-14', issuer: 'Bureau of Indian Standards' },
   { vendor: 'Havells India', cert: 'ISO 9001:2015', status: 'valid', issuedDate: '2024-12-01', expiryDate: '2027-11-30', issuer: 'TÜV SÜD' },
   { vendor: 'Polycab', cert: 'BIS ISI Mark (IS 7098)', status: 'valid', issuedDate: '2025-03-20', expiryDate: '2027-03-19', issuer: 'Bureau of Indian Standards' },
@@ -23,7 +25,34 @@ const statusCfg: Record<string, { icon: typeof CheckCircle2; color: string; badg
 };
 
 export default function VendorComplianceStatusPage() {
-  const stats = { valid: items.filter((i) => i.status === 'valid').length, expiring: items.filter((i) => i.status === 'expiring').length, expired: items.filter((i) => i.status === 'expired').length, pending: items.filter((i) => i.status === 'pending').length };
+  const [complianceList, setComplianceList] = useState<ComplianceItem[]>(initialItems);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const stats = {
+    valid: complianceList.filter((i) => i.status === 'valid').length,
+    expiring: complianceList.filter((i) => i.status === 'expiring').length,
+    expired: complianceList.filter((i) => i.status === 'expired').length,
+    pending: complianceList.filter((i) => i.status === 'pending').length,
+  };
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      toast.success('Compliance certificates and audit registries synchronized');
+    }, 600);
+  };
+
+  const handleViewCert = (item: ComplianceItem) => {
+    toast.success(`Viewing certificate details: ${item.cert} (Issued by ${item.issuer})`);
+  };
+
+  const handleRequestRenewal = (index: number, item: ComplianceItem) => {
+    setComplianceList((prev) =>
+      prev.map((c, i) => (i === index ? { ...c, status: 'pending' as const } : c))
+    );
+    toast.success(`Renewal notification sent to ${item.vendor} for ${item.cert}`);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -32,7 +61,15 @@ export default function VendorComplianceStatusPage() {
           <Link to="/vendors" className="p-2 rounded-lg hover:bg-steel-slate/15 transition-colors"><ArrowLeft size={18} className="text-muted-silver" /></Link>
           <div><h1 className="text-h1 text-ghost-white">Vendor Compliance Status</h1><p className="text-body text-muted-silver">Certificate tracking and regulatory compliance</p></div>
         </div>
-        <button className="flex items-center gap-2 text-sm text-electric-cyan hover:text-electric-cyan/80"><RefreshCw size={14} />Refresh Status</button>
+        <button
+          type="button"
+          onClick={handleRefresh}
+          disabled={isRefreshing}
+          className="flex items-center gap-2 text-sm text-electric-cyan hover:text-electric-cyan/80 transition-colors disabled:opacity-50"
+        >
+          <RefreshCw size={14} className={isRefreshing ? 'animate-spin' : ''} />
+          {isRefreshing ? 'Refreshing…' : 'Refresh Status'}
+        </button>
       </div>
 
       <div className="grid grid-cols-4 gap-4">
@@ -61,7 +98,7 @@ export default function VendorComplianceStatusPage() {
               </tr>
             </thead>
             <tbody>
-              {items.map((item, i) => {
+              {complianceList.map((item, i) => {
                 const cfg = (statusCfg[item.status] ?? statusCfg['pending'])!;
                 const Icon = cfg.icon;
                 return (
@@ -74,8 +111,22 @@ export default function VendorComplianceStatusPage() {
                     <td className="px-4 py-3 text-muted-silver">{item.issuer}</td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
-                        <button className="text-electric-cyan hover:underline text-[10px]">View</button>
-                        {item.status === 'expired' && <button className="text-coral-flame hover:underline text-[10px]">Request Renewal</button>}
+                        <button
+                          type="button"
+                          onClick={() => handleViewCert(item)}
+                          className="text-electric-cyan hover:underline text-[10px]"
+                        >
+                          View
+                        </button>
+                        {item.status === 'expired' && (
+                          <button
+                            type="button"
+                            onClick={() => handleRequestRenewal(i, item)}
+                            className="text-coral-flame hover:underline text-[10px]"
+                          >
+                            Request Renewal
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

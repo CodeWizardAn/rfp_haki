@@ -1,13 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ArrowLeft, ZoomIn, ZoomOut, Download, ChevronLeft, ChevronRight, Search, Maximize2 } from 'lucide-react';
 import { Card } from '@/components/ui';
 
 export default function RFPPDFPreviewPage() {
   const [zoom, setZoom] = useState(100);
   const [page, setPage] = useState(1);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const totalPages = 12;
+
+  const handleDownload = () => {
+    toast.success('Downloading RFP-2026-0044 document...');
+  };
+
+  const handleToggleFullscreen = () => {
+    setIsFullscreen((prev) => !prev);
+    toast.success(isFullscreen ? 'Exited fullscreen preview' : 'Entered fullscreen preview');
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col h-[calc(100vh-8rem)]">
@@ -17,8 +28,20 @@ export default function RFPPDFPreviewPage() {
           <div><h1 className="text-h1 text-ghost-white">RFP Document Preview</h1><p className="text-body text-muted-silver">RFP-2026-0044 — Power Cables Supply Tender</p></div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver"><Download size={16} /></button>
-          <button className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver"><Maximize2 size={16} /></button>
+          <button
+            onClick={handleDownload}
+            title="Download PDF"
+            className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver hover:text-ghost-white cursor-pointer transition-colors"
+          >
+            <Download size={16} />
+          </button>
+          <button
+            onClick={handleToggleFullscreen}
+            title="Toggle Fullscreen"
+            className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver hover:text-ghost-white cursor-pointer transition-colors"
+          >
+            <Maximize2 size={16} />
+          </button>
         </div>
       </div>
 

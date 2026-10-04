@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ArrowLeft, Copy, Play, Save, FileText, Trash2, Plus, Settings } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
 
@@ -8,7 +9,7 @@ interface WorkflowTemplate {
   id: string; name: string; description: string; stages: string[]; agentMode: 'standard' | 'agent-driven'; created: string; uses: number;
 }
 
-const templates: WorkflowTemplate[] = [
+const initialTemplates: WorkflowTemplate[] = [
   { id: 'wt-1', name: 'Standard RFP Processing', description: 'Full 8-stage pipeline for complete RFP analysis', stages: ['PDF Extraction', 'Terms Matching', 'Product Matching', 'Spec Comparison', 'Pricing', 'Compliance', 'Bid Assembly', 'Review'], agentMode: 'standard', created: '2026-01-10', uses: 34 },
   { id: 'wt-2', name: 'Quick Quote', description: 'Fast 3-stage pricing-focused workflow', stages: ['PDF Extraction', 'Product Matching', 'Pricing'], agentMode: 'standard', created: '2026-01-15', uses: 18 },
   { id: 'wt-3', name: 'Agent-Driven Full', description: 'AI agents autonomously handle end-to-end', stages: ['Sales Scan', 'Technical Match', 'Pricing Gen', 'Master Review', 'Delivery'], agentMode: 'agent-driven', created: '2026-01-22', uses: 12 },
@@ -16,8 +17,64 @@ const templates: WorkflowTemplate[] = [
 ];
 
 export default function AgentWorkflowTemplatesPage() {
-  const [selected, setSelected] = useState<string | null>(null);
-  const tpl = templates.find((t) => t.id === selected);
+  const [items, setItems] = useState<WorkflowTemplate[]>(initialTemplates);
+  const [selected, setSelected] = useState<string | null>('wt-1');
+  const navigate = useNavigate();
+
+  const tpl = items.find((t) => t.id === selected);
+
+  const handleCreateNew = () => {
+    const newId = `wt-${Date.now().toString().slice(-4)}`;
+    const newTpl: WorkflowTemplate = {
+      id: newId,
+      name: `Custom Agent Workflow ${items.length + 1}`,
+      description: 'Custom multi-agent pipeline configured for tender processing.',
+      stages: ['Document Parsing', 'Technical Matching', 'Price Calibration', 'Compliance Sign-off'],
+      agentMode: 'agent-driven',
+      created: new Date().toISOString().split('T')[0] ?? '',
+      uses: 0,
+    };
+    setItems((prev) => [newTpl, ...prev]);
+    setSelected(newId);
+    toast.success(`Created new template: ${newTpl.name}`);
+  };
+
+  const handleDuplicate = (template: WorkflowTemplate) => {
+    const copyId = `wt-${Date.now().toString().slice(-4)}`;
+    const copy: WorkflowTemplate = {
+      ...template,
+      id: copyId,
+      name: `${template.name} (Copy)`,
+      uses: 0,
+      created: new Date().toISOString().split('T')[0] ?? '',
+    };
+    setItems((prev) => [copy, ...prev]);
+    setSelected(copyId);
+    toast.success(`Duplicated "${template.name}"`);
+  };
+
+  const handleDelete = (id: string, name: string) => {
+    setItems((prev) => prev.filter((t) => t.id !== id));
+    if (selected === id) {
+      setSelected(items.find((t) => t.id !== id)?.id || null);
+    }
+    toast.success(`Deleted template "${name}"`);
+  };
+
+  const handleRun = (template: WorkflowTemplate) => {
+    toast.loading(`Launching workflow "${template.name}"...`, { duration: 1200 });
+    setTimeout(() => {
+      setItems((prev) =>
+        prev.map((t) => (t.id === template.id ? { ...t, uses: t.uses + 1 } : t))
+      );
+      toast.success(`Workflow pipeline active with ${template.stages.length} stages!`);
+      navigate('/pipeline');
+    }, 1200);
+  };
+
+  const handleSave = (template: WorkflowTemplate) => {
+    toast.success(`Saved changes to "${template.name}"`);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -26,12 +83,17 @@ export default function AgentWorkflowTemplatesPage() {
           <Link to="/agents" className="p-2 rounded-lg hover:bg-steel-slate/15 transition-colors"><ArrowLeft size={18} className="text-muted-silver" /></Link>
           <div><h1 className="text-h1 text-ghost-white">Workflow Templates</h1><p className="text-body text-muted-silver">Create and manage reusable agent workflow templates</p></div>
         </div>
-        <button className="flex items-center gap-2 bg-electric-cyan/20 text-electric-cyan px-4 py-2 rounded-lg hover:bg-electric-cyan/30 transition-colors text-sm font-medium"><Plus size={14} />New Template</button>
+        <button
+          onClick={handleCreateNew}
+          className="flex items-center gap-2 bg-electric-cyan/20 text-electric-cyan px-4 py-2 rounded-lg hover:bg-electric-cyan/30 cursor-pointer transition-colors text-sm font-medium"
+        >
+          <Plus size={14} />New Template
+        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1 space-y-2">
-          {templates.map((t) => (
+          {items.map((t) => (
             <Card key={t.id} variant="glass" className={`p-4 cursor-pointer transition-all ${selected === t.id ? 'ring-1 ring-electric-cyan/40' : 'hover:bg-steel-slate/5'}`} onClick={() => setSelected(t.id)}>
               <div className="flex items-start justify-between mb-1">
                 <h3 className="text-sm font-semibold text-ghost-white">{t.name}</h3>
@@ -53,9 +115,27 @@ export default function AgentWorkflowTemplatesPage() {
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-bold text-ghost-white">{tpl.name}</h2>
                 <div className="flex gap-2">
-                  <button className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver"><Copy size={14} /></button>
-                  <button className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver"><Settings size={14} /></button>
-                  <button className="p-2 rounded-lg hover:bg-coral-flame/10 text-coral-flame"><Trash2 size={14} /></button>
+                  <button
+                    onClick={() => handleDuplicate(tpl)}
+                    title="Duplicate Template"
+                    className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver hover:text-ghost-white cursor-pointer transition-colors"
+                  >
+                    <Copy size={14} />
+                  </button>
+                  <button
+                    onClick={() => toast(`Editing parameters for ${tpl.name}`, { icon: '⚙️' })}
+                    title="Template Settings"
+                    className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver hover:text-ghost-white cursor-pointer transition-colors"
+                  >
+                    <Settings size={14} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(tpl.id, tpl.name)}
+                    title="Delete Template"
+                    className="p-2 rounded-lg hover:bg-coral-flame/10 text-coral-flame cursor-pointer transition-colors"
+                  >
+                    <Trash2 size={14} />
+                  </button>
                 </div>
               </div>
               <p className="text-sm text-muted-silver">{tpl.description}</p>
@@ -71,8 +151,18 @@ export default function AgentWorkflowTemplatesPage() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <button className="flex items-center gap-2 bg-neon-emerald/20 text-neon-emerald px-4 py-2 rounded-lg hover:bg-neon-emerald/30 text-sm font-medium"><Play size={14} />Run Template</button>
-                <button className="flex items-center gap-2 bg-steel-slate/20 text-ghost-white px-4 py-2 rounded-lg hover:bg-steel-slate/30 text-sm font-medium"><Save size={14} />Save Changes</button>
+                <button
+                  onClick={() => handleRun(tpl)}
+                  className="flex items-center gap-2 bg-neon-emerald/20 text-neon-emerald px-4 py-2 rounded-lg hover:bg-neon-emerald/30 cursor-pointer text-sm font-medium transition-colors"
+                >
+                  <Play size={14} />Run Template
+                </button>
+                <button
+                  onClick={() => handleSave(tpl)}
+                  className="flex items-center gap-2 bg-steel-slate/20 text-ghost-white px-4 py-2 rounded-lg hover:bg-steel-slate/30 cursor-pointer text-sm font-medium transition-colors"
+                >
+                  <Save size={14} />Save Changes
+                </button>
               </div>
             </Card>
           ) : (

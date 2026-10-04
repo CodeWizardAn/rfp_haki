@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ArrowLeft, Bell, BellOff, Clock, Calendar, AlertTriangle, CheckCircle2, Settings } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
 
@@ -25,9 +26,18 @@ const typeCfg: Record<string, { icon: typeof Clock; color: string; badgeColor: '
 export default function BidNotificationsPage() {
   const [filter, setFilter] = useState<string>('all');
   const [items, setItems] = useState(notifications);
+  const navigate = useNavigate();
 
-  const markRead = (id: number) => setItems((p) => p.map((n) => n.id === id ? { ...n, read: true } : n));
-  const markAllRead = () => setItems((p) => p.map((n) => ({ ...n, read: true })));
+  const toggleRead = (id: number) => {
+    setItems((p) =>
+      p.map((n) => (n.id === id ? { ...n, read: !n.read } : n))
+    );
+  };
+
+  const markAllRead = () => {
+    setItems((p) => p.map((n) => ({ ...n, read: true })));
+    toast.success('All notifications marked as read');
+  };
 
   const filtered = filter === 'all' ? items : filter === 'unread' ? items.filter((n) => !n.read) : items.filter((n) => n.type === filter);
   const unreadCount = items.filter((n) => !n.read).length;
@@ -40,8 +50,14 @@ export default function BidNotificationsPage() {
           <div><h1 className="text-h1 text-ghost-white">Bid Notifications</h1><p className="text-body text-muted-silver">{unreadCount} unread notifications</p></div>
         </div>
         <div className="flex gap-2">
-          <button onClick={markAllRead} className="text-xs text-electric-cyan hover:text-electric-cyan/80">Mark all read</button>
-          <button className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver"><Settings size={14} /></button>
+          <button onClick={markAllRead} className="text-xs text-electric-cyan hover:text-electric-cyan/80 cursor-pointer">Mark all read</button>
+          <button
+            onClick={() => navigate('/settings')}
+            title="Notification Settings"
+            className="p-2 rounded-lg hover:bg-steel-slate/15 text-muted-silver hover:text-ghost-white cursor-pointer transition-colors"
+          >
+            <Settings size={14} />
+          </button>
         </div>
       </div>
 
@@ -59,7 +75,7 @@ export default function BidNotificationsPage() {
           const Icon = cfg.icon;
           return (
             <motion.div key={n.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <Card variant="glass" className={`p-4 flex items-start gap-3 transition-colors ${!n.read ? 'border-l-2 border-l-electric-cyan bg-electric-cyan/[0.02]' : ''}`} onClick={() => markRead(n.id)}>
+              <Card variant="glass" className={`p-4 flex items-start gap-3 transition-colors ${!n.read ? 'border-l-2 border-l-electric-cyan bg-electric-cyan/[0.02]' : ''}`} onClick={() => toggleRead(n.id)}>
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${cfg.color.replace('text-', 'bg-')}/10`}>
                   <Icon size={14} className={cfg.color} />
                 </div>
@@ -75,7 +91,14 @@ export default function BidNotificationsPage() {
                     <Link to={`/bids/${n.bidId}`} className="text-electric-cyan hover:underline">{n.bidId}</Link>
                   </div>
                 </div>
-                <button className="text-muted-silver/30 hover:text-muted-silver p-1">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleRead(n.id);
+                  }}
+                  title={n.read ? 'Mark as unread' : 'Mark as read'}
+                  className="text-muted-silver/40 hover:text-ghost-white p-1 cursor-pointer transition-colors"
+                >
                   {n.read ? <BellOff size={12} /> : <Bell size={12} />}
                 </button>
               </Card>

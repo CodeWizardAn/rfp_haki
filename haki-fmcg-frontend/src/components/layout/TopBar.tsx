@@ -80,7 +80,11 @@ export function TopBar() {
         </div>
 
         {/* Notifications */}
-        <button className="relative p-2 rounded-lg text-muted-silver hover:text-ghost-white hover:bg-steel-slate/30 transition-colors">
+        <button
+          onClick={() => navigate('/bids/notifications')}
+          title="View Notifications"
+          className="relative p-2 rounded-lg text-muted-silver hover:text-ghost-white hover:bg-steel-slate/30 transition-colors"
+        >
           <Bell size={18} />
           {unreadCount > 0 && (
             <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] rounded-full bg-coral-flame text-white text-[10px] font-bold flex items-center justify-center px-1 animate-pulse">

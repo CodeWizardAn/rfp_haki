@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   ScrollText,
   Search,
@@ -121,6 +123,9 @@ export default function AuditTrailPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterEntity, setFilterEntity] = useState('All');
   const [filterAction, setFilterAction] = useState<AuditAction | 'all'>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 4;
+  const navigate = useNavigate();
 
   const filtered = mockEntries.filter((e) => {
     if (filterEntity !== 'All' && e.entity !== filterEntity) return false;
@@ -129,8 +134,34 @@ export default function AuditTrailPage() {
     return true;
   });
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginated = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+
   const successCount = mockEntries.filter((e) => e.status === 'success').length;
   const failureCount = mockEntries.filter((e) => e.status === 'failure').length;
+
+  const handleExportLog = () => {
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(mockEntries, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute('href', dataStr);
+    downloadAnchor.setAttribute('download', 'audit_trail_export.json');
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+    toast.success('Audit trail log exported as JSON');
+  };
+
+  const handleExportSingle = (entry: any) => {
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(entry, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute('href', dataStr);
+    downloadAnchor.setAttribute('download', `${entry.id}_export.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+    toast.success(`Exported ${entry.id}`);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -145,7 +176,9 @@ export default function AuditTrailPage() {
             <p className="text-body text-muted-silver">Complete system activity log with full traceability</p>
           </div>
         </div>
-        <Button variant="secondary" leftIcon={<Download size={14} />}>Export Log</Button>
+        <Button onClick={handleExportLog} variant="secondary" leftIcon={<Download size={14} />}>
+          Export Log
+        </Button>
       </div>
 
       {/* Stats */}
@@ -205,7 +238,7 @@ export default function AuditTrailPage() {
         <div className="absolute left-6 top-0 bottom-0 w-px bg-steel-slate/20" />
 
         <div className="space-y-4">
-          {filtered.map((entry, i) => {
+          {paginated.map((entry, i) => {
             const config = actionConfig[entry.action];
             const isExpanded = expandedEntry === entry.id;
 
@@ -297,8 +330,28 @@ export default function AuditTrailPage() {
                           )}
 
                           <div className="flex gap-2">
-                            <Button variant="secondary" size="xs" leftIcon={<Eye size={10} />}>View Entity</Button>
-                            <Button variant="secondary" size="xs" leftIcon={<Download size={10} />}>Export Entry</Button>
+                            <Button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate('/audit/' + entry.id);
+                              }}
+                              variant="secondary"
+                              size="xs"
+                              leftIcon={<Eye size={10} />}
+                            >
+                              View Entity
+                            </Button>
+                            <Button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleExportSingle(entry);
+                              }}
+                              variant="secondary"
+                              size="xs"
+                              leftIcon={<Download size={10} />}
+                            >
+                              Export Entry
+                            </Button>
                           </div>
                         </div>
                       </motion.div>
@@ -313,12 +366,38 @@ export default function AuditTrailPage() {
 
       {/* Pagination */}
       <div className="flex items-center justify-between text-xs text-muted-silver">
-        <span>Showing {filtered.length} of {mockEntries.length} entries</span>
+        <span>
+          Showing {filtered.length === 0 ? 0 : (safePage - 1) * pageSize + 1}–
+          {Math.min(safePage * pageSize, filtered.length)} of {filtered.length} entries
+        </span>
         <div className="flex gap-1">
-          <button className="px-3 py-1.5 rounded-lg bg-steel-slate/15 text-muted-silver hover:text-ghost-white transition-colors">Prev</button>
-          <button className="px-3 py-1.5 rounded-lg bg-electric-cyan/15 text-electric-cyan">1</button>
-          <button className="px-3 py-1.5 rounded-lg bg-steel-slate/15 text-muted-silver hover:text-ghost-white transition-colors">2</button>
-          <button className="px-3 py-1.5 rounded-lg bg-steel-slate/15 text-muted-silver hover:text-ghost-white transition-colors">Next</button>
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={safePage <= 1}
+            className="px-3 py-1.5 rounded-lg bg-steel-slate/15 text-muted-silver hover:text-ghost-white disabled:opacity-30 disabled:pointer-events-none cursor-pointer transition-colors"
+          >
+            Prev
+          </button>
+          {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pg) => (
+            <button
+              key={pg}
+              onClick={() => setCurrentPage(pg)}
+              className={`px-3 py-1.5 rounded-lg cursor-pointer transition-colors ${
+                safePage === pg
+                  ? 'bg-electric-cyan/20 text-electric-cyan font-bold'
+                  : 'bg-steel-slate/15 text-muted-silver hover:text-ghost-white'
+              }`}
+            >
+              {pg}
+            </button>
+          ))}
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={safePage >= totalPages}
+            className="px-3 py-1.5 rounded-lg bg-steel-slate/15 text-muted-silver hover:text-ghost-white disabled:opacity-30 disabled:pointer-events-none cursor-pointer transition-colors"
+          >
+            Next
+          </button>
         </div>
       </div>
     </motion.div>

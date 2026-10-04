@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ArrowLeft, Bell, BellOff, Plus, Trash2, AlertTriangle, TrendingDown, Activity } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
 
@@ -23,7 +24,40 @@ const sevCfg: Record<string, { color: 'coral' | 'amber' | 'cyan'; icon: typeof A
 
 export default function AlertConfigurationPage() {
   const [rules, setRules] = useState(alertRules);
-  const toggleRule = (id: number) => setRules((p) => p.map((r) => r.id === id ? { ...r, enabled: !r.enabled } : r));
+  const toggleRule = (id: number) => {
+    setRules((p) =>
+      p.map((r) => {
+        if (r.id === id) {
+          const next = !r.enabled;
+          toast.success(`Alert "${r.name}" ${next ? 'enabled' : 'disabled'}`);
+          return { ...r, enabled: next };
+        }
+        return r;
+      })
+    );
+  };
+
+  const handleAddAlert = () => {
+    const newRule: AlertRule = {
+      id: Date.now(),
+      name: `Custom Metric Alert #${rules.length + 1}`,
+      metric: 'rfp.spec_mismatch_rate',
+      condition: 'above',
+      threshold: 5,
+      unit: '%',
+      severity: 'warning',
+      enabled: true,
+      channel: 'Email + Dashboard',
+      lastTriggered: 'Just now',
+    };
+    setRules((p) => [newRule, ...p]);
+    toast.success(`Added new alert rule: ${newRule.name}`);
+  };
+
+  const handleDeleteAlert = (id: number, name: string) => {
+    setRules((p) => p.filter((r) => r.id !== id));
+    toast.success(`Deleted alert rule "${name}"`);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -32,7 +66,12 @@ export default function AlertConfigurationPage() {
           <Link to="/analytics" className="p-2 rounded-lg hover:bg-steel-slate/15 transition-colors"><ArrowLeft size={18} className="text-muted-silver" /></Link>
           <div><h1 className="text-h1 text-ghost-white">Alert Configuration</h1><p className="text-body text-muted-silver">Manage thresholds and notification rules</p></div>
         </div>
-        <button className="flex items-center gap-2 bg-electric-cyan/20 text-electric-cyan px-4 py-2 rounded-lg hover:bg-electric-cyan/30 text-sm font-medium"><Plus size={14} />New Alert</button>
+        <button
+          onClick={handleAddAlert}
+          className="flex items-center gap-2 bg-electric-cyan/20 text-electric-cyan px-4 py-2 rounded-lg hover:bg-electric-cyan/30 cursor-pointer transition-colors text-sm font-medium"
+        >
+          <Plus size={14} />New Alert
+        </button>
       </div>
 
       <div className="grid grid-cols-3 gap-4">
@@ -55,7 +94,7 @@ export default function AlertConfigurationPage() {
           return (
             <Card key={rule.id} variant="glass" className={`p-4 ${!rule.enabled ? 'opacity-50' : ''}`}>
               <div className="flex items-center gap-4">
-                <button onClick={() => toggleRule(rule.id)} className={`w-10 h-5 rounded-full transition-colors relative ${rule.enabled ? 'bg-neon-emerald' : 'bg-steel-slate/30'}`}>
+                <button onClick={() => toggleRule(rule.id)} className={`w-10 h-5 rounded-full transition-colors relative cursor-pointer ${rule.enabled ? 'bg-neon-emerald' : 'bg-steel-slate/30'}`}>
                   <span className={`absolute w-4 h-4 rounded-full bg-white top-0.5 transition-transform ${rule.enabled ? 'left-5.5 translate-x-0' : 'left-0.5'}`} style={{ left: rule.enabled ? '22px' : '2px' }} />
                 </button>
                 <div className="flex-1">
@@ -69,7 +108,13 @@ export default function AlertConfigurationPage() {
                   </p>
                 </div>
                 {rule.lastTriggered && <span className="text-[10px] text-muted-silver">Last: {rule.lastTriggered}</span>}
-                <button className="p-2 hover:bg-coral-flame/10 rounded-lg text-coral-flame/40 hover:text-coral-flame"><Trash2 size={14} /></button>
+                <button
+                  onClick={() => handleDeleteAlert(rule.id, rule.name)}
+                  title="Delete Alert Rule"
+                  className="p-2 hover:bg-coral-flame/10 rounded-lg text-coral-flame/40 hover:text-coral-flame cursor-pointer transition-colors"
+                >
+                  <Trash2 size={14} />
+                </button>
               </div>
             </Card>
           );

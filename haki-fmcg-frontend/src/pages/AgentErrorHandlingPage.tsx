@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ArrowLeft, AlertTriangle, RefreshCw, CheckCircle2, XCircle, Clock, ChevronRight, ChevronDown } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
 
 interface AgentError { id: number; agent: string; type: string; message: string; timestamp: string; recoverable: boolean; retries: number; status: 'resolved' | 'pending' | 'failed'; resolution?: string; }
 
-const errors: AgentError[] = [
+const initialErrors: AgentError[] = [
   { id: 1, agent: 'Sales', type: 'NetworkTimeout', message: 'URL scan timed out after 30s for https://rfp-portal.example.com/tender/2026-44', timestamp: '14:32:15', recoverable: true, retries: 2, status: 'resolved', resolution: 'Auto-retry succeeded on attempt 2' },
   { id: 2, agent: 'Technical', type: 'MatchingError', message: 'Spec comparison failed: unknown cable standard "IEC-62955"', timestamp: '14:33:02', recoverable: false, retries: 0, status: 'pending' },
   { id: 3, agent: 'Pricing', type: 'DataMissing', message: 'No pricing data for product SKU: HAK-XLPE-400', timestamp: '14:33:45', recoverable: true, retries: 1, status: 'resolved', resolution: 'Fallback to average category pricing' },
@@ -21,8 +22,28 @@ const statusCfg: Record<string, { icon: typeof CheckCircle2; color: string; badg
 };
 
 export default function AgentErrorHandlingPage() {
+  const [errorList, setErrorList] = useState<AgentError[]>(initialErrors);
   const [expanded, setExpanded] = useState<number[]>([]);
   const toggle = (id: number) => setExpanded((p) => p.includes(id) ? p.filter((i) => i !== id) : [...p, id]);
+
+  const handleRetry = (id: number) => {
+    toast.loading('Retrying agent operation...', { duration: 1200 });
+    setTimeout(() => {
+      setErrorList((prev) =>
+        prev.map((err) =>
+          err.id === id
+            ? {
+                ...err,
+                status: 'resolved',
+                retries: err.retries + 1,
+                resolution: 'Resolved automatically via manual retry checkpoint recovery',
+              }
+            : err
+        )
+      );
+      toast.success('Agent recovered successfully!');
+    }, 1200);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -32,7 +53,7 @@ export default function AgentErrorHandlingPage() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        {[{ l: 'Resolved', c: 'neon-emerald', v: errors.filter((e) => e.status === 'resolved').length }, { l: 'Pending', c: 'amber-glow', v: errors.filter((e) => e.status === 'pending').length }, { l: 'Failed', c: 'coral-flame', v: errors.filter((e) => e.status === 'failed').length }].map((s) => (
+        {[{ l: 'Resolved', c: 'neon-emerald', v: errorList.filter((e) => e.status === 'resolved').length }, { l: 'Pending', c: 'amber-glow', v: errorList.filter((e) => e.status === 'pending').length }, { l: 'Failed', c: 'coral-flame', v: errorList.filter((e) => e.status === 'failed').length }].map((s) => (
           <Card key={s.l} variant="glass" className="p-4 text-center">
             <span className={`text-2xl font-bold text-${s.c}`}>{s.v}</span>
             <span className="text-xs text-muted-silver block mt-1">{s.l}</span>
@@ -41,7 +62,7 @@ export default function AgentErrorHandlingPage() {
       </div>
 
       <div className="space-y-2">
-        {errors.map((err) => {
+        {errorList.map((err) => {
           const isOpen = expanded.includes(err.id);
           const cfg = (statusCfg[err.status] ?? statusCfg['pending'])!;
           const Icon = cfg.icon;
@@ -66,7 +87,13 @@ export default function AgentErrorHandlingPage() {
                   </div>
                   {err.resolution && <div className="text-xs bg-deep-navy/40 rounded-lg p-2"><span className="text-muted-silver">Resolution: </span><span className="text-ghost-white">{err.resolution}</span></div>}
                   {err.status === 'pending' && (
-                    <button className="flex items-center gap-1 text-xs text-electric-cyan hover:text-electric-cyan/80"><RefreshCw size={12} />Retry Now</button>
+                    <button
+                      onClick={() => handleRetry(err.id)}
+                      className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-electric-cyan/15 text-xs text-electric-cyan hover:bg-electric-cyan/25 cursor-pointer transition-colors"
+                    >
+                      <RefreshCw size={12} />
+                      Retry Now
+                    </button>
                   )}
                 </motion.div>
               )}

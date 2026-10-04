@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import {
@@ -21,6 +21,17 @@ import { useAuthStore } from '@/stores';
 export default function UserProfilePage() {
   const { user } = useAuthStore();
   const [activeSection, setActiveSection] = useState<'profile' | 'security' | 'preferences'>('profile');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(user?.avatar_url || null);
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setAvatarPreview(url);
+      toast.success(`Profile picture updated: ${file.name}`);
+    }
+  };
 
   // Profile form state
   const [fullName, setFullName] = useState(user?.full_name || 'User');
@@ -97,16 +108,28 @@ export default function UserProfilePage() {
             {/* Avatar */}
             <div className="flex flex-col items-center mb-6">
               <div className="relative mb-3">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-neon-emerald to-teal-depth flex items-center justify-center">
-                  {user?.avatar_url ? (
-                    <img src={user.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-neon-emerald to-teal-depth flex items-center justify-center overflow-hidden">
+                  {avatarPreview ? (
+                    <img src={avatarPreview} alt="Avatar" className="w-full h-full rounded-full object-cover" />
                   ) : (
                     <User size={32} className="text-white" />
                   )}
                 </div>
-                <button className="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-electric-cyan flex items-center justify-center hover:bg-electric-cyan/80 transition-colors">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-electric-cyan flex items-center justify-center hover:bg-electric-cyan/80 transition-colors shadow-md"
+                  title="Upload profile picture"
+                >
                   <Camera size={14} className="text-deep-navy" />
                 </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleAvatarChange}
+                />
               </div>
               <h3 className="text-sm font-semibold text-ghost-white">{fullName}</h3>
               <p className="text-xs text-muted-silver capitalize">{user?.role || 'viewer'}</p>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ArrowLeft, IndianRupee, Plus, Trash2, Save, Calculator, Percent, Package } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
 
@@ -31,10 +32,20 @@ export default function BidPricingEditorPage() {
   const totalBase = items.reduce((a, it) => a + calcLine(it).base, 0);
   const avgMargin = items.length > 0 ? items.reduce((a, it) => a + it.margin, 0) / items.length : 0;
 
-  const addItem = () => setItems((prev) => [...prev, { id: Date.now(), sku: '', name: 'New Item', qty: 1, unit: 'm', unitPrice: 0, margin: 10, discount: 0 }]);
-  const removeItem = (id: number) => setItems((prev) => prev.filter((it) => it.id !== id));
+  const addItem = () => {
+    setItems((prev) => [...prev, { id: Date.now(), sku: '', name: 'New Item', qty: 1, unit: 'm', unitPrice: 0, margin: 10, discount: 0 }]);
+    toast.success('Added new line item');
+  };
+  const removeItem = (id: number) => {
+    setItems((prev) => prev.filter((it) => it.id !== id));
+    toast.success('Line item removed');
+  };
 
   const fmt = (n: number) => `₹${n.toLocaleString('en-IN')}`;
+
+  const handleSave = () => {
+    toast.success(`Pricing schedule saved! Grand total: ${fmt(grandTotal)} across ${items.length} line items.`);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -44,8 +55,8 @@ export default function BidPricingEditorPage() {
           <div><h1 className="text-h1 text-ghost-white">Bid Pricing Editor</h1><p className="text-body text-muted-silver">BID-2026-0044 — Adjust margins, discounts & line items</p></div>
         </div>
         <div className="flex gap-2">
-          <button onClick={addItem} className="flex items-center gap-1 text-sm text-electric-cyan bg-electric-cyan/10 px-3 py-2 rounded-lg hover:bg-electric-cyan/20"><Plus size={14} />Add Item</button>
-          <button className="flex items-center gap-1 text-sm text-neon-emerald bg-neon-emerald/10 px-3 py-2 rounded-lg hover:bg-neon-emerald/20"><Save size={14} />Save</button>
+          <button onClick={addItem} className="flex items-center gap-1 text-sm text-electric-cyan bg-electric-cyan/10 px-3 py-2 rounded-lg hover:bg-electric-cyan/20 cursor-pointer"><Plus size={14} />Add Item</button>
+          <button onClick={handleSave} className="flex items-center gap-1 text-sm text-neon-emerald bg-neon-emerald/10 px-3 py-2 rounded-lg hover:bg-neon-emerald/20 cursor-pointer"><Save size={14} />Save</button>
         </div>
       </div>
 

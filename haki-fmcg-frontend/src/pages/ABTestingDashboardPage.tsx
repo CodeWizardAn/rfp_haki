@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ArrowLeft, FlaskConical, TrendingUp, BarChart3, CheckCircle2, XCircle, Play, Pause } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from 'recharts';
 
 /* ─── mock experiments ─── */
 interface Experiment { id: string; name: string; metric: string; status: 'running' | 'completed' | 'paused'; variantA: { name: string; value: number; sample: number }; variantB: { name: string; value: number; sample: number }; confidence: number; winner?: 'A' | 'B'; startedAt: string; }
-const experiments: Experiment[] = [
+const initialExperiments: Experiment[] = [
   { id: 'exp-001', name: 'Bid Scoring Algorithm v2', metric: 'Win Rate', status: 'completed', variantA: { name: 'Current (v1)', value: 42, sample: 312 }, variantB: { name: 'New (v2)', value: 51, sample: 308 }, confidence: 96.4, winner: 'B', startedAt: '2026-01-05' },
   { id: 'exp-002', name: 'Simplified RFP Upload Flow', metric: 'Completion Rate', status: 'running', variantA: { name: 'Multi-Step', value: 68, sample: 185 }, variantB: { name: 'Single-Page', value: 74, sample: 192 }, confidence: 82.1, startedAt: '2026-01-22' },
   { id: 'exp-003', name: 'Agent Response Timeout (5s vs 10s)', metric: 'Success Rate', status: 'running', variantA: { name: '5s Timeout', value: 88, sample: 540 }, variantB: { name: '10s Timeout', value: 93, sample: 527 }, confidence: 91.3, startedAt: '2026-01-28' },
@@ -21,8 +22,22 @@ const statusCfg: Record<string, { color: string; badge: 'emerald' | 'cyan' | 'am
 };
 
 export default function ABTestingDashboardPage() {
+  const [items, setItems] = useState<Experiment[]>(initialExperiments);
   const [filter, setFilter] = useState<'all' | 'running' | 'completed' | 'paused'>('all');
-  const filtered = filter === 'all' ? experiments : experiments.filter((e) => e.status === filter);
+  const filtered = filter === 'all' ? items : items.filter((e) => e.status === filter);
+
+  const toggleStatus = (id: string) => {
+    setItems((prev) =>
+      prev.map((e) => {
+        if (e.id === id) {
+          const nextStatus = e.status === 'running' ? 'paused' : 'running';
+          toast.success(`Experiment "${e.name}" is now ${nextStatus}`);
+          return { ...e, status: nextStatus };
+        }
+        return e;
+      })
+    );
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -35,10 +50,10 @@ export default function ABTestingDashboardPage() {
       {/* KPI row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: 'Active Experiments', value: experiments.filter((e) => e.status === 'running').length, icon: <Play size={14} className="text-neon-emerald" /> },
-          { label: 'Completed', value: experiments.filter((e) => e.status === 'completed').length, icon: <CheckCircle2 size={14} className="text-electric-cyan" /> },
-          { label: 'Avg Confidence', value: `${(experiments.reduce((s, e) => s + e.confidence, 0) / experiments.length).toFixed(1)}%`, icon: <TrendingUp size={14} className="text-amber-glow" /> },
-          { label: 'Total Samples', value: experiments.reduce((s, e) => s + e.variantA.sample + e.variantB.sample, 0).toLocaleString(), icon: <BarChart3 size={14} className="text-violet-pulse" /> },
+          { label: 'Active Experiments', value: items.filter((e) => e.status === 'running').length, icon: <Play size={14} className="text-neon-emerald" /> },
+          { label: 'Completed', value: items.filter((e) => e.status === 'completed').length, icon: <CheckCircle2 size={14} className="text-electric-cyan" /> },
+          { label: 'Avg Confidence', value: `${(items.reduce((s, e) => s + e.confidence, 0) / items.length).toFixed(1)}%`, icon: <TrendingUp size={14} className="text-amber-glow" /> },
+          { label: 'Total Samples', value: items.reduce((s, e) => s + e.variantA.sample + e.variantB.sample, 0).toLocaleString(), icon: <BarChart3 size={14} className="text-violet-pulse" /> },
         ].map((k) => (
           <Card key={k.label} variant="glass" className="p-4 text-center">
             <div className="flex items-center justify-center gap-1.5 mb-1">{k.icon}<span className="text-[10px] text-muted-silver uppercase tracking-wider">{k.label}</span></div>
@@ -76,8 +91,24 @@ export default function ABTestingDashboardPage() {
                   <p className="text-xs text-muted-silver">Metric: <span className="text-electric-cyan">{exp.metric}</span> · Started {exp.startedAt}</p>
                 </div>
                 <div className="flex gap-1">
-                  {exp.status === 'running' && <button className="p-1.5 rounded-lg hover:bg-amber-glow/10 text-amber-glow"><Pause size={14} /></button>}
-                  {exp.status === 'paused' && <button className="p-1.5 rounded-lg hover:bg-neon-emerald/10 text-neon-emerald"><Play size={14} /></button>}
+                  {exp.status === 'running' && (
+                    <button
+                      onClick={() => toggleStatus(exp.id)}
+                      title="Pause experiment"
+                      className="p-1.5 rounded-lg hover:bg-amber-glow/10 text-amber-glow cursor-pointer transition-colors"
+                    >
+                      <Pause size={14} />
+                    </button>
+                  )}
+                  {exp.status === 'paused' && (
+                    <button
+                      onClick={() => toggleStatus(exp.id)}
+                      title="Resume experiment"
+                      className="p-1.5 rounded-lg hover:bg-neon-emerald/10 text-neon-emerald cursor-pointer transition-colors"
+                    >
+                      <Play size={14} />
+                    </button>
+                  )}
                 </div>
               </div>
 

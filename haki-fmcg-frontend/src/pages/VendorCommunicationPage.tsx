@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   ArrowLeft,
   MessageSquare,
@@ -88,6 +89,16 @@ export default function VendorCommunicationPage() {
   const [filterType, setFilterType] = useState<MsgType | 'all'>('all');
   const [showTemplates, setShowTemplates] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleAttachFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      toast.success(`Attached "${file.name}" to message draft`);
+      setMsgInput((prev) => (prev ? `${prev} [Attachment: ${file.name}]` : `[Attachment: ${file.name}] `));
+      e.target.value = '';
+    }
+  };
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [activeThread, messages]);
 
@@ -176,8 +187,20 @@ export default function VendorCommunicationPage() {
               </div>
             </div>
             <div className="flex gap-1">
-              <button className="p-1.5 rounded-lg hover:bg-steel-slate/15 transition-colors"><Phone size={14} className="text-muted-silver" /></button>
-              <button className="p-1.5 rounded-lg hover:bg-steel-slate/15 transition-colors"><Mail size={14} className="text-muted-silver" /></button>
+              <button
+                onClick={() => toast.success(`Connecting to ${activeVendor.vendorName} phone support...`)}
+                title="Call Vendor"
+                className="p-1.5 rounded-lg hover:bg-steel-slate/15 cursor-pointer transition-colors"
+              >
+                <Phone size={14} className="text-muted-silver hover:text-ghost-white" />
+              </button>
+              <button
+                onClick={() => toast.success(`Opening mail draft to ${activeVendor.vendorName}...`)}
+                title="Email Vendor"
+                className="p-1.5 rounded-lg hover:bg-steel-slate/15 cursor-pointer transition-colors"
+              >
+                <Mail size={14} className="text-muted-silver hover:text-ghost-white" />
+              </button>
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value as MsgType | 'all')}
@@ -246,9 +269,10 @@ export default function VendorCommunicationPage() {
               <button onClick={() => setShowTemplates(!showTemplates)} className="p-1.5 rounded-lg hover:bg-steel-slate/15 transition-colors" title="Templates">
                 <MessageSquare size={14} className="text-muted-silver" />
               </button>
-              <button className="p-1.5 rounded-lg hover:bg-steel-slate/15 transition-colors" title="Attach file">
+              <button onClick={() => fileInputRef.current?.click()} className="p-1.5 rounded-lg hover:bg-steel-slate/15 transition-colors" title="Attach file">
                 <Paperclip size={14} className="text-muted-silver" />
               </button>
+              <input ref={fileInputRef} type="file" className="hidden" onChange={handleAttachFile} />
             </div>
             <div className="flex-1 flex flex-col gap-1">
               <div className="flex gap-1">

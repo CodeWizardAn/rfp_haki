@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   ArrowLeft,
   Plus,
@@ -85,15 +86,32 @@ export default function UserManagementPage() {
   });
 
   const toggleActive = (id: string) => {
-    setUsers((p) => p.map((u) => (u.id === id ? { ...u, active: !u.active } : u)));
+    setUsers((p) =>
+      p.map((u) => {
+        if (u.id === id) {
+          const next = !u.active;
+          toast.success(`${u.name} is now ${next ? 'active' : 'deactivated'}`);
+          return { ...u, active: next };
+        }
+        return u;
+      })
+    );
   };
 
   const deleteUser = (id: string) => {
+    const target = users.find((u) => u.id === id);
     setUsers((p) => p.filter((u) => u.id !== id));
+    toast.success(`User ${target?.name ?? id} deleted`);
   };
 
   const forceLogout = (id: string) => {
+    const target = users.find((u) => u.id === id);
     setUsers((p) => p.map((u) => (u.id === id ? { ...u, sessions: 0 } : u)));
+    toast.success(`Terminated active sessions for ${target?.name}`);
+  };
+
+  const handleResetPassword = (user: User) => {
+    toast.success(`Password reset instructions sent to ${user.email}`);
   };
 
   const handleCreate = () => {
@@ -104,6 +122,7 @@ export default function UserManagementPage() {
     };
     setUsers((p) => [...p, newUser]);
     setFormName(''); setFormEmail(''); setFormRole('Analyst'); setShowCreate(false);
+    toast.success(`Created user ${newUser.name} with ${newUser.role} role`);
   };
 
   const roleCounts = { Admin: 0, Manager: 0, Analyst: 0, Viewer: 0 };
@@ -269,8 +288,12 @@ export default function UserManagementPage() {
                       <LogOut size={13} className="text-amber-glow" />
                     </button>
                   )}
-                  <button className="p-1.5 rounded-lg hover:bg-steel-slate/15 transition-colors" title="Reset password">
-                    <Key size={13} className="text-muted-silver" />
+                  <button
+                    onClick={() => handleResetPassword(user)}
+                    className="p-1.5 rounded-lg hover:bg-steel-slate/15 cursor-pointer transition-colors"
+                    title="Reset password"
+                  >
+                    <Key size={13} className="text-muted-silver hover:text-ghost-white" />
                   </button>
                   <button onClick={() => toggleActive(user.id)} className="p-1.5 rounded-lg hover:bg-steel-slate/15 transition-colors" title="Toggle active">
                     {user.active ? <CheckCircle2 size={13} className="text-neon-emerald" /> : <XCircle size={13} className="text-muted-silver" />}
