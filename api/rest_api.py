@@ -161,6 +161,32 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Enterprise SaaS Integrations
+try:
+    from passlib.context import CryptContext
+    _pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+except Exception:
+    _pwd_context = None
+
+try:
+    from core.redis_client import get_distributed_state
+    _distributed_state = get_distributed_state()
+except Exception:
+    _distributed_state = None
+
+try:
+    from core.tenant_context import EnterpriseContextMiddleware, get_current_tenant_id
+except Exception:
+    EnterpriseContextMiddleware = None
+    def get_current_tenant_id():
+        return "default"
+
+try:
+    from api.health_router import health_router
+    HEALTH_ROUTER_AVAILABLE = True
+except Exception:
+    HEALTH_ROUTER_AVAILABLE = False
+
 
 def clean_nan_values(obj: Any) -> Any:
     """Recursively sanitize float NaN and Infinite values to None for valid JSON serialization."""
@@ -412,6 +438,7 @@ class TokenData(BaseModel):
     exp: datetime
     iat: datetime
     jti: str  # JWT ID for revocation
+    tenant_id: Optional[str] = "default"
 
 
 class AuthenticationManager:
@@ -526,20 +553,40 @@ class AuthenticationManager:
     # ---- password helpers ----
 
     def _hash_password(self, password: str) -> str:
+        if _pwd_context:
+            try:
+                return _pwd_context.hash(password)
+            except Exception:
+                pass
         salt = "rfp_system_salt"
         return hashlib.sha256(f"{password}{salt}".encode()).hexdigest()
 
     def _verify_password(self, password: str, password_hash: str) -> bool:
-        return self._hash_password(password) == password_hash
+        if _pwd_context and password_hash.startswith(("$2b$", "$2a$", "$2y$")):
+            try:
+                return _pwd_context.verify(password, password_hash)
+            except Exception:
+                pass
+        # Legacy fallback (salted SHA256)
+        salt = "rfp_system_salt"
+        if hashlib.sha256(f"{password}{salt}".encode()).hexdigest() == password_hash:
+            return True
+        # Plain SHA256 fallback for legacy seeded demo accounts
+        if hashlib.sha256(password.encode()).hexdigest() == password_hash:
+            return True
+        return False
 
     # ---- token helpers ----
 
     def _create_token(self, user_id: str, username: str, role: UserRole,
-                      expires_delta: timedelta, is_refresh: bool = False) -> tuple:
+                      expires_delta: timedelta, is_refresh: bool = False,
+                      tenant_id: Optional[str] = None) -> tuple:
         import base64
         jti = str(uuid.uuid4())
         now = datetime.utcnow()
         exp = now + expires_delta
+
+        active_tenant = tenant_id or get_current_tenant_id()
 
         payload = {
             "user_id": user_id,
@@ -548,6 +595,7 @@ class AuthenticationManager:
             "exp": exp.timestamp(),
             "iat": now.timestamp(),
             "jti": jti,
+            "tenant_id": active_tenant,
             "type": "refresh" if is_refresh else "access",
         }
 
@@ -619,7 +667,10 @@ class AuthenticationManager:
 
             if datetime.utcnow().timestamp() > payload["exp"]:
                 return None
-            if payload["jti"] in self._revoked_tokens:
+            
+            jti = payload["jti"]
+            # Check distributed state and local revocation
+            if (_distributed_state and _distributed_state.is_token_revoked(jti)) or (jti in self._revoked_tokens):
                 return None
 
             return TokenData(
@@ -628,7 +679,8 @@ class AuthenticationManager:
                 role=UserRole(payload["role"]),
                 exp=datetime.fromtimestamp(payload["exp"]),
                 iat=datetime.fromtimestamp(payload["iat"]),
-                jti=payload["jti"],
+                jti=jti,
+                tenant_id=payload.get("tenant_id", "default"),
             )
         except Exception:
             return None
@@ -646,6 +698,7 @@ class AuthenticationManager:
         access_token, _ = self._create_token(
             user["user_id"], token_data.username, role,
             timedelta(minutes=JWTConfig.ACCESS_TOKEN_EXPIRE_MINUTES),
+            tenant_id=token_data.tenant_id,
         )
 
         return TokenResponse(
@@ -658,6 +711,8 @@ class AuthenticationManager:
         with self._lock:
             self._revoked_tokens.add(jti)
             self._refresh_tokens.pop(jti, None)
+            if _distributed_state:
+                _distributed_state.revoke_token(jti)
 
     async def create_user(self, user_data: UserCreate) -> Optional[Dict[str, Any]]:
         user_id = f"USR_{uuid.uuid4().hex[:8].upper()}"
@@ -1179,6 +1234,15 @@ def create_app(version: str = "v1") -> FastAPI:
 
 # Create main app
 app = create_app()
+
+# Mount Enterprise Multi-Tenant & Correlation Context Middleware
+if EnterpriseContextMiddleware is not None:
+    app.add_middleware(EnterpriseContextMiddleware)
+
+# Mount Enterprise Health & Observability Router
+if HEALTH_ROUTER_AVAILABLE:
+    app.include_router(health_router, prefix="/api/v1")
+    app.include_router(health_router)
 
 # Initialize Performance System
 if PERFORMANCE_AVAILABLE:

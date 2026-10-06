@@ -1,56 +1,72 @@
-# Core Web Framework
-Flask==2.3.3
-Flask-CORS==4.0.0
-Werkzeug==2.3.7
+# =============================================================================
+# Enterprise SaaS Requirements - Haki FMCG 2.0 / Haki Procure AI
+# =============================================================================
+
+# Core Web Framework & ASGI Server
+fastapi>=0.110.0
+uvicorn[standard]>=0.28.0
+starlette>=0.36.0
+python-multipart>=0.0.9
+sse-starlette>=2.0.0
 
 # Database & ORM
-SQLAlchemy==2.0.21
-psycopg2-binary==2.9.7
+SQLAlchemy>=2.0.25
+psycopg2-binary>=2.9.9
+alembic>=1.13.1
 
-# Data Processing & Analysis
-numpy>=2.1.0
-pandas>=2.2.2
+# Caching & Distributed Job Queue
+redis>=5.0.1
+celery>=5.3.6
+slowapi>=0.1.9
 
-# Data Validation
-pydantic>=2.9.0
-chromadb>=0.5.5
-sentence-transformers>=3.0.1
-setuptools>=75.0.0
-wheel>=0.44.0
+# Security, Cryptography & Auth
+passlib[bcrypt]>=1.7.4
+bcrypt>=4.1.2
+python-jose[cryptography]>=3.3.0
+python-dotenv>=1.0.1
+
+# Cloud Storage & Object Persistence
+boto3>=1.34.0
+botocore>=1.34.0
+
+# Observability, Metrics & Structured Logging
+prometheus-client>=0.20.0
+python-json-logger>=2.0.7
+
+# Data Validation & Serialization
+pydantic>=2.6.0
+pydantic-settings>=2.2.0
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Vector Embeddings & Semantic Search
+chromadb>=0.4.24
+sentence-transformers>=2.5.0
 
 # LLM & AI Agents
-langchain==0.0.304
-langchain-core==0.0.9
-langchain-groq==0.0.1
+langchain-core>=0.1.30
+langchain-groq>=0.0.1
 
-# PDF Processing
-pdfplumber==0.10.3
-PyPDF2==3.0.1
-pymupdf==1.23.2
-pytesseract==0.3.10
-Pillow==10.0.0
+# Document & PDF Processing
+pdfplumber>=0.10.3
+PyPDF2>=3.0.1
+pymupdf>=1.23.8
+pytesseract>=0.3.10
+Pillow>=10.2.0
+reportlab>=4.1.0
+openpyxl>=3.1.2
 
-# Web Scraping & HTTP
-requests==2.31.0
-beautifulsoup4==4.12.2
+# HTTP Clients & Web Scraping
+requests>=2.31.0
+httpx>=0.27.0
+beautifulsoup4>=4.12.3
 
-# Environment & Configuration
-python-dotenv==1.0.0
+# Testing & Quality Assurance
+pytest>=8.0.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.23.5
 
-# Testing
-pytest==7.4.0
-pytest-cov==4.1.0
-pytest-asyncio==0.21.1
-
-# Excel Processing (if needed)
-openpyxl==3.1.2
-xlrd==2.0.1
-xlwt==1.3.0
-
-# Utilities
-python-dateutil==2.8.2
-pytz==2023.3
-click==8.1.7
-
-# Development & Debugging
-pdbpp==0.10.3
+# Date & Utilities
+python-dateutil>=2.8.2
+pytz>=2024.1
+click>=8.1.7

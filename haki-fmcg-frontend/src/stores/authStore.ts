@@ -30,37 +30,7 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true, error: null });
         const cleanUser = username.trim().toLowerCase();
 
-        // 1. Instant Hardcoded Demo Credentials (works offline & on static Vercel hosting)
-        if (
-          cleanUser === 'admin' ||
-          cleanUser === 'user' ||
-          cleanUser === 'manager' ||
-          cleanUser === 'analyst' ||
-          cleanUser === 'viewer'
-        ) {
-          const role = cleanUser === 'admin' ? 'admin' : cleanUser === 'viewer' ? 'viewer' : 'manager';
-          const demoUser: User = {
-            id: cleanUser === 'admin' ? 1 : 2,
-            username: cleanUser,
-            email: `${cleanUser}@hakiprocure.ai`,
-            full_name: cleanUser === 'admin' ? 'Haki Administrator' : cleanUser === 'user' ? 'Procurement Manager' : cleanUser,
-            role,
-            permissions: ['*'],
-            is_active: true,
-          };
-          const mockToken = `demo-token-${cleanUser}-${Date.now()}`;
-          localStorage.setItem('access_token', mockToken);
-          localStorage.setItem('refresh_token', `demo-refresh-${cleanUser}-${Date.now()}`);
-          try {
-            sessionStorage.setItem('haki_demo_user', JSON.stringify(demoUser));
-          } catch {
-            // ignore
-          }
-          set({ user: demoUser, isAuthenticated: true, isLoading: false, error: null });
-          return;
-        }
-
-        // 2. Custom account backend authentication
+        // 1. Primary: Server-Side Authentication
         try {
           const tokens = await authService.login(username, password);
           localStorage.setItem('access_token', tokens.access_token);
@@ -76,19 +46,63 @@ export const useAuthStore = create<AuthState>()(
               username,
               email: '',
               full_name: username,
-              role: 'admin',
-              permissions: [],
+              role: cleanUser === 'admin' ? 'admin' : 'manager',
+              permissions: ['*'],
               is_active: true,
             } as User;
           }
           set({ user, isAuthenticated: true, isLoading: false, error: null });
+          return;
         } catch (err: any) {
-          let message = 'Login failed';
-          if (err?.response?.data?.detail) {
-            message = typeof err.response.data.detail === 'string'
-              ? err.response.data.detail
-              : JSON.stringify(err.response.data.detail);
-          } else if (err?.message) {
+          // If the backend actively rejected with 401/400 (Bad credentials), reject immediately!
+          const isCredentialError = err?.response?.status === 401 || err?.response?.status === 400;
+          const allowOfflineDemo = import.meta.env.VITE_ENABLE_OFFLINE_DEMO === 'true' || window.location.hostname === 'localhost';
+
+          if (isCredentialError || !allowOfflineDemo) {
+            let message = 'Invalid username or password';
+            if (err?.response?.data?.detail) {
+              message = typeof err.response.data.detail === 'string'
+                ? err.response.data.detail
+                : JSON.stringify(err.response.data.detail);
+            } else if (err?.message) {
+              message = err.message;
+            }
+            set({ error: message, isLoading: false, isAuthenticated: false });
+            throw err;
+          }
+
+          // 2. Offline Fallback for Local/Preview Environments when Backend is down
+          if (
+            cleanUser === 'admin' ||
+            cleanUser === 'user' ||
+            cleanUser === 'manager' ||
+            cleanUser === 'analyst' ||
+            cleanUser === 'viewer'
+          ) {
+            const role = cleanUser === 'admin' ? 'admin' : cleanUser === 'viewer' ? 'viewer' : 'manager';
+            const demoUser: User = {
+              id: cleanUser === 'admin' ? 1 : 2,
+              username: cleanUser,
+              email: `${cleanUser}@hakiprocure.ai`,
+              full_name: cleanUser === 'admin' ? 'Haki Administrator' : cleanUser === 'user' ? 'Procurement Manager' : cleanUser,
+              role,
+              permissions: ['*'],
+              is_active: true,
+            };
+            const mockToken = `demo-token-${cleanUser}-${Date.now()}`;
+            localStorage.setItem('access_token', mockToken);
+            localStorage.setItem('refresh_token', `demo-refresh-${cleanUser}-${Date.now()}`);
+            try {
+              sessionStorage.setItem('haki_demo_user', JSON.stringify(demoUser));
+            } catch {
+              // ignore
+            }
+            set({ user: demoUser, isAuthenticated: true, isLoading: false, error: null });
+            return;
+          }
+
+          let message = 'Login failed. Backend service is currently unreachable.';
+          if (err?.message) {
             message = err.message;
           }
           set({ error: message, isLoading: false, isAuthenticated: false });
