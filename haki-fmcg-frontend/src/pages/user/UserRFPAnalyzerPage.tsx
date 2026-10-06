@@ -154,6 +154,9 @@ interface MatchedProduct {
   standard: string;
   fire_rating: string;
   application_domain: string;
+  is_qualified?: boolean;
+  compliance_status?: 'COMPLIANT' | 'NON_COMPLIANT' | 'DISQUALIFIED';
+  knockout_reasons?: string[];
   voltage_drop?: {
     drop_volts: number;
     drop_percent: number;
@@ -1782,30 +1785,31 @@ export default function UserRFPAnalyzerPage() {
                               comp.top_matches.length === 2 ? 'grid-cols-2' : 'grid-cols-3'
                             }`}>
                               {comp.top_matches.slice(0, 3).map((product, pIdx) => {
-                                const pScore = Math.min(100, Math.round(product.match_score ?? 0));
-                                const borderColor = pIdx === 0 ? 'border-amber-glow/50' : pIdx === 1 ? 'border-steel-slate/40' : 'border-steel-slate/30';
-                                const glowClass = pIdx === 0 ? 'shadow-lg shadow-amber-glow/10' : '';
+                                const isDisqualified = product.is_qualified === false || product.compliance_status === 'DISQUALIFIED';
+                                const pScore = isDisqualified ? 0 : Math.min(100, Math.round(product.match_score ?? 0));
+                                const borderColor = isDisqualified ? 'border-coral-flame/60' : pIdx === 0 ? 'border-amber-glow/50' : pIdx === 1 ? 'border-steel-slate/40' : 'border-steel-slate/30';
+                                const glowClass = isDisqualified ? 'shadow-lg shadow-coral-flame/10' : pIdx === 0 ? 'shadow-lg shadow-amber-glow/10' : '';
                                 return (
-                                  <div key={pIdx} className={`rounded-xl border ${borderColor} ${glowClass} bg-steel-slate/5 p-4 flex flex-col`}>
+                                  <div key={pIdx} className={`rounded-xl border ${borderColor} ${glowClass} ${isDisqualified ? 'bg-coral-flame/5' : 'bg-steel-slate/5'} p-4 flex flex-col`}>
                                     {/* Rank & Score Header */}
                                     <div className="flex items-center justify-between mb-3">
                                       <div className={`flex items-center gap-2`}>
                                         <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold ${
-                                          pIdx === 0 ? 'bg-amber-glow/20 text-amber-glow' : pIdx === 1 ? 'bg-steel-slate/30 text-ghost-white' : 'bg-steel-slate/20 text-muted-silver'
+                                          isDisqualified ? 'bg-coral-flame/20 text-coral-flame' : pIdx === 0 ? 'bg-amber-glow/20 text-amber-glow' : pIdx === 1 ? 'bg-steel-slate/30 text-ghost-white' : 'bg-steel-slate/20 text-muted-silver'
                                         }`}>
-                                          {pIdx === 0 ? <Star size={14} /> : `#${pIdx + 1}`}
+                                          {isDisqualified ? <AlertTriangle size={14} /> : pIdx === 0 ? <Star size={14} /> : `#${pIdx + 1}`}
                                         </div>
-                                        <Badge variant="soft" color={badgeColor(pScore)} size="sm">
-                                          {pScore >= 85 ? 'High' : pScore >= 70 ? 'Medium' : 'Low'}
+                                        <Badge variant="soft" color={isDisqualified ? 'coral' : badgeColor(pScore)} size="sm">
+                                          {isDisqualified ? 'DISQUALIFIED' : pScore >= 85 ? 'High' : pScore >= 70 ? 'Medium' : 'Low'}
                                         </Badge>
                                       </div>
                                       <div className="text-right">
-                                        <p className={`text-2xl font-bold ${scoreColor(pScore)}`}>{pScore}%</p>
+                                        <p className={`text-2xl font-bold ${isDisqualified ? 'text-coral-flame' : scoreColor(pScore)}`}>{pScore}%</p>
                                       </div>
                                     </div>
                                     {/* Score Bar */}
                                     <div className="w-full h-2 rounded-full bg-steel-slate/30 mb-3">
-                                      <div className={`h-full rounded-full transition-all duration-700 ${scoreBg(pScore)}`} style={{ width: `${pScore}%` }} />
+                                      <div className={`h-full rounded-full transition-all duration-700 ${isDisqualified ? 'bg-coral-flame' : scoreBg(pScore)}`} style={{ width: `${Math.max(4, pScore)}%` }} />
                                     </div>
                                     {/* Product Info */}
                                     <p className="text-xs font-mono text-muted-silver truncate">{product.product_code || '—'}</p>
@@ -1814,6 +1818,20 @@ export default function UserRFPAnalyzerPage() {
                                       <Building2 size={12} className="text-electric-cyan" />
                                       <span className="text-xs text-electric-cyan font-medium">{product.oem || product.source}</span>
                                     </div>
+
+                                    {/* Knockout Warning Banner if Disqualified */}
+                                    {isDisqualified && product.knockout_reasons && product.knockout_reasons.length > 0 && (
+                                      <div className="mt-2.5 p-2 rounded-lg bg-coral-flame/15 border border-coral-flame/30 text-xs text-coral-flame flex flex-col gap-1">
+                                        <div className="flex items-center gap-1 font-semibold text-[11px] uppercase tracking-wide">
+                                          <AlertTriangle size={12} className="shrink-0" />
+                                          <span>Gatekeeper Knockout</span>
+                                        </div>
+                                        {product.knockout_reasons.map((r, rIdx) => (
+                                          <div key={rIdx} className="text-[11px] leading-tight text-ghost-white/90">• {r}</div>
+                                        ))}
+                                      </div>
+                                    )}
+
                                     {/* Price */}
                                     <div className="mt-3 pt-3 border-t border-steel-slate/15 flex justify-between items-baseline">
                                       <span className="text-xs text-muted-silver">{(product as any).price_unit && (product as any).price_unit !== 'm' ? `Price/${(product as any).price_unit}` : 'Price/m'}</span>

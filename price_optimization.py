@@ -441,6 +441,7 @@ class CommodityRates:
     pvc_resin_inr_per_kg: float = 85.0     # PVC polymer compound
     xlpe_compound_inr_per_kg: float = 135.0  # XLPE cross-linkable compound
     steel_strip_inr_per_kg: float = 65.0   # Galvanized steel tape/wire for armour
+    last_updated: datetime = field(default_factory=datetime.utcnow)
 
 
 class MetalCommodityPricingModel:
@@ -494,18 +495,20 @@ class LandedCostCalculator:
         self,
         conductor_size_sqmm: float,
         no_of_cores: int,
-        material: str,
-        insulation: str,
-        is_armoured: bool,
-        quantity_meters: float,
+        material: str = 'copper',
+        insulation: str = 'XLPE',
+        is_armoured: bool = True,
+        quantity_meters: float = 1000.0,
         fabrication_base_cost_per_m: float = 25.0,
         margin_percent: float = 12.0,
         freight_distance_km: float = 250.0,
-        gst_percent: float = 18.0
+        gst_percent: float = 18.0,
+        conductor_material: Optional[str] = None
     ) -> Dict[str, Any]:
         """Compute full itemized landed cost breakdown."""
+        mat = conductor_material or material
         # 1. Conductor cost
-        metal_info = self.commodity_engine.calculate_metal_cost_per_meter(conductor_size_sqmm, no_of_cores, material)
+        metal_info = self.commodity_engine.calculate_metal_cost_per_meter(conductor_size_sqmm, no_of_cores, mat)
         conductor_cost_per_m = metal_info['conductor_cost_per_meter']
 
         # 2. Polymer insulation & sheathing cost estimate
@@ -558,6 +561,9 @@ class LandedCostCalculator:
                 'final_landed_total': round(final_landed_total, 2)
             }
         }
+
+    # Alias for API backwards compatibility
+    calculate_turnkey_landed_cost = calculate_boq_line_cost
 
 
 # Example usage

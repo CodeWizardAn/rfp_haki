@@ -4743,22 +4743,28 @@ async def analyze_rfp(
                         }
 
                     # ── Recommendations ──
+                    # ── Recommendations ──
                     if include_recommendations:
                         recs = []
-                        score = ep.get('match_score', 0)
-                        if score >= 90:
-                            recs.append("✅ Excellent match — meets all key specifications")
-                        elif score >= 75:
-                            recs.append("👍 Good match — minor spec differences")
+                        if ep.get('is_qualified') is False or ep.get('compliance_status') == 'DISQUALIFIED':
+                            reasons = ep.get('knockout_reasons') or ['Fatal specification mismatch']
+                            recs.append(f"❌ DISQUALIFIED: {'; '.join(reasons)}")
+                            recs.append("⚠️ Product fails mandatory technical knockout criteria")
                         else:
-                            recs.append("⚠️ Partial match — review specifications carefully")
+                            score = ep.get('match_score', 0)
+                            if score >= 90:
+                                recs.append("✅ Excellent match — meets all key specifications")
+                            elif score >= 75:
+                                recs.append("👍 Good match — minor spec differences")
+                            else:
+                                recs.append("⚠️ Partial match — review specifications carefully")
 
-                        quality = ep.get('overall_quality_score')
-                        if quality and quality >= 85:
-                            recs.append("⭐ Premium quality product")
-                        warranty = ep.get('warranty_years')
-                        if warranty and warranty >= 5:
-                            recs.append(f"🛡️ {warranty}-year warranty")
+                            quality = ep.get('overall_quality_score')
+                            if quality and quality >= 85:
+                                recs.append("⭐ Premium quality product")
+                            warranty = ep.get('warranty_years')
+                            if warranty and warranty >= 5:
+                                recs.append(f"🛡️ {warranty}-year warranty")
 
                         ep['recommendations'] = recs[:4]
 
@@ -6134,6 +6140,75 @@ async def bulk_record_outcomes(
         raise
     except Exception as e:
         logger.error(f"Bulk outcome recording error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# Feature: Enterprise Metal Commodity & Landed Cost Analytics Endpoints
+# =============================================================================
+
+class LandedCostRequest(BaseModel):
+    conductor_size_sqmm: float = Field(..., gt=0, description="Conductor cross-section in sq mm")
+    no_of_cores: int = Field(1, ge=1, description="Number of cores")
+    conductor_material: str = Field("copper", description="copper or aluminium")
+    insulation: str = Field("XLPE", description="XLPE or PVC")
+    is_armoured: bool = Field(True, description="Whether cable is armoured")
+    quantity_meters: float = Field(1000.0, gt=0, description="Quantity in meters")
+    freight_distance_km: float = Field(250.0, ge=0, description="Transit distance in kilometers")
+    margin_percent: float = Field(12.0, ge=0, description="Target profit margin %")
+    gst_percent: float = Field(18.0, ge=0, description="GST rate %")
+
+
+@app.get("/api/v1/pricing/commodity-rates", tags=["Pricing Analytics"])
+async def get_commodity_rates():
+    """Retrieve real-time LME/MCX indexed commodity baseline rates used in engineering pricing."""
+    try:
+        from price_optimization import CommodityRates
+        rates = CommodityRates()
+        return {
+            "success": True,
+            "currency": "INR",
+            "rates": {
+                "copper_inr_per_kg": rates.copper_inr_per_kg,
+                "aluminium_inr_per_kg": rates.aluminium_inr_per_kg,
+                "pvc_resin_inr_per_kg": rates.pvc_resin_inr_per_kg,
+                "xlpe_compound_inr_per_kg": rates.xlpe_compound_inr_per_kg,
+                "steel_strip_inr_per_kg": rates.steel_strip_inr_per_kg,
+            },
+            "last_updated": rates.last_updated.isoformat(),
+            "source": "LME / MCX Indexed Reference"
+        }
+    except Exception as e:
+        logger.error(f"Failed to fetch commodity rates: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/v1/pricing/landed-cost-estimate", tags=["Pricing Analytics"])
+async def estimate_landed_cost(payload: LandedCostRequest):
+    """
+    Calculate an accurate engineering landed cost estimate including conductor metal weight,
+    insulation, steel armouring, wooden drums, freight per tonne-km, insurance, and 18% GST.
+    """
+    try:
+        from price_optimization import LandedCostCalculator
+        calc = LandedCostCalculator()
+        result = calc.calculate_turnkey_landed_cost(
+            conductor_size_sqmm=payload.conductor_size_sqmm,
+            no_of_cores=payload.no_of_cores,
+            conductor_material=payload.conductor_material,
+            insulation=payload.insulation,
+            is_armoured=payload.is_armoured,
+            quantity_meters=payload.quantity_meters,
+            freight_distance_km=payload.freight_distance_km,
+            margin_percent=payload.margin_percent,
+            gst_percent=payload.gst_percent,
+        )
+        return {
+            "success": True,
+            "data": result
+        }
+    except Exception as e:
+        logger.error(f"Landed cost calculation failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
