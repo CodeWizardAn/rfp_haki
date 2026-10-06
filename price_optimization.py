@@ -4,7 +4,7 @@ Real-time price tracking, history analysis, and discount optimization
 """
 
 import json
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
@@ -427,6 +427,137 @@ class VolumeDiscountCalculator:
             })
 
         return sorted(comparisons, key=lambda x: x['total_cost'])
+
+
+# =============================================================================
+# Dynamic Metal Index & Landed Cost Breakdown Engine
+# =============================================================================
+
+@dataclass
+class CommodityRates:
+    """Current metal & polymer commodity spot prices (INR/kg)"""
+    copper_inr_per_kg: float = 780.0       # LME / MCX Copper spot rate
+    aluminium_inr_per_kg: float = 240.0    # MCX Aluminium spot rate
+    pvc_resin_inr_per_kg: float = 85.0     # PVC polymer compound
+    xlpe_compound_inr_per_kg: float = 135.0  # XLPE cross-linkable compound
+    steel_strip_inr_per_kg: float = 65.0   # Galvanized steel tape/wire for armour
+
+
+class MetalCommodityPricingModel:
+    """
+    Dynamic Metal Index Pricing Engine for Electrical Wires & Power Cables.
+    Calculates bare conductor weights and converts metal index fluctuations into exact per-meter costs.
+    """
+    # Density in kg / (mm² * meter)
+    DENSITY_COPPER = 0.00889     # 8.89 g/cm³
+    DENSITY_ALUMINIUM = 0.00270  # 2.70 g/cm³
+
+    def __init__(self, rates: Optional[CommodityRates] = None):
+        self.rates = rates or CommodityRates()
+
+    def calculate_conductor_weight_per_km(self, conductor_size_sqmm: float, no_of_cores: int, material: str = 'copper') -> float:
+        """Calculate net conductor metal weight in kg per kilometer of cable."""
+        mat = material.lower()
+        density = self.DENSITY_COPPER if any(x in mat for x in ['cu', 'copper']) else self.DENSITY_ALUMINIUM
+        # Multiplier 1.02 accounts for lay length cabling stranding factor
+        weight_per_meter = conductor_size_sqmm * no_of_cores * density * 1.02
+        return weight_per_meter * 1000.0  # kg/km
+
+    def calculate_metal_cost_per_meter(self, conductor_size_sqmm: float, no_of_cores: int, material: str = 'copper') -> Dict[str, Any]:
+        """Calculate exact raw metal cost contribution per meter."""
+        mat = material.lower()
+        is_copper = any(x in mat for x in ['cu', 'copper'])
+        weight_per_km = self.calculate_conductor_weight_per_km(conductor_size_sqmm, no_of_cores, material)
+        weight_per_m = weight_per_km / 1000.0
+
+        rate_per_kg = self.rates.copper_inr_per_kg if is_copper else self.rates.aluminium_inr_per_kg
+        metal_cost_per_m = weight_per_m * rate_per_kg
+
+        return {
+            'material': 'Copper' if is_copper else 'Aluminium',
+            'weight_kg_per_meter': round(weight_per_m, 4),
+            'weight_kg_per_km': round(weight_per_km, 2),
+            'rate_inr_per_kg': rate_per_kg,
+            'conductor_cost_per_meter': round(metal_cost_per_m, 2),
+        }
+
+
+class LandedCostCalculator:
+    """
+    Comprehensive landed cost calculator for tenders.
+    Computes Ex-factory, Drum/Packaging, Freight, Insurance, GST (18%), and Margin.
+    """
+    def __init__(self, commodity_engine: Optional[MetalCommodityPricingModel] = None):
+        self.commodity_engine = commodity_engine or MetalCommodityPricingModel()
+
+    def calculate_boq_line_cost(
+        self,
+        conductor_size_sqmm: float,
+        no_of_cores: int,
+        material: str,
+        insulation: str,
+        is_armoured: bool,
+        quantity_meters: float,
+        fabrication_base_cost_per_m: float = 25.0,
+        margin_percent: float = 12.0,
+        freight_distance_km: float = 250.0,
+        gst_percent: float = 18.0
+    ) -> Dict[str, Any]:
+        """Compute full itemized landed cost breakdown."""
+        # 1. Conductor cost
+        metal_info = self.commodity_engine.calculate_metal_cost_per_meter(conductor_size_sqmm, no_of_cores, material)
+        conductor_cost_per_m = metal_info['conductor_cost_per_meter']
+
+        # 2. Polymer insulation & sheathing cost estimate
+        is_xlpe = 'xlpe' in insulation.lower()
+        insulation_rate = self.commodity_engine.rates.xlpe_compound_inr_per_kg if is_xlpe else self.commodity_engine.rates.pvc_resin_inr_per_kg
+        insulation_weight_est_per_m = (conductor_size_sqmm ** 0.5) * (no_of_cores ** 0.5) * 0.04
+        insulation_cost_per_m = insulation_weight_est_per_m * insulation_rate
+
+        # 3. Armour cost
+        armour_cost_per_m = (conductor_size_sqmm ** 0.5) * 0.05 * self.commodity_engine.rates.steel_strip_inr_per_kg if is_armoured else 0.0
+
+        # 4. Total ex-factory cost
+        ex_factory_unit = conductor_cost_per_m + insulation_cost_per_m + armour_cost_per_m + fabrication_base_cost_per_m
+        ex_factory_total = ex_factory_unit * quantity_meters
+
+        # 5. Drum packing (standard wooden drum 500m or 1000m = ₹3500/drum)
+        drums_count = max(1, int(quantity_meters / 500.0 + 0.99))
+        drum_packaging_cost = drums_count * 3500.0
+
+        # 6. Freight & Insurance (₹5.5 per tonne-km)
+        total_weight_tonnes = (metal_info['weight_kg_per_meter'] + insulation_weight_est_per_m + 0.1) * quantity_meters / 1000.0
+        freight_cost = total_weight_tonnes * freight_distance_km * 5.5
+        insurance_cost = ex_factory_total * 0.0035  # 0.35% transit insurance
+
+        subtotal_before_margin = ex_factory_total + drum_packaging_cost + freight_cost + insurance_cost
+        margin_amount = subtotal_before_margin * (margin_percent / 100.0)
+        net_taxable_amount = subtotal_before_margin + margin_amount
+        gst_amount = net_taxable_amount * (gst_percent / 100.0)
+        final_landed_total = net_taxable_amount + gst_amount
+
+        return {
+            'quantity_meters': quantity_meters,
+            'conductor_breakdown': metal_info,
+            'unit_costs': {
+                'conductor_per_m': round(conductor_cost_per_m, 2),
+                'insulation_per_m': round(insulation_cost_per_m, 2),
+                'armour_per_m': round(armour_cost_per_m, 2),
+                'fabrication_per_m': round(fabrication_base_cost_per_m, 2),
+                'ex_factory_unit_price': round(ex_factory_unit, 2),
+                'landed_unit_price_inclusive_gst': round(final_landed_total / quantity_meters, 2)
+            },
+            'totals': {
+                'ex_factory_total': round(ex_factory_total, 2),
+                'drum_packaging': round(drum_packaging_cost, 2),
+                'freight': round(freight_cost, 2),
+                'transit_insurance': round(insurance_cost, 2),
+                'margin_amount': round(margin_amount, 2),
+                'net_taxable': round(net_taxable_amount, 2),
+                'gst_amount': round(gst_amount, 2),
+                'final_landed_total': round(final_landed_total, 2)
+            }
+        }
 
 
 # Example usage

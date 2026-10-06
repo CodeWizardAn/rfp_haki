@@ -1477,17 +1477,29 @@ class ConsistencyValidator:
         if scope_items == 0:
             issues.append("No items in scope of supply")
         
-        # Check spec match ranges
+        # Check spec match ranges & Tier 1 Knockouts
+        checks_performed = 5
         for item in consolidated.get('scope_of_supply', []):
             spec_match = item.get('spec_match_percent', 0)
             if spec_match < 0 or spec_match > 100:
                 issues.append(f"Invalid spec match for item {item.get('sl_no')}: {spec_match}%")
-        
+            if item.get('is_qualified') is False or item.get('compliance_status') == 'DISQUALIFIED':
+                reasons = item.get('knockout_reasons', ['Fatal specification mismatch'])
+                issues.append(f"Disqualified item in scope of supply (Item #{item.get('sl_no', '?')}): {', '.join(reasons)}")
+
+        # Check grand total arithmetic reconciliation
+        grand_total = float(consolidated.get('grand_total', 0.0) or 0.0)
+        gst_amount = float(consolidated.get('gst_amount', 0.0) or consolidated.get('tax_amount', 0.0) or 0.0)
+        if grand_total > 0 and material_cost > 0 and gst_amount > 0:
+            expected_min = material_cost + gst_amount - 1.0
+            if grand_total < expected_min:
+                issues.append(f"Arithmetic Discrepancy: Grand total (₹{grand_total:,.2f}) is less than material + GST (₹{expected_min:,.2f})")
+
         return {
             'consistent': len(issues) == 0,
             'issues': issues,
-            'checks_performed': 3,
-            'checks_passed': 3 - len(issues)
+            'checks_performed': checks_performed,
+            'checks_passed': max(0, checks_performed - len(issues))
         }
 
 

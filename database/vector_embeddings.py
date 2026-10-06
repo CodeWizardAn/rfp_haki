@@ -67,16 +67,43 @@ class LightweightSemanticEmbedder:
             return arr[0] if is_single else arr
         return vectors[0] if is_single else vectors
 
+    def _canonicalize_domain_text(self, text: str) -> str:
+        t = text.lower()
+        replacements = [
+            (r'\bcross[- ]linked polyethylene\b', 'xlpe'),
+            (r'\bpolyvinyl chloride\b', 'pvc'),
+            (r'\bflame retardant low smoke\b', 'frls'),
+            (r'\bfire survival\b', 'fs'),
+            (r'\bzero halogen\b', 'zhfr'),
+            (r'\blow smoke zero halogen\b', 'lszh'),
+            (r'\bsteel wire armou?r(ed)?\b', 'armour'),
+            (r'\baluminium wire armou?r(ed)?\b', 'awa armour'),
+            (r'\b1\.1\s*kv\b', '1100v'),
+            (r'\b1100\s*v(olts?)?\b', '1100v'),
+            (r'\b3\.3\s*kv\b', '3300v'),
+            (r'\b6\.6\s*kv\b', '6600v'),
+            (r'\b11\s*kv\b', '11000v'),
+            (r'\b33\s*kv\b', '33000v'),
+            (r'\b(?:sq\.?\s*mm|sqmm|square\s*mm|mm2|mm²)\b', 'sqmm'),
+            (r'\bcu\b', 'copper'),
+            (r'\bal\b', 'aluminium'),
+            (r'\baluminum\b', 'aluminium'),
+        ]
+        for pattern, repl in replacements:
+            t = re.sub(pattern, repl, t)
+        return t
+
     def _embed_single(self, text: str) -> List[float]:
         vec = [0.0] * self.dimension
         if not text:
             return vec
-        tokens = re.findall(r'[a-zA-Z0-9_\.]+', text.lower())
+        canonical_text = self._canonicalize_domain_text(str(text))
+        tokens = re.findall(r'[a-zA-Z0-9_\.]+', canonical_text)
         for token in tokens:
             weight = 1.0
             # Boost domain keywords
-            if any(k in token for k in ['cu', 'copper', 'al', 'aluminium', 'xlpe', 'pvc', 'kv', 'sqmm', 'frls', 'armour']):
-                weight = 2.5
+            if any(k in token for k in ['copper', 'aluminium', 'xlpe', 'pvc', '1100v', 'sqmm', 'frls', 'armour']):
+                weight = 3.0
             h = int(hashlib.md5(token.encode('utf-8')).hexdigest()[:8], 16)
             idx = h % self.dimension
             sign = 1.0 if (h & 1) else -1.0

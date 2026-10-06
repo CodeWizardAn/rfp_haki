@@ -1752,13 +1752,96 @@ class SpecMatcher:
                         product['price_unit'] = 'm'
                 except (TypeError, ValueError, ZeroDivisionError):
                     product['price_unit'] = 'm'
+            # Evaluate Tier 1 Knockout Status & Compliance Classification
+            is_disqualified, knockout_reasons = self._evaluate_tier1_knockouts(row, requirement)
+            m_score = float(product.get('match_score', 0.0))
+            if is_disqualified or m_score == 0:
+                compliance_status = "DISQUALIFIED"
+            elif m_score >= 90:
+                compliance_status = "FULLY_COMPLIANT"
+            elif m_score >= 75:
+                compliance_status = "ACCEPTABLE_EQUIVALENT"
+            elif m_score >= 50:
+                compliance_status = "PARTIALLY_COMPLIANT"
+            else:
+                compliance_status = "NON_COMPLIANT"
+
+            product['is_qualified'] = not is_disqualified
+            product['knockout_reasons'] = knockout_reasons
+            product['compliance_status'] = compliance_status
+
             # Clean NaN values for JSON serialization
             results.append(clean_nan_values(product))
         
         return results
-    
+
+    def _evaluate_tier1_knockouts(self, product_row, requirement: dict):
+        """Evaluate Tier 1 Hard Knockout Gatekeeper Rules."""
+        reasons = []
+
+        # 1. Conductor Material Knockout
+        req_mat = requirement.get('conductor_material')
+        if req_mat:
+            req_mat_clean = 'copper' if any(x in str(req_mat).lower() for x in ['cu', 'copper']) else (
+                'aluminium' if any(x in str(req_mat).lower() for x in ['al', 'aluminium', 'aluminum']) else str(req_mat).lower()
+            )
+            prod_mat = str(product_row.get('Conductor_Material_Normalized') or product_row.get('Conductor_Material') or '').lower()
+            prod_mat_clean = 'copper' if any(x in prod_mat for x in ['cu', 'copper']) else (
+                'aluminium' if any(x in prod_mat for x in ['al', 'aluminium', 'aluminum']) else prod_mat
+            )
+            if req_mat_clean in ['copper', 'aluminium'] and prod_mat_clean in ['copper', 'aluminium']:
+                if req_mat_clean != prod_mat_clean:
+                    reasons.append(f"Material Knockout: RFP requires {req_mat_clean.capitalize()} conductor, but offered product is {prod_mat_clean.capitalize()}")
+
+        # 2. Voltage Deficit Knockout
+        req_volt = requirement.get('voltage')
+        if req_volt:
+            try:
+                req_v = float(req_volt)
+                prod_v_str = str(product_row.get('Voltage_Rating') or product_row.get('Voltage_Normalized') or '')
+                vm = re.search(r'(\d+\.?\d*)', prod_v_str)
+                if vm:
+                    pv = float(vm.group(1))
+                    if 'kv' in prod_v_str.lower() and pv < 100:
+                        pv *= 1000
+                    if pv < req_v * 0.95:
+                        reasons.append(f"Voltage Knockout: RFP requires {req_v}V rating, but offered product is rated only {pv}V")
+            except (ValueError, TypeError):
+                pass
+
+        # 3. Core Count Knockout
+        req_cores = requirement.get('cores')
+        if req_cores:
+            try:
+                rc = int(req_cores)
+                pc = int(product_row.get('No_of_Cores', 0))
+                is_3_5c_exception = (rc == 4 and pc == 3.5)
+                if pc > 0 and rc != pc and not is_3_5c_exception:
+                    reasons.append(f"Core Count Knockout: RFP requires {rc}-Core cable, but offered product has {pc} cores")
+            except (ValueError, TypeError):
+                pass
+
+        # 4. Armour Mandatory Requirement Knockout
+        req_armoured = requirement.get('armoured')
+        if req_armoured is True:
+            prod_armoured = product_row.get('Is_Armoured')
+            if prod_armoured is not None:
+                try:
+                    if int(prod_armoured) == 0:
+                        reasons.append("Armour Knockout: RFP mandates Armoured mechanical protection, but product is Unarmoured")
+                except (ValueError, TypeError):
+                    pass
+
+        is_disqualified = len(reasons) > 0
+        return is_disqualified, reasons
+
     def _calculate_match_score(self, product_row, requirement: dict) -> float:
         """Calculate match score between product and requirement (optimized with new columns)"""
+        # Tier 1 Knockout Gatekeeper check
+        is_disqualified, _ = self._evaluate_tier1_knockouts(product_row, requirement)
+        if is_disqualified:
+            return 0.0
+
         score = 0
         matched_fields = 0
         total_weight = 0

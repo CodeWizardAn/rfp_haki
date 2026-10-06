@@ -68,23 +68,23 @@ class ComplianceRuleEngine:
     def _load_default_rules(self):
         """Load default compliance rules"""
         default_rules = [
-            # Voltage compliance
+            # Voltage compliance (LT 110V - 1100V, HT 3.3kV - 33kV)
             ComplianceRule(
                 rule_id='voltage_001',
                 name='Rated Voltage Compliance',
-                description='Product voltage must match standard ranges',
-                standard='IEC 60364',
-                condition='voltage_rating in [110, 220, 240, 440, 660]',
+                description='Product voltage must match standard LT/HT ranges (IS 694, IS 1554, IS 7098, IEC 60502)',
+                standard='IS 7098 / IEC 60502',
+                condition='voltage_rating in [110, 220, 230, 240, 415, 440, 650, 660, 1100, 3300, 6600, 11000, 22000, 33000]',
                 mandatory=True,
                 severity='critical'
             ),
-            # Current capacity
+            # Current capacity (industrial range up to 2500A)
             ComplianceRule(
                 rule_id='current_001',
                 name='Current Capacity Check',
-                description='Current rating must be within safe limits',
-                standard='IS 1554',
-                condition='current_rating > 0 and current_rating <= 200',
+                description='Current rating must be within safe operating limits (IS 3961 / IEC 60364)',
+                standard='IS 3961',
+                condition='current_rating > 0 and current_rating <= 2500',
                 weight=0.9,
                 mandatory=True,
                 severity='error'
@@ -93,9 +93,9 @@ class ComplianceRuleEngine:
             ComplianceRule(
                 rule_id='material_001',
                 name='Conductor Material Compliance',
-                description='Conductor must be copper or aluminum',
-                standard='IS 1554 Part 1',
-                condition='conductor_material in ["copper", "aluminum"]',
+                description='Conductor must be electrolytic grade copper, aluminium, or tinned copper (IS 8130 / IEC 60228)',
+                standard='IS 8130 / IEC 60228',
+                condition='conductor_material in ["copper", "cu", "aluminium", "aluminum", "al", "tinned_copper"]',
                 mandatory=True,
                 severity='critical'
             ),
@@ -103,48 +103,48 @@ class ComplianceRuleEngine:
             ComplianceRule(
                 rule_id='insulation_001',
                 name='Insulation Material Check',
-                description='Insulation must be PVC, XLPE, or EPR',
-                standard='IS 1554 Part 1',
-                condition='insulation_material in ["pvc", "xlpe", "epr"]',
+                description='Insulation must be PVC, XLPE, EPR, FRLS, ZHFR, or LSHF (IS 5831 / IS 7098)',
+                standard='IS 7098 / IS 5831',
+                condition='insulation_material in ["pvc", "xlpe", "epr", "frls", "zhfr", "lshf", "rubber"]',
                 mandatory=True,
                 severity='critical'
             ),
-            # Temperature rating
+            # Temperature rating (continuous operating -40°C to +105°C)
             ComplianceRule(
                 rule_id='temperature_001',
-                name='Temperature Rating Check',
-                description='Operating temperature within safe range',
-                standard='IS 1554',
-                condition='temperature_rating >= -5 and temperature_rating <= 50',
+                name='Operating Temperature Range',
+                description='Operating temperature within standard continuous withstand limits (-40°C to +105°C)',
+                standard='IS 7098 / IEC 60502',
+                condition='temperature_rating >= -40 and temperature_rating <= 105',
                 weight=0.8,
                 severity='error'
             ),
-            # Safety certification
+            # Safety certification (BIS / ISI / IEC)
             ComplianceRule(
                 rule_id='cert_001',
-                name='Safety Certification Required',
-                description='Product must have BIS/IEC certification',
-                standard='BIS',
+                name='Mandatory Safety Certification',
+                description='Product must have BIS/ISI mark or IEC certification',
+                standard='BIS / IEC',
                 condition='has_bis_certification or has_iec_certification',
                 mandatory=True,
                 severity='critical'
             ),
-            # IS compliance
+            # Indian Standards (IS 694 / IS 1554 / IS 7098)
             ComplianceRule(
                 rule_id='is_001',
                 name='Indian Standards Compliance',
-                description='Product must comply with IS standards',
-                standard='IS 1554',
+                description='Product must comply with Bureau of Indian Standards (BIS)',
+                standard='IS 694 / IS 7098',
                 condition='complies_with_is_standard',
                 weight=0.9,
                 severity='error'
             ),
-            # Environmental compliance
+            # Environmental & Flame Safety (RoHS / FRLS)
             ComplianceRule(
                 rule_id='env_001',
-                name='Environmental Compliance',
-                description='Product must meet RoHS requirements',
-                standard='RoHS 2015',
+                name='Environmental & RoHS Compliance',
+                description='Product must meet RoHS hazardous substance limitations',
+                standard='RoHS / REACH',
                 condition='rohs_compliant',
                 weight=0.7,
                 severity='warning'
@@ -161,48 +161,81 @@ class ComplianceRuleEngine:
     def evaluate_condition(self, condition: str, product_data: Dict) -> bool:
         """
         Evaluate a compliance condition
-        Supports: field in [value1, value2], field > value, etc.
+        Supports: boolean variables, 'or', 'and', 'in [...]', '>=', '<=', '>', '<'
         """
         try:
-            # Create safe evaluation context
+            condition = condition.strip()
             context = product_data.copy()
-            
-            # Support 'in' operator
-            if ' in [' in condition:
-                field, values_str = condition.split(' in [')
-                field = field.strip()
-                values = [v.strip().strip('"\'') for v in values_str.rstrip(']').split(',')]
-                return context.get(field) in values
 
-            # Support comparison operators
-            if '>=' in condition:
-                field, value = condition.split('>=')
-                return float(context.get(field.strip(), -1)) >= float(value.strip())
-            
-            if '<=' in condition:
-                field, value = condition.split('<=')
-                return float(context.get(field.strip(), 999)) <= float(value.strip())
-            
-            if '>' in condition:
-                field, value = condition.split('>')
-                return float(context.get(field.strip(), -1)) > float(value.strip())
-            
-            if '<' in condition:
-                field, value = condition.split('<')
-                return float(context.get(field.strip(), 999)) < float(value.strip())
-
-            # Support 'or' conditions
+            # 1. Handle logical OR (split top-level)
             if ' or ' in condition:
                 parts = condition.split(' or ')
                 return any(self.evaluate_condition(p.strip(), product_data) for p in parts)
 
-            # Support 'and' conditions
+            # 2. Handle logical AND (split top-level)
             if ' and ' in condition:
                 parts = condition.split(' and ')
                 return all(self.evaluate_condition(p.strip(), product_data) for p in parts)
 
+            # 3. Direct boolean key lookup (e.g. 'has_bis_certification')
+            if condition in context:
+                val = context[condition]
+                if isinstance(val, bool):
+                    return val
+                if isinstance(val, (int, float)):
+                    return val > 0
+                if isinstance(val, str):
+                    return val.lower() in ('true', 'yes', '1', 'compliant')
+
+            # 4. Support 'in [...]' operator
+            if ' in [' in condition:
+                field, values_str = condition.split(' in [')
+                field = field.strip()
+                raw_values = [v.strip().strip('"\'') for v in values_str.rstrip(']').split(',')]
+                target_val = context.get(field)
+                if target_val is None:
+                    return False
+
+                # Handle numeric in comparison (e.g., 1100 vs '1100' or '1100V')
+                clean_target = str(target_val).lower().replace('v', '').replace('kv', '000').strip()
+                try:
+                    num_target = float(clean_target)
+                    for rv in raw_values:
+                        try:
+                            if float(rv) == num_target:
+                                return True
+                        except ValueError:
+                            pass
+                except ValueError:
+                    pass
+
+                # Handle string comparison
+                target_str = str(target_val).strip().lower()
+                return any(target_str == rv.lower() or rv.lower() in target_str for rv in raw_values)
+
+            # 5. Support comparison operators
+            if '>=' in condition:
+                field, value = condition.split('>=')
+                val = context.get(field.strip())
+                return val is not None and float(val) >= float(value.strip())
+
+            if '<=' in condition:
+                field, value = condition.split('<=')
+                val = context.get(field.strip())
+                return val is not None and float(val) <= float(value.strip())
+
+            if '>' in condition:
+                field, value = condition.split('>')
+                val = context.get(field.strip())
+                return val is not None and float(val) > float(value.strip())
+
+            if '<' in condition:
+                field, value = condition.split('<')
+                val = context.get(field.strip())
+                return val is not None and float(val) < float(value.strip())
+
             return False
-        except Exception as e:
+        except Exception:
             return False
 
     def check_compliance(self, product_data: Dict) -> List[ComplianceFinding]:
