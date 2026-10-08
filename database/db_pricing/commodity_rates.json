@@ -1,0 +1,9 @@
+{
+  "copper_inr_per_kg": 850.0,
+  "aluminium_inr_per_kg": 260.0,
+  "pvc_resin_inr_per_kg": 85.0,
+  "xlpe_compound_inr_per_kg": 135.0,
+  "steel_strip_inr_per_kg": 65.0,
+  "last_updated": "2026-10-08T18:30:20.262426",
+  "source": "Automated MCX Feed Test"
+}

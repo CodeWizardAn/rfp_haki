@@ -61,7 +61,10 @@ class VendorCommunicationManager:
         """Initialize communication manager"""
         if db_path is None:
             # Use centralized database path
-            from db_paths import get_vendor_communications_db_path
+            try:
+                from vendor_management.db_paths import get_vendor_communications_db_path
+            except ImportError:
+                from db_paths import get_vendor_communications_db_path
             db_path = get_vendor_communications_db_path()
         
         self.db_path = db_path

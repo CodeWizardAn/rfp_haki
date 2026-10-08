@@ -45,3 +45,19 @@ def test_estimate_landed_cost():
     assert totals["gst_amount"] > 0
     assert totals["freight"] > 0
     assert totals["margin_amount"] > 0
+
+
+def test_update_commodity_rates():
+    update_payload = {
+        "copper_inr_per_kg": 850.0,
+        "aluminium_inr_per_kg": 260.0,
+        "source": "Automated MCX Feed Test"
+    }
+    response = client.post("/api/v1/pricing/commodity-rates/update", json=update_payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["success"] is True
+    assert data["rates"]["copper_inr_per_kg"] == 850.0
+    assert data["rates"]["aluminium_inr_per_kg"] == 260.0
+    assert data["source"] == "Automated MCX Feed Test"
+

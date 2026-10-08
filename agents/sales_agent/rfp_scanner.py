@@ -86,6 +86,7 @@ class SalesAgent:
         # Try to import PDF extraction module (store class reference, not instance)
         try:
             sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'pdf_extraction'))
+            # pyrefly: ignore [missing-import]
             from pdf_text_extractor import PDFTextExtractor
             self.PDFTextExtractor = PDFTextExtractor  # Store class, not instance
             self._pdf_extractor_available = True

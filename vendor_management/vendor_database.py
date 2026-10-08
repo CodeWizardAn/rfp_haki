@@ -50,7 +50,10 @@ class VendorDatabase:
         """Initialize vendor database"""
         if db_path is None:
             # Use centralized database path
-            from db_paths import get_vendors_db_path
+            try:
+                from vendor_management.db_paths import get_vendors_db_path
+            except ImportError:
+                from db_paths import get_vendors_db_path
             db_path = get_vendors_db_path()
         
         self.db_path = db_path

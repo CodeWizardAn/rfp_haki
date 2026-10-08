@@ -441,7 +441,71 @@ class CommodityRates:
     pvc_resin_inr_per_kg: float = 85.0     # PVC polymer compound
     xlpe_compound_inr_per_kg: float = 135.0  # XLPE cross-linkable compound
     steel_strip_inr_per_kg: float = 65.0   # Galvanized steel tape/wire for armour
-    last_updated: datetime = field(default_factory=datetime.utcnow)
+    last_updated: datetime = field(default_factory=datetime.now)
+
+
+class CommodityRatesManager:
+    """
+    Singleton manager for live, persistent, and market-synced commodity rates.
+    Enables dynamic updates from market ingestion feeds (LME/MCX) and persists to disk.
+    """
+    _instance: Optional['CommodityRatesManager'] = None
+
+    def __init__(self, data_file: Optional[Path] = None):
+        self.data_file = data_file or (Path(__file__).parent / 'database' / 'db_pricing' / 'commodity_rates.json')
+        self._rates = self._load_rates()
+
+    @classmethod
+    def get_instance(cls) -> 'CommodityRatesManager':
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+
+    def _load_rates(self) -> CommodityRates:
+        if self.data_file.exists():
+            try:
+                with open(self.data_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                return CommodityRates(
+                    copper_inr_per_kg=float(data.get('copper_inr_per_kg', 780.0)),
+                    aluminium_inr_per_kg=float(data.get('aluminium_inr_per_kg', 240.0)),
+                    pvc_resin_inr_per_kg=float(data.get('pvc_resin_inr_per_kg', 85.0)),
+                    xlpe_compound_inr_per_kg=float(data.get('xlpe_compound_inr_per_kg', 135.0)),
+                    steel_strip_inr_per_kg=float(data.get('steel_strip_inr_per_kg', 65.0)),
+                    last_updated=datetime.fromisoformat(data['last_updated']) if 'last_updated' in data else datetime.now()
+                )
+            except Exception as e:
+                logging.getLogger('commodity_rates').warning(f"Failed to load rates from {self.data_file}: {e}")
+        return CommodityRates()
+
+    def get_rates(self) -> CommodityRates:
+        return self._rates
+
+    def update_rates(self, updates: Dict[str, float], source: str = "Market Feed") -> CommodityRates:
+        for key in ['copper_inr_per_kg', 'aluminium_inr_per_kg', 'pvc_resin_inr_per_kg', 'xlpe_compound_inr_per_kg', 'steel_strip_inr_per_kg']:
+            if key in updates and updates[key] is not None:
+                setattr(self._rates, key, float(updates[key]))
+        self._rates.last_updated = datetime.now()
+        self._persist(source=source)
+        return self._rates
+
+
+    def _persist(self, source: str = "Market Ingestion"):
+        try:
+            self.data_file.parent.mkdir(parents=True, exist_ok=True)
+            payload = {
+                'copper_inr_per_kg': self._rates.copper_inr_per_kg,
+                'aluminium_inr_per_kg': self._rates.aluminium_inr_per_kg,
+                'pvc_resin_inr_per_kg': self._rates.pvc_resin_inr_per_kg,
+                'xlpe_compound_inr_per_kg': self._rates.xlpe_compound_inr_per_kg,
+                'steel_strip_inr_per_kg': self._rates.steel_strip_inr_per_kg,
+                'last_updated': self._rates.last_updated.isoformat(),
+                'source': source
+            }
+            with open(self.data_file, 'w', encoding='utf-8') as f:
+                json.dump(payload, f, indent=2)
+        except Exception as e:
+            logging.getLogger('commodity_rates').error(f"Failed to persist commodity rates: {e}")
 
 
 class MetalCommodityPricingModel:
@@ -454,7 +518,8 @@ class MetalCommodityPricingModel:
     DENSITY_ALUMINIUM = 0.00270  # 2.70 g/cm³
 
     def __init__(self, rates: Optional[CommodityRates] = None):
-        self.rates = rates or CommodityRates()
+        self.rates = rates or CommodityRatesManager.get_instance().get_rates()
+
 
     def calculate_conductor_weight_per_km(self, conductor_size_sqmm: float, no_of_cores: int, material: str = 'copper') -> float:
         """Calculate net conductor metal weight in kg per kilometer of cable."""

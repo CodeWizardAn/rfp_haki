@@ -6159,12 +6159,22 @@ class LandedCostRequest(BaseModel):
     gst_percent: float = Field(18.0, ge=0, description="GST rate %")
 
 
+class CommodityRatesUpdateRequest(BaseModel):
+    copper_inr_per_kg: Optional[float] = Field(None, gt=0, description="Copper rate INR/kg")
+    aluminium_inr_per_kg: Optional[float] = Field(None, gt=0, description="Aluminium rate INR/kg")
+    pvc_resin_inr_per_kg: Optional[float] = Field(None, gt=0, description="PVC resin rate INR/kg")
+    xlpe_compound_inr_per_kg: Optional[float] = Field(None, gt=0, description="XLPE compound rate INR/kg")
+    steel_strip_inr_per_kg: Optional[float] = Field(None, gt=0, description="Steel armour strip rate INR/kg")
+    source: Optional[str] = Field("MCX / LME Live Ingestion", description="Data source description")
+
+
 @app.get("/api/v1/pricing/commodity-rates", tags=["Pricing Analytics"])
 async def get_commodity_rates():
     """Retrieve real-time LME/MCX indexed commodity baseline rates used in engineering pricing."""
     try:
-        from price_optimization import CommodityRates
-        rates = CommodityRates()
+        from price_optimization import CommodityRatesManager
+        mgr = CommodityRatesManager.get_instance()
+        rates = mgr.get_rates()
         return {
             "success": True,
             "currency": "INR",
@@ -6181,6 +6191,37 @@ async def get_commodity_rates():
     except Exception as e:
         logger.error(f"Failed to fetch commodity rates: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/v1/pricing/commodity-rates/update", tags=["Pricing Analytics"])
+async def update_commodity_rates(payload: CommodityRatesUpdateRequest):
+    """
+    Update commodity rates with live market feed inputs or administrative overrides.
+    Persists updated rates and reflects immediately across all subsequent landed cost calculations.
+    """
+    try:
+        from price_optimization import CommodityRatesManager
+        mgr = CommodityRatesManager.get_instance()
+        updates = {k: v for k, v in (payload.model_dump() if hasattr(payload, 'model_dump') else payload.dict()).items() if v is not None and k != 'source'}
+        updated_rates = mgr.update_rates(updates, source=payload.source or "Manual Market Update")
+        return {
+            "success": True,
+            "message": "Commodity spot rates successfully updated and persisted",
+            "currency": "INR",
+            "rates": {
+                "copper_inr_per_kg": updated_rates.copper_inr_per_kg,
+                "aluminium_inr_per_kg": updated_rates.aluminium_inr_per_kg,
+                "pvc_resin_inr_per_kg": updated_rates.pvc_resin_inr_per_kg,
+                "xlpe_compound_inr_per_kg": updated_rates.xlpe_compound_inr_per_kg,
+                "steel_strip_inr_per_kg": updated_rates.steel_strip_inr_per_kg,
+            },
+            "last_updated": updated_rates.last_updated.isoformat(),
+            "source": payload.source or "Manual Market Update"
+        }
+    except Exception as e:
+        logger.error(f"Failed to update commodity rates: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 
 @app.post("/api/v1/pricing/landed-cost-estimate", tags=["Pricing Analytics"])
