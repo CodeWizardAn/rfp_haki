@@ -112,10 +112,10 @@ class ComplianceRuleEngine:
             # Temperature rating
             ComplianceRule(
                 rule_id='temperature_001',
-                name='Temperature Rating Check',
-                description='Operating temperature within safe range',
-                standard='IS 1554',
-                condition='temperature_rating >= -5 and temperature_rating <= 50',
+                name='Operating Temperature Range',
+                description='Operating temperature within standard continuous withstand limits (-40°C to +105°C)',
+                standard='IS 7098 / IS 1554 / IEC 60502',
+                condition='temperature_rating >= -40 and temperature_rating <= 105',
                 weight=0.8,
                 severity='error'
             ),
@@ -161,48 +161,81 @@ class ComplianceRuleEngine:
     def evaluate_condition(self, condition: str, product_data: Dict) -> bool:
         """
         Evaluate a compliance condition
-        Supports: field in [value1, value2], field > value, etc.
+        Supports: boolean variables, 'or', 'and', 'in [...]', '>=', '<=', '>', '<'
         """
         try:
-            # Create safe evaluation context
+            condition = condition.strip()
             context = product_data.copy()
-            
-            # Support 'in' operator
-            if ' in [' in condition:
-                field, values_str = condition.split(' in [')
-                field = field.strip()
-                values = [v.strip().strip('"\'') for v in values_str.rstrip(']').split(',')]
-                return context.get(field) in values
 
-            # Support comparison operators
-            if '>=' in condition:
-                field, value = condition.split('>=')
-                return float(context.get(field.strip(), -1)) >= float(value.strip())
-            
-            if '<=' in condition:
-                field, value = condition.split('<=')
-                return float(context.get(field.strip(), 999)) <= float(value.strip())
-            
-            if '>' in condition:
-                field, value = condition.split('>')
-                return float(context.get(field.strip(), -1)) > float(value.strip())
-            
-            if '<' in condition:
-                field, value = condition.split('<')
-                return float(context.get(field.strip(), 999)) < float(value.strip())
-
-            # Support 'or' conditions
+            # 1. Handle logical OR (split top-level)
             if ' or ' in condition:
                 parts = condition.split(' or ')
                 return any(self.evaluate_condition(p.strip(), product_data) for p in parts)
 
-            # Support 'and' conditions
+            # 2. Handle logical AND (split top-level)
             if ' and ' in condition:
                 parts = condition.split(' and ')
                 return all(self.evaluate_condition(p.strip(), product_data) for p in parts)
 
+            # 3. Direct boolean key lookup (e.g. 'has_bis_certification')
+            if condition in context:
+                val = context[condition]
+                if isinstance(val, bool):
+                    return val
+                if isinstance(val, (int, float)):
+                    return val > 0
+                if isinstance(val, str):
+                    return val.lower() in ('true', 'yes', '1', 'compliant')
+
+            # 4. Support 'in [...]' operator
+            if ' in [' in condition:
+                field, values_str = condition.split(' in [')
+                field = field.strip()
+                raw_values = [v.strip().strip('"\'') for v in values_str.rstrip(']').split(',')]
+                target_val = context.get(field)
+                if target_val is None:
+                    return False
+
+                # Handle numeric in comparison (e.g., 1100 vs '1100' or '1100V')
+                clean_target = str(target_val).lower().replace('v', '').replace('kv', '000').strip()
+                try:
+                    num_target = float(clean_target)
+                    for rv in raw_values:
+                        try:
+                            if float(rv) == num_target:
+                                return True
+                        except ValueError:
+                            pass
+                except ValueError:
+                    pass
+
+                # Handle string comparison
+                target_str = str(target_val).strip().lower()
+                return any(target_str == rv.lower() or rv.lower() in target_str for rv in raw_values)
+
+            # 5. Support comparison operators
+            if '>=' in condition:
+                field, value = condition.split('>=')
+                val = context.get(field.strip())
+                return val is not None and float(val) >= float(value.strip())
+
+            if '<=' in condition:
+                field, value = condition.split('<=')
+                val = context.get(field.strip())
+                return val is not None and float(val) <= float(value.strip())
+
+            if '>' in condition:
+                field, value = condition.split('>')
+                val = context.get(field.strip())
+                return val is not None and float(val) > float(value.strip())
+
+            if '<' in condition:
+                field, value = condition.split('<')
+                val = context.get(field.strip())
+                return val is not None and float(val) < float(value.strip())
+
             return False
-        except Exception as e:
+        except Exception:
             return False
 
     def check_compliance(self, product_data: Dict) -> List[ComplianceFinding]:
