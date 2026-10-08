@@ -6019,7 +6019,7 @@ async def record_bid_outcome(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/api/v1/analytics/win-loss-ratio/{rfp_id}", tags=["Analytics"])
+@app.get("/api/v1/analytics/win-loss-ratio/{rfp_id:path}", tags=["Analytics"])
 async def get_win_loss_ratio(rfp_id: str):
     """
     Get the calculated win/loss ratio for a specific RFP
