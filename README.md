@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="assets/haki-banner.svg" alt="HAKI FMCG 2.0 — Enterprise Tender Intelligence" width="100%" />
-</p>
-
 <div align="center">
 
 # HAKI FMCG 2.0
