@@ -6253,5 +6253,96 @@ async def estimate_landed_cost(payload: LandedCostRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# =============================================================================
+# Feature: Enterprise Procurement Standards & Statutory Engineering
+# =============================================================================
+
+class IEEMAPVCRequest(BaseModel):
+    base_price_inr: float
+    cable_category: str = "LT_ALUMINIUM_XLPE_ARMOURED"
+    base_indices: Dict[str, float] = Field(default_factory=dict)
+    delivery_indices: Dict[str, float] = Field(default_factory=dict)
+    quantity_km: float = 1.0
+
+
+class TechnicalDeviationsRequest(BaseModel):
+    rfp_specs: Dict[str, Any]
+    offered_product: Dict[str, Any]
+
+
+class TenderSecurityRequest(BaseModel):
+    estimated_tender_value_inr: float
+    vendor_profile: Dict[str, Any] = Field(default_factory=dict)
+    emd_pct: float = 2.0
+    pbg_pct: float = 3.0
+
+
+@app.post("/api/v1/procurement/ieema-pvc", tags=["Procurement Standards"])
+async def calculate_ieema_price_variation(payload: IEEMAPVCRequest):
+    """
+    Calculate statutory IEEMA Price Variation Clause (PVC) for long-delivery cable tenders.
+    """
+    try:
+        from core.procurement_standards import IEEMAPriceVariationEngine
+        result = IEEMAPriceVariationEngine.calculate_pvc(
+            base_price_inr=payload.base_price_inr,
+            cable_category=payload.cable_category,
+            base_indices=payload.base_indices,
+            delivery_indices=payload.delivery_indices,
+            quantity_km=payload.quantity_km
+        )
+        return {"success": True, "data": result}
+    except Exception as e:
+        logger.error(f"IEEMA PVC calculation failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/v1/procurement/technical-deviations", tags=["Procurement Standards"])
+async def generate_technical_deviations(payload: TechnicalDeviationsRequest):
+    """
+    Generate statutory Schedule of Deviations (Form F-4 / Technical Compliance Matrix).
+    """
+    try:
+        from dataclasses import asdict
+        from core.procurement_standards import TechnicalDeviationEngine
+        deviations = TechnicalDeviationEngine.generate_schedule(
+            rfp_specs=payload.rfp_specs,
+            offered_product=payload.offered_product
+        )
+        csv_export = TechnicalDeviationEngine.export_deviations_csv(deviations)
+        return {
+            "success": True,
+            "data": {
+                "deviations": [asdict(d) for d in deviations],
+                "total_clauses_reviewed": len(deviations),
+                "has_critical_deviations": any(d.risk_level == "HIGH" for d in deviations),
+                "csv_export": csv_export
+            }
+        }
+    except Exception as e:
+        logger.error(f"Technical deviation generation failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/v1/procurement/emd-pbg-exemptions", tags=["Procurement Standards"])
+async def evaluate_tender_security(payload: TenderSecurityRequest):
+    """
+    Evaluate Earnest Money Deposit (EMD) and Performance Bank Guarantee (PBG)
+    exemption eligibility under MSME, Startup India, and PSU rules.
+    """
+    try:
+        from core.procurement_standards import TenderSecurityEngine
+        result = TenderSecurityEngine.evaluate_security_exemptions(
+            estimated_tender_value_inr=payload.estimated_tender_value_inr,
+            vendor_profile=payload.vendor_profile,
+            emd_pct=payload.emd_pct,
+            pbg_pct=payload.pbg_pct
+        )
+        return {"success": True, "data": result}
+    except Exception as e:
+        logger.error(f"Tender security evaluation failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 if __name__ == "__main__":
     run_server()

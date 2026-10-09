@@ -507,14 +507,48 @@ class ScopeOfSupplyAnalyzer:
         return round(base_score + spec_score + special_score, 2)
     
     def _estimate_value_range(self, items: List[Dict]) -> Dict[str, float]:
-        """Estimate value range"""
-        # Placeholder - would use pricing data in real implementation
-        total_qty = sum(item.get('quantity', 1) for item in items)
-        return {
-            'min_estimate': total_qty * 100,
-            'max_estimate': total_qty * 500,
-            'currency': 'INR'
-        }
+        """Estimate technical value range using physical landed cost modeling."""
+        try:
+            from price_optimization import LandedCostCalculator
+            calc = LandedCostCalculator()
+            total_min = 0.0
+            total_max = 0.0
+
+            for item in items:
+                qty = float(item.get('quantity') or 1000)
+                specs = item.get('specifications') or {}
+                size = float(specs.get('cross_section_sqmm') or specs.get('size_sqmm') or 4.0)
+                cores = int(specs.get('no_of_cores') or specs.get('cores') or 3)
+                mat = str(specs.get('conductor_material') or 'Copper')
+                ins = str(specs.get('insulation_type') or 'PVC')
+                arm = bool(specs.get('is_armoured') or False)
+
+                cost_obj = calc.calculate_turnkey_landed_cost(
+                    conductor_size_sqmm=size,
+                    no_of_cores=cores,
+                    conductor_material=mat,
+                    insulation=ins,
+                    is_armoured=arm,
+                    quantity_meters=qty,
+                    margin_percent=5.0
+                )
+                min_val = cost_obj.get('total_landed_cost_with_gst_inr') or (qty * 120.0)
+                max_val = min_val * 1.25
+                total_min += min_val
+                total_max += max_val
+
+            return {
+                'min_estimate': round(total_min, 2),
+                'max_estimate': round(total_max, 2),
+                'currency': 'INR'
+            }
+        except Exception:
+            total_qty = sum(item.get('quantity', 1) for item in items)
+            return {
+                'min_estimate': round(total_qty * 150.0, 2),
+                'max_estimate': round(total_qty * 350.0, 2),
+                'currency': 'INR'
+            }
     
     def _identify_critical_items(self, items: List[Dict]) -> List[str]:
         """Identify critical items"""

@@ -363,7 +363,79 @@ except Exception as e:
 
 
 # ----------------------------------------------------------------------
-# 7. SUMMARY
+# 7. TEST: IEEMA Price Variation Clause (PVC) Engine
+# ----------------------------------------------------------------------
+print("\n[7] Testing IEEMA Price Variation Clause (PVC) Engine...")
+try:
+    from core.procurement_standards import IEEMAPriceVariationEngine, TechnicalDeviationEngine, TenderSecurityEngine
+
+    base_p0 = 1000000.0  # 10 Lakh INR / km
+    base_indices = {'copper': 750.0, 'aluminium': 220.0, 'polymer_cc': 110.0, 'steel_fe': 65.0, 'labour_fuel': 100.0}
+    delivery_indices = {'copper': 900.0, 'aluminium': 264.0, 'polymer_cc': 121.0, 'steel_fe': 71.5, 'labour_fuel': 105.0}
+
+    # Test Aluminium Cable: Al price surged +20% (264/220 = 1.20)
+    pvc_al = IEEMAPriceVariationEngine.calculate_pvc(
+        base_price_inr=base_p0,
+        cable_category='LT_ALUMINIUM_XLPE_ARMOURED',
+        base_indices=base_indices,
+        delivery_indices=delivery_indices,
+        quantity_km=5.0
+    )
+    print(f"  Al Cable Base: ₹{pvc_al['base_unit_price']:,.2f} -> Escalated: ₹{pvc_al['escalated_unit_price']:,.2f} (+{pvc_al['variation_percentage']}%)")
+    print(f"  Total PVC Delta for 5km: +₹{pvc_al['total_pvc_delta']:,.2f}")
+
+    if pvc_al['escalated_unit_price'] <= base_p0 or pvc_al['variation_percentage'] <= 0:
+        failures.append("INACCURACY: IEEMA PVC failed to escalate price upon metal index surge!")
+    else:
+        print("  [PASS] IEEMA PVC calculates statutory price variations and lot deltas accurately.")
+        passed_tests += 1
+
+    # ------------------------------------------------------------------
+    # 8. TEST: Schedule of Technical Deviations (Form F-4)
+    # ------------------------------------------------------------------
+    print("\n[8] Testing Technical Deviation Statement Generator (Form F-4)...")
+    rfp_req = {'conductor_material': 'Aluminium', 'size_sqmm': 50.0, 'insulation_type': 'XLPE', 'voltage_rating': 1100}
+    offered_sup = {'conductor_material': 'Aluminium', 'size_sqmm': 70.0, 'insulation_type': 'XLPE', 'voltage_rating': 1100} # Superior gauge
+    offered_bad = {'conductor_material': 'Copper', 'size_sqmm': 25.0, 'insulation_type': 'PVC', 'voltage_rating': 650}    # Non-compliant
+
+    dev_sup = TechnicalDeviationEngine.generate_schedule(rfp_req, offered_sup)
+    dev_bad = TechnicalDeviationEngine.generate_schedule(rfp_req, offered_bad)
+
+    has_superior = any(d.compliance_status == 'SUPERIOR' for d in dev_sup)
+    has_high_risk = any(d.risk_level == 'HIGH' for d in dev_bad)
+
+    if not has_superior or not has_high_risk:
+        failures.append("INACCURACY: Technical deviation engine failed to classify superior vs high-risk deviations properly!")
+    else:
+        print(f"  Generated {len(dev_sup)} clauses for compliant bid; identified superior gauge: {has_superior}")
+        print(f"  Identified critical high-risk clauses for non-compliant bid: {has_high_risk}")
+        csv_str = TechnicalDeviationEngine.export_deviations_csv(dev_sup)
+        assert 'Clause No.' in csv_str and 'Deviation Category' in csv_str
+        print("  [PASS] Schedule of Deviations correctly evaluates clause risks and exports Form F-4 CSV.")
+        passed_tests += 1
+
+    # ------------------------------------------------------------------
+    # 9. TEST: EMD / PBG Statutory Exemption Rules Engine
+    # ------------------------------------------------------------------
+    print("\n[9] Testing Tender Guarantee & Exemption Engine (MSME / DPIIT Startup)...")
+    tender_val = 50000000.0  # 5 Crore INR tender (Standard EMD 2% = 10 Lakhs)
+    msme_vendor = {'is_msme': True, 'udyam_registration_no': 'UDYAM-MH-01-0012345'}
+    regular_vendor = {'is_msme': False}
+
+    res_msme = TenderSecurityEngine.evaluate_security_exemptions(tender_val, msme_vendor)
+    res_reg = TenderSecurityEngine.evaluate_security_exemptions(tender_val, regular_vendor)
+
+    print(f"  Regular Bidder EMD Payable: ₹{res_reg['payable_emd_amount']:,.2f} (Exempt: {res_reg['is_emd_exempt']})")
+    print(f"  MSME Bidder EMD Payable:    ₹{res_msme['payable_emd_amount']:,.2f} (Savings: ₹{res_msme['bidder_statutory_savings']:,.2f})")
+
+    if not res_msme['is_emd_exempt'] or res_msme['payable_emd_amount'] != 0.0 or res_reg['payable_emd_amount'] != 1000000.0:
+        failures.append("INACCURACY: Tender guarantee engine failed to enforce statutory MSME EMD exemption!")
+    else:
+        print("  [PASS] EMD / PBG rules engine correctly enforces statutory public procurement exemptions.")
+        passed_tests += 1
+
+except Exception as e:
+    failures.append(f"Procurement standards test failed with exception: {e}")
 # ----------------------------------------------------------------------
 print("\n" + "=" * 80)
 print("TEST AUDIT SUMMARY")

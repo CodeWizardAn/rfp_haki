@@ -276,12 +276,11 @@ class SalesAgent:
         return self._create_sample_rfp_from_file(pdf_path)
     
     def _parse_rfp_text(self, text: str, source: str) -> Optional[IdentifiedRFP]:
-        """Parse extracted text to create RFP structure"""
-        # Extract key information using patterns
+        """Parse extracted text to create RFP structure with dynamic entity extraction"""
         due_date_match = re.search(r'due\s*(?:date|by)[:\s]*(\d{1,2}[-/]\d{1,2}[-/]\d{2,4})', text, re.I)
         value_match = re.search(r'(?:estimated|approximate)\s*value[:\s]*(?:Rs\.?|INR)?\s*([\d,]+)', text, re.I)
         
-        due_date = datetime.now() + timedelta(days=60)  # Default
+        due_date = datetime.now() + timedelta(days=60)
         if due_date_match:
             try:
                 due_date = datetime.strptime(due_date_match.group(1), '%d-%m-%Y')
@@ -294,12 +293,38 @@ class SalesAgent:
                 estimated_value = float(value_match.group(1).replace(',', ''))
             except:
                 pass
+
+        # Extract products dynamically from text lines
+        detected_products = []
+        try:
+            from spec_comparer.app import SpecMatcher
+            for line in text.splitlines():
+                line_str = line.strip()
+                if len(line_str) > 10 and any(kw in line_str.lower() for kw in ('cable', 'wire', 'sq.mm', 'sq mm', 'core', 'xlpe', 'pvc')):
+                    req = SpecMatcher.parse_rfp_requirements(line_str)
+                    if req and req.get('size_sqmm'):
+                        detected_products.append({
+                            'name': line_str[:60],
+                            'specifications': {
+                                'conductor_material': req.get('conductor_material', 'Copper'),
+                                'insulation_type': req.get('insulation_type', 'PVC'),
+                                'cross_section_sqmm': req.get('size_sqmm'),
+                                'cores': req.get('cores', 1),
+                                'rated_voltage': f"{req.get('voltage_rating', 1100)}V",
+                                'is_armoured': req.get('is_armoured', False)
+                            },
+                            'quantity': 1000,
+                            'unit': 'meters'
+                        })
+        except Exception:
+            pass
         
-        return self._create_sample_rfp_from_file(source, due_date, estimated_value)
+        return self._create_sample_rfp_from_file(source, due_date, estimated_value, products=detected_products)
     
     def _create_sample_rfp_from_file(self, file_path: str, due_date: datetime = None, 
-                                      estimated_value: float = None) -> IdentifiedRFP:
-        """Create a sample RFP from file information"""
+                                      estimated_value: float = None,
+                                      products: List[Dict] = None) -> IdentifiedRFP:
+        """Create a structured RFP from file information"""
         file_name = Path(file_path).stem
         
         return IdentifiedRFP(
@@ -309,8 +334,8 @@ class SalesAgent:
             due_date=due_date or (datetime.now() + timedelta(days=45)),
             issuing_authority="Extracted Authority",
             estimated_value=estimated_value or 2000000.0,
-            category="General",
-            products=[],
+            category="Electrical Equipment",
+            products=products or [],
             technical_requirements=[],
             tests_required=[],
             acceptance_criteria=[],

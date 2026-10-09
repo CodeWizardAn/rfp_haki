@@ -59,6 +59,16 @@ Engineered specifically for the electrical infrastructure domain (power cables, 
 - Transparent margin and win-ratio analytics ($\text{Won Value} + \text{Lost Value} \equiv \text{Total Value}$).
 - Competitor pricing distribution modeling and win probability recommendations.
 
+### 📜 7. IEEMA Price Variation Clause (PVC) Statutory Engine
+- Formal circular formula adjustments for long-delivery PSU / GeM contracts:
+  $$P = P_0 \left( a + b \frac{\text{Cu}}{\text{Cu}_0} + c \frac{\text{Al}}{\text{Al}_0} + d \frac{\text{CC}}{\text{CC}_0} + e \frac{\text{Fe}}{\text{Fe}_0} \right)$$
+- Supports LT Aluminium/Copper, HT XLPE transmission, and flexible wire categories with full factor contribution auditing.
+
+### 📋 8. Schedule of Technical Deviations (Form F-4) & Statutory EMD Exemptions
+- Automated generation of clause-by-clause tender deviation sheets with risk grading (Nil, Minor, Major Technical, Commercial).
+- Instant Form F-4 CSV export ready for GeM / CPPP upload.
+- Automated EMD / PBG exemption evaluations for MSME (Udyam), DPIIT Startups, and NSIC registered vendors.
+
 ---
 
 ## 🏗️ System Architecture
