@@ -463,24 +463,52 @@ class WinLossAnalytics:
             'total_unique_customers': len(customer_analysis)
         }
     
-    def get_win_loss_ratio_by_rfp(self, session: Session, rfp_id: str) -> Dict[str, Any]:
+    def get_win_loss_ratio_by_rfp(self, session: Session, rfp_id: str, allow_synthetic_fallback: bool = False) -> Dict[str, Any]:
         """
-        Get win/loss ratio for a specific RFP ID
-        
-        Returns detailed statistics for a unique RFP including:
-        - Win/loss counts
-        - Win rate percentage
-        - Bid amounts
-        - Competitor information
-        - Success/losing factors
+        Get win/loss ratio for a specific RFP ID.
+        By default, returns truthful NO_DATA if no historical bids exist in the database.
+        Synthetic demo cohorts are only generated if explicitly requested via allow_synthetic_fallback=True.
         """
         query = session.query(WinLossRecord).filter(WinLossRecord.rfp_id == rfp_id)
         records = query.all()
+        is_synthetic = False
         
         if not records:
-            # Dynamically synthesize and persist a realistic historical cohort
-            # so historical analytics are dynamic, persistent, and never return 'no_data'
+            if not allow_synthetic_fallback:
+                return {
+                    'rfp_id': rfp_id,
+                    'status': 'no_data',
+                    'total_bids': 0,
+                    'participated': 0,
+                    'won': 0,
+                    'lost': 0,
+                    'no_bid': 0,
+                    'win_ratio': 0.0,
+                    'win_percentage': 0.0,
+                    'loss_percentage': 0.0,
+                    'participation_rate': 0.0,
+                    'bid_value': {
+                        'won_value': 0.0,
+                        'lost_value': 0.0,
+                        'total_value': 0.0,
+                        'avg_bid_amount_won': 0.0,
+                        'avg_bid_amount_lost': 0.0,
+                    },
+                    'competitors_faced': [],
+                    'unique_competitors_count': 0,
+                    'score_analysis': {
+                        'avg_technical_score': 0.0,
+                        'avg_commercial_score': 0.0,
+                        'avg_overall_score': 0.0,
+                    },
+                    'factors': [],
+                    'is_synthetic_demo': False,
+                    'message': f'No historical bid records found for RFP {rfp_id}. Record outcomes via /api/v1/analytics/record-bid-outcome to populate analytics.'
+                }
+            
+            # Explicitly requested demo cohort
             records = self._generate_dynamic_historical_cohort(session, str(rfp_id))
+            is_synthetic = True
             if not records:
                 return {
                     'rfp_id': rfp_id,
@@ -493,6 +521,7 @@ class WinLossAnalytics:
                     'win_percentage': 0.0,
                     'loss_percentage': 0.0,
                     'participation_rate': 0.0,
+                    'is_synthetic_demo': False,
                     'message': f'No win/loss records found for RFP {rfp_id}'
                 }
         
@@ -587,6 +616,7 @@ class WinLossAnalytics:
             },
             'factors': [{'factor': f, 'frequency': c} for f, c in sorted_factors[:5]],
             'latest_outcome': max((r.outcome_date for r in records if r.outcome_date), default=None),
+            'is_synthetic_demo': is_synthetic,
         }
 
     def _generate_dynamic_historical_cohort(self, session: Session, rfp_id: str) -> List[WinLossRecord]:

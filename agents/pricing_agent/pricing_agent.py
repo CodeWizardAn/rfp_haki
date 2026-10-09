@@ -82,6 +82,12 @@ try:
 except ImportError:
     DB_AVAILABLE = False
 
+try:
+    from price_optimization import LandedCostCalculator
+    LANDED_CALCULATOR_AVAILABLE = True
+except ImportError:
+    LANDED_CALCULATOR_AVAILABLE = False
+
 
 # ============================================================================
 # Enums
@@ -433,23 +439,62 @@ class UnitPriceCalculator:
         self.price_lookup = price_lookup
         self.markup_percent = 0  # Base markup
         self.currency = "INR"
+        self.landed_calc = LandedCostCalculator() if LANDED_CALCULATOR_AVAILABLE else None
     
-    def calculate(self, sku: str, quantity: float = 1) -> Dict[str, Any]:
+    def _estimate_landed_price(self, sku: str, quantity: float = 1, product_details: Optional[Dict[str, Any]] = None) -> Tuple[float, Optional[Dict[str, Any]]]:
+        """Dynamically compute unit cost via physical specifications and commodity rates"""
+        text = f"{sku} {(product_details or {}).get('product_name', '')}".lower()
+        
+        # Conductor size
+        m_size = re.search(r'(\d+(?:\.\d+)?)\s*(?:sq\.?mm|sqmm)', text)
+        size_sqmm = float(m_size.group(1)) if m_size else 4.0
+        
+        # Number of cores
+        m_cores = re.search(r'(\d+)\s*c(?:ore)?', text)
+        cores = int(m_cores.group(1)) if m_cores else 3
+        
+        # Material
+        mat = 'aluminium' if any(w in text for w in ['al', 'aluminium', 'aluminum']) else 'copper'
+        insulation = 'XLPE' if 'xlpe' in text else 'PVC'
+        is_armoured = 'armour' in text or 'armored' in text
+        
+        if self.landed_calc:
+            try:
+                res = self.landed_calc.calculate_turnkey_landed_cost(
+                    conductor_size_sqmm=size_sqmm,
+                    no_of_cores=cores,
+                    material=mat,
+                    insulation=insulation,
+                    is_armoured=is_armoured,
+                    quantity_meters=max(1.0, float(quantity))
+                )
+                return res['unit_costs']['landed_unit_price_inclusive_gst'], res
+            except Exception:
+                pass
+        
+        # Physics fallback
+        density = 8.89 if mat == 'copper' else 2.70
+        rate = 880.0 if mat == 'copper' else 235.0
+        conductor_wt = (size_sqmm * cores * 1.05 * density) / 1000.0
+        return max(35.0, round((conductor_wt * rate + 40.0) * 1.18, 2)), None
+
+    def calculate(self, sku: str, quantity: float = 1, product_details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Calculate unit price for a SKU"""
         price_entry = self.price_lookup.lookup(sku)
+        cost_breakdown = None
         
         if price_entry:
             base_price = price_entry.base_price
             confidence = PriceConfidence.HIGH
         else:
-            # Estimate price
-            base_price = 50.0
+            # Estimate price dynamically using engineering/commodity calculation
+            base_price, cost_breakdown = self._estimate_landed_price(sku, quantity, product_details)
             confidence = PriceConfidence.ESTIMATED
         
         # Apply markup
         final_price = base_price * (1 + self.markup_percent / 100)
         
-        return {
+        result = {
             'sku': sku,
             'base_price': base_price,
             'markup_percent': self.markup_percent,
@@ -458,6 +503,9 @@ class UnitPriceCalculator:
             'confidence': confidence.value,
             'price_found': price_entry is not None
         }
+        if cost_breakdown:
+            result['cost_breakdown'] = cost_breakdown
+        return result
     
     def set_markup(self, percent: float):
         """Set base markup percentage"""

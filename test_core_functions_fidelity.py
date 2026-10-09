@@ -268,12 +268,18 @@ try:
     session = db_m.get_session()
     wl = WinLossAnalytics(session_factory=lambda: db_m.get_session())
 
-    # Test 2 different RFP IDs to ensure cohorts are NOT identical / static
+    # Test truthful response when no bids exist (production accounting mode)
+    truthful_res = wl.get_win_loss_ratio_by_rfp(session, "UNSEEN_RFP_999", allow_synthetic_fallback=False)
+    assert truthful_res['status'] == 'no_data' and truthful_res['total_bids'] == 0
+    print("  [PASS] Audited production mode truthfully reports no_data when no historical bids exist.")
+    passed_tests += 1
+
+    # Test deterministic demo cohorts when explicitly requested
     rfp_a = "GEM/2025/B/9991111"
     rfp_b = "GEM/2025/B/8882222"
 
-    res_a = wl.get_win_loss_ratio_by_rfp(session, rfp_a)
-    res_b = wl.get_win_loss_ratio_by_rfp(session, rfp_b)
+    res_a = wl.get_win_loss_ratio_by_rfp(session, rfp_a, allow_synthetic_fallback=True)
+    res_b = wl.get_win_loss_ratio_by_rfp(session, rfp_b, allow_synthetic_fallback=True)
 
     win_pct_a = res_a['win_percentage']
     win_pct_b = res_b['win_percentage']

@@ -122,114 +122,57 @@ class SalesAgent:
         return identified
     
     def _extract_rfp_from_url(self, url: str) -> Optional[IdentifiedRFP]:
-        """Extract RFP information from a URL"""
-        # This would integrate with pdf_extraction module
-        # For now, create a sample RFP structure
-        
-        rfp_id = f"RFP_{datetime.now().strftime('%Y%m%d')}_{hash(url) % 10000:04d}"
-        
-        # Simulate extraction - in production, this would use pdf_extraction
-        sample_rfp = IdentifiedRFP(
-            rfp_id=rfp_id,
-            title=f"Supply of Electrical Wires and Cables",
-            source_url=url,
-            due_date=datetime.now() + timedelta(days=45),
-            issuing_authority="Sample Authority",
-            estimated_value=5000000.0,
-            category="Electrical Equipment",
-            products=[
-                {
-                    'name': 'PVC Insulated Copper Wire 1.5 sq mm',
-                    'specifications': {
-                        'conductor_material': 'Copper',
-                        'conductor_type': 'Solid/Stranded',
-                        'insulation_type': 'PVC',
-                        'cross_section_sqmm': 1.5,
-                        'rated_voltage': '1100V',
-                        'temperature_rating_celsius': 70,
-                        'flame_retardant': True
-                    },
-                    'quantity': 50000,
-                    'unit': 'meters'
-                },
-                {
-                    'name': 'PVC Insulated Copper Wire 2.5 sq mm',
-                    'specifications': {
-                        'conductor_material': 'Copper',
-                        'conductor_type': 'Solid/Stranded',
-                        'insulation_type': 'PVC',
-                        'cross_section_sqmm': 2.5,
-                        'rated_voltage': '1100V',
-                        'temperature_rating_celsius': 70,
-                        'flame_retardant': True
-                    },
-                    'quantity': 30000,
-                    'unit': 'meters'
-                },
-                {
-                    'name': 'XLPE Armoured Cable 4C x 16 sq mm',
-                    'specifications': {
-                        'conductor_material': 'Copper',
-                        'conductor_type': 'Stranded',
-                        'insulation_type': 'XLPE',
-                        'cross_section_sqmm': 16,
-                        'number_of_cores': 4,
-                        'armour_type': 'Steel Wire Armoured',
-                        'rated_voltage': '1100V',
-                        'temperature_rating_celsius': 90,
-                        'flame_retardant': True
-                    },
-                    'quantity': 10000,
-                    'unit': 'meters'
-                },
-                {
-                    'name': 'Flexible Cable 3C x 2.5 sq mm',
-                    'specifications': {
-                        'conductor_material': 'Copper',
-                        'conductor_type': 'Flexible Stranded',
-                        'insulation_type': 'PVC',
-                        'cross_section_sqmm': 2.5,
-                        'number_of_cores': 3,
-                        'rated_voltage': '1100V',
-                        'temperature_rating_celsius': 70,
-                        'flame_retardant': True
-                    },
-                    'quantity': 5000,
-                    'unit': 'meters'
-                }
-            ],
-            technical_requirements=[
-                'IS 694:2010 compliance for PVC wires',
-                'IS 7098 Part 1 compliance for XLPE cables',
-                'Flame retardant properties required',
-                'Temperature rating: -10°C to 70°C'
-            ],
-            tests_required=[
-                'Conductor resistance test',
-                'Insulation resistance test',
-                'High voltage test (3.5 kV for 5 min)',
-                'Flame retardancy test (IEC 60332)',
-                'Thermal stability test',
-                'Tensile strength test'
-            ],
-            acceptance_criteria=[
-                'Type test certificate required',
-                'Routine test certificate per batch',
-                'Third party inspection certification',
-                'BIS certification mandatory'
-            ],
-            submission_requirements={
-                'format': 'PDF',
-                'copies': 2,
-                'emd_amount': 100000,
-                'validity_period': 90
-            },
-            priority=RFPPriority.HIGH,
-            status=RFPStatus.SCANNED,
-            source_document=url
-        )
-        
-        return sample_rfp
+        """
+        Dynamically extract RFP information from a URL or file path.
+        Fetches live content or delegates to PDF extraction without static fallbacks.
+        """
+        try:
+            # 1. If it is a local file or PDF document
+            local_path = Path(url)
+            if local_path.exists() and local_path.is_file():
+                if local_path.suffix.lower() == '.pdf':
+                    return self._parse_rfp_pdf(str(local_path))
+                else:
+                    with open(local_path, 'r', encoding='utf-8', errors='ignore') as f:
+                        text = f.read()
+                    return self._parse_rfp_text(text, str(local_path))
+
+            # 2. If it is a remote HTTP/HTTPS URL
+            if url.startswith(('http://', 'https://')):
+                import urllib.request
+                import urllib.error
+                req = urllib.request.Request(
+                    url,
+                    headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Haki-Procure/2.0'}
+                )
+                with urllib.request.urlopen(req, timeout=10) as response:
+                    content_type = response.headers.get('Content-Type', '')
+                    content = response.read()
+
+                if 'application/pdf' in content_type:
+                    import tempfile
+                    with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as tmp:
+                        tmp.write(content)
+                        tmp_path = tmp.name
+                    try:
+                        res = self._parse_rfp_pdf(tmp_path)
+                        if res:
+                            res.source_url = url
+                        return res
+                    finally:
+                        try:
+                            os.remove(tmp_path)
+                        except OSError:
+                            pass
+                else:
+                    text = content.decode('utf-8', errors='ignore')
+                    return self._parse_rfp_text(text, url)
+
+            logger.warning(f"Unsupported or inaccessible tender source URL: {url}")
+            return None
+        except Exception as e:
+            logger.error(f"Failed to dynamically extract RFP from URL '{url}': {e}")
+            return None
     
     def scan_rfp_directory(self, directory: str) -> List[IdentifiedRFP]:
         """
@@ -277,22 +220,29 @@ class SalesAgent:
     
     def _parse_rfp_text(self, text: str, source: str) -> Optional[IdentifiedRFP]:
         """Parse extracted text to create RFP structure with dynamic entity extraction"""
-        due_date_match = re.search(r'due\s*(?:date|by)[:\s]*(\d{1,2}[-/]\d{1,2}[-/]\d{2,4})', text, re.I)
-        value_match = re.search(r'(?:estimated|approximate)\s*value[:\s]*(?:Rs\.?|INR)?\s*([\d,]+)', text, re.I)
+        due_date_match = re.search(r'(?:due\s*(?:date|by)|closing\s*date|submission\s*deadline)[:\s]*(\d{1,2}[-/]\d{1,2}[-/]\d{2,4})', text, re.I)
+        value_match = re.search(r'(?:estimated|approximate|tender)\s*value[:\s]*(?:Rs\.?|INR)?\s*([\d,]+)', text, re.I)
+        authority_match = re.search(r'(?:issuing\s*authority|employer|client|organization|purchaser)[:\s]*([^\n,]+)', text, re.I)
         
-        due_date = datetime.now() + timedelta(days=60)
+        due_date = None
         if due_date_match:
-            try:
-                due_date = datetime.strptime(due_date_match.group(1), '%d-%m-%Y')
-            except:
-                pass
+            for fmt in ('%d-%m-%Y', '%d/%m/%Y', '%Y-%m-%d', '%d-%m-%y', '%d/%m/%y'):
+                try:
+                    due_date = datetime.strptime(due_date_match.group(1), fmt)
+                    break
+                except ValueError:
+                    pass
+        if not due_date:
+            due_date = datetime.now() + timedelta(days=30)
         
-        estimated_value = 1000000.0
+        estimated_value = 0.0
         if value_match:
             try:
                 estimated_value = float(value_match.group(1).replace(',', ''))
-            except:
-                pass
+            except (ValueError, TypeError):
+                estimated_value = 0.0
+
+        issuing_authority = authority_match.group(1).strip() if authority_match else "Unspecified Authority"
 
         # Extract products dynamically from text lines
         detected_products = []
@@ -319,28 +269,36 @@ class SalesAgent:
         except Exception:
             pass
         
-        return self._create_sample_rfp_from_file(source, due_date, estimated_value, products=detected_products)
+        return self._create_sample_rfp_from_file(
+            source,
+            due_date=due_date,
+            estimated_value=estimated_value,
+            issuing_authority=issuing_authority,
+            products=detected_products
+        )
     
     def _create_sample_rfp_from_file(self, file_path: str, due_date: datetime = None, 
                                       estimated_value: float = None,
+                                      issuing_authority: str = None,
                                       products: List[Dict] = None) -> IdentifiedRFP:
         """Create a structured RFP from file information"""
         file_name = Path(file_path).stem
+        val = float(estimated_value) if estimated_value is not None else 0.0
         
         return IdentifiedRFP(
             rfp_id=f"RFP_{file_name}_{datetime.now().strftime('%H%M%S')}",
             title=f"RFP: {file_name.replace('_', ' ').title()}",
             source_url=file_path,
-            due_date=due_date or (datetime.now() + timedelta(days=45)),
-            issuing_authority="Extracted Authority",
-            estimated_value=estimated_value or 2000000.0,
+            due_date=due_date or (datetime.now() + timedelta(days=30)),
+            issuing_authority=issuing_authority or "Unspecified Authority",
+            estimated_value=val,
             category="Electrical Equipment",
             products=products or [],
             technical_requirements=[],
             tests_required=[],
             acceptance_criteria=[],
             submission_requirements={},
-            priority=RFPPriority.MEDIUM,
+            priority=RFPPriority.HIGH if val >= 5000000.0 else RFPPriority.MEDIUM,
             status=RFPStatus.SCANNED,
             source_document=file_path
         )
@@ -375,9 +333,8 @@ class SalesAgent:
         if urls:
             self.scan_rfp_urls(urls)
         
-        # If no RFPs identified, create a sample one
         if not self.identified_rfps:
-            self.identified_rfps.append(self._create_default_sample_rfp())
+            raise ValueError("No valid RFPs identified in scan queue. Please supply accessible tender URLs or upload PDF tender documents.")
         
         # Get prioritized list
         prioritized = self.prioritize_rfps()

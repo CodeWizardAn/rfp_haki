@@ -6020,19 +6020,10 @@ async def record_bid_outcome(
 
 
 @app.get("/api/v1/analytics/win-loss-ratio/{rfp_id:path}", tags=["Analytics"])
-async def get_win_loss_ratio(rfp_id: str):
+async def get_win_loss_ratio(rfp_id: str, allow_demo_fallback: bool = Query(True)):
     """
-    Get the calculated win/loss ratio for a specific RFP
-    
-    Returns analytics including:
-    - Win rate percentage
-    - Win ratio (wins:losses)
-    - Bid value analysis
-    - Competitor information
-    - Technical and commercial scores
-    - Success/losing factors
-    
-    This data is calculated from recorded bid outcomes for the RFP.
+    Get the calculated win/loss ratio for a specific RFP.
+    Returns status: no_data if no real bids exist and allow_demo_fallback=False.
     """
     try:
         if WIN_LOSS_ANALYTICS_AVAILABLE:
@@ -6041,7 +6032,9 @@ async def get_win_loss_ratio(rfp_id: str):
             
             try:
                 win_loss_analytics = WinLossAnalytics(session_factory=lambda: db_manager.get_session())
-                result = win_loss_analytics.get_win_loss_ratio_by_rfp(session, rfp_id)
+                result = win_loss_analytics.get_win_loss_ratio_by_rfp(
+                    session, rfp_id, allow_synthetic_fallback=allow_demo_fallback
+                )
                 session.close()
                 
                 return result
