@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="50%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+
+    <!-- Electric Accent Gradient -->
+    <linearGradient id="electric-blue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#6366F1"/>
+    </linearGradient>
+
+    <!-- Amber / Copper Gradient -->
+    <linearGradient id="copper-gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1200" height="420" fill="url(#bg-grad)" rx="16"/>
+
+  <!-- Subtle Circuit / Wire Grid Pattern -->
+  <g opacity="0.08" stroke="#38BDF8" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="420" stroke-dasharray="6,6"/>
+    <line x1="300" y1="0" x2="300" y2="420" stroke-dasharray="6,6"/>
+    <line x1="600" y1="0" x2="600" y2="420" stroke-dasharray="6,6"/>
+    <line x1="900" y1="0" x2="900" y2="420" stroke-dasharray="6,6"/>
+    <line x1="1100" y1="0" x2="1100" y2="420" stroke-dasharray="6,6"/>
+    <line x1="0" y1="100" x2="1200" y2="100" stroke-dasharray="6,6"/>
+    <line x1="0" y1="210" x2="1200" y2="210" stroke-dasharray="6,6"/>
+    <line x1="0" y1="320" x2="1200" y2="320" stroke-dasharray="6,6"/>
+  </g>
+
+  <!-- Ambient Light Orbs -->
+  <circle cx="200" cy="120" r="140" fill="#2563EB" opacity="0.18" filter="url(#glow)"/>
+  <circle cx="1020" cy="300" r="160" fill="#6366F1" opacity="0.14" filter="url(#glow)"/>
+  <circle cx="600" cy="380" r="120" fill="#38BDF8" opacity="0.10" filter="url(#glow)"/>
+
+  <!-- Top Badge -->
+  <g transform="translate(600, 70)">
+    <rect x="-160" y="-18" width="320" height="36" rx="18" fill="#1E293B" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="-135" cy="0" r="5" fill="#10B981"/>
+    <text x="-120" y="5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#94A3B8" letter-spacing="1.5">ENTERPRISE TENDER INTELLIGENCE</text>
+  </g>
+
+  <!-- Main Hero Brand Title -->
+  <g transform="translate(600, 160)">
+    <!-- H Monogram Graphic Icon -->
+    <path d="M -230 -42 H -206 V -6 C -206 -6 -195 -18 -184 -18 H -170 L -194 12 H -206 V 42 H -230 Z" fill="#38BDF8" filter="url(#glow)"/>
+    <path d="M -160 42 H -184 V 6 C -184 6 -195 18 -206 18 H -220 L -196 -12 H -184 V -42 H -160 Z" fill="#60A5FA"/>
+
+    <text x="-130" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="64" font-weight="900" fill="#FFFFFF" letter-spacing="-1">
+      HAKI <tspan fill="url(#electric-blue)">FMCG</tspan> <tspan font-size="44" fill="#94A3B8" font-weight="500">2.0</tspan>
+    </text>
+  </g>
+
+  <!-- Subtitle Tagline -->
+  <text x="600" y="235" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="400" fill="#94A3B8">
+    Autonomous Multi-Agent RFP Analysis, Knockout Spec Matching &amp; Landed Cost Engineering
+  </text>
+
+  <!-- Feature Chips / Pills -->
+  <g transform="translate(600, 310)">
+    <!-- Chip 1: 22k+ Products -->
+    <g transform="translate(-420, 0)">
+      <rect x="0" y="0" width="195" height="42" rx="10" fill="#111827" stroke="#1F2937" stroke-width="1.5"/>
+      <text x="97" y="26" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#F8FAFC">⚡ 22,028 OEM SKUs</text>
+    </g>
+
+    <!-- Chip 2: Knockout Engine -->
+    <g transform="translate(-205, 0)">
+      <rect x="0" y="0" width="195" height="42" rx="10" fill="#111827" stroke="#1F2937" stroke-width="1.5"/>
+      <text x="97" y="26" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#38BDF8">🎯 Knockout Gates</text>
+    </g>
+
+    <!-- Chip 3: Live Spot Metals -->
+    <g transform="translate(10, 0)">
+      <rect x="0" y="0" width="195" height="42" rx="10" fill="#111827" stroke="#1F2937" stroke-width="1.5"/>
+      <text x="97" y="26" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#F59E0B">📈 MCX / LME Spot Indices</text>
+    </g>
+
+    <!-- Chip 4: IEEMA & Form F-4 -->
+    <g transform="translate(225, 0)">
+      <rect x="0" y="0" width="195" height="42" rx="10" fill="#111827" stroke="#1F2937" stroke-width="1.5"/>
+      <text x="97" y="26" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#10B981">📜 IEEMA PVC &amp; Form F-4</text>
+    </g>
+  </g>
+
+  <!-- Bottom Accent Line -->
+  <rect x="160" y="416" width="880" height="4" rx="2" fill="url(#electric-blue)"/>
+</svg>
