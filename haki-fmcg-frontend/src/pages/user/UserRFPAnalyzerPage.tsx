@@ -996,34 +996,7 @@ export default function UserRFPAnalyzerPage() {
             </div>
           </motion.div>
 
-          {/* ── Agent Mode Badge ── */}
-          {result.agent_info && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-              <div className="flex items-center gap-2 px-1 flex-wrap">
-                <Badge
-                  variant="soft"
-                  color={result.agent_info.langchain_used ? 'emerald' : 'amber'}
-                  size="sm"
-                >
-                  {result.agent_info.langchain_used ? '🤖 Multi-Agent LangChain' : '⚙️ Deterministic Engine'}
-                </Badge>
-                {result.agent_info.model && (
-                  <span className="text-[10px] text-muted-silver">
-                    {result.agent_info.model}
-                  </span>
-                )}
-                {result.agent_info.agents && result.agent_info.agents.length > 0 && (
-                  <div className="flex gap-1">
-                    {result.agent_info.agents.map((agent) => (
-                      <Badge key={agent} variant="outline" color="violet" size="sm" className="text-[9px]">
-                        {agent}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          )}
+
 
           {/* ── RFP Details (bid number, consignee, org, etc.) ── */}
           {result.rfp_summary && Object.values(result.rfp_summary).some((v) => v) && (
