@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+tone_instructions: "You are an expert full-stack code reviewer specializing in React/TypeScript, FastAPI/Python, and enterprise procurement/tender systems. Provide precise, actionable feedback on performance, type safety, electrical engineering standards (IS 7098/IS 694), and security."
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+  path_filters:
+    - "!haki-fmcg-frontend/dist/**"
+    - "!**/node_modules/**"
+    - "!**/.git/**"
+    - "!**/__pycache__/**"
+    - "!**/*.db"
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  opt_out: false
