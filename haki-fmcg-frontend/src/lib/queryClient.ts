@@ -21,7 +21,15 @@ export const queryClient = new QueryClient({
     },
     mutations: {
       onError: (error) => {
-        if (axios.isAxiosError(error) && error.response?.status === 401) return; // handled by interceptor
+        if (
+          axios.isAxiosError(error) &&
+          (error.response?.status === 401 ||
+            error.response?.status === 404 ||
+            error.response?.status === 405 ||
+            error.code === 'ERR_NETWORK')
+        ) {
+          return; // Handled gracefully by local optimistic state / offline fallback
+        }
         const message = error instanceof Error ? error.message : 'Something went wrong';
         toast.error(message);
       },

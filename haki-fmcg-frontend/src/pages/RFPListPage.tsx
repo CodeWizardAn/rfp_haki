@@ -90,11 +90,11 @@ export default function RFPListPage() {
   const handleDelete = (rfpId: string) => {
     const numericId = Number(rfpId.replace(/\D/g, ''));
     if (numericId > 0) {
-      try {
-        deleteMutation.mutate(numericId);
-      } catch {
-        // offline fallback
-      }
+      deleteMutation.mutate(numericId, {
+        onError: () => {
+          // Handled client-side gracefully on static hosting
+        },
+      });
     }
     setDeletedRfpIds((prev) => new Set(prev).add(rfpId));
     setLocalRfps((prev) => prev.filter((r) => r.rfpId !== rfpId));

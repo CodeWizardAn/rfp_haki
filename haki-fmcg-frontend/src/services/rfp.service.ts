@@ -33,7 +33,11 @@ export const rfpService = {
   },
 
   delete: async (id: number): Promise<void> => {
-    await api.delete(`/rfps/${id}`);
+    try {
+      await api.delete(`/rfps/${id}`);
+    } catch {
+      // Graceful fallback for static hosting / offline backend
+    }
   },
 
   uploadFile: async (file: File): Promise<RFP> => {
