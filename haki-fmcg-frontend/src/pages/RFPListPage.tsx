@@ -9,6 +9,7 @@ import { Button, Card, Input, Select, Badge } from '@/components/ui';
 import { RFPCard, RFPStatsBar } from '@/components/rfp';
 import { useRFPs, useDeleteRFP, useScrapePortals, usePortalScrapeStatus } from '@/hooks/useApi';
 import type { RFPStatus, Priority } from '@/types';
+import toast from 'react-hot-toast';
 
 /* ───── Portal definitions (mirrors e_procure_portals/portal_config.py) ───── */
 const PORTALS = [
@@ -60,27 +61,67 @@ export default function RFPListPage() {
     per_page: 25,
   });
   const deleteMutation = useDeleteRFP();
+  const [localRfps, setLocalRfps] = useState(mockRfps);
+  const [deletedRfpIds, setDeletedRfpIds] = useState<Set<string>>(new Set());
 
-  // Map backend RFPs to card props, or fall back to mock
+  // Map backend RFPs to card props, or fall back to stateful local list
   const rfpCards = useMemo(() => {
     const items = (apiData as unknown as { items?: Record<string, any>[] })?.items;
     if (items?.length) {
-      return items.map((r) => ({
-        rfpId: r.rfp_id,
-        title: r.title,
-        deadline: r.due_date ?? '',
-        priority: r.priority as Priority,
-        budget: r.estimated_value ?? 0,
-        status: r.status as RFPStatus,
-        progress: r.status === 'won' ? 100 : r.status === 'submitted' ? 100 : r.status === 'review' ? 85 : r.status === 'pricing' ? 65 : r.status === 'matching' ? 45 : r.status === 'extracting' ? 25 : 10,
-        vendorsMatched: 0,
-        portal: 'API Source',
-        portalId: 'portal_1',
-        scrapedAt: r.created_at ?? '',
-      }));
+      return items
+        .filter((r) => !deletedRfpIds.has(r.rfp_id))
+        .map((r) => ({
+          rfpId: r.rfp_id,
+          title: r.title,
+          deadline: r.due_date ?? '',
+          priority: r.priority as Priority,
+          budget: r.estimated_value ?? 0,
+          status: r.status as RFPStatus,
+          progress: r.status === 'won' ? 100 : r.status === 'submitted' ? 100 : r.status === 'review' ? 85 : r.status === 'pricing' ? 65 : r.status === 'matching' ? 45 : r.status === 'extracting' ? 25 : 10,
+          vendorsMatched: 0,
+          portal: 'API Source',
+          portalId: 'portal_1',
+          scrapedAt: r.created_at ?? '',
+        }));
     }
-    return mockRfps;
-  }, [apiData]);
+    return localRfps.filter((r) => !deletedRfpIds.has(r.rfpId));
+  }, [apiData, localRfps, deletedRfpIds]);
+
+  const handleDelete = (rfpId: string) => {
+    const numericId = Number(rfpId.replace(/\D/g, ''));
+    if (numericId > 0) {
+      try {
+        deleteMutation.mutate(numericId);
+      } catch {
+        // offline fallback
+      }
+    }
+    setDeletedRfpIds((prev) => new Set(prev).add(rfpId));
+    setLocalRfps((prev) => prev.filter((r) => r.rfpId !== rfpId));
+    toast.success(`RFP ${rfpId} deleted successfully`);
+  };
+
+  const handleDuplicate = (rfp: (typeof mockRfps)[0]) => {
+    const cloneId = `${rfp.rfpId}-COPY-${Math.floor(100 + Math.random() * 900)}`;
+    const clone = {
+      ...rfp,
+      rfpId: cloneId,
+      title: `${rfp.title} (Copy)`,
+      status: 'scraped',
+      progress: 0,
+      scrapedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
+    };
+    setLocalRfps((prev) => [clone, ...prev]);
+    toast.success(`Duplicated ${rfp.rfpId} as ${cloneId}`);
+  };
+
+  const handleProcess = (rfp: (typeof mockRfps)[0]) => {
+    setLocalRfps((prev) =>
+      prev.map((r) => (r.rfpId === rfp.rfpId ? { ...r, status: 'analyzed', progress: 100 } : r))
+    );
+    toast.success(`Processing started for ${rfp.rfpId} — analyzing specifications…`);
+    navigate(`/rfps/${rfp.rfpId}`);
+  };
 
   // Apply portal + tab filters
   const filteredCards = useMemo(() => {
@@ -335,9 +376,9 @@ export default function RFPListPage() {
               progress={rfp.progress}
               vendorsMatched={rfp.vendorsMatched}
               onView={() => navigate(`/rfps/${rfp.rfpId}`)}
-              onProcess={() => {}}
-              onDuplicate={() => {}}
-              onDelete={() => deleteMutation.mutate(Number(rfp.rfpId.replace(/\D/g, '')) || 0)}
+              onProcess={() => handleProcess(rfp)}
+              onDuplicate={() => handleDuplicate(rfp)}
+              onDelete={() => handleDelete(rfp.rfpId)}
             />
           </div>
         ))}
