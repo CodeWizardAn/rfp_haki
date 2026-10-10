@@ -29,8 +29,9 @@ const mockRfps = [
   { rfpId: 'RFP20', title: 'Underground Cable Procurement', deadline: '2026-02-20', priority: 'high', budget: 3_10_00_000, status: 'submitted', progress: 100, vendorsMatched: 6, portal: 'PublicBids Online', portalId: 'portal_5', scrapedAt: '2026-02-04 09:16' },
   { rfpId: 'RFP21', title: 'LT Cable Supply — North Region', deadline: '2026-02-25', priority: 'medium', budget: 98_00_000, status: 'analyzing', progress: 40, vendorsMatched: 2, portal: 'GovProcure India', portalId: 'portal_1', scrapedAt: '2026-02-04 09:17' },
   { rfpId: 'RFP22', title: 'XLPE Cable Procurement — Phase 3', deadline: '2026-03-01', priority: 'high', budget: 4_20_00_000, status: 'analyzed', progress: 100, vendorsMatched: 4, portal: 'TenderConnect', portalId: 'portal_2', scrapedAt: '2026-02-04 09:18' },
-  { rfpId: 'RFP23', title: 'Armoured Cable — Substation Delta', deadline: '2026-03-05', priority: 'medium', budget: 1_80_00_000, status: 'scraped', progress: 10, vendorsMatched: 0, portal: 'eProcure Hub', portalId: 'portal_3', scrapedAt: '2026-02-04 09:19' },
 ];
+
+type MockRFP = (typeof mockRfps)[number];
 
 const STATUS_TAB_LABELS = ['All', 'Scraped', 'Extracting', 'Analyzing', 'Analyzed', 'Review', 'Submitted'];
 
@@ -61,11 +62,31 @@ export default function RFPListPage() {
     per_page: 25,
   });
   const deleteMutation = useDeleteRFP();
-  const [localRfps, setLocalRfps] = useState(mockRfps);
-  const [deletedRfpIds, setDeletedRfpIds] = useState<Set<string>>(new Set());
+
+  // Persist deleted and modified RFPs across browser refreshes
+  const [deletedRfpIds, setDeletedRfpIds] = useState<Set<string>>(() => {
+    try {
+      const saved = localStorage.getItem('haki_deleted_rfp_ids');
+      return saved ? new Set(JSON.parse(saved)) : new Set();
+    } catch {
+      return new Set();
+    }
+  });
+
+  const [localRfps, setLocalRfps] = useState<MockRFP[]>(() => {
+    try {
+      const saved = localStorage.getItem('haki_custom_rfps');
+      if (saved) {
+        return JSON.parse(saved) as MockRFP[];
+      }
+    } catch {
+      // fallback to mock
+    }
+    return mockRfps;
+  });
 
   // Map backend RFPs to card props, or fall back to stateful local list
-  const rfpCards = useMemo(() => {
+  const rfpCards: MockRFP[] = useMemo(() => {
     const items = (apiData as unknown as { items?: Record<string, any>[] })?.items;
     if (items?.length) {
       return items
@@ -84,7 +105,7 @@ export default function RFPListPage() {
           scrapedAt: r.created_at ?? '',
         }));
     }
-    return localRfps.filter((r) => !deletedRfpIds.has(r.rfpId));
+    return localRfps.filter((r: MockRFP) => !deletedRfpIds.has(r.rfpId));
   }, [apiData, localRfps, deletedRfpIds]);
 
   const handleDelete = (rfpId: string) => {
@@ -96,9 +117,28 @@ export default function RFPListPage() {
         },
       });
     }
-    setDeletedRfpIds((prev) => new Set(prev).add(rfpId));
-    setLocalRfps((prev) => prev.filter((r) => r.rfpId !== rfpId));
-    toast.success(`RFP ${rfpId} deleted successfully`);
+
+    setDeletedRfpIds((prev) => {
+      const updated = new Set(prev).add(rfpId);
+      try {
+        localStorage.setItem('haki_deleted_rfp_ids', JSON.stringify(Array.from(updated)));
+      } catch {
+        // ignore
+      }
+      return updated;
+    });
+
+    setLocalRfps((prev: (typeof mockRfps)[0][]) => {
+      const updated = prev.filter((r) => r.rfpId !== rfpId);
+      try {
+        localStorage.setItem('haki_custom_rfps', JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+      return updated;
+    });
+
+    toast.success(`RFP ${rfpId} deleted permanently`);
   };
 
   const handleDuplicate = (rfp: (typeof mockRfps)[0]) => {
@@ -111,14 +151,28 @@ export default function RFPListPage() {
       progress: 0,
       scrapedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
     };
-    setLocalRfps((prev) => [clone, ...prev]);
+    setLocalRfps((prev: (typeof mockRfps)[0][]) => {
+      const updated = [clone, ...prev];
+      try {
+        localStorage.setItem('haki_custom_rfps', JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+      return updated;
+    });
     toast.success(`Duplicated ${rfp.rfpId} as ${cloneId}`);
   };
 
   const handleProcess = (rfp: (typeof mockRfps)[0]) => {
-    setLocalRfps((prev) =>
-      prev.map((r) => (r.rfpId === rfp.rfpId ? { ...r, status: 'analyzed', progress: 100 } : r))
-    );
+    setLocalRfps((prev: (typeof mockRfps)[0][]) => {
+      const updated = prev.map((r) => (r.rfpId === rfp.rfpId ? { ...r, status: 'analyzed', progress: 100 } : r));
+      try {
+        localStorage.setItem('haki_custom_rfps', JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+      return updated;
+    });
     toast.success(`Processing started for ${rfp.rfpId} — analyzing specifications…`);
     navigate(`/rfps/${rfp.rfpId}`);
   };
@@ -387,6 +441,27 @@ export default function RFPListPage() {
             <WifiOff size={36} className="text-muted-silver/40 mx-auto mb-3" />
             <p className="text-muted-silver">No RFPs found matching your filters</p>
             <p className="text-sm text-muted-silver/60 mt-1">Try adjusting portal or status filters</p>
+            {deletedRfpIds.size > 0 && (
+              <div className="mt-4">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => {
+                    try {
+                      localStorage.removeItem('haki_deleted_rfp_ids');
+                      localStorage.removeItem('haki_custom_rfps');
+                    } catch {
+                      // ignore
+                    }
+                    setDeletedRfpIds(new Set());
+                    setLocalRfps(mockRfps);
+                    toast.success('Reset demo RFPs to default');
+                  }}
+                >
+                  Reset Demo RFPs
+                </Button>
+              </div>
+            )}
           </div>
         )}
       </div>
