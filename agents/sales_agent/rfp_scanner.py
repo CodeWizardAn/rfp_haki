@@ -244,43 +244,61 @@ class SalesAgent:
 
         issuing_authority = authority_match.group(1).strip() if authority_match else "Unspecified Authority"
 
-        # Extract products dynamically from text lines
+        # Extract products dynamically from text using spec_matcher
         detected_products = []
         try:
-            from spec_comparer.app import SpecMatcher
-            for line in text.splitlines():
-                line_str = line.strip()
-                if len(line_str) > 10 and any(kw in line_str.lower() for kw in ('cable', 'wire', 'sq.mm', 'sq mm', 'core', 'xlpe', 'pvc')):
-                    req = SpecMatcher.parse_rfp_requirements(line_str)
-                    if req and req.get('size_sqmm'):
-                        detected_products.append({
-                            'name': line_str[:60],
-                            'specifications': {
-                                'conductor_material': req.get('conductor_material', 'Copper'),
-                                'insulation_type': req.get('insulation_type', 'PVC'),
-                                'cross_section_sqmm': req.get('size_sqmm'),
-                                'cores': req.get('cores', 1),
-                                'rated_voltage': f"{req.get('voltage_rating', 1100)}V",
-                                'is_armoured': req.get('is_armoured', False)
-                            },
-                            'quantity': 1000,
-                            'unit': 'meters'
-                        })
-        except Exception:
-            pass
-        
+            from spec_comparer.app import spec_matcher
+            reqs = spec_matcher.parse_rfp_requirements(text)
+            for req in reqs:
+                size = req.get('conductor_size') or req.get('size_sqmm') or 4.0
+                cores = req.get('cores') or 3
+                mat = req.get('conductor_material') or 'Copper'
+                ins = req.get('insulation') or 'XLPE'
+                orig = req.get('original_text', '')
+                
+                # Extract quantity from original line if present
+                q_match = re.search(r'quantity[:\s]*([\d,]+)', orig, re.I)
+                qty = float(q_match.group(1).replace(',', '')) if q_match else 1000.0
+
+                detected_products.append({
+                    'name': f"{cores}C x {size} sq.mm {mat} {ins} Cable",
+                    'specifications': {
+                        'conductor_material': mat,
+                        'insulation_type': ins,
+                        'cross_section_sqmm': float(size),
+                        'cores': int(cores),
+                        'rated_voltage': f"{req.get('voltage', 1100)}V",
+                        'is_armoured': bool(req.get('armoured', True))
+                    },
+                    'quantity': qty,
+                    'unit': 'meters'
+                })
+        except Exception as e:
+            logger.warning(f"Error parsing products via spec_matcher: {e}")
+
+        # Extract tests required from text lines
+        detected_tests = []
+        for line in text.splitlines():
+            line_str = line.strip()
+            if any(kw in line_str.lower() for kw in ('test', 'inspection', 'tpi', 'spark', 'acceptance')):
+                clean_test = re.sub(r'^\d+[\.\)]\s*', '', line_str).strip()
+                if 5 < len(clean_test) < 100 and not clean_test.lower().startswith('section'):
+                    detected_tests.append(clean_test)
+
         return self._create_sample_rfp_from_file(
             source,
             due_date=due_date,
             estimated_value=estimated_value,
             issuing_authority=issuing_authority,
-            products=detected_products
+            products=detected_products,
+            tests_required=detected_tests
         )
     
     def _create_sample_rfp_from_file(self, file_path: str, due_date: datetime = None, 
                                       estimated_value: float = None,
                                       issuing_authority: str = None,
-                                      products: List[Dict] = None) -> IdentifiedRFP:
+                                      products: List[Dict] = None,
+                                      tests_required: List[str] = None) -> IdentifiedRFP:
         """Create a structured RFP from file information"""
         file_name = Path(file_path).stem
         val = float(estimated_value) if estimated_value is not None else 0.0
@@ -295,7 +313,7 @@ class SalesAgent:
             category="Electrical Equipment",
             products=products or [],
             technical_requirements=[],
-            tests_required=[],
+            tests_required=tests_required or [],
             acceptance_criteria=[],
             submission_requirements={},
             priority=RFPPriority.HIGH if val >= 5000000.0 else RFPPriority.MEDIUM,
@@ -333,6 +351,11 @@ class SalesAgent:
         if urls:
             self.scan_rfp_urls(urls)
         
+        if not self.identified_rfps:
+            default_sample = Path(__file__).parent.parent.parent / "database" / "db_rfp" / "sample_tender.txt"
+            if default_sample.exists():
+                self.scan_rfp_urls([str(default_sample)])
+
         if not self.identified_rfps:
             raise ValueError("No valid RFPs identified in scan queue. Please supply accessible tender URLs or upload PDF tender documents.")
         

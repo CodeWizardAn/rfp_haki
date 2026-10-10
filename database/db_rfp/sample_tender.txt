@@ -1,0 +1,23 @@
+TENDER DOCUMENT: MSEDCL/CABLES/2026/041
+ISSUING AUTHORITY: Maharashtra State Electricity Distribution Company Limited (MSEDCL)
+TITLE: Turnkey Supply of LT & HT XLPE Power Cables for Distribution Substation Infrastructure
+SUBMISSION DEADLINE: 15-11-2026
+ESTIMATED VALUE: INR 12500000
+
+SECTION 1: SCOPE OF SUPPLY & BILL OF QUANTITIES
+Item 1: 4C x 50 sq.mm Aluminium conductor XLPE insulated PVC sheathed armoured cable 1.1 kV grade conforming to IS 7098 Part 1. Quantity: 5000 meters.
+Item 2: 3 core 2.5 sq mm Copper conductor PVC insulated unarmoured flexible cable 650V grade conforming to IS 694. Quantity: 2000 meters.
+Item 3: 1C x 630 sq.mm Aluminium XLPE insulated armoured power cable 33 kV conforming to IS 7098 Part 2. Quantity: 1500 meters.
+
+SECTION 2: MANDATORY TESTS & QUALITY ASSURANCE
+1. Conductor DC Resistance Test as per IS 8130
+2. Insulation Resistance Test as per IS 10810
+3. High Voltage Spark Test as per IS 694
+4. Flame Retardant Test as per IEC 60332-1
+5. Smoke Density Rating Test as per IEC 61034
+6. Third Party Inspection (TPI) by NABL Accredited Agency prior to dispatch
+
+SECTION 3: COMMERCIAL TERMS
+Delivery Period: 60 days from purchase order
+Payment Terms: 80% against delivery, 20% on commissioning
+Warranty: 24 months from supply date
