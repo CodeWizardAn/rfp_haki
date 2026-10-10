@@ -255,7 +255,7 @@ export default function UserRFPAnalyzerPage() {
   const [analysisStep, setAnalysisStep] = useState<AnalysisStep>('idle');
   const [analysisSaved, setAnalysisSaved] = useState(false);
   const [savingAnalysis, setSavingAnalysis] = useState(false);
-  const [inputMode, setInputMode] = useState<InputMode>('portals');
+  const [inputMode, setInputMode] = useState<InputMode>('upload');
   const [fileName, setFileName] = useState('');
   const [isDragOver, setIsDragOver] = useState(false);
   const [selectedPortal, setSelectedPortal] = useState<string | null>(null);
@@ -501,7 +501,7 @@ export default function UserRFPAnalyzerPage() {
     e.preventDefault();
     setIsDragOver(false);
     const file = e.dataTransfer.files?.[0];
-    if (file && file.type === 'application/pdf') runAnalysis(file);
+    if (file) runAnalysis(file);
   };
 
   const handleReset = () => {
@@ -729,21 +729,39 @@ export default function UserRFPAnalyzerPage() {
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept=".pdf"
+                  accept=".pdf,.txt,.docx,.doc"
                   onChange={handleFileSelect}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
-                <div className="flex flex-col items-center gap-4 pointer-events-none">
+                <div className="flex flex-col items-center gap-4">
                   <div className="w-20 h-20 rounded-2xl bg-neon-emerald/10 flex items-center justify-center">
                     <Upload size={36} className="text-neon-emerald" />
                   </div>
                   <div>
-                    <p className="text-lg font-semibold text-ghost-white">Drop your RFP PDF here</p>
-                    <p className="text-sm text-muted-silver mt-1">or click to browse files · PDF format only</p>
+                    <p className="text-lg font-semibold text-ghost-white">Drop your RFP tender document here</p>
+                    <p className="text-sm text-muted-silver mt-1">or click to browse · PDF, TXT, DOCX supported</p>
                   </div>
-                  <Button variant="secondary" leftIcon={<FileText size={16} />}>
-                    Select PDF File
-                  </Button>
+                  <div className="flex items-center gap-3 z-20">
+                    <Button variant="secondary" size="sm" leftIcon={<FileText size={16} />}>
+                      Select Tender File
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="border border-steel-slate/40 hover:bg-neon-emerald/10 hover:text-neon-emerald"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const sample = new File(
+                          ['%PDF-1.4 MSEDCL Turnkey XLPE Cables NIT Specification IS 7098 Pt 1'],
+                          'MSEDCL-NIT-2026-Substation-Cables.pdf',
+                          { type: 'application/pdf' }
+                        );
+                        runAnalysis(sample);
+                      }}
+                    >
+                      Load Sample Tender PDF
+                    </Button>
+                  </div>
                 </div>
               </div>
             </motion.div>

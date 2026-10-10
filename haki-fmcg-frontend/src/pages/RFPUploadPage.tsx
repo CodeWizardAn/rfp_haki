@@ -39,7 +39,7 @@ export default function RFPUploadPage() {
   const [deadline, setDeadline] = useState('');
   const [budget, setBudget] = useState('');
   const [tags, setTags] = useState('');
-  const [activeMode, setActiveMode] = useState<'portals' | 'upload'>('portals');
+  const [activeMode, setActiveMode] = useState<'portals' | 'upload'>('upload');
   const [portalStatuses, setPortalStatuses] = useState<Record<string, 'idle' | 'scraping' | 'done' | 'error'>>({});
   const [pipelineStage, setPipelineStage] = useState(-1);
   const [scrapeResults, setScrapeResults] = useState<{ total: number; success: number; failed: number } | null>(null);
@@ -49,6 +49,9 @@ export default function RFPUploadPage() {
     noClick: false,
     accept: {
       'application/pdf': ['.pdf'],
+      'text/plain': ['.txt'],
+      'application/msword': ['.doc'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
     },
   });
 
@@ -62,8 +65,8 @@ export default function RFPUploadPage() {
       toast.error('Please select or drop an RFP document first.');
       return;
     }
-    if (!file.name.toLowerCase().endsWith('.pdf')) {
-      toast.error('The AI spec extraction engine requires a PDF file.');
+    if (!file.name.match(/\.(pdf|txt|docx?|csv)$/i)) {
+      toast.error('Supported document formats: PDF, TXT, DOCX, CSV.');
       return;
     }
     setIsUploading(true);
