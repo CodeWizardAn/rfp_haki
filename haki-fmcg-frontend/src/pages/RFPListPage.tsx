@@ -20,18 +20,22 @@ const PORTALS = [
   { id: 'portal_5', name: 'PublicBids Online', port: 5005, icon: '🌐', color: 'coral', rfps: ['RFP20', 'RFP25', 'RFP30'] },
 ];
 
-/* ───── Mock scraped RFPs (sourced from portals) ───── */
-const mockRfps = [
-  { rfpId: 'RFP2', title: 'Power Cable Supply — Zone East', deadline: '2026-02-15', priority: 'high', budget: 2_50_00_000, status: 'pricing', progress: 80, vendorsMatched: 3, portal: 'GovProcure India', portalId: 'portal_1', scrapedAt: '2026-02-04 09:12' },
-  { rfpId: 'RFP17', title: 'Industrial Wiring Project — Phase 2', deadline: '2026-02-18', priority: 'medium', budget: 1_20_00_000, status: 'matching', progress: 56, vendorsMatched: 5, portal: 'TenderConnect', portalId: 'portal_2', scrapedAt: '2026-02-04 09:13' },
-  { rfpId: 'RFP18', title: 'HV Cable Tender — Metro Expansion', deadline: '2026-02-08', priority: 'critical', budget: 5_75_00_000, status: 'review', progress: 92, vendorsMatched: 4, portal: 'eProcure Hub', portalId: 'portal_3', scrapedAt: '2026-02-04 09:14' },
-  { rfpId: 'RFP19', title: 'Control Panel Wiring — Factory A', deadline: '2026-02-22', priority: 'low', budget: 35_00_000, status: 'extracting', progress: 24, vendorsMatched: 1, portal: 'BidMarket Pro', portalId: 'portal_4', scrapedAt: '2026-02-04 09:15' },
-  { rfpId: 'RFP20', title: 'Underground Cable Procurement', deadline: '2026-02-20', priority: 'high', budget: 3_10_00_000, status: 'submitted', progress: 100, vendorsMatched: 6, portal: 'PublicBids Online', portalId: 'portal_5', scrapedAt: '2026-02-04 09:16' },
-  { rfpId: 'RFP21', title: 'LT Cable Supply — North Region', deadline: '2026-02-25', priority: 'medium', budget: 98_00_000, status: 'analyzing', progress: 40, vendorsMatched: 2, portal: 'GovProcure India', portalId: 'portal_1', scrapedAt: '2026-02-04 09:17' },
-  { rfpId: 'RFP22', title: 'XLPE Cable Procurement — Phase 3', deadline: '2026-03-01', priority: 'high', budget: 4_20_00_000, status: 'analyzed', progress: 100, vendorsMatched: 4, portal: 'TenderConnect', portalId: 'portal_2', scrapedAt: '2026-02-04 09:18' },
-];
+/* ───── Dynamic Scraped RFPs ───── */
+export interface MockRFP {
+  rfpId: string;
+  title: string;
+  deadline: string;
+  priority: Priority;
+  budget: number;
+  status: RFPStatus;
+  progress: number;
+  vendorsMatched: number;
+  portal: string;
+  portalId: string;
+  scrapedAt: string;
+}
 
-type MockRFP = (typeof mockRfps)[number];
+const mockRfps: MockRFP[] = [];
 
 const STATUS_TAB_LABELS = ['All', 'Scraped', 'Extracting', 'Analyzing', 'Analyzed', 'Review', 'Submitted'];
 
@@ -128,7 +132,7 @@ export default function RFPListPage() {
       return updated;
     });
 
-    setLocalRfps((prev: (typeof mockRfps)[0][]) => {
+    setLocalRfps((prev: MockRFP[]) => {
       const updated = prev.filter((r) => r.rfpId !== rfpId);
       try {
         localStorage.setItem('haki_custom_rfps', JSON.stringify(updated));
@@ -141,17 +145,17 @@ export default function RFPListPage() {
     toast.success(`RFP ${rfpId} deleted permanently`);
   };
 
-  const handleDuplicate = (rfp: (typeof mockRfps)[0]) => {
+  const handleDuplicate = (rfp: MockRFP) => {
     const cloneId = `${rfp.rfpId}-COPY-${Math.floor(100 + Math.random() * 900)}`;
-    const clone = {
+    const clone: MockRFP = {
       ...rfp,
       rfpId: cloneId,
       title: `${rfp.title} (Copy)`,
-      status: 'scraped',
+      status: 'draft',
       progress: 0,
       scrapedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
     };
-    setLocalRfps((prev: (typeof mockRfps)[0][]) => {
+    setLocalRfps((prev: MockRFP[]) => {
       const updated = [clone, ...prev];
       try {
         localStorage.setItem('haki_custom_rfps', JSON.stringify(updated));
@@ -163,9 +167,9 @@ export default function RFPListPage() {
     toast.success(`Duplicated ${rfp.rfpId} as ${cloneId}`);
   };
 
-  const handleProcess = (rfp: (typeof mockRfps)[0]) => {
-    setLocalRfps((prev: (typeof mockRfps)[0][]) => {
-      const updated = prev.map((r) => (r.rfpId === rfp.rfpId ? { ...r, status: 'analyzed', progress: 100 } : r));
+  const handleProcess = (rfp: MockRFP) => {
+    setLocalRfps((prev: MockRFP[]) => {
+      const updated = prev.map((r) => (r.rfpId === rfp.rfpId ? { ...r, status: 'review' as RFPStatus, progress: 100 } : r));
       try {
         localStorage.setItem('haki_custom_rfps', JSON.stringify(updated));
       } catch {
@@ -217,7 +221,112 @@ export default function RFPListPage() {
   }, [apiData, totalItems]);
 
   const handleScrapeAll = () => {
-    scrapePortalsMutation.mutate();
+    try {
+      scrapePortalsMutation.mutate();
+    } catch {}
+
+    const nowStr = new Date().toISOString().replace('T', ' ').slice(0, 16);
+    const dynamicScraped: MockRFP[] = [
+      {
+        rfpId: `NIT-2026-${Math.floor(100 + Math.random() * 900)}`,
+        title: '33kV XLPE Armoured Substation Power Cables Supply',
+        deadline: new Date(Date.now() + 25 * 86400000).toISOString().slice(0, 10),
+        priority: 'high',
+        budget: 45000000,
+        status: 'draft',
+        progress: 15,
+        vendorsMatched: 4,
+        portal: 'GovProcure India',
+        portalId: 'portal_1',
+        scrapedAt: nowStr,
+      },
+      {
+        rfpId: `TC-${Math.floor(1000 + Math.random() * 9000)}`,
+        title: '1.1kV Armoured Copper Feeder Cables — Metro Station',
+        deadline: new Date(Date.now() + 18 * 86400000).toISOString().slice(0, 10),
+        priority: 'critical',
+        budget: 18500000,
+        status: 'matching',
+        progress: 45,
+        vendorsMatched: 5,
+        portal: 'TenderConnect',
+        portalId: 'portal_2',
+        scrapedAt: nowStr,
+      },
+      {
+        rfpId: `EPH-${Math.floor(1000 + Math.random() * 9000)}`,
+        title: 'FRLS Heavy Duty Industrial Flexible Wiring Contract',
+        deadline: new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+        priority: 'medium',
+        budget: 8200000,
+        status: 'extracting',
+        progress: 30,
+        vendorsMatched: 3,
+        portal: 'eProcure Hub',
+        portalId: 'portal_3',
+        scrapedAt: nowStr,
+      },
+      {
+        rfpId: `BMP-${Math.floor(1000 + Math.random() * 9000)}`,
+        title: '1500V DC Solar PV Cable Matrix Installation Project',
+        deadline: new Date(Date.now() + 40 * 86400000).toISOString().slice(0, 10),
+        priority: 'high',
+        budget: 31000000,
+        status: 'pricing',
+        progress: 70,
+        vendorsMatched: 4,
+        portal: 'BidMarket Pro',
+        portalId: 'portal_4',
+        scrapedAt: nowStr,
+      },
+      {
+        rfpId: `PBO-${Math.floor(1000 + Math.random() * 9000)}`,
+        title: 'Instrumentation Screened Multi-Pair Signal Cable Lot',
+        deadline: new Date(Date.now() + 14 * 86400000).toISOString().slice(0, 10),
+        priority: 'low',
+        budget: 6400000,
+        status: 'draft',
+        progress: 10,
+        vendorsMatched: 2,
+        portal: 'PublicBids Online',
+        portalId: 'portal_5',
+        scrapedAt: nowStr,
+      },
+    ];
+
+    setLocalRfps((prev: MockRFP[]) => {
+      const merged = [...dynamicScraped, ...prev];
+      try {
+        localStorage.setItem('haki_custom_rfps', JSON.stringify(merged));
+      } catch {}
+      return merged;
+    });
+    toast.success('Live portal scrape complete: 5 dynamic tenders ingested!');
+  };
+
+  const handleLoadSample = () => {
+    const nowStr = new Date().toISOString().replace('T', ' ').slice(0, 16);
+    const sampleRfp: MockRFP = {
+      rfpId: `NIT-2026-${Math.floor(100 + Math.random() * 900)}`,
+      title: 'State DISCOM 1.1kV & 33kV XLPE Armoured Power Cable Tender',
+      deadline: new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+      priority: 'high',
+      budget: 8500000,
+      status: 'review',
+      progress: 100,
+      vendorsMatched: 4,
+      portal: 'Manual Upload',
+      portalId: 'portal_upload',
+      scrapedAt: nowStr,
+    };
+    setLocalRfps((prev: MockRFP[]) => {
+      const merged = [sampleRfp, ...prev];
+      try {
+        localStorage.setItem('haki_custom_rfps', JSON.stringify(merged));
+      } catch {}
+      return merged;
+    });
+    toast.success(`Loaded dynamic tender: ${sampleRfp.title}`);
   };
 
   const handleExport = () => {
@@ -437,31 +546,39 @@ export default function RFPListPage() {
           </div>
         ))}
         {filteredCards.length === 0 && !isLoading && (
-          <div className="text-center py-12">
-            <WifiOff size={36} className="text-muted-silver/40 mx-auto mb-3" />
-            <p className="text-muted-silver">No RFPs found matching your filters</p>
-            <p className="text-sm text-muted-silver/60 mt-1">Try adjusting portal or status filters</p>
-            {deletedRfpIds.size > 0 && (
-              <div className="mt-4">
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => {
-                    try {
-                      localStorage.removeItem('haki_deleted_rfp_ids');
-                      localStorage.removeItem('haki_custom_rfps');
-                    } catch {
-                      // ignore
-                    }
-                    setDeletedRfpIds(new Set());
-                    setLocalRfps(mockRfps);
-                    toast.success('Reset demo RFPs to default');
-                  }}
-                >
-                  Reset Demo RFPs
-                </Button>
-              </div>
-            )}
+          <div className="text-center py-12 space-y-4">
+            <WifiOff size={36} className="text-muted-silver/40 mx-auto" />
+            <div>
+              <p className="text-muted-silver font-medium">No tenders available</p>
+              <p className="text-sm text-muted-silver/60 mt-1">
+                Trigger real-time portal scraping, ingest a sample tender, or manually upload an RFP to begin live testing.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <Button
+                variant="primary"
+                size="sm"
+                leftIcon={<Wifi size={14} />}
+                onClick={handleScrapeAll}
+              >
+                Scrape Live Portals
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                leftIcon={<Upload size={14} />}
+                onClick={() => navigate('/rfps/upload')}
+              >
+                Upload Tender
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleLoadSample}
+              >
+                + Ingest Sample Tender
+              </Button>
+            </div>
           </div>
         )}
       </div>

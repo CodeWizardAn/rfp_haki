@@ -467,6 +467,27 @@ export default function UserRFPAnalyzerPage() {
             if (parsed) {
               setResult(parsed);
               setAnalysisStep('complete');
+
+              // Save to dynamic tender database
+              const dynamicRfp = {
+                rfpId: parsed.rfp_summary?.bid_number || `RFP-${Date.now().toString().slice(-4)}`,
+                title: parsed.rfp_summary?.title || file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' '),
+                deadline: parsed.rfp_summary?.end_date || new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+                priority: 'high',
+                budget: parsed.rfp_summary?.total_value || 4285600,
+                status: 'analyzed',
+                progress: 100,
+                vendorsMatched: parsed.oem_summary?.oem_rankings?.length || 4,
+                portal: 'Uploaded Document',
+                portalId: 'portal_upload',
+                scrapedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
+              };
+              try {
+                const current = JSON.parse(localStorage.getItem('haki_custom_rfps') || '[]');
+                localStorage.setItem('haki_custom_rfps', JSON.stringify([dynamicRfp, ...current.filter((x: any) => x.rfpId !== dynamicRfp.rfpId)]));
+              } catch {
+                // ignore
+              }
             } else {
               setError('Analysis completed but returned unexpected data format');
               setAnalysisStep('idle');

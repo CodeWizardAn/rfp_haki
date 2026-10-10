@@ -53,63 +53,6 @@ interface PipelineRun {
   errorMessage?: string | null;
 }
 
-/* mock history */
-const mockRuns: PipelineRun[] = [
-  {
-    id: 'pipe-8a3f',
-    rfpId: 'RFP-2026-0001',
-    status: 'running',
-    startedAt: '2026-02-04 09:12:34',
-    mode: 'Standard (8-stage)',
-    stages: {
-      rfp_intake: { status: 'success', duration: '0.4s', items: 1 },
-      pdf_extraction: { status: 'success', duration: '4.5s', items: 5 },
-      term_matching: { status: 'success', duration: '2.1s', items: 47 },
-      vector_search: { status: 'success', duration: '3.2s', items: 14 },
-      spec_matching: { status: 'running', duration: '—', items: undefined },
-      pricing: { status: 'idle', duration: '—' },
-      compliance: { status: 'idle', duration: '—' },
-      bid_generation: { status: 'idle', duration: '—' },
-    },
-  },
-  {
-    id: 'pipe-7c22',
-    rfpId: 'RFP-2026-0002',
-    status: 'completed',
-    startedAt: '2026-02-03 14:05:12',
-    completedAt: '2026-02-03 14:08:45',
-    mode: 'Agent-driven (5-stage)',
-    stages: {
-      rfp_intake: { status: 'success', duration: '0.3s', items: 1 },
-      pdf_extraction: { status: 'success', duration: '3.8s', items: 3 },
-      term_matching: { status: 'success', duration: '1.8s', items: 32 },
-      vector_search: { status: 'success', duration: '2.5s', items: 8 },
-      spec_matching: { status: 'success', duration: '6.4s', items: 8 },
-      pricing: { status: 'success', duration: '3.1s', items: 3 },
-      compliance: { status: 'success', duration: '1.2s', items: 3 },
-      bid_generation: { status: 'success', duration: '2.4s', items: 1 },
-    },
-  },
-  {
-    id: 'pipe-5b11',
-    rfpId: 'RFP-2026-0003',
-    status: 'completed',
-    startedAt: '2026-02-02 10:30:00',
-    completedAt: '2026-02-02 10:32:15',
-    mode: 'Standard (8-stage)',
-    stages: {
-      rfp_intake: { status: 'success', duration: '0.5s', items: 1 },
-      pdf_extraction: { status: 'success', duration: '2.1s', items: 4 },
-      term_matching: { status: 'success', duration: '1.4s', items: 18 },
-      vector_search: { status: 'success', duration: '2.0s', items: 6 },
-      spec_matching: { status: 'success', duration: '4.8s', items: 6 },
-      pricing: { status: 'success', duration: '2.7s', items: 3 },
-      compliance: { status: 'success', duration: '1.1s', items: 3 },
-      bid_generation: { status: 'success', duration: '2.0s', items: 1 },
-    },
-  },
-];
-
 /* ───── node color helpers ───── */
 const nodeColors: Record<StageStatus, { bg: string; border: string; text: string; glow: string }> = {
   idle: { bg: 'bg-steel-slate/20', border: 'border-steel-slate/30', text: 'text-muted-silver/60', glow: '' },
@@ -187,8 +130,34 @@ export default function PipelinePage() {
   const cancelPipelineMutation = useCancelPipeline();
   const retryPipelineMutation = useRetryPipeline();
 
-  /* ── Merge backend runs with mock fallback ── */
-  const [localRuns, setLocalRuns] = useState<PipelineRun[]>(mockRuns);
+  const defaultIdleRun: PipelineRun = {
+    id: 'pipe-idle',
+    rfpId: 'No Active Run',
+    status: 'completed',
+    mode: 'Standard (8-stage)',
+    startedAt: '—',
+    stages: {
+      rfp_intake: { status: 'idle', duration: '—' },
+      pdf_extraction: { status: 'idle', duration: '—' },
+      term_matching: { status: 'idle', duration: '—' },
+      vector_search: { status: 'idle', duration: '—' },
+      spec_matching: { status: 'idle', duration: '—' },
+      pricing: { status: 'idle', duration: '—' },
+      compliance: { status: 'idle', duration: '—' },
+      bid_generation: { status: 'idle', duration: '—' },
+    },
+  };
+
+  /* ── Merge backend runs with dynamic state ── */
+  const [localRuns, setLocalRuns] = useState<PipelineRun[]>(() => {
+    try {
+      const saved = localStorage.getItem('haki_pipeline_runs');
+      if (saved) return JSON.parse(saved) as PipelineRun[];
+    } catch {
+      // ignore
+    }
+    return [];
+  });
 
   const allRuns: PipelineRun[] = useMemo(() => {
     const runs = apiRuns as unknown as ApiPipelineRun[] | undefined;
@@ -196,7 +165,7 @@ export default function PipelinePage() {
     return localRuns;
   }, [apiRuns, localRuns]);
 
-  const [selectedRun, setSelectedRun] = useState<PipelineRun>(allRuns[0] ?? mockRuns[0]!);
+  const [selectedRun, setSelectedRun] = useState<PipelineRun>(allRuns[0] ?? defaultIdleRun);
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [showHistory, setShowHistory] = useState(false);
   const [showNewRun, setShowNewRun] = useState(false);
@@ -204,12 +173,14 @@ export default function PipelinePage() {
   const [newRunUseAgents, setNewRunUseAgents] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  // Keep selectedRun synced when backend data arrives
+  // Keep selectedRun synced when backend data or new run arrives
   useEffect(() => {
-    if (allRuns.length && allRuns[0] && allRuns[0].id !== selectedRun.id) {
+    if (allRuns.length > 0) {
       const found = allRuns.find((r) => r.id === selectedRun.id);
       if (found) setSelectedRun(found);
-      else setSelectedRun(allRuns[0]);
+      else setSelectedRun(allRuns[0]!);
+    } else {
+      setSelectedRun(defaultIdleRun);
     }
   }, [allRuns]);  // eslint-disable-line react-hooks/exhaustive-deps
 

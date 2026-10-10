@@ -77,6 +77,28 @@ export default function RFPUploadPage() {
         include_budget: true,
         include_win_loss: true,
       });
+
+      // Save dynamic tender to real-time database
+      const dynamicRfp = {
+        rfpId: result.rfp_summary?.bid_number || `RFP-${Date.now().toString().slice(-4)}`,
+        title: title || result.rfp_summary?.title || file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' '),
+        deadline: result.rfp_summary?.end_date || new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+        priority: 'high',
+        budget: Number(budget) || result.rfp_summary?.total_value || 4285600,
+        status: 'analyzed',
+        progress: 100,
+        vendorsMatched: result.oem_summary?.oem_rankings?.length || 4,
+        portal: 'Manual Upload',
+        portalId: 'portal_upload',
+        scrapedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
+      };
+      try {
+        const current = JSON.parse(localStorage.getItem('haki_custom_rfps') || '[]');
+        localStorage.setItem('haki_custom_rfps', JSON.stringify([dynamicRfp, ...current.filter((x: any) => x.rfpId !== dynamicRfp.rfpId)]));
+      } catch {
+        // ignore
+      }
+
       toast.success('RFP analyzed successfully! Opening intelligence report...', { id: toastId });
       navigate('/user/rfp-analyzer', { state: { directResult: result, fileName: file.name } });
     } catch (err: any) {
