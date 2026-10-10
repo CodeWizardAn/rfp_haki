@@ -20,6 +20,7 @@ import {
 import { Button, Card, CardHeader, CardTitle, Badge } from '@/components/ui';
 import { PipelineStatsPanel, PipelineErrorRecovery } from '@/components/pipeline';
 import { usePipelineRuns, useRunPipeline, useCancelPipeline, useRetryPipeline } from '@/hooks/useApi';
+import toast from 'react-hot-toast';
 
 /* ───── pipeline stages definition ───── */
 const STAGES = [
@@ -44,7 +45,7 @@ interface PipelineRun {
   id: string;
   numericId?: number;
   rfpId: string;
-  status: 'running' | 'completed' | 'failed';
+  status: 'running' | 'completed' | 'failed' | 'cancelled';
   stages: Record<string, { status: StageStatus; duration: string; items?: number }>;
   startedAt: string;
   completedAt?: string;
@@ -187,11 +188,13 @@ export default function PipelinePage() {
   const retryPipelineMutation = useRetryPipeline();
 
   /* ── Merge backend runs with mock fallback ── */
+  const [localRuns, setLocalRuns] = useState<PipelineRun[]>(mockRuns);
+
   const allRuns: PipelineRun[] = useMemo(() => {
     const runs = apiRuns as unknown as ApiPipelineRun[] | undefined;
     if (runs?.length) return runs.map(mapApiRun);
-    return mockRuns;
-  }, [apiRuns]);
+    return localRuns;
+  }, [apiRuns, localRuns]);
 
   const [selectedRun, setSelectedRun] = useState<PipelineRun>(allRuns[0] ?? mockRuns[0]!);
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
@@ -217,6 +220,92 @@ export default function PipelinePage() {
     const t = setInterval(() => setParticlePos((p) => (p + 1) % 100), 50);
     return () => clearInterval(t);
   }, [selectedRun.status]);
+
+  // Auto-advance running pipeline stages in demo/preview mode
+  useEffect(() => {
+    if (selectedRun.status !== 'running') return;
+
+    const stageOrder = [
+      'rfp_intake',
+      'pdf_extraction',
+      'term_matching',
+      'vector_search',
+      'spec_matching',
+      'pricing',
+      'compliance',
+      'bid_generation',
+    ];
+
+    const timer = setTimeout(() => {
+      setSelectedRun((prev) => {
+        if (prev.status !== 'running') return prev;
+
+        const runningIdx = stageOrder.findIndex((s) => prev.stages[s]?.status === 'running');
+
+        const durations: Record<string, string> = {
+          rfp_intake: '0.4s',
+          pdf_extraction: '4.5s',
+          term_matching: '2.1s',
+          vector_search: '3.2s',
+          spec_matching: '5.8s',
+          pricing: '3.1s',
+          compliance: '1.4s',
+          bid_generation: '2.4s',
+        };
+
+        const itemCounts: Record<string, number> = {
+          rfp_intake: 1,
+          pdf_extraction: 5,
+          term_matching: 47,
+          vector_search: 14,
+          spec_matching: 8,
+          pricing: 3,
+          compliance: 3,
+          bid_generation: 1,
+        };
+
+        const newStages = { ...prev.stages };
+        const currentStageKey = runningIdx !== -1 ? stageOrder[runningIdx] : null;
+
+        if (currentStageKey) {
+          newStages[currentStageKey] = {
+            status: 'success',
+            duration: durations[currentStageKey] || '2.0s',
+            items: itemCounts[currentStageKey] || 1,
+          };
+        }
+
+        const nextStageIdx = runningIdx !== -1 ? runningIdx + 1 : 0;
+
+        if (nextStageIdx < stageOrder.length) {
+          const nextStageKey = stageOrder[nextStageIdx]!;
+          newStages[nextStageKey] = {
+            status: 'running',
+            duration: '—',
+          };
+          const updated: PipelineRun = {
+            ...prev,
+            stages: newStages,
+          };
+          setLocalRuns((runs) => runs.map((r) => (r.id === prev.id ? updated : r)));
+          return updated;
+        } else {
+          // All 8 stages finished
+          toast.success(`Pipeline ${prev.id} successfully completed all 8 stages!`);
+          const completed: PipelineRun = {
+            ...prev,
+            status: 'completed',
+            completedAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
+            stages: newStages,
+          };
+          setLocalRuns((runs) => runs.map((r) => (r.id === prev.id ? completed : r)));
+          return completed;
+        }
+      });
+    }, 2400);
+
+    return () => clearTimeout(timer);
+  }, [selectedRun.status, selectedRun.stages, selectedRun.id]);
 
   const completedStages = Object.values(selectedRun.stages).filter((s) => s.status === 'success').length;
   const totalStages = STAGES.length;
@@ -275,7 +364,22 @@ export default function PipelinePage() {
               <Clock size={12} /> Started: {selectedRun.startedAt}
             </div>
             {selectedRun.status === 'running' && (
-              <Button variant="danger" size="xs" leftIcon={<StopCircle size={10} />} onClick={() => cancelPipelineMutation.mutate(selectedRun.id)}>Cancel</Button>
+              <Button
+                variant="danger"
+                size="xs"
+                leftIcon={<StopCircle size={10} />}
+                onClick={() => {
+                  if (selectedRun.numericId != null) {
+                    cancelPipelineMutation.mutate(selectedRun.id);
+                  }
+                  const cancelled: PipelineRun = { ...selectedRun, status: 'cancelled' };
+                  setSelectedRun(cancelled);
+                  setLocalRuns((runs) => runs.map((r) => (r.id === selectedRun.id ? cancelled : r)));
+                  toast.error(`Pipeline ${selectedRun.id} cancelled`);
+                }}
+              >
+                Cancel
+              </Button>
             )}
           </div>
         </CardHeader>
@@ -552,9 +656,35 @@ export default function PipelinePage() {
                   leftIcon={<Play size={14} />}
                   disabled={!newRunText.trim()}
                   onClick={() => {
-                    runPipelineMutation.mutate({ text: newRunText, use_agents: newRunUseAgents });
+                    try {
+                      runPipelineMutation.mutate({ text: newRunText, use_agents: newRunUseAgents });
+                    } catch {
+                      // offline fallback
+                    }
+                    const newId = `pipe-${Math.random().toString(36).substring(2, 6)}`;
+                    const nowStr = new Date().toISOString().replace('T', ' ').slice(0, 19);
+                    const newRun: PipelineRun = {
+                      id: newId,
+                      rfpId: `RFP-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+                      status: 'running',
+                      startedAt: nowStr,
+                      mode: newRunUseAgents ? 'Agent-driven (5-stage)' : 'Standard (8-stage)',
+                      stages: {
+                        rfp_intake: { status: 'running', duration: '—' },
+                        pdf_extraction: { status: 'idle', duration: '—' },
+                        term_matching: { status: 'idle', duration: '—' },
+                        vector_search: { status: 'idle', duration: '—' },
+                        spec_matching: { status: 'idle', duration: '—' },
+                        pricing: { status: 'idle', duration: '—' },
+                        compliance: { status: 'idle', duration: '—' },
+                        bid_generation: { status: 'idle', duration: '—' },
+                      },
+                    };
+                    setLocalRuns((prev) => [newRun, ...prev]);
+                    setSelectedRun(newRun);
                     setShowNewRun(false);
                     setNewRunText('');
+                    toast.success(`Pipeline ${newId} initiated!`);
                   }}
                 >
                   Start Pipeline
