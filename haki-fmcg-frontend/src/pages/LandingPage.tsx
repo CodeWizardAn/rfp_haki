@@ -332,9 +332,6 @@ export default function LandingPage() {
             <a href="#agents" className="hover:text-slate-900 transition-colors">
               AI Agents
             </a>
-            <a href="#how-it-works" className="hover:text-slate-900 transition-colors">
-              How It Works
-            </a>
             <a href="#comparison" className="hover:text-slate-900 transition-colors">
               Benchmark
             </a>
@@ -417,14 +414,6 @@ export default function LandingPage() {
                 className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
                 <span>AI Agents</span>
-                <ArrowRight size={14} className="text-slate-400" />
-              </a>
-              <a
-                href="#how-it-works"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
-              >
-                <span>How It Works</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
