@@ -526,7 +526,7 @@ export default function LandingPage() {
               <img
                 src="/rfp-hero-illustration.png"
                 alt="Saarthi AI RFP Specification Engine"
-                className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] h-auto object-contain mix-blend-multiply drop-shadow-[0_20px_40px_rgba(37,99,235,0.08)] transition-transform duration-500 hover:scale-[1.02]"
+                className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] h-auto object-contain drop-shadow-[0_16px_36px_rgba(37,99,235,0.08)] transition-transform duration-500 hover:scale-[1.02]"
               />
             </motion.div>
           </div>
