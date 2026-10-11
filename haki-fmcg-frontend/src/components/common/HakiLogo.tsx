@@ -8,6 +8,7 @@ export interface HakiLogoProps {
   className?: string;
   collapsed?: boolean;
   showText?: boolean;
+  hideMascot?: boolean;
   variant?: 'default' | 'tile';
   animate?: boolean;
   asLink?: boolean;
@@ -54,6 +55,7 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
   className = '',
   collapsed = false,
   showText = true,
+  hideMascot = false,
   asLink = false,
   to = '/',
 }) => {
@@ -66,22 +68,30 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
   if (isCollapsed) {
     return (
       <div className={`flex items-center justify-center w-full select-none ${className}`}>
-        <img
-          src="/haki-mascot.png"
-          alt="Haki"
-          className="w-9 h-9 object-contain drop-shadow-sm transition-transform hover:scale-105"
-        />
+        {hideMascot ? (
+          <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-white">
+            S<span className="text-[#2563EB] dark:text-[#00D4FF]">थी</span>
+          </span>
+        ) : (
+          <img
+            src="/haki-mascot.png"
+            alt="Haki"
+            className="w-9 h-9 object-contain drop-shadow-sm transition-transform hover:scale-105"
+          />
+        )}
       </div>
     );
   }
 
   const content = (
-    <div className={`inline-flex items-center ${cfg.gap} select-none`}>
-      <img
-        src="/haki-mascot.png"
-        alt="Haki Mascot Logo"
-        className={`${cfg.img} object-contain flex-shrink-0 drop-shadow-sm transition-transform hover:scale-105`}
-      />
+    <div className={`inline-flex items-center ${hideMascot ? '' : cfg.gap} select-none`}>
+      {!hideMascot && (
+        <img
+          src="/haki-mascot.png"
+          alt="Haki Mascot Logo"
+          className={`${cfg.img} object-contain flex-shrink-0 drop-shadow-sm transition-transform hover:scale-105`}
+        />
+      )}
       <div className="flex flex-col justify-center leading-none">
         <span className={`tracking-tight font-sans ${textColor} ${cfg.text}`}>
           Saar<span className="text-[#2563EB] dark:text-[#00D4FF]">थी</span>

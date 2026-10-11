@@ -75,9 +75,10 @@ export function Sidebar() {
       className="fixed left-0 top-0 h-screen z-40 glass-sidebar flex flex-col"
     >
       {/* Logo */}
-      <div className="h-16 flex items-center px-4 border-b border-steel-slate/20 overflow-hidden">
+      <div className="h-16 flex items-center justify-center px-4 border-b border-steel-slate/20 overflow-hidden">
         <HakiLogo
-          size="sm"
+          size="md"
+          hideMascot={true}
           collapsed={sidebarCollapsed}
           asLink
           to="/dashboard"
@@ -108,8 +109,19 @@ export function Sidebar() {
 
             {/* Items */}
             {section.items.map((item) => {
-              const isActive = location.pathname === item.path ||
-                (item.path !== '/' && location.pathname.startsWith(item.path));
+              const currentPath = location.pathname;
+              const isActive =
+                currentPath === item.path ||
+                (item.path !== '/' && currentPath.startsWith(item.path)) ||
+                (item.path === '/dashboard' && (currentPath === '/user' || currentPath === '/user/')) ||
+                (item.path === '/rfp-analyzer' && currentPath.startsWith('/user/rfp-analyzer')) ||
+                (item.path === '/rfps' && (currentPath.startsWith('/user/rfps') || currentPath.startsWith('/user/rfp-processing'))) ||
+                (item.path === '/products' && (currentPath.startsWith('/user/products') || currentPath.startsWith('/user/catalog'))) ||
+                (item.path === '/analytics' && currentPath.startsWith('/user/analytics')) ||
+                (item.path === '/bids' && (currentPath.startsWith('/user/bids') || currentPath.startsWith('/user/my-bids') || currentPath.startsWith('/user/bid-generator') || currentPath.startsWith('/user/quotes'))) ||
+                (item.path === '/vendors' && currentPath.startsWith('/user/vendors')) ||
+                (item.path === '/compliance/audit' && currentPath.startsWith('/user/history')) ||
+                (item.path === '/settings' && (currentPath.startsWith('/user/settings') || currentPath.startsWith('/user/profile') || currentPath.startsWith('/user/company-profile')));
 
               return (
                 <NavLink
