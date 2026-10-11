@@ -70,12 +70,12 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
       <div className={`flex items-center justify-center w-full select-none ${className}`}>
         {hideMascot ? (
           <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-white">
-            S<span className="text-[#2563EB] dark:text-[#00D4FF]">थी</span>
+            S
           </span>
         ) : (
           <img
             src="/haki-mascot.png"
-            alt="Haki"
+            alt="Saarthi"
             className="w-9 h-9 object-contain drop-shadow-sm transition-transform hover:scale-105"
           />
         )}
@@ -88,13 +88,13 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
       {!hideMascot && (
         <img
           src="/haki-mascot.png"
-          alt="Haki Mascot Logo"
+          alt="Saarthi Mascot Logo"
           className={`${cfg.img} object-contain flex-shrink-0 drop-shadow-sm transition-transform hover:scale-105`}
         />
       )}
       <div className="flex flex-col justify-center leading-none">
         <span className={`tracking-tight font-sans ${textColor} ${cfg.text}`}>
-          Saar<span className="text-[#2563EB] dark:text-[#00D4FF]">थी</span>
+          Saarthi
         </span>
         {subtitle && (
           <span className={`font-medium tracking-wide mt-1 ${subColor} ${cfg.sub}`}>
