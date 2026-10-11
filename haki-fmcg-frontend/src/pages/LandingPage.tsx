@@ -17,6 +17,12 @@ import {
   Copy,
   Download,
   Sparkles,
+  Bot,
+  ShieldCheck,
+  Cpu,
+  FileText,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores';
 import { HakiLogo } from '@/components/common';
@@ -177,11 +183,35 @@ const CATALOG_MARQUEE_CARDS = [
   { title: 'Building Wires', subtitle: 'IS 694 FR / FRLSH Pure Copper', count: '3,980 SKUs', brand: 'Finolex / Polycab', query: 'Building Wires IS 694' },
 ];
 
+const FAQ_ITEMS = [
+  {
+    question: 'What document formats does Saarthi support for RFP ingestion?',
+    answer: 'Saarthi natively parses complex multi-page PDF tenders, scanned image-based NITs via multilingual Tesseract OCR, Excel BOQ workbooks (.xlsx, .xls), and CSV schedule formats. It also supports direct tender intake from GeM (Government e-Marketplace) and Central Public Procurement Portal (CPPP) URLs.',
+  },
+  {
+    question: 'How does the 22,000+ SKU Vector Matcher handle non-standard specifications?',
+    answer: 'The system uses domain-fine-tuned 384-dimensional dense semantic embeddings combined with deterministic rule-based normalizers. If an RFP states "1100V 4 core 16 sq mm" or "1.1kV 4C x 16 mm² AL AR", Saarthi standardizes gauge, insulation grade, and conductor chemistry to compute cross-OEM compatibility scores instantaneously.',
+  },
+  {
+    question: 'How is the L1 tender price and margin calculated?',
+    answer: 'Saarthi queries daily MCX (Multi Commodity Exchange) spot prices for electrolytic copper and aluminium grade EC, applies manufacturer list discount matrices, and simulates competitor historical bids. You configure minimum floor margins (e.g., 18.5%) that the engine strictly enforces to prevent negative margin awards.',
+  },
+  {
+    question: 'Is proprietary pricing and vendor catalog data kept secure?',
+    answer: 'Yes. Enterprise data is isolated per tenant with strict role-based access control. All inference is performed in private memory spaces with zero data retention on base model weights. Sensitive pricing lists are encrypted at rest with AES-256 and never shared across organizational boundaries.',
+  },
+  {
+    question: 'Can the generated bid dossier be exported directly into government e-procurement portals?',
+    answer: 'Yes. Bid packages export into pre-formatted PDF dossiers containing Guaranteed Technical Particulars (GTP) schedules, deviation statements, CPRI/ERDA test certificate links, and Excel BOQ templates formatted to match standard Indian Discom and PSU submission schemas.',
+  },
+];
+
 export default function LandingPage() {
   const { isAuthenticated, user } = useAuthStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSpecIndex, setActiveSpecIndex] = useState(0);
   const [customSearch, setCustomSearch] = useState('');
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   // Dynamic real-time spec matching
   const currentSpec = useMemo(() => {
@@ -284,22 +314,25 @@ export default function LandingPage() {
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium text-slate-600">
             <a href="#pipeline" className="hover:text-slate-900 transition-colors">
-              RFP Pipeline
-            </a>
-            <a href="#catalog" className="hover:text-slate-900 transition-colors">
-              22K+ Catalog
-            </a>
-            <a href="#matcher" className="hover:text-slate-900 transition-colors">
-              Spec Matcher
+              Pipeline
             </a>
             <a href="#snapshots" className="hover:text-slate-900 transition-colors">
-              Platform Modules
+              Modules
             </a>
-            <Link to="/vendors" className="hover:text-slate-900 transition-colors">
-              Vendors
-            </Link>
+            <a href="#agents" className="hover:text-slate-900 transition-colors">
+              AI Agents
+            </a>
+            <a href="#matcher" className="hover:text-slate-900 transition-colors">
+              Spec Engine
+            </a>
+            <a href="#comparison" className="hover:text-slate-900 transition-colors">
+              Benchmark
+            </a>
+            <a href="#faq" className="hover:text-slate-900 transition-colors">
+              FAQ
+            </a>
           </nav>
 
           {/* Right Action Buttons */}
@@ -368,11 +401,19 @@ export default function LandingPage() {
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
-                href="#catalog"
+                href="#snapshots"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
-                <span>22K+ Catalog</span>
+                <span>Platform Modules</span>
+                <ArrowRight size={14} className="text-slate-400" />
+              </a>
+              <a
+                href="#agents"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>AI Agents</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
@@ -384,11 +425,19 @@ export default function LandingPage() {
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
-                href="#snapshots"
+                href="#comparison"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
-                <span>Platform Modules</span>
+                <span>Benchmark</span>
+                <ArrowRight size={14} className="text-slate-400" />
+              </a>
+              <a
+                href="#faq"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>FAQ</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <Link
@@ -964,6 +1013,231 @@ export default function LandingPage() {
             </div>
           </div>
         </motion.div>
+
+        {/* ── Snapshot 4: Right Aligned (Audit Trail & One-Click Bid Dossier Generation) ── */}
+        <motion.div
+          initial={{ opacity: 0.2, y: 60, filter: 'blur(4px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: false, amount: 0.2, margin: '0px 0px -80px 0px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center"
+        >
+          {/* Left Text Description */}
+          <div className="lg:col-span-5 space-y-3 sm:space-y-4 order-2 lg:order-1">
+            <span className="text-xs font-bold text-[#2563EB] tracking-widest uppercase font-mono">
+              04 • AUDIT TRAIL & DOSSIER EXPORT
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              One-Click Audit-Ready Tender Dossier
+            </h3>
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+              Eliminate last-minute submission scramble. Saarthi automatically compiles complete technical bid packages—including Guaranteed Technical Particulars (GTP), deviation schedules, CPRI test certificates, and manufacturer authorization letters—formatted to government and PSU submission guidelines.
+            </p>
+            <div className="pt-2">
+              <Link
+                to={isAuthenticated ? (user?.role === 'admin' ? '/compliance/audit' : '/user/history') : '/login?redirect=/compliance/audit'}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
+              >
+                Inspect compliance audit trail →
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Window Snapshot */}
+          <div className="lg:col-span-7 order-1 lg:order-2">
+            <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
+              {/* Window Bar with Controls */}
+              <div className="h-9 sm:h-10 bg-slate-100/90 border-b border-slate-200 px-3 sm:px-4 flex items-center justify-between">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
+                </div>
+                <div className="text-[11px] sm:text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
+                  <ShieldCheck size={12} className="text-blue-600 flex-shrink-0" />
+                  <span className="truncate">saarthi-bid-dossier-builder.dossier</span>
+                </div>
+                <div className="w-6 sm:w-10 flex-shrink-0"></div>
+              </div>
+
+              {/* Window Content */}
+              <div className="p-4 sm:p-6 bg-slate-50/50 space-y-3 sm:space-y-4">
+                <div className="flex items-center justify-between bg-white p-3 rounded-lg border border-slate-200">
+                  <div className="flex items-center gap-2">
+                    <FileText size={16} className="text-blue-600 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs font-bold text-slate-900">Bid Package: MSEDCL-SUBSTATION-2026-FINAL.pdf</p>
+                      <p className="text-[10px] text-slate-500 font-mono">SHA-256: 7f8a...c92b • 48 Pages Generated</p>
+                    </div>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">
+                    PASSED GATEKEEPER
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200">
+                    <span className="text-[10px] text-slate-500 block uppercase font-semibold">GTP Sheets</span>
+                    <span className="font-bold text-slate-900 text-sm">4 / 4 Auto-filled</span>
+                  </div>
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200">
+                    <span className="text-[10px] text-slate-500 block uppercase font-semibold">Test Reports</span>
+                    <span className="font-bold text-slate-900 text-sm">CPRI / ERDA</span>
+                  </div>
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200">
+                    <span className="text-[10px] text-slate-500 block uppercase font-semibold">Deviations</span>
+                    <span className="font-bold text-emerald-600 text-sm">0 Gaps Found</span>
+                  </div>
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200">
+                    <span className="text-[10px] text-slate-500 block uppercase font-semibold">Export Ready</span>
+                    <span className="font-bold text-blue-700 text-sm">PDF & Excel</span>
+                  </div>
+                </div>
+
+                <div className="bg-white p-3 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    <span className="text-slate-700 font-medium">Compliance Verification: BIS IS 7098 Pt 1 & IS 694 Passed</span>
+                  </div>
+                  <span className="font-mono text-slate-500 text-[11px]">Audit ID #9482</span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs pt-1 text-slate-500 gap-1 border-t border-slate-200/80">
+                  <span>Full provenance tracking recorded in immutable event ledger</span>
+                  <span className="font-bold text-slate-700">Digital Signature Ready</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── Multi-Agent Team Architecture ── */}
+      <section id="agents" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
+            COLLABORATIVE MULTI-AGENT PIPELINE
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
+            Five Autonomous AI Agents, One Winning Bid
+          </h2>
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-3 leading-relaxed">
+            Instead of a single monolithic model, Saarthi orchestrates dedicated AI agents with discrete domain specializations to guarantee technical precision and commercial profitability.
+          </p>
+        </div>
+
+        {/* 5 Agents Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {/* Agent 1 */}
+          <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-blue-400 transition-all flex flex-col justify-between group">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                  <Search size={20} />
+                </div>
+                <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-slate-100 text-slate-600">
+                  AGENT 01
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Sales & Tender Scanner</h3>
+              <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                Monitors GeM, CPPP, and regional Discom portals. Evaluates minimum eligibility, earnest money (EMD), and turnover criteria before human review.
+              </p>
+            </div>
+            <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-medium text-slate-500">
+              <span>Capability</span>
+              <span className="text-blue-700 font-semibold">Tender Filtering & OCR</span>
+            </div>
+          </div>
+
+          {/* Agent 2 */}
+          <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-blue-400 transition-all flex flex-col justify-between group">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center font-bold">
+                  <Cpu size={20} />
+                </div>
+                <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-slate-100 text-slate-600">
+                  AGENT 02
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Technical Spec Matcher</h3>
+              <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                Parses conductor size, core count, voltage ratings, and insulation grades. Performs engineering calculations for voltage drops and thermal limits.
+              </p>
+            </div>
+            <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-medium text-slate-500">
+              <span>Capability</span>
+              <span className="text-cyan-700 font-semibold">22K+ Vector Match</span>
+            </div>
+          </div>
+
+          {/* Agent 3 */}
+          <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-blue-400 transition-all flex flex-col justify-between group">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                  <TrendingUp size={20} />
+                </div>
+                <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-slate-100 text-slate-600">
+                  AGENT 03
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Pricing & Margin Engine</h3>
+              <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                Tracks live MCX copper and aluminium spot indices against OEM master discount sheets. Computes optimal L1 tender rates while locking target margins.
+              </p>
+            </div>
+            <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-medium text-slate-500">
+              <span>Capability</span>
+              <span className="text-emerald-700 font-semibold">Live Commodity Indices</span>
+            </div>
+          </div>
+
+          {/* Agent 4 */}
+          <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-blue-400 transition-all flex flex-col justify-between group">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+                  <ShieldCheck size={20} />
+                </div>
+                <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-slate-100 text-slate-600">
+                  AGENT 04
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Compliance & Gatekeeper</h3>
+              <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                Applies knockout tests to ensure every requirement has BIS / IEC compliance, CPRI / ERDA certificates, and OEM authorization. Prevents disqualification.
+              </p>
+            </div>
+            <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-medium text-slate-500">
+              <span>Capability</span>
+              <span className="text-purple-700 font-semibold">Zero-Disqualification Rules</span>
+            </div>
+          </div>
+
+          {/* Agent 5 */}
+          <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-blue-400 transition-all flex flex-col justify-between group md:col-span-2 lg:col-span-2">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                  <Bot size={20} />
+                </div>
+                <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-slate-100 text-slate-600">
+                  AGENT 05 • ORCHESTRATOR
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Master Reviewer & Bid Synthesizer</h3>
+              <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                Aggregates output from all sub-agents, resolves conflicting multi-OEM quotes, generates executive summaries, and packages exportable PDF/Excel submission files.
+              </p>
+            </div>
+            <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-medium text-slate-500">
+              <span>Capability</span>
+              <span className="text-amber-700 font-semibold">Autonomous Bid Dossier Compilation</span>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ── Interactive Live Spec Matcher Sandbox ── */}
@@ -1115,6 +1389,154 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── Operational Efficiency Benchmark ── */}
+      <section id="comparison" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
+            OPERATIONAL EFFICIENCY BENCHMARK
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
+            Why Enterprise Suppliers Choose Saarthi
+          </h2>
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-3 leading-relaxed">
+            Replace fragmented spreadsheets, slow cross-team email threads, and costly manual bidding mistakes with guaranteed algorithmic precision.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200/90 bg-white overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs sm:text-sm">
+              <thead>
+                <tr className="bg-slate-50/80 border-b border-slate-200">
+                  <th className="py-4 px-6 font-bold text-slate-700 uppercase tracking-wider text-xs">Procurement Dimension</th>
+                  <th className="py-4 px-6 font-bold text-slate-400 uppercase tracking-wider text-xs w-1/3">Legacy Manual Bidding</th>
+                  <th className="py-4 px-6 font-bold text-[#2563EB] uppercase tracking-wider text-xs w-1/3 bg-blue-50/60">Saarthi Autonomous Engine</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-slate-900">Turnaround Time per RFP</td>
+                  <td className="py-4 px-6 text-slate-500">10 to 18 Business Days</td>
+                  <td className="py-4 px-6 font-bold text-emerald-600 bg-blue-50/30">Under 15 Minutes (Instant OCR & Vector Match)</td>
+                </tr>
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-slate-900">Multi-OEM Specification Matching</td>
+                  <td className="py-4 px-6 text-slate-500">Manual lookup across 2-3 printed datasheets</td>
+                  <td className="py-4 px-6 font-bold text-emerald-600 bg-blue-50/30">Instant search across 22,028 normalized SKUs</td>
+                </tr>
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-slate-900">Compliance & Gatekeeper Knockout Checks</td>
+                  <td className="py-4 px-6 text-slate-500">High risk of human oversight; 12% disqualification rate</td>
+                  <td className="py-4 px-6 font-bold text-emerald-600 bg-blue-50/30">100% automated verification of IS/IEC/BIS standards</td>
+                </tr>
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-slate-900">Margin Calculation & Commodity Volatility</td>
+                  <td className="py-4 px-6 text-slate-500">Static margins, vulnerable to copper/aluminium swings</td>
+                  <td className="py-4 px-6 font-bold text-emerald-600 bg-blue-50/30">Dynamic L1 optimization tied to daily MCX spot rates</td>
+                </tr>
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-slate-900">Audit Provenance & Decision History</td>
+                  <td className="py-4 px-6 text-slate-500">Lost in email inboxes and unversioned Excel sheets</td>
+                  <td className="py-4 px-6 font-bold text-emerald-600 bg-blue-50/30">Immutable cryptographic log for every line-item match</td>
+                </tr>
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="py-4 px-6 font-semibold text-slate-900">Submission Capacity</td>
+                  <td className="py-4 px-6 text-slate-500">Capped at 4–6 RFPs per bid engineering team/month</td>
+                  <td className="py-4 px-6 font-bold text-emerald-600 bg-blue-50/30">Unlimited concurrent tender processing with zero extra headcount</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Certified Governing Standards Matrix ── */}
+      <section className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
+            CERTIFIED GOVERNING STANDARDS
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-2">
+            Engineered for Government & PSU Compliance
+          </h2>
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2">
+            Pre-configured against Indian and International technical specifications used by CPWD, NHPC, NTPC, BHEL, State Discoms, and Indian Railways.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4">
+          {[
+            { code: 'IS 7098 Pt 1', title: 'LT XLPE Power Cables', tag: 'Standard' },
+            { code: 'IS 7098 Pt 2', title: 'HT XLPE 3.3kV to 33kV', tag: 'Standard' },
+            { code: 'IS 694', title: 'PVC Flexible Wires', tag: 'Standard' },
+            { code: 'IS 8130', title: 'Conductor Resistance', tag: 'Mandatory' },
+            { code: 'IEC 60502', title: 'Extruded Solid Cables', tag: 'Global' },
+            { code: 'CPRI / ERDA', title: 'Type Test Approvals', tag: 'Accredited' },
+          ].map((item, i) => (
+            <div key={i} className="p-4 rounded-xl bg-white border border-slate-200/90 text-center shadow-sm hover:border-blue-400 hover:shadow-md transition-all flex flex-col justify-between">
+              <span className="text-[10px] uppercase font-bold text-blue-600 font-mono tracking-wider">{item.tag}</span>
+              <p className="font-extrabold text-slate-900 text-sm mt-1">{item.code}</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">{item.title}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Enterprise FAQ Section ── */}
+      <section id="faq" className="py-16 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto border-t border-black/[0.06]">
+        <div className="text-center mb-12 sm:mb-16">
+          <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
+            FREQUENTLY ASKED QUESTIONS
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
+            Enterprise Procurement Questions
+          </h2>
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-3 leading-relaxed">
+            Everything you need to know about Saarthi’s ingestion pipeline, data privacy, and tender response accuracy.
+          </p>
+        </div>
+
+        <div className="space-y-3 sm:space-y-4">
+          {FAQ_ITEMS.map((item, idx) => {
+            const isOpen = openFaqIndex === idx;
+            return (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-200/90 bg-white shadow-sm overflow-hidden transition-all hover:border-slate-300"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                  className="w-full py-4 sm:py-5 px-5 sm:px-6 flex items-center justify-between text-left gap-4 cursor-pointer"
+                >
+                  <span className="text-sm sm:text-base font-bold text-slate-900">
+                    {item.question}
+                  </span>
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${isOpen ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'}`}>
+                    {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  </div>
+                </button>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+                        {item.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       {/* ── Call To Action Banner ── */}
       <section className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto">
         <div className="p-6 sm:p-10 md:p-14 rounded-2xl bg-slate-900 text-white flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8 shadow-xl">
@@ -1155,10 +1577,19 @@ export default function LandingPage() {
 
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
             <a href="#pipeline" className="hover:text-slate-900 transition-colors">
-              RFP Pipeline
+              Pipeline
             </a>
             <a href="#snapshots" className="hover:text-slate-900 transition-colors">
               Modules
+            </a>
+            <a href="#agents" className="hover:text-slate-900 transition-colors">
+              AI Agents
+            </a>
+            <a href="#comparison" className="hover:text-slate-900 transition-colors">
+              Benchmark
+            </a>
+            <a href="#faq" className="hover:text-slate-900 transition-colors">
+              FAQ
             </a>
             <Link to={isAuthenticated ? '/vendors' : '/login?redirect=/vendors'} className="hover:text-slate-900 transition-colors">
               Vendors
