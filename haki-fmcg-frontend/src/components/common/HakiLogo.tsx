@@ -83,8 +83,9 @@ export const HakiLogo: React.FC<HakiLogoProps> = ({
         className={`${cfg.img} object-contain flex-shrink-0 drop-shadow-sm transition-transform hover:scale-105`}
       />
       <div className="flex flex-col justify-center leading-none">
-        <span className={`tracking-tight font-sans ${textColor} ${cfg.text}`}>
-          Haki
+        <span className={`tracking-tight font-sans ${textColor} ${cfg.text} inline-flex items-baseline`}>
+          <span>Saar</span>
+          <span className="text-[#2563EB] dark:text-[#00D4FF] ml-[0.5px]">थी</span>
         </span>
         {subtitle && (
           <span className={`font-medium tracking-wide mt-1 ${subColor} ${cfg.sub}`}>
