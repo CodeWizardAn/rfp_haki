@@ -661,7 +661,7 @@ export default function LandingPage() {
             LIVE PLATFORM MODULES
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
-            Inside the Saar<span className="text-[#2563EB]">थी</span> Engine
+            Inside the Saar<span className="text-[#2563EB] font-['Noto_Sans_Devanagari','Poppins',sans-serif] text-[0.84em] relative top-[0.05em] ml-[0.5px]">थी</span> Engine
           </h2>
           <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-3">
             Precise technical intelligence modules built for tenders, specifications, and margin security.
