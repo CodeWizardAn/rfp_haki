@@ -332,8 +332,8 @@ export default function LandingPage() {
             <a href="#agents" className="hover:text-slate-900 transition-colors">
               AI Agents
             </a>
-            <a href="#matcher" className="hover:text-slate-900 transition-colors">
-              Spec Engine
+            <a href="#how-it-works" className="hover:text-slate-900 transition-colors">
+              How It Works
             </a>
             <a href="#comparison" className="hover:text-slate-900 transition-colors">
               Benchmark
@@ -420,11 +420,11 @@ export default function LandingPage() {
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
-                href="#matcher"
+                href="#how-it-works"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
-                <span>Spec Engine</span>
+                <span>How It Works</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
@@ -561,7 +561,8 @@ export default function LandingPage() {
       </section>
 
       {/* ── Continuous Moving Marquees: Workflow Pipeline & Catalog Categories ── */}
-      <section id="pipeline" className="py-12 sm:py-16 border-y border-black/[0.06] overflow-hidden bg-white/40 space-y-10 sm:space-y-12">
+      <section id="pipeline" className="py-12 sm:py-16 border-y border-black/[0.06] overflow-hidden bg-white/40 space-y-10 sm:space-y-12 relative">
+        <div id="how-it-works" className="absolute -top-20 left-0" />
         {/* Track 1: Workflow Pipeline Heading */}
         <div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-4 sm:mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
