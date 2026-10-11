@@ -14,6 +14,7 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
+  Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUIStore } from '@/stores';
@@ -35,6 +36,7 @@ const navSections: { title?: string; items: NavItem[] }[] = [
     title: 'Procurement',
     items: [
       { label: 'RFPs', path: '/rfps', icon: <FileText size={20} /> },
+      { label: 'RFP Analyzer', path: '/rfp-analyzer', icon: <Zap size={20} /> },
       { label: 'Pipeline', path: '/pipeline', icon: <GitBranch size={20} /> },
       { label: 'Agents', path: '/agents', icon: <Bot size={20} /> },
     ],

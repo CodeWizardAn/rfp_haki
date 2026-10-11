@@ -118,7 +118,8 @@ export default function RFPUploadPage() {
       }
 
       toast.success('RFP analyzed successfully! Opening intelligence report...', { id: toastId });
-      navigate('/user/rfp-analyzer', { state: { directResult: result, fileName: file.name } });
+      const targetRoute = window.location.pathname.startsWith('/user') ? '/user/rfp-analyzer' : '/rfp-analyzer';
+      navigate(targetRoute, { state: { directResult: result, fileName: file.name } });
     } catch (err: any) {
       const msg = err?.response?.data?.detail || err?.response?.data?.message || err?.message || 'Failed to analyze RFP.';
       toast.error(msg, { id: toastId });
