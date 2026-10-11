@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
   ArrowLeft,
   ArrowRight,
@@ -14,6 +15,7 @@ import {
   Play,
   Plus,
   Trash2,
+  Loader2,
 } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
 
@@ -66,7 +68,9 @@ const termsTemplates = [
 const fmt = (n: number) => '₹' + n.toLocaleString('en-IN', { maximumFractionDigits: 0 });
 
 export default function BidBuilderPage() {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [selectedRfp, setSelectedRfp] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<string[]>(['FNX-XLPE-3C240', 'HAV-XLPE-3C120', 'PLY-PVC-4C16']);
   const [lineItems, setLineItems] = useState<LineItem[]>(defaultLineItems);
@@ -82,6 +86,67 @@ export default function BidBuilderPage() {
   const subtotal = lineItems.reduce((a, li) => a + li.unitPrice * li.qty * (1 - li.discount / 100), 0);
   const gst = subtotal * 0.18;
   const grandTotal = subtotal + gst;
+
+  const handleSaveDraft = () => {
+    const draftId = `B-${Math.floor(1000 + Math.random() * 9000)}`;
+    const targetRfp = rfps.find((r) => r.id === selectedRfp);
+    const draftBid = {
+      id: draftId,
+      rfpId: selectedRfp || 'RFP-2026-0001',
+      vendor: 'Haki FMCG Procurement',
+      amount: grandTotal,
+      status: 'draft',
+      deadline: targetRfp?.deadline || '2026-02-28',
+      items: lineItems.length,
+      createdAt: new Date().toISOString().split('T')[0],
+      approvalLevel: 0,
+      maxApproval: 4,
+      probability: 45,
+    };
+    try {
+      const saved = localStorage.getItem('haki_custom_bids');
+      const existing = saved ? JSON.parse(saved) : [];
+      localStorage.setItem('haki_custom_bids', JSON.stringify([draftBid, ...existing]));
+    } catch {
+      // ignore
+    }
+    toast.success(`Bid draft ${draftId} saved successfully!`);
+    navigate('/bids');
+  };
+
+  const handleGenerateBid = () => {
+    setIsGenerating(true);
+    const bidId = `B-${Math.floor(1000 + Math.random() * 9000)}`;
+    const targetRfp = rfps.find((r) => r.id === selectedRfp);
+
+    const newBid = {
+      id: bidId,
+      rfpId: selectedRfp || 'RFP-2026-0001',
+      vendor: 'Haki FMCG Procurement',
+      amount: grandTotal,
+      status: 'submitted',
+      deadline: targetRfp?.deadline || '2026-02-28',
+      items: lineItems.length,
+      createdAt: new Date().toISOString().split('T')[0],
+      approvalLevel: 1,
+      maxApproval: 4,
+      probability: 88,
+    };
+
+    try {
+      const saved = localStorage.getItem('haki_custom_bids');
+      const existing = saved ? JSON.parse(saved) : [];
+      localStorage.setItem('haki_custom_bids', JSON.stringify([newBid, ...existing]));
+    } catch {
+      // ignore
+    }
+
+    setTimeout(() => {
+      setIsGenerating(false);
+      toast.success(`Bid ${bidId} generated successfully! Opening commercial dossier...`);
+      navigate(`/bids/${bidId}/preview`);
+    }, 700);
+  };
 
   const toggleProduct = (sku: string) => {
     setSelectedProducts((p) =>
@@ -386,14 +451,21 @@ export default function BidBuilderPage() {
           )}
         </div>
         <div className="flex gap-2">
-          <Button variant="ghost" leftIcon={<Save size={14} />}>Save Draft</Button>
+          <Button variant="ghost" leftIcon={<Save size={14} />} onClick={handleSaveDraft}>
+            Save Draft
+          </Button>
           {step < 5 ? (
             <Button variant="primary" rightIcon={<ArrowRight size={14} />} onClick={() => setStep((s) => s + 1)} disabled={!canNext()}>
               Next
             </Button>
           ) : (
-            <Button variant="primary" leftIcon={<Play size={14} />}>
-              Generate Bid
+            <Button
+              variant="primary"
+              leftIcon={isGenerating ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} />}
+              disabled={isGenerating}
+              onClick={handleGenerateBid}
+            >
+              {isGenerating ? 'Generating Bid...' : 'Generate Bid'}
             </Button>
           )}
         </div>

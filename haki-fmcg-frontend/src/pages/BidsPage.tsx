@@ -68,12 +68,19 @@ export default function BidsPage() {
   /* ── Backend hooks ── */
   const { data: apiBids } = useBids();
 
-  /* Merge backend bids with mock fallback */
+  /* Merge backend bids with mock fallback & localStorage custom bids */
   const allBids: Bid[] = useMemo(() => {
+    let customBids: Bid[] = [];
+    try {
+      const saved = localStorage.getItem('haki_custom_bids');
+      if (saved) customBids = JSON.parse(saved);
+    } catch {
+      // ignore
+    }
     const items = (apiBids as unknown as { data?: Bid[] })?.data;
-    if (items?.length) return items;
-    if (Array.isArray(apiBids) && apiBids.length) return apiBids as unknown as Bid[];
-    return mockBids;
+    if (items?.length) return [...customBids, ...items];
+    if (Array.isArray(apiBids) && apiBids.length) return [...customBids, ...(apiBids as unknown as Bid[])];
+    return [...customBids, ...mockBids];
   }, [apiBids]);
 
   const totalValue = allBids.reduce((s, b) => s + b.amount, 0);
