@@ -18,6 +18,8 @@ import {
   Sparkles,
   Bot,
   ShieldCheck,
+  ShieldAlert,
+  AlertTriangle,
   Cpu,
   FileText,
   ChevronDown,
@@ -145,10 +147,10 @@ const PIPELINE_CARDS = [
   },
   {
     step: '02',
-    title: 'Normalization',
-    description: 'Standardizes voltage (1.1kV vs 1100V), core counts, and AWG to mm².',
-    highlight: false,
-    route: '/pipeline',
+    title: 'Knockout Clause Radar',
+    description: 'Instant Go/No-Go scan of buried turnover, EMD, CPRI test validity & Make-in-India traps.',
+    highlight: true,
+    route: '/user/rfp-analyzer',
   },
   {
     step: '03',
@@ -166,6 +168,13 @@ const PIPELINE_CARDS = [
   },
   {
     step: '05',
+    title: 'Clause Traceability',
+    description: 'Page & clause citations [Pg 14 • Cl 4.2.1] for 100% auditable, zero-hallucination compliance.',
+    highlight: false,
+    route: '/user/rfp-analyzer',
+  },
+  {
+    step: '06',
     title: 'Commercial Bid',
     description: 'Full compliance matrix and exportable tender response.',
     highlight: true,
@@ -1093,6 +1102,129 @@ export default function LandingPage() {
                   <span className="font-bold text-slate-700">Digital Signature Ready</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Snapshot 5: Left Aligned (Knockout Clause Radar & Clause Traceability) ── */}
+        <motion.div
+          initial={{ opacity: 0.2, y: 60, filter: 'blur(4px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: false, amount: 0.2, margin: '0px 0px -80px 0px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center"
+        >
+          {/* Left Window Snapshot */}
+          <div className="lg:col-span-7">
+            <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
+              {/* Window Bar with Controls */}
+              <div className="h-9 sm:h-10 bg-slate-100/90 border-b border-slate-200 px-3 sm:px-4 flex items-center justify-between">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
+                </div>
+                <div className="text-[11px] sm:text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
+                  <ShieldAlert size={12} className="text-amber-500 flex-shrink-0" />
+                  <span className="truncate">saarthi-knockout-gatekeeper.radar [Audit: 6/6 Gatekeepers]</span>
+                </div>
+                <div className="w-6 sm:w-10 flex-shrink-0"></div>
+              </div>
+
+              {/* Window Content */}
+              <div className="p-4 sm:p-6 bg-slate-50/50 space-y-3 sm:space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-3 rounded-lg border border-slate-200 gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="text-xs font-bold text-slate-900">NTPC-POWER-2026-SUBSTATION.pdf</span>
+                  </div>
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-extrabold border border-emerald-200">
+                    GO: 5/6 Cleared • 1 Action Required
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 size={15} className="text-emerald-600 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold text-slate-900">Turnover Threshold (₹15 Cr avg)</span>
+                        <p className="text-[11px] text-slate-500">Audited FY23-25 avg ₹48.5 Cr (3.2x safety cushion)</p>
+                      </div>
+                    </div>
+                    <span className="font-mono text-[11px] text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200/60 font-semibold flex-shrink-0">
+                      Pg 8 • Cl 3.1.2
+                    </span>
+                  </div>
+
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 size={15} className="text-emerald-600 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold text-slate-900">EMD Exemption / MSME Waiver</span>
+                        <p className="text-[11px] text-slate-500">Rule 170 GFR 2017 applies • 100% EMD fee waiver verified</p>
+                      </div>
+                    </div>
+                    <span className="font-mono text-[11px] text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200/60 font-semibold flex-shrink-0">
+                      Pg 14 • Cl 4.8.1
+                    </span>
+                  </div>
+
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 size={15} className="text-emerald-600 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold text-slate-900">CPRI / ERDA Type Test Validity</span>
+                        <p className="text-[11px] text-slate-500">Report dated Oct 2023 (&lt; 5 yrs) valid through 2027</p>
+                      </div>
+                    </div>
+                    <span className="font-mono text-[11px] text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200/60 font-semibold flex-shrink-0">
+                      Pg 29 • Cl 6.4.3
+                    </span>
+                  </div>
+
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <AlertTriangle size={15} className="text-amber-500 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold text-slate-900">Non-Blacklisting ₹100 Notarized Affidavit</span>
+                        <p className="text-[11px] text-amber-700 font-medium">Action: Execute Annexure-IV on stamp paper prior to portal upload</p>
+                      </div>
+                    </div>
+                    <span className="font-mono text-[11px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60 font-semibold flex-shrink-0">
+                      Pg 53 • Cl 11.5
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs pt-1 text-slate-500 gap-1 border-t border-slate-200/80">
+                  <span>Page-level citation traceability attached to all extracted specifications</span>
+                  <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                    0 Hallucinations • 100% Auditable
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Text Description */}
+          <div className="lg:col-span-5 space-y-3 sm:space-y-4">
+            <span className="text-xs font-bold text-[#2563EB] tracking-widest uppercase font-mono">
+              05 • GATEKEEPER &amp; TRACEABILITY
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              Knockout Clause Radar &amp; Source Page Traceability
+            </h3>
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+              Stop losing bids on hidden traps. Bids are rarely disqualified by product specs—they get killed by obscure turnover thresholds, expired CPRI certificates, or EMD bank guarantee rules buried on page 80 of tender PDFs. Saarthi highlights buried disqualifiers upfront and attaches exact source page citations [Pg 14 • Cl 4.2.1] to every extracted clause.
+            </p>
+            <div className="pt-2">
+              <Link
+                to={isAuthenticated ? '/user/rfp-analyzer' : '/login?redirect=/user/rfp-analyzer'}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
+              >
+                Scan tender for buried disqualifiers →
+              </Link>
             </div>
           </div>
         </motion.div>

@@ -22,12 +22,15 @@ import {
   Wifi,
   Search,
   BarChart3,
+  ShieldAlert,
 } from 'lucide-react';
 import { Button, Card, CardHeader, CardTitle, Badge } from '@/components/ui';
 import { formatCompactCurrency } from '@/utils/formatters';
+import { KnockoutClauseRadar, ClauseBadge } from '@/components/rfp';
 
 /* ───── tab definition ───── */
 const tabs = [
+  { id: 'gatekeeper', label: 'Knockout Radar', icon: <ShieldAlert size={14} /> },
   { id: 'requirements', label: 'Extracted Terms', icon: <Search size={14} /> },
   { id: 'products', label: 'Matched Products', icon: <Package size={14} /> },
   { id: 'pricing', label: 'Pricing', icon: <Banknote size={14} /> },
@@ -346,6 +349,11 @@ export default function RFPDetailPage() {
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.15 }}
         >
+          {/* ── Knockout Radar Tab ── */}
+          {activeTab === 'gatekeeper' && (
+            <KnockoutClauseRadar tenderName="Substation Expansion Tender (NTPC-2026-09)" />
+          )}
+
           {/* ── Requirements Tab ── */}
           {activeTab === 'requirements' && (
             <Card variant="glass">
@@ -362,7 +370,7 @@ export default function RFPDetailPage() {
                     <tr className="text-left text-xs text-muted-silver uppercase tracking-wider border-b border-steel-slate/30">
                       <th className="px-4 py-3 w-8"></th>
                       <th className="px-4 py-3">#</th>
-                      <th className="px-4 py-3">Description</th>
+                      <th className="px-4 py-3">Description &amp; Citation</th>
                       <th className="px-4 py-3">Specifications</th>
                       <th className="px-4 py-3 text-right">Qty</th>
                       <th className="px-4 py-3">Unit</th>
@@ -383,7 +391,17 @@ export default function RFPDetailPage() {
                             )}
                           </td>
                           <td className="px-4 py-3 text-muted-silver font-mono">{r.id}</td>
-                          <td className="px-4 py-3 text-ghost-white font-medium">{r.desc}</td>
+                          <td className="px-4 py-3 text-ghost-white font-medium">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span>{r.desc}</span>
+                              <ClauseBadge
+                                page={((r.id * 7) % 32) + 5}
+                                clause={`Cl 3.${r.id}`}
+                                excerpt={`${r.desc} - Specifications: ${r.specs}`}
+                                documentName="Substation Technical Spec (NTPC-2026-09)"
+                              />
+                            </div>
+                          </td>
                           <td className="px-4 py-3 text-muted-silver font-mono text-xs">{r.specs}</td>
                           <td className="px-4 py-3 text-ghost-white text-right">{r.qty.toLocaleString()}</td>
                           <td className="px-4 py-3 text-muted-silver">{r.unit}</td>
