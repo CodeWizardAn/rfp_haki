@@ -515,18 +515,18 @@ export default function LandingPage() {
           </div>
 
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end relative mt-6 lg:mt-0 lg:pt-2">
-            {/* Ambient soft glow behind robot */}
-            <div className="absolute w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-tr from-blue-400/20 via-cyan-300/15 to-transparent blur-3xl pointer-events-none" />
+            {/* Ambient soft glow matching illustration tones */}
+            <div className="absolute w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full bg-gradient-to-tr from-blue-400/15 via-indigo-300/15 to-emerald-300/10 blur-3xl pointer-events-none" />
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 15 }}
+              initial={{ opacity: 0, scale: 0.95, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 flex flex-col items-center select-none"
+              className="relative z-10 w-full flex flex-col items-center select-none"
             >
               <img
-                src="/haki-mascot.png"
-                alt="Haki AI Mascot"
-                className="w-44 h-44 sm:w-60 sm:h-60 lg:w-72 lg:h-72 object-contain drop-shadow-[0_20px_35px_rgba(37,99,235,0.18)] transition-transform duration-500 hover:scale-105"
+                src="/rfp-hero-illustration.png"
+                alt="Saarthi AI RFP Specification Engine"
+                className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] h-auto object-contain mix-blend-multiply drop-shadow-[0_20px_40px_rgba(37,99,235,0.08)] transition-transform duration-500 hover:scale-[1.02]"
               />
             </motion.div>
           </div>
