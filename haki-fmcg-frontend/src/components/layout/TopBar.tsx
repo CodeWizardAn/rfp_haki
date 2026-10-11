@@ -73,11 +73,6 @@ export function TopBar() {
           </kbd>
         </button>
 
-        {/* Pipeline status indicator */}
-        <div className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neon-emerald/10">
-          <span className="w-2 h-2 rounded-full bg-neon-emerald animate-pulse" />
-          <span className="text-xs text-neon-emerald font-medium">Healthy</span>
-        </div>
 
         {/* Notifications */}
         <button
