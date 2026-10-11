@@ -313,12 +313,21 @@ export default function LandingPage() {
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-sm font-medium text-slate-600">
-            <a href="#how-it-works" className="hover:text-slate-900 transition-colors">
-              How it works
+          <nav className="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-medium text-slate-600">
+            <a href="#pipeline" className="hover:text-slate-900 transition-colors">
+              Pipeline
             </a>
-            <a href="#features" className="hover:text-slate-900 transition-colors">
-              Features
+            <a href="#snapshots" className="hover:text-slate-900 transition-colors">
+              Modules
+            </a>
+            <a href="#agents" className="hover:text-slate-900 transition-colors">
+              AI Agents
+            </a>
+            <a href="#matcher" className="hover:text-slate-900 transition-colors">
+              Spec Engine
+            </a>
+            <a href="#comparison" className="hover:text-slate-900 transition-colors">
+              Benchmark
             </a>
             <a href="#pricing" className="hover:text-slate-900 transition-colors">
               Pricing
@@ -378,19 +387,43 @@ export default function LandingPage() {
               className="md:hidden bg-[#FAF8ED]/98 backdrop-blur-xl border-b border-black/[0.08] px-5 py-4 space-y-2 shadow-xl"
             >
               <a
-                href="#how-it-works"
+                href="#pipeline"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
-                <span>How it works</span>
+                <span>Pipeline</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
-                href="#features"
+                href="#snapshots"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
-                <span>Features</span>
+                <span>Modules</span>
+                <ArrowRight size={14} className="text-slate-400" />
+              </a>
+              <a
+                href="#agents"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>AI Agents</span>
+                <ArrowRight size={14} className="text-slate-400" />
+              </a>
+              <a
+                href="#matcher"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>Spec Engine</span>
+                <ArrowRight size={14} className="text-slate-400" />
+              </a>
+              <a
+                href="#comparison"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
+              >
+                <span>Benchmark</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
@@ -519,7 +552,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Continuous Moving Marquees: Workflow Pipeline & Catalog Categories ── */}
-      <section id="how-it-works" className="py-12 sm:py-16 border-y border-black/[0.06] overflow-hidden bg-white/40 space-y-10 sm:space-y-12">
+      <section id="pipeline" className="py-12 sm:py-16 border-y border-black/[0.06] overflow-hidden bg-white/40 space-y-10 sm:space-y-12">
         {/* Track 1: Workflow Pipeline Heading */}
         <div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-4 sm:mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
@@ -657,7 +690,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Staggered Website Snapshots with Window Controls (🔴 ⚪ 🟢) ── */}
-      <section id="features" className="py-14 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto space-y-16 sm:space-y-28">
+      <section id="snapshots" className="py-14 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto space-y-16 sm:space-y-28">
         <div className="text-center max-w-3xl mx-auto">
           <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
             LIVE PLATFORM MODULES
@@ -1719,11 +1752,20 @@ export default function LandingPage() {
           </div>
 
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
-            <a href="#how-it-works" className="hover:text-slate-900 transition-colors">
-              How it works
+            <a href="#pipeline" className="hover:text-slate-900 transition-colors">
+              Pipeline
             </a>
-            <a href="#features" className="hover:text-slate-900 transition-colors">
-              Features
+            <a href="#snapshots" className="hover:text-slate-900 transition-colors">
+              Modules
+            </a>
+            <a href="#agents" className="hover:text-slate-900 transition-colors">
+              AI Agents
+            </a>
+            <a href="#matcher" className="hover:text-slate-900 transition-colors">
+              Spec Engine
+            </a>
+            <a href="#comparison" className="hover:text-slate-900 transition-colors">
+              Benchmark
             </a>
             <a href="#pricing" className="hover:text-slate-900 transition-colors">
               Pricing
