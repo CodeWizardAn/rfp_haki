@@ -13,7 +13,6 @@ import {
   Database,
   UploadCloud,
   FileSpreadsheet,
-  Building2,
   Copy,
   Download,
   Sparkles,
@@ -314,21 +313,15 @@ export default function LandingPage() {
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium text-slate-600">
-            <a href="#pipeline" className="hover:text-slate-900 transition-colors">
-              Pipeline
+          <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-sm font-medium text-slate-600">
+            <a href="#how-it-works" className="hover:text-slate-900 transition-colors">
+              How it works
             </a>
-            <a href="#snapshots" className="hover:text-slate-900 transition-colors">
-              Modules
+            <a href="#features" className="hover:text-slate-900 transition-colors">
+              Features
             </a>
-            <a href="#agents" className="hover:text-slate-900 transition-colors">
-              AI Agents
-            </a>
-            <a href="#matcher" className="hover:text-slate-900 transition-colors">
-              Spec Engine
-            </a>
-            <a href="#comparison" className="hover:text-slate-900 transition-colors">
-              Benchmark
+            <a href="#pricing" className="hover:text-slate-900 transition-colors">
+              Pricing
             </a>
             <a href="#faq" className="hover:text-slate-900 transition-colors">
               FAQ
@@ -336,15 +329,7 @@ export default function LandingPage() {
           </nav>
 
           {/* Right Action Buttons */}
-          <div className="hidden sm:flex items-center gap-4">
-            <Link
-              to="/user"
-              className="text-sm font-medium text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition-colors"
-            >
-              <Building2 size={15} className="text-slate-500" />
-              Vendor Portal
-            </Link>
-
+          <div className="hidden sm:flex items-center gap-3">
             {isAuthenticated ? (
               <Link
                 to={user?.role === 'admin' || user?.role === 'manager' ? '/dashboard' : '/user'}
@@ -357,7 +342,7 @@ export default function LandingPage() {
               <>
                 <Link
                   to="/login"
-                  className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors px-2 py-1"
+                  className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors px-3 py-1.5"
                 >
                   Sign In
                 </Link>
@@ -393,43 +378,27 @@ export default function LandingPage() {
               className="md:hidden bg-[#FAF8ED]/98 backdrop-blur-xl border-b border-black/[0.08] px-5 py-4 space-y-2 shadow-xl"
             >
               <a
-                href="#pipeline"
+                href="#how-it-works"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
-                <span>RFP Pipeline</span>
+                <span>How it works</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
-                href="#snapshots"
+                href="#features"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
-                <span>Platform Modules</span>
+                <span>Features</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
-                href="#agents"
+                href="#pricing"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
               >
-                <span>AI Agents</span>
-                <ArrowRight size={14} className="text-slate-400" />
-              </a>
-              <a
-                href="#matcher"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
-              >
-                <span>Spec Matcher</span>
-                <ArrowRight size={14} className="text-slate-400" />
-              </a>
-              <a
-                href="#comparison"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
-              >
-                <span>Benchmark</span>
+                <span>Pricing</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
               <a
@@ -440,22 +409,6 @@ export default function LandingPage() {
                 <span>FAQ</span>
                 <ArrowRight size={14} className="text-slate-400" />
               </a>
-              <Link
-                to="/vendors"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
-              >
-                <span>Vendors</span>
-                <ArrowRight size={14} className="text-slate-400" />
-              </Link>
-              <Link
-                to="/user"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors"
-              >
-                <span>Vendor Portal</span>
-                <Building2 size={14} className="text-slate-400" />
-              </Link>
 
               <div className="pt-3 border-t border-slate-200/80 flex flex-col gap-2">
                 {!isAuthenticated ? (
@@ -566,7 +519,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Continuous Moving Marquees: Workflow Pipeline & Catalog Categories ── */}
-      <section id="pipeline" className="py-12 sm:py-16 border-y border-black/[0.06] overflow-hidden bg-white/40 space-y-10 sm:space-y-12">
+      <section id="how-it-works" className="py-12 sm:py-16 border-y border-black/[0.06] overflow-hidden bg-white/40 space-y-10 sm:space-y-12">
         {/* Track 1: Workflow Pipeline Heading */}
         <div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-4 sm:mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
@@ -704,7 +657,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Staggered Website Snapshots with Window Controls (🔴 ⚪ 🟢) ── */}
-      <section id="snapshots" className="py-14 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto space-y-16 sm:space-y-28">
+      <section id="features" className="py-14 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto space-y-16 sm:space-y-28">
         <div className="text-center max-w-3xl mx-auto">
           <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
             LIVE PLATFORM MODULES
@@ -1482,6 +1435,196 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── Enterprise Pricing Section ── */}
+      <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
+            PREDICTABLE ENTERPRISE PRICING
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-2">
+            Accelerate Tender Velocity at Any Scale
+          </h2>
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-3 leading-relaxed">
+            Eliminate costly manual bidding errors. Choose the plan tailored to your monthly tender volume and catalog requirements.
+          </p>
+        </div>
+
+        {/* Pricing Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          {/* Plan 1: Starter */}
+          <div className="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 flex flex-col justify-between shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-lg transition-all">
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">STARTER</span>
+                <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">SME Suppliers</span>
+              </div>
+              <h3 className="text-2xl font-extrabold text-slate-900 mt-3">Growth</h3>
+              <p className="text-xs text-slate-500 mt-1">For growing electrical & FMCG distributors</p>
+
+              <div className="mt-6 mb-6">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-black text-slate-900">₹14,999</span>
+                  <span className="text-xs font-medium text-slate-500">/ month</span>
+                </div>
+                <span className="text-[11px] text-slate-400 block mt-1">Billed annually or ₹18,000 month-to-month</span>
+              </div>
+
+              <div className="w-full border-t border-slate-100 my-4" />
+
+              <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>Up to 15 RFPs analyzed / month</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>22,028 Pre-indexed Wires & Cables</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>Automated PDF & OCR Extraction</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>Export to Excel & PDF BOQ</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>2 Team Seats with Role Access</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-8 pt-4">
+              <Link
+                to={isAuthenticated ? '/rfps/upload' : '/login?redirect=/rfps/upload'}
+                className="w-full py-3 px-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-slate-50 hover:bg-slate-100 text-slate-800 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
+              >
+                Get Started
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Plan 2: Professional Scale (Featured) */}
+          <div className="rounded-2xl border-2 border-blue-600 bg-white p-6 sm:p-8 flex flex-col justify-between shadow-[0_12px_36px_rgba(37,99,235,0.12)] relative hover:shadow-xl transition-all">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#2563EB] text-white text-[11px] font-bold px-3.5 py-1 rounded-full uppercase tracking-wider font-mono shadow-sm">
+              MOST POPULAR
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider font-mono">PROFESSIONAL</span>
+                <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">Tier-1 EPC</span>
+              </div>
+              <h3 className="text-2xl font-extrabold text-slate-900 mt-3">Scale</h3>
+              <p className="text-xs text-slate-500 mt-1">For high-throughput contractors & tender houses</p>
+
+              <div className="mt-6 mb-6">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-black text-slate-900">₹39,999</span>
+                  <span className="text-xs font-medium text-slate-500">/ month</span>
+                </div>
+                <span className="text-[11px] text-blue-600 font-medium block mt-1">Billed annually or ₹46,000 month-to-month</span>
+              </div>
+
+              <div className="w-full border-t border-slate-100 my-4" />
+
+              <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>Up to 60 RFPs analyzed / month</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>5 Autonomous Multi-Agent Pipeline</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>Live MCX Copper & Aluminium locks</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>L1 Tender Rate & Margin Optimization</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>CPRI / ERDA & BIS Compliance Screening</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>10 Team Seats & Priority Support</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-8 pt-4">
+              <Link
+                to={isAuthenticated ? '/rfps/upload' : '/login?redirect=/rfps/upload'}
+                className="w-full py-3 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-sm"
+              >
+                Deploy Professional Scale
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Plan 3: Enterprise */}
+          <div className="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 flex flex-col justify-between shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-lg transition-all">
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">ENTERPRISE</span>
+                <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">Discoms & OEMs</span>
+              </div>
+              <h3 className="text-2xl font-extrabold text-slate-900 mt-3">Custom</h3>
+              <p className="text-xs text-slate-500 mt-1">For national manufacturers & utility bidders</p>
+
+              <div className="mt-6 mb-6">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-black text-slate-900">Custom Contract</span>
+                </div>
+                <span className="text-[11px] text-slate-400 block mt-1">Tailored annual SLA & dedicated deployment</span>
+              </div>
+
+              <div className="w-full border-t border-slate-100 my-4" />
+
+              <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>Unlimited Tender Ingestion & Analysis</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>Private Air-Gapped Tenant Isolation</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>GeM & CPPP Automated Portal Crawler</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>Custom ERP Integrations (SAP, Oracle)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                  <span>Unlimited Seats & 24/7 Dedicated Support</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-8 pt-4">
+              <Link
+                to={isAuthenticated ? '/rfps/upload' : '/login?redirect=/rfps/upload'}
+                className="w-full py-3 px-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-slate-50 hover:bg-slate-100 text-slate-800 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
+              >
+                Contact Enterprise Sales
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Enterprise FAQ Section ── */}
       <section id="faq" className="py-16 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto border-t border-black/[0.06]">
         <div className="text-center mb-12 sm:mb-16">
@@ -1576,24 +1719,18 @@ export default function LandingPage() {
           </div>
 
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
-            <a href="#pipeline" className="hover:text-slate-900 transition-colors">
-              Pipeline
+            <a href="#how-it-works" className="hover:text-slate-900 transition-colors">
+              How it works
             </a>
-            <a href="#snapshots" className="hover:text-slate-900 transition-colors">
-              Modules
+            <a href="#features" className="hover:text-slate-900 transition-colors">
+              Features
             </a>
-            <a href="#agents" className="hover:text-slate-900 transition-colors">
-              AI Agents
-            </a>
-            <a href="#comparison" className="hover:text-slate-900 transition-colors">
-              Benchmark
+            <a href="#pricing" className="hover:text-slate-900 transition-colors">
+              Pricing
             </a>
             <a href="#faq" className="hover:text-slate-900 transition-colors">
               FAQ
             </a>
-            <Link to={isAuthenticated ? '/vendors' : '/login?redirect=/vendors'} className="hover:text-slate-900 transition-colors">
-              Vendors
-            </Link>
           </div>
 
           <div className="flex items-center justify-center gap-2">
