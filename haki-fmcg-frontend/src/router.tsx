@@ -216,6 +216,22 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: 'rfp-analyzer',
+        element: (
+          <SuspenseWrap>
+            <UserRFPAnalyzerPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: 'rfps/analyzer',
+        element: (
+          <SuspenseWrap>
+            <UserRFPAnalyzerPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
         path: 'rfps/compare',
         element: (
           <SuspenseWrap>
@@ -673,7 +689,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <Navigate to="/" replace />,
+        element: <Navigate to="/dashboard" replace />,
       },
     ],
   },

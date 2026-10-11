@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/stores';
 
 /**
@@ -6,6 +6,7 @@ import { useAuthStore } from '@/stores';
  * The Zustand store is the source of truth for "user" and "role".
  */
 export function AuthGuard({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const hasToken = !!localStorage.getItem('access_token');
 
@@ -13,7 +14,8 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
-  return <Navigate to="/login" replace />;
+  const redirectPath = encodeURIComponent(location.pathname + location.search);
+  return <Navigate to={`/login?redirect=${redirectPath}`} replace />;
 }
 
 /** Redirects already-authenticated users away from login */

@@ -55,13 +55,17 @@ api.interceptors.response.use(
         return Promise.reject(error);
       }
 
+      const currentToken = localStorage.getItem('access_token');
+      // If running on demo/mock token, don't clear session or dispatch auth:expired on 401
+      // This allows service fallback handlers (e.g. client-side RFP analysis) to run smoothly
+      if (currentToken?.startsWith('demo-') || currentToken?.startsWith('mock-')) {
+        return Promise.reject(error);
+      }
+
       originalRequest._retry = true;
 
       const refreshToken = localStorage.getItem('refresh_token');
-      if (!refreshToken || refreshToken === 'null' || refreshToken === 'undefined') {
-        // No valid refresh token — clear auth state, let React handle redirect
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+      if (!refreshToken || refreshToken === 'null' || refreshToken === 'undefined' || refreshToken.startsWith('demo-')) {
         return Promise.reject(error);
       }
 
@@ -97,11 +101,14 @@ api.interceptors.response.use(
       } catch {
         isRefreshing = false;
         refreshSubscribers = [];
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        // Notify the app that auth has expired (store listens for this)
-        window.dispatchEvent(new Event('auth:expired'));
-        // Don't hard redirect — let React auth guards handle it
+        // Only clear token if we are strictly in online-only mode
+        const isOfflineAllowed = import.meta.env.VITE_ENABLE_OFFLINE_DEMO === 'true' || window.location.hostname === 'localhost';
+        if (!isOfflineAllowed) {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          // Notify the app that auth has expired (store listens for this)
+          window.dispatchEvent(new Event('auth:expired'));
+        }
         return Promise.reject(error);
       }
     }

@@ -74,7 +74,7 @@ export function UserTopBar() {
         {/* Switch to Admin (if permitted) */}
         {isAdmin && (
           <Link
-            to="/"
+            to="/dashboard"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-violet-pulse/15 text-violet-pulse hover:bg-violet-pulse/25 transition-colors"
           >
             <Shield size={14} />

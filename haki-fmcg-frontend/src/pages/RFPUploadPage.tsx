@@ -78,20 +78,38 @@ export default function RFPUploadPage() {
         include_win_loss: true,
       });
 
+      // Parse user-specified budget (handling commas)
+      const parsedBudget = typeof budget === 'string' && budget.trim() !== ''
+        ? Number(budget.replace(/[^0-9.]/g, '')) || result.rfp_summary?.total_value || 4285600
+        : Number(budget) || result.rfp_summary?.total_value || 4285600;
+
+      const finalTitle = title.trim() || result.rfp_summary?.title || file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+      const finalDeadline = deadline || result.rfp_summary?.deadline || result.rfp_summary?.end_date || new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
+
+      // Mirror user inputs onto result object so report displays exactly what user provided
+      if (result && result.rfp_summary) {
+        result.rfp_summary.title = finalTitle;
+        result.rfp_summary.deadline = finalDeadline;
+        if (parsedBudget) {
+          result.rfp_summary.estimated_budget_inr = parsedBudget;
+        }
+      }
+
       // Save dynamic tender to real-time database
       const dynamicRfp = {
-        rfpId: result.rfp_summary?.bid_number || `RFP-${Date.now().toString().slice(-4)}`,
-        title: title || result.rfp_summary?.title || file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' '),
-        deadline: result.rfp_summary?.end_date || new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
-        priority: 'high',
-        budget: Number(budget) || result.rfp_summary?.total_value || 4285600,
+        rfpId: result?.rfp_summary?.bid_number || result?.rfp_summary?.tender_reference || `RFP-${Date.now().toString().slice(-4)}`,
+        title: finalTitle,
+        deadline: finalDeadline,
+        priority: priority || 'high',
+        budget: parsedBudget,
         status: 'analyzed',
         progress: 100,
-        vendorsMatched: result.oem_summary?.oem_rankings?.length || 4,
+        vendorsMatched: result?.oem_summary?.oem_rankings?.length || 4,
         portal: 'Manual Upload',
         portalId: 'portal_upload',
         scrapedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
       };
+
       try {
         const current = JSON.parse(localStorage.getItem('haki_custom_rfps') || '[]');
         localStorage.setItem('haki_custom_rfps', JSON.stringify([dynamicRfp, ...current.filter((x: any) => x.rfpId !== dynamicRfp.rfpId)]));
@@ -110,10 +128,33 @@ export default function RFPUploadPage() {
   };
 
   const handleSaveDraft = () => {
-    if (files.length === 0) {
-      toast.error('Please select an RFP file to save draft.');
-      return;
+    const file = files[0];
+    const draftTitle = title.trim() || (file ? file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ') : 'Draft Tender RFP');
+    const parsedBudget = typeof budget === 'string' && budget.trim() !== ''
+      ? Number(budget.replace(/[^0-9.]/g, '')) || 25000000
+      : Number(budget) || 25000000;
+
+    const draftRfp = {
+      rfpId: `DRAFT-${Date.now().toString().slice(-4)}`,
+      title: draftTitle,
+      deadline: deadline || new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+      priority: priority || 'medium',
+      budget: parsedBudget,
+      status: 'draft',
+      progress: 25,
+      vendorsMatched: 0,
+      portal: 'Manual Upload',
+      portalId: 'portal_upload',
+      scrapedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
+    };
+
+    try {
+      const current = JSON.parse(localStorage.getItem('haki_custom_rfps') || '[]');
+      localStorage.setItem('haki_custom_rfps', JSON.stringify([draftRfp, ...current.filter((x: any) => x.rfpId !== draftRfp.rfpId)]));
+    } catch {
+      // ignore
     }
+
     toast.success('RFP draft saved successfully!');
     navigate('/rfps');
   };
