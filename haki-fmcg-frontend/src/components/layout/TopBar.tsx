@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, Search, ChevronRight, LogOut } from 'lucide-react';
 import { useUIStore, useNotificationStore, useAuthStore } from '@/stores';
 import { BackButton } from '@/components/common';
@@ -24,6 +25,23 @@ export function TopBar() {
   const breadcrumbs = useBreadcrumbs();
   const navigate = useNavigate();
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    if (menuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuOpen]);
+
   const userInitials = useMemo(() => {
     if (!user?.full_name) return 'PM';
     const parts = user.full_name.trim().split(/\s+/).filter(Boolean);
@@ -34,6 +52,7 @@ export function TopBar() {
   }, [user?.full_name]);
 
   const handleLogout = async () => {
+    setMenuOpen(false);
     await logout();
     navigate('/login');
   };
@@ -67,7 +86,7 @@ export function TopBar() {
         {/* Search trigger */}
         <button
           onClick={() => setCommandPaletteOpen(true)}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-200 hover:border-slate-300 transition-all shadow-sm"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-200 hover:border-slate-300 transition-all shadow-sm cursor-pointer"
         >
           <Search size={14} className="text-slate-400" />
           <span className="hidden md:inline">Search...</span>
@@ -80,7 +99,7 @@ export function TopBar() {
         <button
           onClick={() => navigate('/bids/notifications')}
           title="View Notifications"
-          className="relative p-2 rounded-lg text-slate-500 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 transition-all shadow-sm"
+          className="relative p-2 rounded-lg text-slate-500 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 transition-all shadow-sm cursor-pointer"
         >
           <Bell size={16} />
           {unreadCount > 0 && (
@@ -90,38 +109,59 @@ export function TopBar() {
           )}
         </button>
 
-        {/* User Profile & Sign Out */}
-        <div className="flex items-center gap-2.5 pl-3 border-l border-slate-200/80">
-          <div className="flex items-center gap-2.5">
-            {/* Avatar */}
-            <div className="w-8 h-8 rounded-full bg-slate-900 text-white font-semibold text-xs flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-black/5 select-none">
-              {user?.avatar_url ? (
-                <img src={user.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
-              ) : (
-                <span>{userInitials}</span>
-              )}
-            </div>
-
-            {/* User Name & Role */}
-            <div className="hidden sm:flex flex-col text-left">
-              <span className="text-xs font-semibold text-slate-900 leading-tight whitespace-nowrap">
-                {user?.full_name || 'Procurement Manager'}
-              </span>
-              <span className="text-[11px] text-slate-500 capitalize leading-tight mt-0.5">
-                {user?.role || 'manager'}
-              </span>
-            </div>
-          </div>
-
-          {/* Sign Out Action Button */}
+        {/* Profile Avatar with Click-to-Logout Dropdown */}
+        <div ref={menuRef} className="relative pl-2 border-l border-slate-200/80">
           <button
-            onClick={handleLogout}
-            title="Sign out"
-            aria-label="Sign out"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors ml-0.5"
+            onClick={() => setMenuOpen(!menuOpen)}
+            title={user?.full_name || 'Profile menu'}
+            aria-label="Profile menu"
+            className="w-9 h-9 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs flex items-center justify-center shadow-sm ring-2 ring-white hover:ring-slate-300 transition-all select-none cursor-pointer focus:outline-none"
           >
-            <LogOut size={16} />
+            {user?.avatar_url ? (
+              <img src={user.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
+            ) : (
+              <span>{userInitials}</span>
+            )}
           </button>
+
+          {/* Dropdown Menu */}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 6, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                transition={{ duration: 0.15, ease: 'easeOut' }}
+                className="absolute right-0 mt-2 w-56 rounded-xl bg-white border border-slate-200/90 shadow-xl py-2 z-50 text-slate-800"
+              >
+                {/* User Header Details */}
+                <div className="px-4 py-2.5 border-b border-slate-100">
+                  <p className="text-xs font-bold text-slate-900 leading-tight">
+                    {user?.full_name || 'Procurement Manager'}
+                  </p>
+                  <p className="text-[11px] text-slate-500 capitalize mt-0.5">
+                    {user?.role || 'manager'}
+                  </p>
+                  {user?.email && (
+                    <p className="text-[10px] text-slate-400 truncate mt-1">
+                      {user.email}
+                    </p>
+                  )}
+                </div>
+
+                {/* Dropdown Options */}
+                <div className="pt-1 px-1">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 rounded-lg transition-colors text-left cursor-pointer"
+                  >
+                    <LogOut size={14} className="text-red-500" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </header>
