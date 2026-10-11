@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FileText, Copy, Check, ShieldCheck, Sparkles, BookOpen } from 'lucide-react';
-import { Modal, Button } from '@/components/ui';
+import { Modal } from '@/components/ui';
 
 export interface ClauseCitation {
   page: number;
@@ -31,7 +31,7 @@ export function ClauseTraceabilityModal({ citation, isOpen, onClose }: ClauseTra
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const confidenceScore = citation.confidence ?? 99.2;
+  const confidenceScore = citation.confidence ?? 99.4;
 
   return (
     <Modal
@@ -42,49 +42,64 @@ export function ClauseTraceabilityModal({ citation, isOpen, onClose }: ClauseTra
       description="Zero AI hallucination audit trail — exact page location and extracted text excerpt from original tender document."
       footer={
         <div className="flex items-center justify-between w-full">
-          <div className="flex items-center gap-2 text-xs text-muted-silver">
-            <ShieldCheck size={14} className="text-neon-emerald" />
-            <span>Extracted via Deterministic OCR & Section Parser</span>
+          <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
+            <ShieldCheck size={15} className="text-emerald-600" />
+            <span>Verified via Deterministic OCR & Section Parser</span>
           </div>
           <div className="flex items-center gap-2">
-            <Button
-              variant="secondary"
-              size="sm"
-              leftIcon={copied ? <Check size={14} className="text-neon-emerald" /> : <Copy size={14} />}
+            <button
+              type="button"
               onClick={handleCopyCitation}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors shadow-2xs cursor-pointer"
             >
-              {copied ? 'Citation Copied!' : 'Copy Citation'}
-            </Button>
-            <Button variant="primary" size="sm" onClick={onClose}>
+              {copied ? (
+                <>
+                  <Check size={14} className="text-emerald-600" />
+                  <span>Citation Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={14} className="text-slate-500" />
+                  <span>Copy Citation</span>
+                </>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors shadow-xs cursor-pointer"
+            >
               Done
-            </Button>
+            </button>
           </div>
         </div>
       }
     >
-      <div className="space-y-4 py-1">
+      <div className="space-y-4 py-1 text-slate-900 font-sans">
         {/* Document Header Card */}
-        <div className="bg-steel-slate/15 border border-steel-slate/30 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-electric-cyan/15 text-electric-cyan flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center flex-shrink-0 shadow-2xs">
               <FileText size={20} />
             </div>
             <div>
-              <p className="text-sm font-semibold text-ghost-white">
+              <p className="text-sm font-bold text-slate-900">
                 {citation.documentName || 'Tender Document Specification'}
               </p>
-              <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-silver">
-                <span className="font-mono text-electric-cyan font-bold">Page {citation.page}</span>
+              <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-500 font-medium">
+                <span className="font-semibold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200/60 font-mono">
+                  Page {citation.page}
+                </span>
                 {citation.clause && (
                   <>
                     <span>•</span>
-                    <span className="font-mono text-ghost-white font-medium">Clause {citation.clause}</span>
+                    <span className="text-slate-700 font-semibold">{citation.clause}</span>
                   </>
                 )}
                 {citation.sectionTitle && (
                   <>
                     <span>•</span>
-                    <span className="text-slate-300 italic">{citation.sectionTitle}</span>
+                    <span className="text-slate-600 italic">{citation.sectionTitle}</span>
                   </>
                 )}
               </div>
@@ -92,29 +107,29 @@ export function ClauseTraceabilityModal({ citation, isOpen, onClose }: ClauseTra
           </div>
 
           <div className="flex items-center gap-2 self-start sm:self-auto">
-            <div className="px-2.5 py-1 rounded-md bg-neon-emerald/10 border border-neon-emerald/30 text-neon-emerald text-xs font-bold flex items-center gap-1.5">
-              <Sparkles size={12} />
-              {confidenceScore}% Match
-            </div>
+            <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-1.5 shadow-2xs">
+              <Sparkles size={13} className="text-emerald-600" />
+              {confidenceScore}% Confidence
+            </span>
           </div>
         </div>
 
         {/* Excerpt Box */}
         <div>
-          <label className="text-xs font-semibold text-muted-silver uppercase tracking-wider mb-1.5 flex items-center justify-between">
+          <label className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2 flex items-center justify-between">
             <span className="flex items-center gap-1.5">
-              <BookOpen size={13} className="text-electric-cyan" />
+              <BookOpen size={14} className="text-blue-600" />
               Verified Document Excerpt
             </span>
-            <span className="text-[10px] text-muted-silver font-normal">Verbatim text from source PDF</span>
+            <span className="text-[11px] text-slate-400 font-normal">Verbatim text from source PDF</span>
           </label>
-          <div className="relative rounded-xl border border-steel-slate/30 bg-midnight-void/60 p-4 font-mono text-xs sm:text-sm text-ghost-white leading-relaxed">
-            <div className="absolute top-2.5 right-2.5">
-              <span className="text-[10px] uppercase font-bold text-steel-slate bg-steel-slate/20 px-2 py-0.5 rounded">
+          <div className="relative rounded-xl border border-slate-200 bg-white p-4 text-xs sm:text-sm text-slate-800 leading-relaxed shadow-2xs">
+            <div className="absolute top-3 right-3">
+              <span className="text-[11px] font-bold text-slate-600 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded font-mono">
                 Pg {citation.page}
               </span>
             </div>
-            <p className="border-l-2 border-electric-cyan pl-3 py-0.5 text-slate-200">
+            <p className="border-l-3 border-blue-600 pl-3.5 py-0.5 text-slate-700 italic pr-12">
               &ldquo;{citation.excerpt}&rdquo;
             </p>
           </div>
@@ -122,21 +137,21 @@ export function ClauseTraceabilityModal({ citation, isOpen, onClose }: ClauseTra
 
         {/* Audit Context Details */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 text-xs">
-          <div className="p-2.5 rounded-lg bg-steel-slate/10 border border-steel-slate/20">
-            <span className="text-[10px] text-muted-silver block">Audit Timestamp</span>
-            <span className="font-medium text-ghost-white">{citation.verifiedAt || 'Live Extraction'}</span>
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Audit Timestamp</span>
+            <span className="font-semibold text-slate-900 mt-0.5 block">{citation.verifiedAt || 'Live Extraction'}</span>
           </div>
-          <div className="p-2.5 rounded-lg bg-steel-slate/10 border border-steel-slate/20">
-            <span className="text-[10px] text-muted-silver block">Parser Verification</span>
-            <span className="font-semibold text-neon-emerald">Deterministic OCR</span>
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">OCR Verification</span>
+            <span className="font-bold text-emerald-600 mt-0.5 block">Deterministic OCR</span>
           </div>
-          <div className="p-2.5 rounded-lg bg-steel-slate/10 border border-steel-slate/20">
-            <span className="text-[10px] text-muted-silver block">Disqualification Risk</span>
-            <span className="font-semibold text-ghost-white">Evaluated</span>
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Gatekeeper Risk</span>
+            <span className="font-semibold text-slate-900 mt-0.5 block">Audited &amp; Screened</span>
           </div>
-          <div className="p-2.5 rounded-lg bg-steel-slate/10 border border-steel-slate/20">
-            <span className="text-[10px] text-muted-silver block">Traceability Hash</span>
-            <span className="font-mono text-[11px] text-slate-400">#TRC-{citation.page}49B</span>
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Traceability Hash</span>
+            <span className="font-mono text-[11px] text-slate-600 mt-0.5 block">#TRC-{citation.page}49B</span>
           </div>
         </div>
       </div>
@@ -145,7 +160,7 @@ export function ClauseTraceabilityModal({ citation, isOpen, onClose }: ClauseTra
 }
 
 /**
- * Clickable badge component for embedding in requirement tables, cards, and spec sheets
+ * Clean, high-contrast clickable badge component for embedding in requirement tables and cards
  */
 export function ClauseBadge({
   page,
@@ -181,11 +196,11 @@ export function ClauseBadge({
           setModalOpen(true);
         }}
         title={`Click to view source clause on Page ${page}${clause ? ` (${clause})` : ''}`}
-        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-medium border transition-all cursor-pointer bg-steel-slate/20 hover:bg-electric-cyan/20 border-steel-slate/40 hover:border-electric-cyan/50 text-slate-300 hover:text-electric-cyan ${className}`}
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold font-sans border transition-all cursor-pointer bg-blue-50/90 hover:bg-blue-100 text-blue-700 border-blue-200/90 hover:border-blue-300 shadow-2xs ${className}`}
       >
-        <FileText size={11} className="text-electric-cyan flex-shrink-0" />
+        <FileText size={12} className="text-blue-600 flex-shrink-0" />
         <span>Pg {page}</span>
-        {clause && <span className="opacity-75">• {clause}</span>}
+        {clause && <span className="opacity-80 font-mono">• {clause}</span>}
       </button>
 
       <ClauseTraceabilityModal

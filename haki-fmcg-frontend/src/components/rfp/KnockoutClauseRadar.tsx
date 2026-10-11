@@ -11,9 +11,8 @@ import {
   ChevronUp,
   Info,
   ExternalLink,
-  Filter,
+  ArrowRight,
 } from 'lucide-react';
-import { Card, Button } from '@/components/ui';
 import { ClauseBadge, ClauseTraceabilityModal, type ClauseCitation } from './ClauseTraceabilityModal';
 
 export type GatekeeperStatus = 'PASS' | 'ACTION_REQUIRED' | 'KNOCKOUT_RISK';
@@ -110,7 +109,7 @@ const DEFAULT_GATEKEEPERS: GatekeeperItem[] = [
     title: 'Delivery Schedule & Liquidated Damages (LD Cap)',
     shortDesc: 'Phased supply within 8 weeks; LD rate 0.5% per week subject to 10% ceiling.',
     status: 'PASS',
-    statusLabel: 'Feasible (4.5 Wk OEM Lead Time)',
+    statusLabel: 'Feasible (4.5 Wk Lead Time)',
     tenderClauseText: 'Complete quantity must be delivered at consignee site within 8 (eight) weeks from date of LOA. Liquidated damages shall be levied @ 0.5% of contract value per week of delay or part thereof, up to a maximum deduction of 10% of total order value.',
     page: 67,
     clauseRef: 'Commercial Terms • Cl 14.1',
@@ -151,43 +150,52 @@ export function KnockoutClauseRadar({
   });
 
   return (
-    <Card variant="glass" className="overflow-hidden border-steel-slate/30">
+    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_2px_16px_rgba(0,0,0,0.04)] overflow-hidden font-sans">
       {/* ── Top Header Banner ── */}
-      <div className="p-5 border-b border-steel-slate/20 bg-gradient-to-r from-steel-slate/20 via-steel-slate/10 to-transparent">
+      <div className="p-5 sm:p-6 bg-gradient-to-r from-slate-50/90 via-white to-slate-50/50 border-b border-slate-100">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-3.5">
             <div
-              className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 shadow-lg ${
+              className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 shadow-xs border ${
                 overallDecision === 'GO'
-                  ? 'bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40'
+                  ? 'bg-emerald-50 text-emerald-600 border-emerald-200'
                   : overallDecision === 'CAUTION'
-                    ? 'bg-amber-glow/20 text-amber-glow border border-amber-glow/40'
-                    : 'bg-coral-flame/20 text-coral-flame border border-coral-flame/40'
+                    ? 'bg-amber-50 text-amber-600 border-amber-200'
+                    : 'bg-rose-50 text-rose-600 border-rose-200'
               }`}
             >
               {overallDecision === 'GO' ? (
-                <ShieldCheck size={24} />
+                <ShieldCheck size={22} className="stroke-[2.2]" />
               ) : overallDecision === 'CAUTION' ? (
-                <AlertTriangle size={24} />
+                <AlertTriangle size={22} className="stroke-[2.2]" />
               ) : (
-                <ShieldAlert size={24} />
+                <ShieldAlert size={22} className="stroke-[2.2]" />
               )}
             </div>
 
             <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <h3 className="text-base sm:text-lg font-bold text-ghost-white tracking-tight">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
                   Knockout Clause &amp; Buried Disqualifiers Radar
                 </h3>
                 <span
-                  className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase tracking-wider ${
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
                     overallDecision === 'GO'
-                      ? 'bg-neon-emerald/15 text-neon-emerald border border-neon-emerald/40'
+                      ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                       : overallDecision === 'CAUTION'
-                        ? 'bg-amber-glow/15 text-amber-glow border border-amber-glow/40'
-                        : 'bg-coral-flame/15 text-coral-flame border border-coral-flame/40'
+                        ? 'bg-amber-50 text-amber-800 border-amber-200'
+                        : 'bg-rose-50 text-rose-800 border-rose-200'
                   }`}
                 >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      overallDecision === 'GO'
+                        ? 'bg-emerald-500'
+                        : overallDecision === 'CAUTION'
+                          ? 'bg-amber-500 animate-pulse'
+                          : 'bg-rose-500'
+                    }`}
+                  />
                   {overallDecision === 'GO'
                     ? 'GO: All Gatekeepers Cleared'
                     : overallDecision === 'CAUTION'
@@ -195,8 +203,8 @@ export function KnockoutClauseRadar({
                       : 'NO-GO: Disqualification Risk Detected'}
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-muted-silver mt-1 leading-relaxed">
-                Autonomous scan of commercial, statutory, and pre-qualification traps buried across pages 1 to 90+.
+              <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed max-w-2xl">
+                Scans commercial, statutory, and pre-qualification traps buried across pages 1 to 90+.
                 Prevents sudden disqualification before engineering effort is committed.
               </p>
             </div>
@@ -204,115 +212,112 @@ export function KnockoutClauseRadar({
 
           {/* Quick Score Metrics */}
           <div className="flex items-center gap-2 self-start md:self-auto flex-shrink-0">
-            <div className="px-3 py-2 rounded-lg bg-steel-slate/20 border border-steel-slate/30 text-center">
-              <span className="text-[10px] text-muted-silver uppercase block font-semibold">Passed</span>
-              <span className="text-sm font-bold text-neon-emerald">{passedCount} / {items.length}</span>
+            <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center min-w-[70px]">
+              <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Passed</span>
+              <span className="text-sm font-extrabold text-emerald-600">{passedCount} / {items.length}</span>
             </div>
-            <div className="px-3 py-2 rounded-lg bg-steel-slate/20 border border-steel-slate/30 text-center">
-              <span className="text-[10px] text-muted-silver uppercase block font-semibold">Actions</span>
-              <span className="text-sm font-bold text-amber-glow">{actionCount}</span>
+            <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center min-w-[70px]">
+              <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Actions</span>
+              <span className="text-sm font-extrabold text-amber-600">{actionCount}</span>
             </div>
-            <div className="px-3 py-2 rounded-lg bg-steel-slate/20 border border-steel-slate/30 text-center">
-              <span className="text-[10px] text-muted-silver uppercase block font-semibold">Risks</span>
-              <span className={`text-sm font-bold ${riskCount > 0 ? 'text-coral-flame' : 'text-slate-400'}`}>
+            <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center min-w-[70px]">
+              <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Risks</span>
+              <span className={`text-sm font-extrabold ${riskCount > 0 ? 'text-rose-600' : 'text-slate-400'}`}>
                 {riskCount}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap items-center gap-1.5 mt-4 pt-3 border-t border-steel-slate/15">
-          <span className="text-xs font-semibold text-muted-silver mr-2 flex items-center gap-1">
-            <Filter size={12} /> Filter:
-          </span>
-          <button
-            onClick={() => setFilter('ALL')}
-            className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
-              filter === 'ALL'
-                ? 'bg-electric-cyan/20 text-electric-cyan border border-electric-cyan/40'
-                : 'text-muted-silver hover:text-ghost-white hover:bg-steel-slate/20'
-            }`}
-          >
-            All Gatekeepers ({items.length})
-          </button>
-          <button
-            onClick={() => setFilter('RISKS')}
-            className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
-              filter === 'RISKS'
-                ? 'bg-coral-flame/20 text-coral-flame border border-coral-flame/40'
-                : 'text-muted-silver hover:text-ghost-white hover:bg-steel-slate/20'
-            }`}
-          >
-            Knockout Risks ({riskCount})
-          </button>
-          <button
-            onClick={() => setFilter('ACTIONS')}
-            className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
-              filter === 'ACTIONS'
-                ? 'bg-amber-glow/20 text-amber-glow border border-amber-glow/40'
-                : 'text-muted-silver hover:text-ghost-white hover:bg-steel-slate/20'
-            }`}
-          >
-            Action Required ({actionCount})
-          </button>
-          <button
-            onClick={() => setFilter('CLEARED')}
-            className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
-              filter === 'CLEARED'
-                ? 'bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40'
-                : 'text-muted-silver hover:text-ghost-white hover:bg-steel-slate/20'
-            }`}
-          >
-            Cleared ({passedCount})
-          </button>
+        {/* Filter Navigation */}
+        <div className="flex flex-wrap items-center gap-1.5 mt-5 pt-3 border-t border-slate-100">
+          <div className="bg-slate-100/80 p-1 rounded-xl inline-flex gap-1 border border-slate-200/60">
+            <button
+              onClick={() => setFilter('ALL')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                filter === 'ALL'
+                  ? 'bg-white text-slate-900 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
+            >
+              All Gatekeepers ({items.length})
+            </button>
+            <button
+              onClick={() => setFilter('RISKS')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                filter === 'RISKS'
+                  ? 'bg-white text-rose-700 shadow-xs'
+                  : 'text-slate-600 hover:text-rose-700 hover:bg-white/60'
+              }`}
+            >
+              Knockout Risks ({riskCount})
+            </button>
+            <button
+              onClick={() => setFilter('ACTIONS')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                filter === 'ACTIONS'
+                  ? 'bg-white text-amber-800 shadow-xs'
+                  : 'text-slate-600 hover:text-amber-800 hover:bg-white/60'
+              }`}
+            >
+              Action Required ({actionCount})
+            </button>
+            <button
+              onClick={() => setFilter('CLEARED')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                filter === 'CLEARED'
+                  ? 'bg-white text-emerald-700 shadow-xs'
+                  : 'text-slate-600 hover:text-emerald-700 hover:bg-white/60'
+              }`}
+            >
+              Cleared ({passedCount})
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* ── Gatekeeper Accordion Items ── */}
-      <div className="divide-y divide-steel-slate/15 p-2 sm:p-4 space-y-2">
+      {/* ── Gatekeeper List Items ── */}
+      <div className="divide-y divide-slate-100">
         {filteredItems.map((item) => {
           const isExpanded = expandedId === item.id;
-          const statusBg =
+          const statusPill =
             item.status === 'PASS'
-              ? 'bg-neon-emerald/10 border-neon-emerald/30 text-neon-emerald'
+              ? 'bg-emerald-50 text-emerald-700 border-emerald-200/90'
               : item.status === 'ACTION_REQUIRED'
-                ? 'bg-amber-glow/10 border-amber-glow/30 text-amber-glow'
-                : 'bg-coral-flame/10 border-coral-flame/30 text-coral-flame';
+                ? 'bg-amber-50 text-amber-800 border-amber-200/90'
+                : 'bg-rose-50 text-rose-700 border-rose-200/90';
 
           return (
             <div
               key={item.id}
-              className={`rounded-xl border transition-all ${
-                isExpanded
-                  ? 'bg-steel-slate/20 border-steel-slate/40'
-                  : 'bg-steel-slate/10 border-steel-slate/20 hover:bg-steel-slate/15'
+              className={`transition-colors ${
+                isExpanded ? 'bg-slate-50/50' : 'bg-white hover:bg-slate-50/40'
               }`}
             >
-              {/* Item Header */}
+              {/* Item Header Row */}
               <div
                 onClick={() => setExpandedId(isExpanded ? null : item.id)}
-                className="p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 cursor-pointer select-none"
+                className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer select-none"
               >
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-3.5">
                   <div className="mt-0.5 flex-shrink-0">
                     {item.status === 'PASS' ? (
-                      <CheckCircle2 size={18} className="text-neon-emerald" />
+                      <CheckCircle2 size={18} className="text-emerald-600 stroke-[2.2]" />
                     ) : item.status === 'ACTION_REQUIRED' ? (
-                      <AlertTriangle size={18} className="text-amber-glow" />
+                      <AlertTriangle size={18} className="text-amber-500 stroke-[2.2]" />
                     ) : (
-                      <XCircle size={18} className="text-coral-flame" />
+                      <XCircle size={18} className="text-rose-600 stroke-[2.2]" />
                     )}
                   </div>
 
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-mono font-bold text-electric-cyan bg-electric-cyan/10 px-2 py-0.5 rounded">
+                      <span className="text-[11px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200/60 uppercase tracking-wider">
                         {item.category}
                       </span>
-                      <h4 className="text-sm font-semibold text-ghost-white">{item.title}</h4>
+                      <h4 className="text-sm font-bold text-slate-900 tracking-tight">{item.title}</h4>
                     </div>
-                    <p className="text-xs text-muted-silver mt-1">{item.shortDesc}</p>
+                    <p className="text-xs text-slate-500 mt-1 leading-normal">{item.shortDesc}</p>
                   </div>
                 </div>
 
@@ -324,13 +329,13 @@ export function KnockoutClauseRadar({
                     documentName={tenderName}
                   />
 
-                  <span className={`px-2.5 py-1 rounded-md text-[11px] font-bold border ${statusBg}`}>
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-semibold border ${statusPill}`}>
                     {item.statusLabel}
                   </span>
 
-                  <button className="text-muted-silver hover:text-ghost-white">
+                  <div className="w-6 h-6 rounded-md flex items-center justify-center text-slate-400 hover:text-slate-600">
                     {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                  </button>
+                  </div>
                 </div>
               </div>
 
@@ -342,14 +347,14 @@ export function KnockoutClauseRadar({
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="overflow-hidden"
+                    className="overflow-hidden border-t border-slate-100"
                   >
-                    <div className="px-4 pb-4 pt-1 space-y-3 text-xs border-t border-steel-slate/20">
+                    <div className="px-5 pb-5 pt-3 space-y-3.5 text-xs bg-slate-50/70">
                       {/* Verbatim Tender Clause Excerpt */}
-                      <div className="bg-midnight-void/60 rounded-lg p-3 border border-steel-slate/30">
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="font-semibold text-muted-silver uppercase text-[10px] tracking-wider flex items-center gap-1">
-                            <FileText size={12} className="text-electric-cyan" />
+                      <div className="bg-white rounded-xl p-4 border border-slate-200/90 shadow-2xs">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="font-bold text-slate-600 uppercase text-[11px] tracking-wider flex items-center gap-1.5">
+                            <FileText size={13} className="text-blue-600" />
                             Verbatim Tender Clause ({item.clauseRef} • Page {item.page})
                           </span>
                           <button
@@ -363,46 +368,51 @@ export function KnockoutClauseRadar({
                                 documentName: tenderName,
                               });
                             }}
-                            className="text-[11px] text-electric-cyan hover:underline flex items-center gap-1"
+                            className="text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
                           >
-                            Trace in Document <ExternalLink size={11} />
+                            Trace in Document <ExternalLink size={12} />
                           </button>
                         </div>
-                        <p className="font-mono text-slate-300 leading-relaxed italic border-l-2 border-electric-cyan/60 pl-2.5">
+                        <p className="text-slate-700 leading-relaxed italic border-l-2 border-blue-500 pl-3">
                           &ldquo;{item.tenderClauseText}&rdquo;
                         </p>
                       </div>
 
                       {/* Two Column Analysis: Disqualification Trap vs Recommended Action */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                        <div className="p-3 rounded-lg bg-coral-flame/10 border border-coral-flame/20 space-y-1">
-                          <span className="font-bold text-coral-flame uppercase text-[10px] tracking-wider block">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="p-4 rounded-xl bg-rose-50/70 border border-rose-200/80 space-y-1">
+                          <span className="font-bold text-rose-800 uppercase text-[10px] tracking-wider block">
                             ⚠️ Disqualification Pitfall
                           </span>
-                          <p className="text-slate-300 leading-relaxed">{item.disqualificationRisk}</p>
+                          <p className="text-rose-900/90 leading-relaxed text-xs">{item.disqualificationRisk}</p>
                         </div>
 
-                        <div className="p-3 rounded-lg bg-neon-emerald/10 border border-neon-emerald/20 space-y-1">
-                          <span className="font-bold text-neon-emerald uppercase text-[10px] tracking-wider block">
+                        <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200/80 space-y-1">
+                          <span className="font-bold text-emerald-800 uppercase text-[10px] tracking-wider block">
                             ✓ Recommended Compliance Action
                           </span>
-                          <p className="text-slate-300 leading-relaxed">{item.actionRequired}</p>
+                          <p className="text-emerald-900/90 leading-relaxed text-xs">{item.actionRequired}</p>
                         </div>
                       </div>
 
-                      {/* Current Vendor Position */}
-                      <div className="flex items-center justify-between p-2.5 rounded-lg bg-steel-slate/15 border border-steel-slate/25">
-                        <div className="flex items-center gap-2">
-                          <Info size={14} className="text-electric-cyan flex-shrink-0" />
-                          <span className="text-ghost-white font-medium">
-                            <strong className="text-muted-silver">Current Status:</strong> {item.vendorState}
+                      {/* Current Vendor Position & CTA */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-white border border-slate-200/90 gap-3">
+                        <div className="flex items-center gap-2.5">
+                          <Info size={16} className="text-blue-600 flex-shrink-0" />
+                          <span className="text-slate-700 font-medium text-xs">
+                            <strong className="text-slate-900">Current Position:</strong> {item.vendorState}
                           </span>
                         </div>
 
                         {item.status === 'ACTION_REQUIRED' && onGenerateAffidavit && (
-                          <Button variant="primary" size="sm" onClick={onGenerateAffidavit}>
+                          <button
+                            type="button"
+                            onClick={onGenerateAffidavit}
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors shadow-xs self-start sm:self-auto flex-shrink-0"
+                          >
                             Auto-Draft Affidavit
-                          </Button>
+                            <ArrowRight size={13} />
+                          </button>
                         )}
                       </div>
                     </div>
@@ -420,7 +430,7 @@ export function KnockoutClauseRadar({
         isOpen={Boolean(selectedCitation)}
         onClose={() => setSelectedCitation(null)}
       />
-    </Card>
+    </div>
   );
 }
 export default KnockoutClauseRadar;
