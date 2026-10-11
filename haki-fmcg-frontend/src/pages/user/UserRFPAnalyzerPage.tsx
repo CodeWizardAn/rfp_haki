@@ -1752,15 +1752,18 @@ export default function UserRFPAnalyzerPage() {
 
                       {/* Right side */}
                       <div className="flex items-center gap-3 flex-shrink-0">
-                        {!isCableOnly && (
-                          <Badge
-                            variant="soft"
-                            color={comp.match_count > 0 ? 'emerald' : 'coral'}
-                            size="sm"
-                          >
-                            {comp.match_count} match{comp.match_count !== 1 ? 'es' : ''}
-                          </Badge>
-                        )}
+                        {!isCableOnly && (() => {
+                          const actualCount = comp.top_matches && comp.top_matches.length > 0 ? comp.top_matches.length : (comp.match_count ?? 0);
+                          return (
+                            <Badge
+                              variant="soft"
+                              color={actualCount > 0 ? 'emerald' : 'coral'}
+                              size="sm"
+                            >
+                              {actualCount} match{actualCount !== 1 ? 'es' : ''}
+                            </Badge>
+                          );
+                        })()}
                         <button
                           onClick={(e) => {
                             e.stopPropagation();

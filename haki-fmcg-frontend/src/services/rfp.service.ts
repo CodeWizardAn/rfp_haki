@@ -348,7 +348,7 @@ function generateClientSideRFPAnalysis(file: File, _options?: any): any {
           status: 'matched',
         },
         message: 'Exact match identified in Finolex & Polycab master catalog',
-        match_count: 3,
+        match_count: 2,
         top_matches: [
           {
             oem: 'Finolex Cables',
@@ -418,7 +418,7 @@ function generateClientSideRFPAnalysis(file: File, _options?: any): any {
           status: 'matched',
         },
         message: 'Matches found for High Voltage 33kV Substation Cable',
-        match_count: 2,
+        match_count: 1,
         top_matches: [
           {
             oem: 'Polycab India Ltd',
@@ -463,7 +463,7 @@ function generateClientSideRFPAnalysis(file: File, _options?: any): any {
           status: 'matched',
         },
         message: 'Matches identified across Polycab and Havells',
-        match_count: 2,
+        match_count: 1,
         top_matches: [
           {
             oem: 'Havells India Ltd',
