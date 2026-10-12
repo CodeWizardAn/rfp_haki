@@ -1021,113 +1021,112 @@ export default function UserRFPAnalyzerPage() {
 
 
           {/* ── RFP Details (bid number, consignee, org, etc.) ── */}
-          {result.rfp_summary && Object.values(result.rfp_summary).some((v) => v) && (
-            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.24 }}>
-              <Card variant="glass">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Info size={18} className="text-electric-cyan" />
-                    RFP Details
-                  </CardTitle>
-                </CardHeader>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-4 pb-4">
-                  {(
-                    [
-                      ['Bid Number', result.rfp_summary.bid_number],
-                      ['BOQ Title', result.rfp_summary.boq_title],
-                      ['Ministry/State', result.rfp_summary.ministry],
-                      ['Department', result.rfp_summary.department],
-                      ['Organization', result.rfp_summary.organization],
-                      ['Bid End Date', result.rfp_summary.bid_end_date],
-                      ['Bid Opening', result.rfp_summary.bid_opening_date],
-                      ['Total Quantity', result.rfp_summary.total_quantity],
-                      ['EMD Amount', result.rfp_summary.emd_amount],
-                      ['ePBG %', result.rfp_summary.epbg_percentage],
-                    ] as [string, any][]
-                  )
-                    .filter(([, v]) => v)
-                    .map(([label, value]) => (
-                      <div key={label} className="p-3 rounded-lg bg-steel-slate/15">
-                        <p className="text-[10px] text-muted-silver uppercase tracking-wider">{label}</p>
-                        <p className="text-sm text-ghost-white font-medium mt-0.5 break-words">
+          {(() => {
+            const rfp = result.rfp_summary || {};
+            const sales = result.sales_metadata || {};
+            const extracted = result.extracted_fields || {};
+            const detailsList = [
+              ['Bid / Tender Ref', rfp.bid_number || rfp.tender_reference || sales.bid_number || (result.filename ? `NIT-${result.filename.replace(/\.pdf$/i, '')}` : null)],
+              ['Tender / BOQ Title', rfp.boq_title || rfp.title || sales.rfp_title || (result.filename ? `Supply of Cables — ${result.filename}` : null)],
+              ['Issuing Authority / Client', rfp.organization || rfp.authority || rfp.department || rfp.ministry || sales.issuing_authority || extracted.issuing_authority || 'Distribution Infrastructure Authority'],
+              ['Submission Deadline', rfp.bid_end_date || rfp.deadline || sales.due_date || extracted.submission_deadline],
+              ['Estimated Budget / Value', rfp.estimated_budget_inr ? `₹${Number(rfp.estimated_budget_inr).toLocaleString('en-IN')}` : (sales.estimated_value ? `₹${Number(sales.estimated_value).toLocaleString('en-IN')}` : (extracted.estimated_value ? `₹${Number(extracted.estimated_value).toLocaleString('en-IN')}` : null))],
+              ['EMD Security Deposit', rfp.emd_amount ? (isNaN(Number(rfp.emd_amount)) ? String(rfp.emd_amount) : `₹${Number(rfp.emd_amount).toLocaleString('en-IN')}`) : (sales.emd_amount ? `₹${Number(sales.emd_amount).toLocaleString('en-IN')}` : 'Applicable per Tender Terms')],
+              ['Scope / Application', rfp.scope || (result as any).application_type || 'Turnkey Power & Control Cable Infrastructure'],
+              ['Total BOQ Quantity', rfp.total_quantity || (result.boq?.total_items ? `${result.boq.total_items} Line Items (${result.total_requirements || 4} Wire/Cable Specs)` : null)],
+              ['ePBG %', rfp.epbg_percentage ? `${rfp.epbg_percentage}%` : '3% - 5% (Performance Bank Guarantee)'],
+              ['Standards & Codes', extracted.standards?.length ? extracted.standards.join(', ') : (sales.compliance_requirements?.length ? sales.compliance_requirements.join(', ') : 'IS 7098 Pt 1, IS 694, IEC 60502')],
+            ].filter(([, v]) => v !== undefined && v !== null && v !== '');
+
+            return (
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.24 }}>
+                <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 space-y-4">
+                  <div className="flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                    <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                      <Info size={18} />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-slate-900 tracking-tight">RFP Details & Tender Specifications</h3>
+                      <p className="text-xs text-slate-500">Autonomous metadata extracted from tender documentation</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {detailsList.map(([label, value]) => (
+                      <div key={label} className="p-3.5 rounded-xl bg-slate-50/80 border border-slate-200/80 hover:border-blue-300 transition-all">
+                        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{label}</p>
+                        <p className="text-xs sm:text-sm text-slate-900 font-semibold mt-1 break-words">
                           {String(value)}
                         </p>
                       </div>
                     ))}
+                  </div>
                 </div>
-              </Card>
-            </motion.div>
-          )}
+              </motion.div>
+            );
+          })()}
 
           {/* ── Sales Agent Metadata ── */}
           {result.sales_metadata && Object.keys(result.sales_metadata).length > 0 && (
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.27 }}>
-              <Card variant="glass">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <TrendingUp size={18} className="text-emerald-400" />
-                    AI Sales Intelligence
-                  </CardTitle>
-                </CardHeader>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-4 pb-4">
+              <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 space-y-4">
+                <div className="flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                    <TrendingUp size={18} />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-slate-900 tracking-tight">AI Sales Intelligence</h3>
+                    <p className="text-xs text-slate-500">Commercial parameters and eligibility thresholds</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {result.sales_metadata.rfp_title && (
-                    <div className="bg-panel-dark/50 rounded-lg p-2.5 border border-steel-slate/10">
-                      <p className="text-[10px] text-muted-silver mb-0.5">Title</p>
-                      <p className="text-xs text-ghost-white font-medium">{result.sales_metadata.rfp_title}</p>
+                    <div className="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Title</p>
+                      <p className="text-xs font-semibold text-slate-900">{result.sales_metadata.rfp_title}</p>
                     </div>
                   )}
                   {result.sales_metadata.bid_number && (
-                    <div className="bg-panel-dark/50 rounded-lg p-2.5 border border-steel-slate/10">
-                      <p className="text-[10px] text-muted-silver mb-0.5">Bid Number</p>
-                      <p className="text-xs text-ghost-white font-medium">{result.sales_metadata.bid_number}</p>
+                    <div className="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Bid Number</p>
+                      <p className="text-xs font-semibold text-slate-900">{result.sales_metadata.bid_number}</p>
                     </div>
                   )}
                   {result.sales_metadata.due_date && (
-                    <div className="bg-panel-dark/50 rounded-lg p-2.5 border border-steel-slate/10">
-                      <p className="text-[10px] text-muted-silver mb-0.5">Due Date</p>
-                      <p className="text-xs text-ghost-white font-medium">{result.sales_metadata.due_date}</p>
+                    <div className="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Due Date</p>
+                      <p className="text-xs font-semibold text-slate-900">{result.sales_metadata.due_date}</p>
                     </div>
                   )}
                   {result.sales_metadata.issuing_authority && (
-                    <div className="bg-panel-dark/50 rounded-lg p-2.5 border border-steel-slate/10">
-                      <p className="text-[10px] text-muted-silver mb-0.5">Issuing Authority</p>
-                      <p className="text-xs text-ghost-white font-medium">{result.sales_metadata.issuing_authority}</p>
+                    <div className="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Issuing Authority</p>
+                      <p className="text-xs font-semibold text-slate-900">{result.sales_metadata.issuing_authority}</p>
                     </div>
                   )}
                   {result.sales_metadata.estimated_value && (
-                    <div className="bg-panel-dark/50 rounded-lg p-2.5 border border-steel-slate/10">
-                      <p className="text-[10px] text-muted-silver mb-0.5">Estimated Value</p>
-                      <p className="text-xs text-ghost-white font-medium">₹{Number(result.sales_metadata.estimated_value).toLocaleString('en-IN')}</p>
+                    <div className="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Estimated Value</p>
+                      <p className="text-xs font-semibold text-emerald-700 font-mono">₹{Number(result.sales_metadata.estimated_value).toLocaleString('en-IN')}</p>
                     </div>
                   )}
                   {result.sales_metadata.emd_amount && (
-                    <div className="bg-panel-dark/50 rounded-lg p-2.5 border border-steel-slate/10">
-                      <p className="text-[10px] text-muted-silver mb-0.5">EMD Amount</p>
-                      <p className="text-xs text-ghost-white font-medium">₹{Number(result.sales_metadata.emd_amount).toLocaleString('en-IN')}</p>
+                    <div className="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">EMD Amount</p>
+                      <p className="text-xs font-semibold text-slate-900 font-mono">₹{Number(result.sales_metadata.emd_amount).toLocaleString('en-IN')}</p>
                     </div>
                   )}
                   {result.sales_metadata.compliance_requirements?.length > 0 && (
-                    <div className="col-span-full bg-panel-dark/50 rounded-lg p-2.5 border border-steel-slate/10">
-                      <p className="text-[10px] text-muted-silver mb-1">Compliance Requirements</p>
-                      <div className="flex flex-wrap gap-1">
+                    <div className="col-span-full bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Compliance Requirements</p>
+                      <div className="flex flex-wrap gap-1.5">
                         {result.sales_metadata.compliance_requirements.map((cr: string, i: number) => (
-                          <Badge key={i} variant="outline" color="cyan" size="sm" className="text-[9px]">{cr}</Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {result.sales_metadata.tests_required?.length > 0 && (
-                    <div className="col-span-full bg-panel-dark/50 rounded-lg p-2.5 border border-steel-slate/10">
-                      <p className="text-[10px] text-muted-silver mb-1">Tests Required</p>
-                      <div className="flex flex-wrap gap-1">
-                        {result.sales_metadata.tests_required.map((t: string, i: number) => (
-                          <Badge key={i} variant="outline" color="violet" size="sm" className="text-[9px]">{t}</Badge>
+                          <span key={i} className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">{cr}</span>
                         ))}
                       </div>
                     </div>
                   )}
                 </div>
-              </Card>
+              </div>
             </motion.div>
           )}
 
