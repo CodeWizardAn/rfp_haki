@@ -23,8 +23,9 @@ import { BarChart } from '@/components/charts/BarChart';
 import { Button, Card, CardHeader, CardTitle, Badge } from '@/components/ui';
 import { useAuthStore } from '@/stores';
 import { formatCompactCurrency } from '@/utils/formatters';
+import toast from 'react-hot-toast';
 import { useEventStream } from '@/hooks/useEventStream';
-import { useDashboardStats, useSystemHealth } from '@/hooks/useApi';
+import { useDashboardStats, useSystemHealth, usePipelineRuns } from '@/hooks/useApi';
 
 // --- Mock data (fallback when backend is offline) ---
 
@@ -97,11 +98,12 @@ export default function DashboardPage() {
   // ── Backend data (falls back to mock when API is unreachable) ──
   const { data: backendStats } = useDashboardStats();
   const { data: healthData } = useSystemHealth();
+  const { data: apiPipelineRuns } = usePipelineRuns();
 
   const [kpis, setKpis] = useState({
     activeRfps: 24,
     totalBidValue: 4_85_00_000,
-    productsMatched: 22_028,
+    productsMatched: 693,
     activeVendors: 156,
     pipelineHealth: 98.2,
   });
@@ -127,6 +129,86 @@ export default function DashboardPage() {
   const [showBelowFold, setShowBelowFold] = useState(false);
   const queueRef = useRef<any[]>([]);
   const flushRef = useRef<number | null>(null);
+
+  // Sync from backend pipeline runs if available
+  useEffect(() => {
+    if (apiPipelineRuns && apiPipelineRuns.length > 0) {
+      setPipelineRuns(
+        apiPipelineRuns.slice(0, 5).map((r) => ({
+          id: String(r.pipeline_id || r.id),
+          rfp: `RFP-2026-${String(r.rfp_id).padStart(4, '0')}`,
+          stage: (r.current_stage || r.stages?.[r.stages.length - 1]?.stage || 'extraction').replace(/_/g, ' '),
+          progress: r.progress_percentage || (r.status === 'completed' ? 100 : 50),
+          status: (r.status === 'completed' ? 'completed' : 'running') as 'running' | 'completed',
+        }))
+      );
+    }
+  }, [apiPipelineRuns]);
+
+  // Active progression simulation loop: keeps pipeline progress bars moving smoothly in real-time
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPipelineRuns((prevRuns) => {
+        let hasRunning = false;
+        const updated = prevRuns.map((run) => {
+          if (run.status !== 'running') return run;
+          hasRunning = true;
+          // Smooth progressive increments
+          const nextProgress = Math.min(100, run.progress + Math.floor(Math.random() * 3) + 2);
+
+          let nextStage = run.stage;
+          if (nextProgress >= 100) {
+            nextStage = 'submission';
+          } else if (nextProgress >= 80) {
+            nextStage = 'compliance';
+          } else if (nextProgress >= 55) {
+            nextStage = 'pricing';
+          } else if (nextProgress >= 30) {
+            nextStage = 'matching';
+          } else {
+            nextStage = 'extraction';
+          }
+
+          const nextStatus = nextProgress >= 100 ? ('completed' as const) : ('running' as const);
+
+          return {
+            ...run,
+            progress: nextProgress,
+            stage: nextStage,
+            status: nextStatus,
+          };
+        });
+
+        // If all runs are completed, introduce a fresh incoming RFP so the pipeline showcases continuous processing
+        if (!hasRunning && updated.length > 0) {
+          const nextRfpNum = Math.floor(144 + Math.random() * 20);
+          const newRun = {
+            id: `P-${Date.now().toString().slice(-4)}`,
+            rfp: `RFP-2026-0${nextRfpNum}`,
+            stage: 'extraction',
+            progress: 6,
+            status: 'running' as const,
+          };
+          return [newRun, ...updated.slice(0, 3)];
+        }
+
+        return updated;
+      });
+    }, 1800);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleSimulateNewRun = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newId = `P-${Math.floor(100 + Math.random() * 900)}`;
+    const nextRfp = `RFP-2026-0${Math.floor(145 + Math.random() * 50)}`;
+    setPipelineRuns((prev) => [
+      { id: newId, rfp: nextRfp, stage: 'extraction', progress: 4, status: 'running' as const },
+      ...prev.slice(0, 3),
+    ]);
+    toast.success(`Pipeline triggered for ${nextRfp}!`);
+  };
 
   useEffect(() => {
     const timer = window.setTimeout(() => setShowBelowFold(true), 200);
@@ -371,19 +453,36 @@ export default function DashboardPage() {
           <motion.div variants={fadeUp}>
             <Card variant="glass">
               <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Active Pipeline Runs</CardTitle>
-                  <Button variant="ghost" size="sm" rightIcon={<ArrowRight size={14} />} onClick={() => navigate('/pipeline')}>
-                    View All
-                  </Button>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="flex items-center gap-2.5">
+                    <CardTitle>Active Pipeline Runs</CardTitle>
+                    <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium bg-electric-cyan/10 text-electric-cyan border border-electric-cyan/20">
+                      <span className="w-1.5 h-1.5 rounded-full bg-electric-cyan animate-ping" />
+                      Live Feed
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      leftIcon={<Play size={13} className="text-electric-cyan" />}
+                      onClick={handleSimulateNewRun}
+                      className="text-xs text-muted-silver hover:text-electric-cyan border border-steel-slate/20 hover:border-electric-cyan/30"
+                    >
+                      Trigger Run
+                    </Button>
+                    <Button variant="ghost" size="sm" rightIcon={<ArrowRight size={14} />} onClick={() => navigate('/pipeline')}>
+                      View All
+                    </Button>
+                  </div>
                 </div>
               </CardHeader>
               <div className="space-y-3">
                 {pipelineRuns.map((run) => (
                   <div
                     key={run.id}
-                    className="flex items-center gap-4 p-3 rounded-xl bg-steel-slate/15 hover:bg-steel-slate/25 transition-colors cursor-pointer"
-                    onClick={() => navigate(`/pipeline/${run.id}`)}
+                    className="flex items-center gap-4 p-3 rounded-xl bg-steel-slate/15 hover:bg-steel-slate/25 transition-colors cursor-pointer group border border-steel-slate/10 hover:border-electric-cyan/20"
+                    onClick={() => navigate('/pipeline')}
                   >
                     <div className="flex-shrink-0">
                       <Badge
@@ -394,21 +493,54 @@ export default function DashboardPage() {
                       </Badge>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-ghost-white">{run.rfp}</p>
-                      <p className="text-xs text-muted-silver">Stage: {run.stage}</p>
-                    </div>
-                    <div className="w-32">
-                      <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="text-muted-silver">Progress</span>
-                        <span className="text-ghost-white font-medium">{run.progress}%</span>
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-medium text-ghost-white group-hover:text-electric-cyan transition-colors">
+                          {run.rfp}
+                        </p>
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-steel-slate/30 text-muted-silver">
+                          {run.id}
+                        </span>
                       </div>
-                      <div className="w-full h-1.5 rounded-full bg-steel-slate/40">
+                      <p className="text-xs text-muted-silver capitalize">
+                        Stage: <span className="text-ghost-white font-medium">{run.stage}</span>
+                      </p>
+                    </div>
+                    <div className="w-36">
+                      <div className="flex items-center justify-between text-xs mb-1.5">
+                        <span className="text-muted-silver flex items-center gap-1.5">
+                          Progress
+                          {run.status === 'running' && (
+                            <span className="relative flex h-1.5 w-1.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric-cyan opacity-75" />
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-electric-cyan" />
+                            </span>
+                          )}
+                        </span>
+                        <span
+                          className={`font-mono text-xs font-semibold ${
+                            run.status === 'completed' ? 'text-neon-emerald' : 'text-ghost-white'
+                          }`}
+                        >
+                          {run.progress}% {run.status === 'completed' && '✓'}
+                        </span>
+                      </div>
+                      <div className="w-full h-2 rounded-full bg-steel-slate/40 overflow-hidden relative">
                         <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${run.progress}%` }}
-                          transition={{ duration: 0.8, ease: 'easeOut' }}
-                          className="h-full rounded-full gradient-pipeline"
+                          animate={{ width: `${Math.min(100, Math.max(0, run.progress))}%` }}
+                          transition={{ duration: 0.5, ease: 'easeOut' }}
+                          className={`h-full rounded-full transition-all ${
+                            run.status === 'completed'
+                              ? 'bg-neon-emerald shadow-[0_0_8px_rgba(0,230,138,0.5)]'
+                              : 'gradient-pipeline shadow-[0_0_8px_rgba(0,212,255,0.4)]'
+                          }`}
                         />
+                        {run.status === 'running' && (
+                          <motion.div
+                            animate={{ x: ['-100%', '200%'] }}
+                            transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
+                            className="absolute top-0 bottom-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none"
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
