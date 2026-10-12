@@ -1187,9 +1187,40 @@ Authorization: Bearer <your_token>
 ```
 """
 
+# Enterprise Cybersecurity: Brute-Force & Account Lockout Defense
+class AccountLockoutManager:
+    """Enforces account lockout on repeated failed authentication attempts."""
+    def __init__(self, max_attempts: int = 5, lockout_minutes: int = 15):
+        self._lock = RLock()
+        self.max_attempts = max_attempts
+        self.lockout_time = timedelta(minutes=lockout_minutes)
+        self._failures: Dict[str, List[datetime]] = defaultdict(list)
+
+    def record_failure(self, username: str) -> bool:
+        with self._lock:
+            now = datetime.utcnow()
+            self._failures[username] = [t for t in self._failures[username] if now - t < self.lockout_time]
+            self._failures[username].append(now)
+            return len(self._failures[username]) >= self.max_attempts
+
+    def record_success(self, username: str):
+        with self._lock:
+            self._failures.pop(username, None)
+
+    def is_locked(self, username: str) -> tuple:
+        with self._lock:
+            now = datetime.utcnow()
+            recent = [t for t in self._failures.get(username, []) if now - t < self.lockout_time]
+            if len(recent) >= self.max_attempts:
+                remaining = int((recent[0] + self.lockout_time - now).total_seconds())
+                return True, max(remaining, 1)
+            return False, 0
+
+
 # Initialize managers
 auth_manager = AuthenticationManager()
-rate_limiter = RateLimiter(requests_per_minute=1000, requests_per_hour=10000)  # Higher limits for testing
+lockout_manager = AccountLockoutManager(max_attempts=5, lockout_minutes=15)
+rate_limiter = RateLimiter(requests_per_minute=1000, requests_per_hour=10000)
 webhook_manager = WebhookManager()
 batch_processor = BatchProcessor()
 
@@ -1209,7 +1240,7 @@ app_start_time = time.time()
 
 # Feature 16: API Versioning
 def create_app(version: str = "v1") -> FastAPI:
-    """Create FastAPI application with versioning"""
+    """Create FastAPI application with versioning and hardened security controls"""
     
     app = FastAPI(
         title=API_TITLE,
@@ -1220,13 +1251,21 @@ def create_app(version: str = "v1") -> FastAPI:
         openapi_url=f"/api/{version}/openapi.json"
     )
     
-    # CORS Middleware
+    # Hardened CORS Middleware with explicit origin whitelist
+    raw_origins = os.getenv(
+        "ALLOWED_ORIGINS",
+        "http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173,http://localhost:80,http://localhost:8080"
+    )
+    allowed_origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=allowed_origins,
+        allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1|.*\.hakifmcg\.com|.*\.saarthi\.ai)(:[0-9]+)?$",
         allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"]
+        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+        allow_headers=["Authorization", "Content-Type", "Accept", "Origin", "X-Request-ID", "X-Tenant-ID"],
+        max_age=86400,
     )
     
     return app
@@ -1413,34 +1452,51 @@ async def health_check_v1():
 @app.post("/api/v1/auth/token", response_model=TokenResponse, tags=["Authentication"])
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """
-    Authenticate and get access token
-    
-    Use username/password to get JWT tokens.
-    Default admin: username=admin, password=admin123
+    Authenticate and get access token with brute-force lockout protection
     """
+    locked, retry_after = lockout_manager.is_locked(form_data.username)
+    if locked:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail=f"Account temporarily locked due to consecutive failed attempts. Retry after {retry_after} seconds.",
+            headers={"Retry-After": str(retry_after)}
+        )
+
     result = await auth_manager.authenticate(form_data.username, form_data.password)
     if not result:
+        is_locked = lockout_manager.record_failure(form_data.username)
+        msg = "Account locked for 15 minutes due to multiple failed login attempts." if is_locked else "Invalid credentials"
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials",
+            detail=msg,
             headers={"WWW-Authenticate": "Bearer"}
         )
+    lockout_manager.record_success(form_data.username)
     return result
 
 
 @app.post("/api/v1/auth/login", response_model=TokenResponse, tags=["Authentication"])
 async def login_json(credentials: UserCredentials):
     """
-    Authenticate with JSON body
-    
-    Alternative to form-based login for easier API consumption.
+    Authenticate with JSON body with brute-force lockout protection
     """
+    locked, retry_after = lockout_manager.is_locked(credentials.username)
+    if locked:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail=f"Account temporarily locked due to consecutive failed attempts. Retry after {retry_after} seconds.",
+            headers={"Retry-After": str(retry_after)}
+        )
+
     result = await auth_manager.authenticate(credentials.username, credentials.password)
     if not result:
+        is_locked = lockout_manager.record_failure(credentials.username)
+        msg = "Account locked for 15 minutes due to multiple failed login attempts." if is_locked else "Invalid credentials"
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials"
+            detail=msg
         )
+    lockout_manager.record_success(credentials.username)
     return result
 
 

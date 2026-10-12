@@ -11,6 +11,8 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 import sqlite3
 import hashlib
+import hmac
+import os
 from pathlib import Path
 
 
@@ -46,9 +48,12 @@ class AuditEntityType(Enum):
     SYSTEM = "SYSTEM"
 
 
+AUDIT_HMAC_KEY = os.getenv("AUDIT_HMAC_KEY", "saarthi_audit_cryptochain_key_2026")
+
+
 @dataclass
 class AuditEntry:
-    """Single audit log entry"""
+    """Single audit log entry with cryptographic tamper-evident hash chaining"""
     id: str = None
     timestamp: datetime = None
     user_id: str = None
@@ -62,6 +67,8 @@ class AuditEntry:
     status: str = "success"  # success, failure
     error_message: str = None
     metadata: Dict = None
+    prev_hash: str = "GENESIS"
+    entry_hash: str = None
 
     def __post_init__(self):
         if self.timestamp is None:
@@ -89,14 +96,16 @@ class AuditEntry:
             'ip_address': self.ip_address,
             'status': self.status,
             'error_message': self.error_message,
-            'metadata': json.dumps(self.metadata) if self.metadata else None
+            'metadata': json.dumps(self.metadata) if self.metadata else None,
+            'prev_hash': self.prev_hash,
+            'entry_hash': self.entry_hash
         }
 
 
 class AuditTrailDatabase:
     """
     Database for storing audit trail entries
-    Uses SQLite for reliable transaction logging
+    Uses SQLite with tamper-evident cryptographic hash chaining
     """
 
     def __init__(self, db_path: str = None):
@@ -109,7 +118,7 @@ class AuditTrailDatabase:
         self._init_database()
 
     def _init_database(self):
-        """Initialize database schema"""
+        """Initialize database schema with cryptographic audit chain columns"""
         self.connection = sqlite3.connect(str(self.db_path), check_same_thread=False)
         cursor = self.connection.cursor()
 
@@ -128,9 +137,21 @@ class AuditTrailDatabase:
                 status TEXT,
                 error_message TEXT,
                 metadata TEXT,
+                prev_hash TEXT DEFAULT 'GENESIS',
+                entry_hash TEXT,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )
         ''')
+
+        # Run graceful migrations for existing tables
+        try:
+            cursor.execute("ALTER TABLE audit_entries ADD COLUMN prev_hash TEXT DEFAULT 'GENESIS'")
+        except Exception:
+            pass
+        try:
+            cursor.execute("ALTER TABLE audit_entries ADD COLUMN entry_hash TEXT")
+        except Exception:
+            pass
 
         cursor.execute('''
             CREATE INDEX IF NOT EXISTS idx_timestamp 
@@ -150,26 +171,42 @@ class AuditTrailDatabase:
         ''')
 
         self.connection.commit()
-        print(f"✅ Audit database initialized at {self.db_path}")
+        logging.info(f"[OK] Cryptographic audit database initialized at {self.db_path}")
 
     def log_entry(self, entry: AuditEntry) -> bool:
-        """Log an audit entry"""
+        """Log an audit entry with tamper-evident cryptographic hash chaining"""
         try:
             cursor = self.connection.cursor()
-            data = entry.to_dict()
             
+            # Fetch previous entry's hash to chain
+            cursor.execute("SELECT entry_hash FROM audit_entries ORDER BY rowid DESC LIMIT 1")
+            last_row = cursor.fetchone()
+            prev_hash = last_row[0] if (last_row and last_row[0]) else "GENESIS"
+            entry.prev_hash = prev_hash
+
+            data = entry.to_dict()
+
+            # Compute tamper-evident HMAC hash
+            payload = f"{prev_hash}:{data['timestamp']}:{data['user_id']}:{data['action']}:{data['entity_type']}:{data['entity_id']}:{data['old_value']}:{data['new_value']}:{data['status']}"
+            entry.entry_hash = hmac.new(
+                AUDIT_HMAC_KEY.encode(),
+                payload.encode(),
+                hashlib.sha256
+            ).hexdigest()
+            data['entry_hash'] = entry.entry_hash
+
             cursor.execute('''
                 INSERT INTO audit_entries (
                     id, timestamp, user_id, action, entity_type, entity_id,
                     description, old_value, new_value, ip_address, status,
-                    error_message, metadata
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    error_message, metadata, prev_hash, entry_hash
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
                 data['id'], data['timestamp'], data['user_id'],
                 data['action'], data['entity_type'], data['entity_id'],
                 data['description'], data['old_value'], data['new_value'],
                 data['ip_address'], data['status'], data['error_message'],
-                data['metadata']
+                data['metadata'], data['prev_hash'], data['entry_hash']
             ))
             
             self.connection.commit()
@@ -177,6 +214,47 @@ class AuditTrailDatabase:
         except Exception as e:
             logging.error(f"Failed to log audit entry: {e}")
             return False
+
+    def verify_chain_integrity(self) -> tuple:
+        """
+        Cryptographically verifies the entire audit log chain.
+        Returns: (is_valid: bool, message: str, verified_count: int)
+        """
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute('''
+                SELECT id, timestamp, user_id, action, entity_type, entity_id,
+                       old_value, new_value, status, prev_hash, entry_hash
+                FROM audit_entries ORDER BY rowid ASC
+            ''')
+            rows = cursor.fetchall()
+            if not rows:
+                return True, "Audit log is empty (no records to verify)", 0
+
+            expected_prev = "GENESIS"
+            for i, row in enumerate(rows):
+                entry_id, ts, uid, act, etype, eid, oval, nval, stat, prev_h, ent_h = row
+                
+                # Check 1: Chain continuity
+                if prev_h != expected_prev:
+                    return False, f"Broken chain link at row {i+1} (ID: {entry_id}): expected prev_hash '{expected_prev}', found '{prev_h}'", i
+                
+                # Check 2: HMAC validity
+                payload = f"{prev_h}:{ts}:{uid}:{act}:{etype}:{eid}:{oval}:{nval}:{stat}"
+                recomputed = hmac.new(
+                    AUDIT_HMAC_KEY.encode(),
+                    payload.encode(),
+                    hashlib.sha256
+                ).hexdigest()
+                
+                if ent_h != recomputed:
+                    return False, f"Tampered entry detected at row {i+1} (ID: {entry_id}): payload hash mismatch", i
+
+                expected_prev = ent_h
+
+            return True, f"Cryptographic integrity verified across all {len(rows)} audit records", len(rows)
+        except Exception as exc:
+            return False, f"Verification failed with exception: {exc}", 0
 
     def get_entries(
         self,
