@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 import {
@@ -10,36 +10,31 @@ import {
   Download,
   Plus,
   Star,
-
   CheckSquare,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
 import { useProducts, useProductCategories } from '@/hooks/useApi';
+import masterProducts from '@/data/products.json';
 
-
-const oemTabs = [
-  { id: 'all', label: 'All', count: 22028 },
-  { id: 'finolex', label: 'Finolex', count: 164, color: '#3B82F6' },
-  { id: 'havells', label: 'Havells', count: 33, color: '#EF4444' },
-  { id: 'kei', label: 'KEI', count: 45, color: '#22C55E' },
-  { id: 'polycab', label: 'Polycab', count: 285, color: '#F97316' },
-  { id: 'rrkabel', label: 'RR Kabel', count: 166, color: '#A855F7' },
-];
-
-const mockProducts = [
-  { sku: 'HAV-XLPE-11-240', name: 'XLPE 11kV 3Cx240 Power Cable', oem: 'Havells', size: '240 sq mm', cores: 3, voltage: '11kV', type: 'HT Power', price: 1850, unit: 'm', available: true, rating: 4.8 },
-  { sku: 'POL-PVC-1.1-16', name: 'PVC 1.1kV 4Cx16 Control Cable', oem: 'Polycab', size: '16 sq mm', cores: 4, voltage: '1.1kV', type: 'LT Control', price: 320, unit: 'm', available: true, rating: 4.6 },
-  { sku: 'KEI-XLPE-11-240', name: 'XLPE 11kV 3Cx240 HT Cable', oem: 'KEI', size: '240 sq mm', cores: 3, voltage: '11kV', type: 'HT Power', price: 1780, unit: 'm', available: true, rating: 4.5 },
-  { sku: 'FIN-FR-1.1-2.5', name: 'FR PVC Wire 1.1kV 1Cx2.5', oem: 'Finolex', size: '2.5 sq mm', cores: 1, voltage: '1.1kV', type: 'House Wire', price: 28, unit: 'm', available: true, rating: 4.7 },
-  { sku: 'RR-ARM-415-400', name: 'Armoured XLPE 415V 3.5Cx400', oem: 'RR Kabel', size: '400 sq mm', cores: 3.5, voltage: '415V', type: 'LT Power', price: 2400, unit: 'm', available: false, rating: 4.4 },
-  { sku: 'POL-FR-1.1-4', name: 'FR PVC Wire 1.1kV 1Cx4', oem: 'Polycab', size: '4 sq mm', cores: 1, voltage: '1.1kV', type: 'House Wire', price: 42, unit: 'm', available: true, rating: 4.6 },
-  { sku: 'HAV-ARM-415-240', name: 'Armoured XLPE 415V 3.5Cx240', oem: 'Havells', size: '240 sq mm', cores: 3.5, voltage: '415V', type: 'LT Power', price: 1650, unit: 'm', available: true, rating: 4.7 },
-  { sku: 'KEI-CTRL-1.1-2.5', name: 'Control Cable 1.1kV 12Cx2.5', oem: 'KEI', size: '2.5 sq mm', cores: 12, voltage: '1.1kV', type: 'Control', price: 680, unit: 'm', available: true, rating: 4.3 },
+const OEM_CONFIG = [
+  { id: 'polycab', label: 'Polycab', color: '#F97316' },
+  { id: 'rrkabel', label: 'RR Kabel', color: '#A855F7' },
+  { id: 'finolex', label: 'Finolex', color: '#3B82F6' },
+  { id: 'kei', label: 'KEI', color: '#22C55E' },
+  { id: 'havells', label: 'Havells', color: '#EF4444' },
 ];
 
 const oemColors: Record<string, string> = {
-  Havells: '#EF4444', Polycab: '#F97316', KEI: '#22C55E', Finolex: '#3B82F6', 'RR Kabel': '#A855F7',
+  Havells: '#EF4444',
+  Polycab: '#F97316',
+  KEI: '#22C55E',
+  Finolex: '#3B82F6',
+  'RR Kabel': '#A855F7',
 };
+
+const PAGE_SIZE = 24;
 
 export default function ProductsPage() {
   const [activeOem, setActiveOem] = useState('all');
@@ -52,47 +47,79 @@ export default function ProductsPage() {
   const { data: apiProducts } = useProducts({ page, search: searchQuery || undefined });
   const { data: _apiCategories } = useProductCategories();
 
-  /* Build product list: backend → mock fallback */
-  const allProducts = useMemo(() => {
-    const items = (apiProducts as unknown as { data?: typeof mockProducts })?.data;
-    if (items?.length) {
-      return items.map((p: Record<string, unknown>) => ({
-        sku: (p.sku as string) || '',
-        name: (p.name as string) || '',
-        oem: (p.oem as string) || (p.manufacturer as string) || '',
-        size: (p.size as string) || '',
-        cores: Number(p.cores) || 1,
-        voltage: (p.voltage as string) || '',
-        type: (p.type as string) || (p.category as string) || '',
-        price: Number(p.price) || 0,
-        unit: (p.unit as string) || 'm',
-        available: p.available !== false,
-        rating: Number(p.rating) || 4.0,
-      }));
-    }
-    return mockProducts;
-  }, [apiProducts]);
-
   const [showFilters, setShowFilters] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newSku, setNewSku] = useState('');
   const [newName, setNewName] = useState('');
   const [newOem, setNewOem] = useState('Polycab');
   const [newPrice, setNewPrice] = useState('');
-  const [customProducts, setCustomProducts] = useState<(typeof mockProducts)[0][]>([]);
+  const [customProducts, setCustomProducts] = useState<any[]>([]);
 
-  const totalProducts = (apiProducts as unknown as { total?: number })?.total || 22028;
-  const totalPages = (apiProducts as unknown as { total_pages?: number })?.total_pages || 2203;
+  /* Build product list: fallback to all 693 masterProducts */
+  const allProducts = useMemo(() => {
+    const items = (apiProducts as unknown as { data?: typeof masterProducts })?.data;
+    if (items?.length && items.length > 20) {
+      return items.map((p: any) => ({
+        sku: p.sku || '',
+        name: p.name || '',
+        oem: p.oem || p.manufacturer || '',
+        size: p.size || '',
+        cores: Number(p.cores) || 1,
+        voltage: p.voltage || '',
+        type: p.type || p.category || '',
+        price: Number(p.price) || 0,
+        unit: p.unit || 'm',
+        available: p.available !== false,
+        rating: Number(p.rating) || 4.5,
+      }));
+    }
+    return masterProducts;
+  }, [apiProducts]);
 
   const combinedProducts = useMemo(() => {
     return [...customProducts, ...allProducts];
   }, [customProducts, allProducts]);
 
-  const filteredProducts = combinedProducts.filter((p) => {
-    if (activeOem !== 'all' && p.oem.toLowerCase().replace(' ', '') !== activeOem) return false;
-    if (searchQuery && !p.name.toLowerCase().includes(searchQuery.toLowerCase()) && !p.sku.toLowerCase().includes(searchQuery.toLowerCase())) return false;
-    return true;
-  });
+  /* Dynamic OEM Tabs matching actual product counts (sums directly to total) */
+  const oemTabs = useMemo(() => {
+    return [
+      { id: 'all', label: 'All', count: combinedProducts.length, color: '' },
+      ...OEM_CONFIG.map((cfg) => {
+        const count = combinedProducts.filter(
+          (p) => p.oem.toLowerCase().replace(/[\s_]/g, '') === cfg.id
+        ).length;
+        return { id: cfg.id, label: cfg.label, count, color: cfg.color };
+      }),
+    ];
+  }, [combinedProducts]);
+
+  const filteredProducts = useMemo(() => {
+    return combinedProducts.filter((p) => {
+      if (activeOem !== 'all' && p.oem.toLowerCase().replace(/[\s_]/g, '') !== activeOem) return false;
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        if (
+          !p.name.toLowerCase().includes(q) &&
+          !p.sku.toLowerCase().includes(q) &&
+          !(p.size && p.size.toLowerCase().includes(q)) &&
+          !(p.type && p.type.toLowerCase().includes(q))
+        ) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [combinedProducts, activeOem, searchQuery]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [activeOem, searchQuery]);
+
+  const totalPages = Math.ceil(filteredProducts.length / PAGE_SIZE) || 1;
+  const paginatedProducts = useMemo(() => {
+    const start = (page - 1) * PAGE_SIZE;
+    return filteredProducts.slice(start, start + PAGE_SIZE);
+  }, [filteredProducts, page]);
 
   const toggleCompare = (sku: string) =>
     setCompareList((prev) =>
@@ -152,7 +179,9 @@ export default function ProductsPage() {
           </div>
           <div>
             <h1 className="text-h1 text-ghost-white">Product Catalog</h1>
-            <p className="text-body text-muted-silver">22,028 products from 6 OEMs</p>
+            <p className="text-body text-muted-silver">
+              {combinedProducts.length.toLocaleString()} verified products across 5 OEMs
+            </p>
           </div>
         </div>
         <div className="flex gap-2 flex-shrink-0">
@@ -323,7 +352,7 @@ export default function ProductsPage() {
       {/* Grid View */}
       {viewMode === 'grid' ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filteredProducts.map((p) => (
+          {paginatedProducts.map((p) => (
             <motion.div key={p.sku} whileHover={{ y: -3 }}>
               <Card variant="glass" className="relative overflow-hidden">
                 {/* OEM stripe */}
@@ -341,14 +370,14 @@ export default function ProductsPage() {
                   </button>
                 </div>
 
-                <p className="text-sm font-semibold text-ghost-white leading-tight">{p.name}</p>
-                <p className="text-xs text-muted-silver font-mono mt-1">{p.sku}</p>
+                <p className="text-sm font-semibold text-ghost-white leading-tight line-clamp-2 min-h-[38px]">{p.name}</p>
+                <p className="text-xs text-muted-silver font-mono mt-1 truncate">{p.sku}</p>
 
                 <div className="grid grid-cols-2 gap-1.5 mt-3 text-xs">
-                  <div className="px-2 py-1 rounded bg-steel-slate/10 text-muted-silver">
+                  <div className="px-2 py-1 rounded bg-steel-slate/10 text-muted-silver truncate">
                     <span className="text-ghost-white">{p.size}</span> · {p.cores}C
                   </div>
-                  <div className="px-2 py-1 rounded bg-steel-slate/10 text-muted-silver">
+                  <div className="px-2 py-1 rounded bg-steel-slate/10 text-muted-silver truncate">
                     {p.voltage} · {p.type}
                   </div>
                 </div>
@@ -389,10 +418,10 @@ export default function ProductsPage() {
                 </tr>
               </thead>
               <tbody>
-                {filteredProducts.map((p) => (
+                {paginatedProducts.map((p) => (
                   <tr key={p.sku} className="border-b border-steel-slate/15 hover:bg-steel-slate/10 cursor-pointer transition-colors">
                     <td className="px-4 py-3 font-mono text-xs text-electric-cyan">{p.sku}</td>
-                    <td className="px-4 py-3 text-ghost-white">{p.name}</td>
+                    <td className="px-4 py-3 text-ghost-white max-w-[280px] truncate">{p.name}</td>
                     <td className="px-4 py-3">
                       <span className="flex items-center gap-1.5">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: oemColors[p.oem] }} />
@@ -416,20 +445,54 @@ export default function ProductsPage() {
       )}
 
       {/* Pagination */}
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-silver">Showing {filteredProducts.length} of {totalProducts.toLocaleString()} products</p>
-        <div className="flex gap-1">
-          {[1, 2, 3, '...', totalPages].map((pg, i) => (
-            <button
-              key={i}
-              onClick={() => typeof pg === 'number' && setPage(pg)}
-              className={`w-8 h-8 rounded-lg text-sm transition-colors ${
-                pg === page ? 'bg-electric-cyan/15 text-electric-cyan' : 'text-muted-silver hover:bg-steel-slate/15'
-              }`}
-            >
-              {pg}
-            </button>
-          ))}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+        <p className="text-sm text-muted-silver">
+          Showing {filteredProducts.length > 0 ? (page - 1) * PAGE_SIZE + 1 : 0} –{' '}
+          {Math.min(page * PAGE_SIZE, filteredProducts.length)} of {filteredProducts.length.toLocaleString()} products
+          {activeOem !== 'all' && ` (${oemTabs.find((t) => t.id === activeOem)?.label})`}
+        </p>
+        <div className="flex items-center gap-1.5">
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={page <= 1}
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            leftIcon={<ChevronLeft size={14} />}
+          >
+            Prev
+          </Button>
+
+          <div className="flex gap-1">
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              let pg = i + 1;
+              if (totalPages > 5 && page > 3) {
+                pg = Math.min(totalPages - 4, page - 2) + i;
+              }
+              return (
+                <button
+                  key={pg}
+                  onClick={() => setPage(pg)}
+                  className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
+                    pg === page
+                      ? 'bg-electric-cyan/20 text-electric-cyan border border-electric-cyan/40'
+                      : 'text-muted-silver hover:bg-steel-slate/15'
+                  }`}
+                >
+                  {pg}
+                </button>
+              );
+            })}
+          </div>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={page >= totalPages}
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            rightIcon={<ChevronRight size={14} />}
+          >
+            Next
+          </Button>
         </div>
       </div>
     </motion.div>

@@ -2848,9 +2848,9 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
         <div className="p-3 rounded-xl bg-slate-50 dark:bg-steel-slate/10 border border-slate-200 dark:border-steel-slate/20">
           <span className="text-[10px] text-slate-500 dark:text-muted-silver uppercase font-bold tracking-wider block">Catalog Depth</span>
           <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-ghost-white mt-0.5 block">
-            {(database_info.total_products || 22028).toLocaleString()} Skus
+            {(database_info.total_products || 693).toLocaleString()} Skus
           </span>
-          <span className="text-[10px] text-slate-500">6 OEM Repositories</span>
+          <span className="text-[10px] text-slate-500">5 OEM Repositories</span>
         </div>
 
         <div className="p-3 rounded-xl bg-slate-50 dark:bg-steel-slate/10 border border-slate-200 dark:border-steel-slate/20">
@@ -2955,7 +2955,7 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
           />
           <AnalysisBullet
             icon={<Package size={13} />}
-            text={`Cross-referenced against ${(database_info.total_products || 22028).toLocaleString()} products across ${database_info.oems?.length || 6} OEMs (${database_info.oems?.join(', ') || 'Polycab, Finolex, Havells, KEI, RR Kabel, Moglix'}).`}
+            text={`Cross-referenced against ${(database_info.total_products || 693).toLocaleString()} products across ${database_info.oems?.length || 5} OEMs (${database_info.oems?.join(', ') || 'Polycab, Finolex, Havells, KEI, RR Kabel'}).`}
           />
           <AnalysisBullet
             icon={<TrendingUp size={13} />}

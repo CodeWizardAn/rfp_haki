@@ -507,8 +507,8 @@ function generateClientSideRFPAnalysis(file: File, _options?: any): any {
     detected_application: 'Distribution Substation & Industrial Plant',
     analysis_options: { include_calculations: true, include_recommendations: true, include_budget: true },
     database_info: {
-      total_products: 22028,
-      oems: ['Polycab', 'Finolex', 'Havells', 'KEI', 'RR Kabel', 'Moglix Marketplace'],
+      total_products: 693,
+      oems: ['Polycab', 'Finolex', 'Havells', 'KEI', 'RR Kabel'],
     },
     agent_info: {
       langchain_used: true,
