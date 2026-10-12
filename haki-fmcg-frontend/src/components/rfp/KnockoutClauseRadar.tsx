@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ShieldAlert,
-  ShieldCheck,
   AlertTriangle,
   CheckCircle2,
   XCircle,
@@ -94,14 +92,14 @@ const DEFAULT_GATEKEEPERS: GatekeeperItem[] = [
     category: 'Commercial',
     title: 'Non-Blacklisting Notarized Affidavit on Stamp Paper',
     shortDesc: 'Submission of ₹100 non-judicial stamp paper affidavit executed within 30 days.',
-    status: 'ACTION_REQUIRED',
-    statusLabel: 'Affidavit Needed Prior to Submission',
+    status: 'PASS',
+    statusLabel: 'Affidavit Verified & Executed',
     tenderClauseText: 'The Bidder must provide a notarized affidavit on non-judicial stamp paper of INR 100/- declaring that the firm has not been blacklisted, debarred, or banned by any Central/State Government Ministry, PSU, or autonomous body during the last 3 years.',
     page: 53,
     clauseRef: 'General Terms • Cl 11.5',
     disqualificationRisk: 'Missing notarization or executing on plain letterhead leads to technical rejection during preliminary scrutiny.',
-    actionRequired: 'Download Saarthi auto-filled Annexure-IV, execute on ₹100 stamp paper before a First Class Magistrate or Notary, and upload scan.',
-    vendorState: 'Action Required: Legal team must notarize Annexure-IV prior to tender closing.',
+    actionRequired: 'Attach notarized Annexure-IV executed on ₹100 stamp paper to technical envelope.',
+    vendorState: 'Notarized non-blacklisting affidavit on ₹100 stamp paper verified and attached to bid envelope.',
   },
   {
     id: 'delivery_lead_time',
@@ -132,15 +130,12 @@ export function KnockoutClauseRadar({
 }: KnockoutClauseRadarProps) {
   const [items] = useState<GatekeeperItem[]>(customItems || DEFAULT_GATEKEEPERS);
   const [filter, setFilter] = useState<'ALL' | 'RISKS' | 'ACTIONS' | 'CLEARED'>('ALL');
-  const [expandedId, setExpandedId] = useState<string | null>('blacklisting_affidavit');
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [selectedCitation, setSelectedCitation] = useState<ClauseCitation | null>(null);
 
   const passedCount = items.filter((i) => i.status === 'PASS').length;
   const actionCount = items.filter((i) => i.status === 'ACTION_REQUIRED').length;
   const riskCount = items.filter((i) => i.status === 'KNOCKOUT_RISK').length;
-
-  const overallDecision: 'GO' | 'CAUTION' | 'NO_GO' =
-    riskCount > 0 ? 'NO_GO' : actionCount > 0 ? 'CAUTION' : 'GO';
 
   const filteredItems = items.filter((item) => {
     if (filter === 'RISKS') return item.status === 'KNOCKOUT_RISK';
@@ -154,60 +149,14 @@ export function KnockoutClauseRadar({
       {/* ── Top Header Banner ── */}
       <div className="p-5 sm:p-6 bg-gradient-to-r from-slate-50/90 via-white to-slate-50/50 border-b border-slate-100">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-start gap-3.5">
-            <div
-              className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 shadow-xs border ${
-                overallDecision === 'GO'
-                  ? 'bg-emerald-50 text-emerald-600 border-emerald-200'
-                  : overallDecision === 'CAUTION'
-                    ? 'bg-amber-50 text-amber-600 border-amber-200'
-                    : 'bg-rose-50 text-rose-600 border-rose-200'
-              }`}
-            >
-              {overallDecision === 'GO' ? (
-                <ShieldCheck size={22} className="stroke-[2.2]" />
-              ) : overallDecision === 'CAUTION' ? (
-                <AlertTriangle size={22} className="stroke-[2.2]" />
-              ) : (
-                <ShieldAlert size={22} className="stroke-[2.2]" />
-              )}
-            </div>
-
-            <div>
-              <div className="flex flex-wrap items-center gap-2.5">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
-                  Knockout Clause &amp; Buried Disqualifiers Radar
-                </h3>
-                <span
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
-                    overallDecision === 'GO'
-                      ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                      : overallDecision === 'CAUTION'
-                        ? 'bg-amber-50 text-amber-800 border-amber-200'
-                        : 'bg-rose-50 text-rose-800 border-rose-200'
-                  }`}
-                >
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      overallDecision === 'GO'
-                        ? 'bg-emerald-500'
-                        : overallDecision === 'CAUTION'
-                          ? 'bg-amber-500 animate-pulse'
-                          : 'bg-rose-500'
-                    }`}
-                  />
-                  {overallDecision === 'GO'
-                    ? 'GO: All Gatekeepers Cleared'
-                    : overallDecision === 'CAUTION'
-                      ? 'CAUTION: Action Required to Qualify'
-                      : 'NO-GO: Disqualification Risk Detected'}
-                </span>
-              </div>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed max-w-2xl">
-                Scans commercial, statutory, and pre-qualification traps buried across pages 1 to 90+.
-                Prevents sudden disqualification before engineering effort is committed.
-              </p>
-            </div>
+          <div>
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+              Knockout Clause &amp; Buried Disqualifiers Radar
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed max-w-2xl">
+              Scans commercial, statutory, and pre-qualification traps buried across pages 1 to 90+.
+              Prevents sudden disqualification before engineering effort is committed.
+            </p>
           </div>
 
           {/* Quick Score Metrics */}
@@ -218,7 +167,7 @@ export function KnockoutClauseRadar({
             </div>
             <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center min-w-[70px]">
               <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Actions</span>
-              <span className="text-sm font-extrabold text-amber-600">{actionCount}</span>
+              <span className={`text-sm font-extrabold ${actionCount > 0 ? 'text-amber-600' : 'text-slate-400'}`}>{actionCount}</span>
             </div>
             <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center min-w-[70px]">
               <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Risks</span>
