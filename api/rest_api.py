@@ -3403,7 +3403,7 @@ async def list_products(
 
 
 # =============================================================================
-# Product Catalog — Real OEM Dataset (22k+ products)
+# Product Catalog — Real OEM Dataset (650+ products)
 # NOTE: These /catalog routes MUST be registered BEFORE the /{product_id_or_sku}
 #       wildcard route, otherwise FastAPI will match "catalog" as a sku value.
 # =============================================================================
@@ -3429,7 +3429,7 @@ async def list_catalog_products(
     current_user: TokenData = Depends(get_current_user),
 ):
     """
-    List products from the real OEM dataset (22k+ wires & cables)
+    List products from the real OEM dataset (650+ wires & cables)
     plus any user-added products. Supports pagination, filtering, and search.
     """
     product_db, _ = _get_oem_db_and_matcher()
@@ -4260,7 +4260,7 @@ async def get_product_by_id_or_sku(product_id_or_sku: str, current_user: TokenDa
     1. In-memory product catalog
     2. User-added / imported products
     3. OEM products JSON catalog
-    4. Real 22,000+ SKU DataFrame
+    4. Real 650+ SKU DataFrame
     """
     query_str = product_id_or_sku.strip().lower()
 
@@ -4307,7 +4307,7 @@ async def get_product_by_id_or_sku(product_id_or_sku: str, current_user: TokenDa
     except Exception as e:
         logger.debug(f"oem_products.json lookup notice: {e}")
 
-    # 4. Search 22k+ OEM DataFrame
+    # 4. Search 650+ OEM DataFrame
     try:
         product_db, _ = _get_oem_db_and_matcher()
         if product_db and product_db.products_df is not None:
@@ -4629,7 +4629,7 @@ async def analyze_rfp(
     current_user: Optional[TokenData] = Depends(get_optional_user),
 ):
     """
-    Comprehensive RFP analysis: extract → parse → match against 22k+ OEM products.
+    Comprehensive RFP analysis: extract → parse → match against 650+ OEM products.
     Returns requirements, BOQ, OEM summary, top-3 products per requirement
     with engineering calculations, recommendations, and budget analysis.
     

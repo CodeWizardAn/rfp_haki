@@ -216,7 +216,7 @@ const fadeUp = {
 const progressSteps: { key: AnalysisStep; label: string; desc: string; eta: number }[] = [
   { key: 'uploading', label: 'Uploading PDF', desc: 'Sending document to server...', eta: 3 },
   { key: 'extracting', label: 'Extracting Requirements', desc: 'Parsing text, BOQ & specifications...', eta: 8 },
-  { key: 'matching', label: 'Matching Products', desc: 'Comparing against 22,000+ OEM cable & wire catalog...', eta: 20 },
+  { key: 'matching', label: 'Matching Products', desc: 'Comparing against 650+ OEM cable & wire catalog...', eta: 20 },
   { key: 'analyzing', label: 'Finalizing Results', desc: 'Building recommendations & budget analysis...', eta: 6 },
   { key: 'complete', label: 'Analysis Complete', desc: 'All done! Linked documents loading in background...', eta: 0 },
 ];
@@ -899,7 +899,7 @@ export default function UserRFPAnalyzerPage() {
                 <p className="text-xs text-muted-silver">
                   {analysisStep === 'uploading' && 'Uploading PDF to server...'}
                   {analysisStep === 'extracting' && `Extracting text, tables, and BOQ data from ${fileName}...`}
-                  {analysisStep === 'matching' && 'Searching 22,000+ products across Polycab, Havells, KEI, Finolex, RR Kabel...'}
+                  {analysisStep === 'matching' && 'Searching 650+ products across Polycab, Havells, KEI, Finolex, RR Kabel...'}
                   {analysisStep === 'analyzing' && 'Computing voltage drop, short circuit, power capacity & budget for matches...'}
                 </p>
               </div>
@@ -2776,7 +2776,6 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
   const totalMatched = comparisons.filter((c) => c.match_count > 0).length;
   const totalUnmatched = comparisons.filter((c) => c.match_count === 0).length;
   const allScores = comparisons.flatMap((c) => (c.top_matches ?? []).map((m) => m.match_score));
-  const avgScore = allScores.length > 0 ? allScores.reduce((a, b) => a + b, 0) / allScores.length : 95.5;
 
   const bestOEM = oem_summary.best_oem || 'Polycab India Ltd';
   const topRanking = (oem_summary.oem_rankings ?? [])[0];
@@ -2798,31 +2797,25 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
 
   return (
     <div className="space-y-4">
-      {/* ── Human Touch: Lead Tender Strategist Assessment ── */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-emerald-50/90 via-white to-blue-50/60 dark:from-steel-slate/20 dark:via-abyss-black dark:to-steel-slate/10 border border-emerald-200/80 dark:border-steel-slate/30 shadow-xs">
+      {/* ── Executive Feasibility & Strategy Assessment ── */}
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 shadow-2xs">
         <div className="flex items-start gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm font-bold text-sm">
-            ST
+          <div className="w-9 h-9 rounded-lg bg-slate-900 text-white dark:bg-slate-800 dark:text-slate-100 flex items-center justify-center flex-shrink-0 shadow-2xs">
+            <FileText size={17} className="text-slate-100 dark:text-slate-200" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h4 className="text-sm font-bold text-slate-900 dark:text-ghost-white flex items-center gap-2">
-                  Lead Bid Strategist • Executive Assessment
-                  <Badge variant="soft" color="emerald" size="sm">High Win Probability</Badge>
-                </h4>
-                <p className="text-[11px] text-slate-500 dark:text-muted-silver">
-                  Synthesized based on OEM catalog availability, technical compliance &amp; procurement risk radar
-                </p>
-              </div>
-              <span className="text-[11px] font-semibold text-emerald-700 dark:text-neon-emerald bg-emerald-100/70 dark:bg-neon-emerald/10 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-neon-emerald/20">
-                Overall Match: {avgScore.toFixed(1)}%
-              </span>
-            </div>
+            <h4 className="text-sm font-semibold text-slate-900 dark:text-ghost-white tracking-tight">
+              Executive Feasibility &amp; Bid Strategy Assessment
+            </h4>
 
-            <p className="text-xs sm:text-sm text-slate-700 dark:text-muted-silver mt-2.5 leading-relaxed">
-              "Here is our candid analysis on this tender: <strong>You are in an exceptionally strong position to compete and qualify.</strong> All {requirement_summary.total || 4} wire &amp; cable requirements align directly with mass-market industrial product lines (principally Polycab and Havells), meaning you won't face high custom tooling expenses or non-standard production delays. Your primary operational priority will be locking in manufacturing extrusion slots for the 33 kV HT line early to safeguard the 60-day delivery window and keep liquidated damages at zero."
-            </p>
+            <div className="mt-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
+              <p>
+                <strong className="font-semibold text-slate-900 dark:text-ghost-white">Strategic Feasibility:</strong> The tender specifications present high qualification and compliance viability. All {requirement_summary.total || 4} wire &amp; cable requirements align directly with standardized industrial product lines (principally Polycab and Havells), eliminating bespoke tooling expenditures and custom manufacturing lead times.
+              </p>
+              <p>
+                <strong className="font-semibold text-slate-900 dark:text-ghost-white">Operational Recommendation:</strong> Priority should be placed on locking in manufacturing extrusion capacity for the 33 kV HT line early to safeguard the 60-day delivery commitment and maintain zero liquidated damages exposure.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -2916,13 +2909,13 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
           </div>
         </div>
 
-        {/* Pillar 3: Actionable Human Submission Advice */}
+        {/* Pillar 3: Strategic Submission Advisory */}
         <div className="p-4 rounded-xl bg-white dark:bg-steel-slate/5 border border-slate-200 dark:border-steel-slate/20 flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2.5">
               <ListChecks size={16} className="text-emerald-600" />
               <h5 className="text-xs font-bold text-slate-900 dark:text-ghost-white uppercase tracking-wider">
-                3. Human Bid Advice &amp; Next Steps
+                3. Strategic Bid Action Plan
               </h5>
             </div>
             <ul className="text-xs text-slate-600 dark:text-muted-silver space-y-2 leading-relaxed">

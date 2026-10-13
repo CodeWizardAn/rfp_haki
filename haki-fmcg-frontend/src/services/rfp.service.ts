@@ -112,7 +112,7 @@ export const rfpService = {
   },
 
   /**
-   * Comprehensive RFP analysis: extract → parse → match against 22k+ OEM products.
+   * Comprehensive RFP analysis: extract → parse → match against 650+ OEM products.
    * Returns requirements, BOQ, OEM summary, top-3 products per requirement.
    */
   analyzeRFP: async (

@@ -155,7 +155,7 @@ const PIPELINE_CARDS = [
   {
     step: '03',
     title: 'Vector Search',
-    description: 'Dense 384-dim semantic matching queries 22,028 products in under 50ms.',
+    description: 'Dense 384-dim semantic matching queries 650+ products in under 50ms.',
     highlight: false,
     route: '/products',
   },
@@ -197,7 +197,7 @@ const FAQ_ITEMS = [
     answer: 'Saarthi natively parses complex multi-page PDF tenders, scanned image-based NITs via multilingual Tesseract OCR, Excel BOQ workbooks (.xlsx, .xls), and CSV schedule formats. It also supports direct tender intake from GeM (Government e-Marketplace) and Central Public Procurement Portal (CPPP) URLs.',
   },
   {
-    question: 'How does the 22,000+ SKU Vector Matcher handle non-standard specifications?',
+    question: 'How does the 650+ SKU Vector Matcher handle non-standard specifications?',
     answer: 'The system uses domain-fine-tuned 384-dimensional dense semantic embeddings combined with deterministic rule-based normalizers. If an RFP states "1100V 4 core 16 sq mm" or "1.1kV 4C x 16 mm² AL AR", Saarthi standardizes gauge, insulation grade, and conductor chemistry to compute cross-OEM compatibility scores instantaneously.',
   },
   {
@@ -534,7 +534,7 @@ export default function LandingPage() {
               Procure with teams who demand exact specs.
             </h3>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-              Upload technical tender PDFs or query 22,028 wire and cable SKUs. Instant compliance scores, margin calculations, and automated vendor proposal generation.
+              Upload technical tender PDFs or query 650+ wire and cable SKUs. Instant compliance scores, margin calculations, and automated vendor proposal generation.
             </p>
           </div>
           <div className="flex-shrink-0 w-full sm:w-auto">
@@ -629,7 +629,7 @@ export default function LandingPage() {
             <div className="flex items-center gap-2.5">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
               <span className="text-xs uppercase tracking-[0.15em] sm:tracking-[0.18em] font-extrabold text-slate-800 font-mono">
-                22,028 PRE-INDEXED WIRES & CABLES INVENTORY
+                650+ PRE-INDEXED WIRES & CABLES INVENTORY
               </span>
             </div>
             <span className="text-xs font-semibold text-slate-500 hidden sm:inline">
@@ -808,7 +808,7 @@ export default function LandingPage() {
           </div>
         </motion.div>
 
-        {/* ── Snapshot 2: Right Aligned (22,000+ Vector Product Catalog) ── */}
+        {/* ── Snapshot 2: Right Aligned (650+ Vector Product Catalog) ── */}
         <motion.div
           initial={{ opacity: 0.2, y: 60, filter: 'blur(4px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -822,7 +822,7 @@ export default function LandingPage() {
               02 • VECTOR SIMILARITY ENGINE
             </span>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              22,028 Pre-Indexed Wires & Cables Catalog
+              650+ Pre-Indexed Wires & Cables Catalog
             </h3>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
               Cross-standard vector matching powered by domain-specialized 384-dimensional embeddings. Automatically translates American Wire Gauge (AWG) to metric mm², XLPE vs PVC insulation grades, and matches exact SKUs across Polycab, Havells, KEI, and Finolex.
@@ -832,7 +832,7 @@ export default function LandingPage() {
                 to={isAuthenticated ? (user?.role === 'admin' ? '/products' : '/user/products') : '/login?redirect=/products'}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
               >
-                Search all 22,028 catalog products →
+                Search all 650+ catalog products →
               </Link>
             </div>
           </div>
@@ -849,7 +849,7 @@ export default function LandingPage() {
                 </div>
                 <div className="text-[11px] sm:text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
                   <Database size={12} className="text-blue-600 flex-shrink-0" />
-                  <span className="truncate">haki-vector-catalog-22k.index [Active: 22,028 SKUs]</span>
+                  <span className="truncate">haki-vector-catalog-650.index [Active: 650+ SKUs]</span>
                 </div>
                 <div className="w-6 sm:w-10 flex-shrink-0"></div>
               </div>
@@ -1276,7 +1276,7 @@ export default function LandingPage() {
             </div>
             <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-medium text-slate-500">
               <span>Capability</span>
-              <span className="text-cyan-700 font-semibold">22K+ Vector Match</span>
+              <span className="text-cyan-700 font-semibold">650+ Vector Match</span>
             </div>
           </div>
 
@@ -1530,7 +1530,7 @@ export default function LandingPage() {
                 <tr className="hover:bg-slate-50/50 transition-colors">
                   <td className="py-4 px-6 font-semibold text-slate-900">Multi-OEM Specification Matching</td>
                   <td className="py-4 px-6 text-slate-500">Manual lookup across 2-3 printed datasheets</td>
-                  <td className="py-4 px-6 font-bold text-emerald-600 bg-blue-50/30">Instant search across 22,028 normalized SKUs</td>
+                  <td className="py-4 px-6 font-bold text-emerald-600 bg-blue-50/30">Instant search across 650+ normalized SKUs</td>
                 </tr>
                 <tr className="hover:bg-slate-50/50 transition-colors">
                   <td className="py-4 px-6 font-semibold text-slate-900">Compliance & Gatekeeper Knockout Checks</td>
@@ -1633,7 +1633,7 @@ export default function LandingPage() {
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
-                  <span>22,028 Pre-indexed Wires & Cables</span>
+                  <span>650+ Pre-indexed Wires & Cables</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
@@ -1843,7 +1843,7 @@ export default function LandingPage() {
               Ready to automate your technical procurement?
             </h3>
             <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-              Upload your tender specifications now or browse our comprehensive 22,000+ electrical inventory with instant margin optimization.
+              Upload your tender specifications now or browse our comprehensive 650+ electrical inventory with instant margin optimization.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto flex-shrink-0">

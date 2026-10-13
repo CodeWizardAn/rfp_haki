@@ -4,7 +4,7 @@
 
 ### Autonomous Multi-Agent Procurement &amp; Bid Intelligence Platform
 
-An enterprise tendering operating system where specialized AI agents autonomously ingest complex GeM / e-Procure tender specifications, match against 22,000+ OEM products, calculate electrical physics, and engineer landed cost margins.
+An enterprise tendering operating system where specialized AI agents autonomously ingest complex GeM / e-Procure tender specifications, match against 650+ OEM products, calculate electrical physics, and engineer landed cost margins.
 
 **[⚡ Live Deployment](https://rfp-haki.vercel.app/)** · **[Explore Architecture](#-system-architecture)** · **[IEEMA PVC Engine](#-ieema-price-variation-clause-pvc-engine)** · **[Form F-4 Deviations](#-schedule-of-technical-deviations-form-f-4)** · **[Quickstart](#-quickstart-guide)**
 
@@ -26,7 +26,7 @@ Keep the tender document you are analyzing beside the active AI agent working on
 
 | Ingest &amp; Extract | Physics &amp; Match | Price &amp; Win |
 | :--- | :--- | :--- |
-| **Autonomous Spec Extractor** parses unstructured GeM and PSU tender PDFs, identifying conductor metals, insulation types, cross-sections ($1.5$ to $630\text{ mm}^2$), and voltage classes ($1.1\text{ kV}$ to $33\text{ kV}$). | **Gatekeeper Knockout Engine** queries **22,028 verified OEM SKUs** (Polycab, Finolex, Havells, KEI, RR Kabel, Moglix) with strict disqualification gates while **SpecCalculator** validates voltage drop, short-circuit withstand, and IR. | **Metal Spot Index &amp; IEEMA PVC** tracks live LME / MCX indices (Copper, Aluminium), calculates turnkey landed cost physics with 18% GST, and exports GeM Form F-4 Technical Deviation Statements. |
+| **Autonomous Spec Extractor** parses unstructured GeM and PSU tender PDFs, identifying conductor metals, insulation types, cross-sections ($1.5$ to $630\text{ mm}^2$), and voltage classes ($1.1\text{ kV}$ to $33\text{ kV}$). | **Gatekeeper Knockout Engine** queries **650+ verified OEM SKUs** (Polycab, Finolex, Havells, KEI, RR Kabel, Moglix) with strict disqualification gates while **SpecCalculator** validates voltage drop, short-circuit withstand, and IR. | **Metal Spot Index &amp; IEEMA PVC** tracks live LME / MCX indices (Copper, Aluminium), calculates turnkey landed cost physics with 18% GST, and exports GeM Form F-4 Technical Deviation Statements. |
 
 ---
 
@@ -68,7 +68,7 @@ Upload tender documents from GeM, NTPC, PGCIL, or State Discoms. The extractor t
 <td width="50%" valign="top">
 
 ### 2. Knockout Filter &amp; Catalog Matching
-Evaluates the requirement against **22,028 manufacturer products**. Enforces strict disqualification gates:
+Evaluates the requirement against **650+ manufacturer products**. Enforces strict disqualification gates:
 
 - ❌ **Disqualified**: Copper offered for Aluminium requirement.
 - ❌ **Disqualified**: 650V cable offered for 33kV transmission.
@@ -159,7 +159,7 @@ flowchart TD
     end
 
     subgraph Physical_Engines["Core Physics & Standards Library"]
-        Knockout["Gatekeeper Knockout Engine\n(22,028 Verified OEM SKUs)"]
+        Knockout["Gatekeeper Knockout Engine\n(650+ Verified OEM SKUs)"]
         Formulas["SpecCalculator\n(Voltage Drop · I_sc · IR)"]
         PVC["IEEMA PVC Engine\n(Circular Factor Multipliers)"]
         Rules["ComplianceRuleEngine\n(IS 694 · IS 1554 · IS 7098)"]
