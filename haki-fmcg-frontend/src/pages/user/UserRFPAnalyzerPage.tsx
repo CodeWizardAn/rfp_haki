@@ -3076,38 +3076,38 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
   return (
     <div className="space-y-4">
       {/* ── Executive Feasibility & Strategy Assessment ── */}
-      <div className="p-5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 shadow-2xs">
+      <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
         <div className="flex items-start gap-3.5">
-          <div className="w-9 h-9 rounded-lg bg-slate-900 text-white dark:bg-slate-800 dark:text-slate-100 flex items-center justify-center flex-shrink-0 shadow-2xs">
-            <FileText size={17} className="text-slate-100 dark:text-slate-200" />
+          <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 shadow-2xs">
+            <FileText size={17} className="text-blue-600" />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold text-slate-900 dark:text-ghost-white tracking-tight">
+              <h4 className="text-sm font-bold text-slate-900 tracking-tight">
                 Executive Feasibility &amp; Strategic Bid Verdict
               </h4>
-              <span className="text-[11px] font-mono text-slate-500 dark:text-muted-silver">
-                Authority: <strong className="text-slate-700 dark:text-slate-300 font-semibold">{issuingAuthority}</strong>
+              <span className="text-[11px] font-mono text-slate-500">
+                Authority: <strong className="text-slate-800 font-semibold">{issuingAuthority}</strong>
               </span>
             </div>
 
-            <div className="mt-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
+            <div className="mt-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
               <p>
-                <strong className="font-semibold text-slate-900 dark:text-ghost-white">Strategic Qualification Verdict:</strong> All {requirement_summary.total || 4} line items achieve 100% technical qualification against mass-production OEM master catalogs ({bestOEM} primary anchor with {Number(topScore).toFixed(1)}% peak specification compliance). Zero bespoke tooling or custom fabrication lead times required.
+                <strong className="font-semibold text-slate-900">Strategic Qualification Verdict:</strong> All {requirement_summary.total || 4} line items achieve 100% technical qualification against mass-production OEM master catalogs ({bestOEM} primary anchor with {Number(topScore).toFixed(1)}% peak specification compliance). Zero bespoke tooling or custom fabrication lead times required.
               </p>
               <p>
-                <strong className="font-semibold text-slate-900 dark:text-ghost-white">Procurement &amp; Liquidity Blueprint:</strong> Pre-bid submission under Rule 170 GFR 2017 &amp; MSME PPP Order 2012 (Udyam NIC 27320) frees {emdStr} in liquid EMD deposits upfront. For commercial execution, lock a 15-day distributor forward price agreement on {hasHT ? '33 kV HT extrusion slots' : 'power distribution lines'} to insulate the 60-day delivery commitment against liquidated damages exposure.
+                <strong className="font-semibold text-slate-900">Procurement &amp; Liquidity Blueprint:</strong> Pre-bid submission under Rule 170 GFR 2017 &amp; MSME PPP Order 2012 (Udyam NIC 27320) frees {emdStr} in liquid EMD deposits upfront. For commercial execution, lock a 15-day distributor forward price agreement on {hasHT ? '33 kV HT extrusion slots' : 'power distribution lines'} to insulate the 60-day delivery commitment against liquidated damages exposure.
               </p>
             </div>
 
             {/* Statutory Reference Strip */}
-            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-1.5 text-[10px]">
+            <div className="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-[10px]">
               <span className="font-semibold text-slate-500 uppercase tracking-wider mr-1">Statutory Governance:</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">Rule 170 GFR 2017 (EMD Waiver)</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">DPIIT MII-PPO (Class-I Local Supplier)</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">IEEMA PV-CBL Formula</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">IS 7098 Pt 1 &amp; 2 / IS 8130</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">MoF OM F.9/4/2020 (PBG Cap)</span>
+              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">Rule 170 GFR 2017 (EMD Waiver)</span>
+              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">DPIIT MII-PPO (Class-I Local Supplier)</span>
+              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">IEEMA PV-CBL Formula</span>
+              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">IS 7098 Pt 1 &amp; 2 / IS 8130</span>
+              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">MoF OM F.9/4/2020 (PBG Cap)</span>
             </div>
           </div>
         </div>
@@ -3190,33 +3190,33 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
 
       {/* ── Key Tactical Metrics Grid ── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-3 rounded-xl bg-slate-50 dark:bg-steel-slate/10 border border-slate-200 dark:border-steel-slate/20">
-          <span className="text-[10px] text-slate-500 dark:text-muted-silver uppercase font-bold tracking-wider block">Requirements Fit</span>
-          <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-ghost-white mt-0.5 block">
+        <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Requirements Fit</span>
+          <span className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 block">
             {totalMatched} / {totalMatched + totalUnmatched || 4} Compliant
           </span>
           <span className="text-[10px] text-emerald-600 font-medium">100% Technical Match</span>
         </div>
 
-        <div className="p-3 rounded-xl bg-slate-50 dark:bg-steel-slate/10 border border-slate-200 dark:border-steel-slate/20">
-          <span className="text-[10px] text-slate-500 dark:text-muted-silver uppercase font-bold tracking-wider block">Primary OEM</span>
-          <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-ghost-white mt-0.5 block truncate">
+        <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Primary OEM</span>
+          <span className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 block truncate">
             {bestOEM}
           </span>
           <span className="text-[10px] text-emerald-600 font-medium">{Number(topScore).toFixed(1)}% Peak Compatibility</span>
         </div>
 
-        <div className="p-3 rounded-xl bg-slate-50 dark:bg-steel-slate/10 border border-slate-200 dark:border-steel-slate/20">
-          <span className="text-[10px] text-slate-500 dark:text-muted-silver uppercase font-bold tracking-wider block">Catalog Depth</span>
-          <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-ghost-white mt-0.5 block">
+        <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Catalog Depth</span>
+          <span className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 block">
             {(database_info.total_products || 693).toLocaleString()} Skus
           </span>
           <span className="text-[10px] text-slate-500">5 OEM Repositories</span>
         </div>
 
-        <div className="p-3 rounded-xl bg-slate-50 dark:bg-steel-slate/10 border border-slate-200 dark:border-steel-slate/20">
-          <span className="text-[10px] text-slate-500 dark:text-muted-silver uppercase font-bold tracking-wider block">Estimated Value</span>
-          <span className="text-sm sm:text-base font-extrabold text-emerald-600 dark:text-neon-emerald mt-0.5 block">
+        <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Estimated Value</span>
+          <span className="text-sm sm:text-base font-extrabold text-emerald-600 mt-0.5 block">
             {estimatedValueStr}
           </span>
           <span className="text-[10px] text-slate-500">{result.boq?.total_items || 4} Items in BOQ</span>
@@ -3226,15 +3226,15 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
       {/* ── Detailed 3-Pillar Deep Dive: Domain Solutions ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
         {/* Pillar 1: Technical & Engineering Fit */}
-        <div className="p-4 rounded-xl bg-white dark:bg-steel-slate/5 border border-slate-200 dark:border-steel-slate/20 flex flex-col justify-between">
+        <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2.5">
               <Zap size={16} className="text-amber-500" />
-              <h5 className="text-xs font-bold text-slate-900 dark:text-ghost-white uppercase tracking-wider">
+              <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
                 1. Technical Standards &amp; Knockout Defense
               </h5>
             </div>
-            <ul className="text-xs text-slate-600 dark:text-muted-silver space-y-2.5 leading-relaxed">
+            <ul className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
               <li className="flex items-start gap-1.5">
                 <span className="text-emerald-500 font-bold shrink-0">✓</span>
                 <span><strong>CPRI / ERDA Validity Shield:</strong> Attach pre-verified CPRI Type Test dossiers (170 kV impulse test &amp; 1-sec short-circuit withstand per IS 7098 Pt 2) with &lt; 5-year validity to bypass Technical Envelope A audit queries.</span>
@@ -3252,25 +3252,25 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
         </div>
 
         {/* Pillar 2: Commercial & OEM Dynamics */}
-        <div className="p-4 rounded-xl bg-white dark:bg-steel-slate/5 border border-slate-200 dark:border-steel-slate/20 flex flex-col justify-between">
+        <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2.5">
-              <TrendingUp size={16} className="text-cyan-600" />
-              <h5 className="text-xs font-bold text-slate-900 dark:text-ghost-white uppercase tracking-wider">
+              <TrendingUp size={16} className="text-blue-600" />
+              <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
                 2. Commercial Game-Theory &amp; PVC Hedging
               </h5>
             </div>
-            <ul className="text-xs text-slate-600 dark:text-muted-silver space-y-2.5 leading-relaxed">
+            <ul className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
               <li className="flex items-start gap-1.5">
-                <span className="text-cyan-600 font-bold shrink-0">✓</span>
+                <span className="text-blue-600 font-bold shrink-0">✓</span>
                 <span><strong>IEEMA Circular Hedging Model:</strong> If PVC applies, billing tracks P = P₀[0.20 + 0.40(Al/Al₀) + 0.18(CC/CC₀) + 0.12(Fe/Fe₀) + 0.10(L/L₀)]. Base indices lock to the 1st of the month preceding bid submission.</span>
               </li>
               <li className="flex items-start gap-1.5">
-                <span className="text-cyan-600 font-bold shrink-0">✓</span>
+                <span className="text-blue-600 font-bold shrink-0">✓</span>
                 <span><strong>Firm-Price Forward Price Lock:</strong> If bid is firm price, secure a 15-day distributor price freeze with {bestOEM} and apply a 2.8% MCX forward hedging buffer on base metal to neutralize commodity price shock.</span>
               </li>
               <li className="flex items-start gap-1.5">
-                <span className="text-cyan-600 font-bold shrink-0">✓</span>
+                <span className="text-blue-600 font-bold shrink-0">✓</span>
                 <span><strong>Tier-1 Master Discount Arbitrage:</strong> Deploy {bestOEM} master distributor discount matrix (68–72% LT / 62–65% HT on list) to undercut regional intermediaries by ~4.2% while securing an 8.5–12.0% gross margin buffer.</span>
               </li>
             </ul>
@@ -3278,15 +3278,15 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
         </div>
 
         {/* Pillar 3: Strategic Submission Advisory */}
-        <div className="p-4 rounded-xl bg-white dark:bg-steel-slate/5 border border-slate-200 dark:border-steel-slate/20 flex flex-col justify-between">
+        <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2.5">
               <ListChecks size={16} className="text-emerald-600" />
-              <h5 className="text-xs font-bold text-slate-900 dark:text-ghost-white uppercase tracking-wider">
+              <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
                 3. Statutory Exemptions &amp; Risk Defense
               </h5>
             </div>
-            <ul className="text-xs text-slate-600 dark:text-muted-silver space-y-2.5 leading-relaxed">
+            <ul className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
               <li className="flex items-start gap-1.5">
                 <span className="text-emerald-600 font-bold shrink-0">1.</span>
                 <span><strong>Rule 170 GFR EMD Exemption:</strong> Submit MSME Udyam Certificate under <strong>NIC Code 27320</strong> (Manufacture of wiring devices &amp; cables) to secure 100% EMD waiver ({emdStr}) as immediate working capital savings.</span>
@@ -3305,9 +3305,9 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
       </div>
 
       {/* ── Catalog Audit Trail ── */}
-      <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-steel-slate/10 border border-slate-200/90 dark:border-steel-slate/20 space-y-2">
-        <p className="text-[11px] font-bold text-slate-700 dark:text-ghost-white uppercase tracking-wider flex items-center gap-1.5">
-          <Database size={13} className="text-cyan-600" /> Catalog Audit Trail &amp; Environmental Profile
+      <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 space-y-2">
+        <p className="text-[11px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+          <Database size={13} className="text-blue-600" /> Catalog Audit Trail &amp; Environmental Profile
         </p>
         <div className="space-y-1.5">
           <AnalysisBullet
@@ -3412,8 +3412,8 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
 function AnalysisBullet({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
     <div className="flex items-start gap-2.5">
-      <div className="mt-0.5 text-cyan-600 dark:text-electric-cyan flex-shrink-0">{icon}</div>
-      <p className="text-xs sm:text-sm text-slate-700 dark:text-ghost-white leading-relaxed">{text}</p>
+      <div className="mt-0.5 text-blue-600 flex-shrink-0">{icon}</div>
+      <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">{text}</p>
     </div>
   );
 }

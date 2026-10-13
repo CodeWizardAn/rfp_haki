@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 /* ============================================
    HAKI FMCG 2.0 — Design System
    Craft Editorial Light Theme + Subtle Faded Grid
