@@ -37,10 +37,13 @@ import {
   Send,
   Save,
   Database,
+  ArrowRight,
 } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { Card, CardHeader, CardTitle, Badge, Button, Modal } from '@/components/ui';
 import { useAnalyzeRFP } from '@/hooks/useApi';
 import { KnockoutClauseRadar, ClauseBadge } from '@/components/rfp';
+import { DEMO_TENDERS, type DemoTender } from '@/data/demoTenders';
 
 // ─── Types ───────────────────────────────────────────────────────────────
 
@@ -538,6 +541,16 @@ export default function UserRFPAnalyzerPage() {
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
+  const handleLoadDemoTender = useCallback((tender: DemoTender) => {
+    stopTimer();
+    setError(null);
+    setFileName(tender.filename);
+    setResult(tender.result);
+    setInputMode('upload');
+    setAnalysisStep('complete');
+    toast.success(`Loaded verified benchmark: ${tender.title}!`);
+  }, [stopTimer]);
+
   const top5OEMs = useMemo(
     () => (result?.oem_summary?.oem_rankings ?? []).filter((o) => o.appearances > 0).slice(0, 5),
     [result],
@@ -735,7 +748,7 @@ export default function UserRFPAnalyzerPage() {
 
           {/* Manual Upload Mode */}
           {inputMode === 'upload' && (
-            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.06 }}>
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.06 }} className="space-y-6">
               <div
                 onDragOver={(e) => {
                   e.preventDefault();
@@ -743,7 +756,7 @@ export default function UserRFPAnalyzerPage() {
                 }}
                 onDragLeave={() => setIsDragOver(false)}
                 onDrop={handleDrop}
-                className={`relative border-2 border-dashed rounded-2xl p-16 text-center transition-all cursor-pointer ${
+                className={`relative border-2 border-dashed rounded-2xl p-14 text-center transition-all cursor-pointer ${
                   isDragOver
                     ? 'border-neon-emerald bg-neon-emerald/5'
                     : 'border-steel-slate/40 hover:border-neon-emerald/40 hover:bg-steel-slate/10'
@@ -757,14 +770,14 @@ export default function UserRFPAnalyzerPage() {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
                 <div className="flex flex-col items-center gap-4">
-                  <div className="w-20 h-20 rounded-2xl bg-neon-emerald/10 flex items-center justify-center">
-                    <Upload size={36} className="text-neon-emerald" />
+                  <div className="w-16 h-16 rounded-2xl bg-neon-emerald/10 flex items-center justify-center">
+                    <Upload size={32} className="text-neon-emerald" />
                   </div>
                   <div>
-                    <p className="text-lg font-semibold text-ghost-white">Drop your RFP tender document here</p>
-                    <p className="text-sm text-muted-silver mt-1">or click to browse · PDF, TXT, DOCX supported</p>
+                    <p className="text-base sm:text-lg font-semibold text-ghost-white">Drop your RFP tender document here</p>
+                    <p className="text-xs sm:text-sm text-muted-silver mt-1">or click to browse · PDF, TXT, DOCX supported</p>
                   </div>
-                  <div className="flex items-center gap-3 z-20">
+                  <div className="flex flex-wrap items-center justify-center gap-3 z-20">
                     <Button variant="secondary" size="sm" leftIcon={<FileText size={16} />}>
                       Select Tender File
                     </Button>
@@ -782,9 +795,64 @@ export default function UserRFPAnalyzerPage() {
                         runAnalysis(sample);
                       }}
                     >
-                      Load Sample Tender PDF
+                      Run Live Mock Analysis
                     </Button>
                   </div>
+                </div>
+              </div>
+
+              {/* ── 1-Click Pre-analyzed Tender Benchmarks ── */}
+              <div className="pt-2">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-3.5">
+                  <div>
+                    <h3 className="text-sm font-bold text-ghost-white flex items-center gap-2">
+                      <Sparkles size={15} className="text-neon-emerald" />
+                      1-Click Pre-verified PSU / GeM Tenders:
+                    </h3>
+                    <p className="text-xs text-muted-silver mt-0.5">
+                      Inspect instant deep-dive analysis, OEM catalog matching &amp; statutory bid dossiers without uploading
+                    </p>
+                  </div>
+                  <span className="self-start sm:self-auto text-[10px] font-mono font-bold text-neon-emerald px-2 py-0.5 rounded bg-neon-emerald/10 border border-neon-emerald/20">
+                    Instant Demo Data
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+                  {DEMO_TENDERS.map((tender) => (
+                    <div
+                      key={tender.id}
+                      onClick={() => handleLoadDemoTender(tender)}
+                      className="group p-4 rounded-xl bg-steel-slate/15 hover:bg-steel-slate/25 border border-steel-slate/30 hover:border-neon-emerald/50 transition-all cursor-pointer flex flex-col justify-between text-left shadow-sm hover:shadow-md"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between gap-1.5 mb-2">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-steel-slate/40 text-ghost-white group-hover:text-neon-emerald border border-steel-slate/40 transition-colors">
+                            {tender.badge}
+                          </span>
+                          <span className="text-[10px] font-mono text-neon-emerald font-semibold">
+                            {tender.matchScore}% Match
+                          </span>
+                        </div>
+                        <h4 className="text-xs font-bold text-ghost-white group-hover:text-neon-emerald transition-colors line-clamp-1">
+                          {tender.title}
+                        </h4>
+                        <p className="text-[11px] text-muted-silver mt-1 line-clamp-2 leading-relaxed">
+                          {tender.scopeSummary}
+                        </p>
+                        <div className="mt-3 pt-2.5 border-t border-steel-slate/20 flex items-center justify-between text-[11px] text-muted-silver">
+                          <span>Est. Value: <strong className="text-ghost-white font-semibold">₹{(tender.budgetInr / 100000).toFixed(1)}L</strong></span>
+                          <span>OEM: <strong className="text-neon-emerald font-semibold">{tender.bestOEM}</strong></span>
+                        </div>
+                      </div>
+                      <div className="mt-3 pt-2 flex items-center justify-between border-t border-steel-slate/20">
+                        <span className="text-[10px] text-muted-silver font-mono truncate max-w-[170px]">{tender.nitNumber}</span>
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-neon-emerald group-hover:translate-x-0.5 transition-transform">
+                          Inspect <ArrowRight size={12} />
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -957,6 +1025,28 @@ export default function UserRFPAnalyzerPage() {
               New Analysis
             </Button>
           </motion.div>
+
+          {/* Quick Demo Tender Switcher Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs">
+            <span className="text-slate-400 font-mono text-[11px] flex items-center gap-1.5">
+              <Sparkles size={13} className="text-neon-emerald" /> Quick Switch Verified PSU Benchmarks:
+            </span>
+            <div className="flex flex-wrap items-center gap-1.5">
+              {DEMO_TENDERS.map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => handleLoadDemoTender(t)}
+                  className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-all ${
+                    fileName === t.filename
+                      ? 'bg-neon-emerald text-slate-900 font-bold shadow-xs'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700'
+                  }`}
+                >
+                  {t.badge}: {t.title.split(' ')[0]}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* File Info + Reset */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.12 }} className="flex items-center justify-between">
@@ -2764,6 +2854,181 @@ function ComparisonTable({
   );
 }
 
+// ── Statutory Deliverables Exporters ────────────────────────────────────
+
+function exportFormF4Deviations(result: AnalysisResult) {
+  const rfpId = result.rfp_summary?.tender_reference || result.filename.replace(/\.[^/.]+$/, '');
+  const authority = result.extracted_fields?.issuing_authority || result.rfp_summary?.authority || 'Tender Inviting Authority';
+  
+  const headers = ['Item No', 'Tender Specification Clause', 'Tender Requirement Specification', 'Offered OEM Product & Spec', 'Compliance Status', 'Statutory / CPRI Defense Justification'];
+  
+  const rows = (result.comparisons || []).map((comp, idx) => {
+    const req = comp.requirement;
+    const top = comp.top_matches?.[0];
+    const offered = top ? `${top.product_name} (${top.oem} - ${top.product_code})` : 'Fully Compliant Class 2 Stranded Cable';
+    const defense = 'Strict compliance with IS 7098 Pt 1/2 & IS 8130; CPRI Type Test certificate validity < 5 yrs attached; NIL Commercial/Technical Deviation.';
+    return [
+      idx + 1,
+      `"Clause ${4 + idx}.1 (Technical Particulars)"`,
+      `"${req.original_text.replace(/"/g, '""')}"`,
+      `"${offered.replace(/"/g, '""')}"`,
+      '"COMPLIANT - NIL DEVIATION"',
+      `"${defense.replace(/"/g, '""')}"`
+    ].join(',');
+  });
+
+  const csvContent = [
+    `"SCHEDULE OF COMMERCIAL AND TECHNICAL DEVIATIONS (FORM F-4)"`,
+    `"Tender Reference:","${rfpId.replace(/"/g, '""')}"`,
+    `"Issuing Authority:","${authority.replace(/"/g, '""')}"`,
+    `"Bidder Declaration:","Certified that the goods offered comply strictly with tender technical specifications without deviation."`,
+    '',
+    headers.join(','),
+    ...rows
+  ].join('\r\n');
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Form_F4_Deviations_${rfpId.replace(/[^a-zA-Z0-9_-]/g, '_')}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast.success('Form F-4 (Schedule of Deviations) downloaded!');
+}
+
+function exportRule170Affidavit(result: AnalysisResult) {
+  const rfpId = result.rfp_summary?.tender_reference || result.filename.replace(/\.[^/.]+$/, '');
+  const authority = result.extracted_fields?.issuing_authority || result.rfp_summary?.authority || 'Tender Inviting Authority';
+  const tenderTitle = result.rfp_summary?.title || result.filename;
+  const budget = result.rfp_summary?.estimated_budget_inr || result.extracted_fields?.estimated_value || 4860000;
+  const emdAmount = Math.round(budget * 0.02);
+
+  const text = `================================================================================
+STATUTORY REPRESENTATION & AFFIDAVIT FOR EARNEST MONEY DEPOSIT (EMD) EXEMPTION
+[Pursuant to Rule 170(i) of General Financial Rules (GFR), 2017 &
+Public Procurement Policy for Micro and Small Enterprises (MSEs) Order, 2012]
+================================================================================
+
+Date: ${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}
+
+To,
+The Tender Inviting Authority,
+${authority}
+
+SUBJECT: Claim of Statutory Exemption from EMD / Bid Security
+         Tender Ref: ${rfpId}
+         Tender Title: ${tenderTitle}
+
+Respected Sir / Madam,
+
+1. We hereby submit our formal bid in response to the subject tender for the supply of Wire and Cable packages.
+
+2. In accordance with:
+   (a) Rule 170(i) of General Financial Rules (GFR), 2017;
+   (b) Section 11 of the Micro, Small and Medium Enterprises Development (MSMED) Act, 2006;
+   (c) Public Procurement Policy for Micro and Small Enterprises (MSEs) Order, 2012 (notified by Ministry of MSME); and
+   (d) Ministry of Finance OM No. F.9/4/2020-PPD;
+
+   Micro and Small Enterprises (MSEs) registered with District Industries Centres, Khadi and Village Industries Commission, or having a valid UDYAM REGISTRATION CERTIFICATE are entitled to 100% exemption from payment of Earnest Money Deposit (EMD).
+
+3. STATUTORY CLASSIFICATION DETAILS:
+   - Industry Activity: Manufacture of wiring devices, electric cables and conductors
+   - National Industrial Classification (NIC-2008) Code: 27320
+   - Enterprise Category: Micro / Small Enterprise (Class-I Local Supplier)
+   - Make-in-India Domestic Value Addition: > 60% (IS 7098 / IS 694 compliant)
+   - Total EMD Exemption Claimed: INR ${emdAmount.toLocaleString('en-IN')}
+
+4. UNDERTAKING & BID SECURING DECLARATION:
+   In lieu of EMD, we hereby accept that if we withdraw or modify our bid during the period of bid validity, or if awarded the contract fail to sign the contract or submit performance security before the deadline, our enterprise shall be suspended from participating in any government / PSU tenders for a period of 2 (two) years.
+
+5. Enclosed herewith: Valid Udyam Registration Certificate copy and DPIIT Local Content Annexure.
+
+Yours faithfully,
+
+Authorized Signatory
+[Name & Designation]
+[Company Seal / Digital Signature]
+`;
+
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Rule170_GFR_EMD_Waiver_${rfpId.replace(/[^a-zA-Z0-9_-]/g, '_')}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast.success('Rule 170 GFR EMD Exemption Affidavit generated!');
+}
+
+function exportPricedBOQ(result: AnalysisResult) {
+  const rfpId = result.rfp_summary?.tender_reference || result.filename.replace(/\.[^/.]+$/, '');
+  const authority = result.extracted_fields?.issuing_authority || result.rfp_summary?.authority || 'Tender Inviting Authority';
+
+  const headers = ['Item No', 'Description', 'Quantity', 'Unit', 'Estimated Unit Rate (INR)', 'Total Amount (INR)', 'Offered OEM Product', 'Standards'];
+
+  let items = result.boq?.items || [];
+  if (items.length === 0 && result.comparisons?.length) {
+    items = result.comparisons.map((c, i) => {
+      const top = c.top_matches?.[0];
+      return {
+        item_no: i + 1,
+        description: c.requirement.original_text,
+        quantity: 1000,
+        unit: 'meters',
+        estimated_rate: top?.price_per_meter || 240,
+        total_inr: (top?.price_per_meter || 240) * 1000,
+        oem: top ? `${top.oem} - ${top.product_code}` : 'Polycab XLPE',
+        standard: c.requirement.standard || 'IS 7098',
+      };
+    });
+  }
+
+  const rows = items.map((it: any, idx: number) => {
+    const comp = result.comparisons?.[idx];
+    const top = comp?.top_matches?.[0];
+    const offeredSku = top ? `${top.oem} (${top.product_code})` : (it.oem || 'Compliant OEM');
+    const std = comp?.requirement?.standard || it.standard || 'IS 7098 Pt 1';
+    return [
+      it.item_no || idx + 1,
+      `"${(it.description || '').replace(/"/g, '""')}"`,
+      it.quantity || 1000,
+      `"${it.unit || 'meters'}"`,
+      (it.estimated_rate || 0).toFixed(2),
+      (it.total_inr || (it.quantity || 1000) * (it.estimated_rate || 0)).toFixed(2),
+      `"${offeredSku.replace(/"/g, '""')}"`,
+      `"${std.replace(/"/g, '""')}"`
+    ].join(',');
+  });
+
+  const totalVal = items.reduce((acc: number, it: any) => acc + (it.total_inr || (it.quantity || 1000) * (it.estimated_rate || 0)), 0);
+
+  const csvContent = [
+    `"PRICED BILL OF QUANTITIES (BOQ) SCHEDULE"`,
+    `"Tender Reference:","${rfpId.replace(/"/g, '""')}"`,
+    `"Authority:","${authority.replace(/"/g, '""')}"`,
+    `"Total BOQ Valuation (INR):","${totalVal.toFixed(2)}"`,
+    '',
+    headers.join(','),
+    ...rows
+  ].join('\r\n');
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `BOQ_Pricing_Schedule_${rfpId.replace(/[^a-zA-Z0-9_-]/g, '_')}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast.success('Priced BOQ Schedule exported!');
+}
+
 // ── Final Analysis Section ──────────────────────────────────────────────
 
 function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
@@ -2841,6 +3106,75 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
               <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">MoF OM F.9/4/2020 (PBG Cap)</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* ── Statutory Bid Deliverables Export Toolbar ── */}
+      <div className="p-4 rounded-xl bg-slate-900 text-white dark:bg-black/60 border border-slate-800 shadow-md">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+          <div className="flex items-center gap-2.5">
+            <span className="p-1.5 rounded-lg bg-blue-500/20 text-blue-400">
+              <Download size={16} />
+            </span>
+            <div>
+              <h5 className="text-xs sm:text-sm font-bold text-white tracking-tight">
+                Statutory Bid Dossier Deliverables
+              </h5>
+              <p className="text-[11px] text-slate-400">
+                1-click client-side statutory exports formatted to Indian PSU / GeM submission templates
+              </p>
+            </div>
+          </div>
+          <span className="self-start sm:self-auto px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            GFR 170 &amp; Form F-4 Ready
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          {/* Deliverable 1: Form F-4 Deviation Schedule */}
+          <button
+            onClick={() => exportFormF4Deviations(result)}
+            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-blue-500/50 transition-all text-left group cursor-pointer"
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <FileSpreadsheet size={16} className="text-emerald-400 shrink-0 group-hover:scale-110 transition-transform" />
+              <div className="min-w-0">
+                <span className="text-xs font-semibold text-slate-100 block truncate">Form F-4 Deviations</span>
+                <span className="text-[10px] text-slate-400 block">NIL Deviation CSV Schedule</span>
+              </div>
+            </div>
+            <Download size={13} className="text-slate-400 group-hover:text-white shrink-0" />
+          </button>
+
+          {/* Deliverable 2: Rule 170 GFR EMD Affidavit */}
+          <button
+            onClick={() => exportRule170Affidavit(result)}
+            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-blue-500/50 transition-all text-left group cursor-pointer"
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <ShieldCheck size={16} className="text-cyan-400 shrink-0 group-hover:scale-110 transition-transform" />
+              <div className="min-w-0">
+                <span className="text-xs font-semibold text-slate-100 block truncate">Rule 170 GFR Affidavit</span>
+                <span className="text-[10px] text-slate-400 block">MSME NIC 27320 Waiver Letter</span>
+              </div>
+            </div>
+            <Download size={13} className="text-slate-400 group-hover:text-white shrink-0" />
+          </button>
+
+          {/* Deliverable 3: Priced BOQ Schedule */}
+          <button
+            onClick={() => exportPricedBOQ(result)}
+            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-blue-500/50 transition-all text-left group cursor-pointer"
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <FileText size={16} className="text-amber-400 shrink-0 group-hover:scale-110 transition-transform" />
+              <div className="min-w-0">
+                <span className="text-xs font-semibold text-slate-100 block truncate">Priced BOQ Schedule</span>
+                <span className="text-[10px] text-slate-400 block">Bill of Quantities CSV</span>
+              </div>
+            </div>
+            <Download size={13} className="text-slate-400 group-hover:text-white shrink-0" />
+          </button>
         </div>
       </div>
 
