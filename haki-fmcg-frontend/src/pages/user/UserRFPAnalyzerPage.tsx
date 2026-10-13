@@ -758,8 +758,8 @@ export default function UserRFPAnalyzerPage() {
                 onDrop={handleDrop}
                 className={`relative border-2 border-dashed rounded-2xl p-14 text-center transition-all cursor-pointer ${
                   isDragOver
-                    ? 'border-neon-emerald bg-neon-emerald/5'
-                    : 'border-steel-slate/40 hover:border-neon-emerald/40 hover:bg-steel-slate/10'
+                    ? 'border-blue-600 bg-blue-50/40'
+                    : 'border-slate-300 hover:border-blue-500/70 bg-white/90 shadow-2xs hover:shadow-xs'
                 }`}
               >
                 <input
@@ -770,21 +770,21 @@ export default function UserRFPAnalyzerPage() {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
                 <div className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-neon-emerald/10 flex items-center justify-center">
-                    <Upload size={32} className="text-neon-emerald" />
+                  <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center">
+                    <Upload size={32} className="text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-base sm:text-lg font-semibold text-ghost-white">Drop your RFP tender document here</p>
-                    <p className="text-xs sm:text-sm text-muted-silver mt-1">or click to browse · PDF, TXT, DOCX supported</p>
+                    <p className="text-base sm:text-lg font-bold text-slate-900">Drop your RFP tender document here</p>
+                    <p className="text-xs sm:text-sm text-slate-600 mt-1">or click to browse · PDF, TXT, DOCX supported</p>
                   </div>
                   <div className="flex flex-wrap items-center justify-center gap-3 z-20">
-                    <Button variant="secondary" size="sm" leftIcon={<FileText size={16} />}>
+                    <Button variant="primary" size="sm" leftIcon={<FileText size={16} />}>
                       Select Tender File
                     </Button>
                     <Button
-                      variant="ghost"
+                      variant="secondary"
                       size="sm"
-                      className="border border-steel-slate/40 hover:bg-neon-emerald/10 hover:text-neon-emerald"
+                      className="border border-slate-200 hover:bg-slate-100"
                       onClick={(e) => {
                         e.stopPropagation();
                         const sample = new File(
@@ -805,15 +805,15 @@ export default function UserRFPAnalyzerPage() {
               <div className="pt-2">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-3.5">
                   <div>
-                    <h3 className="text-sm font-bold text-ghost-white flex items-center gap-2">
-                      <Sparkles size={15} className="text-neon-emerald" />
+                    <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                      <Sparkles size={15} className="text-blue-600" />
                       1-Click Pre-verified PSU / GeM Tenders:
                     </h3>
-                    <p className="text-xs text-muted-silver mt-0.5">
+                    <p className="text-xs text-slate-600 mt-0.5">
                       Inspect instant deep-dive analysis, OEM catalog matching &amp; statutory bid dossiers without uploading
                     </p>
                   </div>
-                  <span className="self-start sm:self-auto text-[10px] font-mono font-bold text-neon-emerald px-2 py-0.5 rounded bg-neon-emerald/10 border border-neon-emerald/20">
+                  <span className="self-start sm:self-auto text-[10px] font-mono font-bold text-blue-700 px-2.5 py-0.5 rounded bg-blue-50 border border-blue-200">
                     Instant Demo Data
                   </span>
                 </div>
@@ -823,31 +823,31 @@ export default function UserRFPAnalyzerPage() {
                     <div
                       key={tender.id}
                       onClick={() => handleLoadDemoTender(tender)}
-                      className="group p-4 rounded-xl bg-steel-slate/15 hover:bg-steel-slate/25 border border-steel-slate/30 hover:border-neon-emerald/50 transition-all cursor-pointer flex flex-col justify-between text-left shadow-sm hover:shadow-md"
+                      className="group p-4 rounded-xl bg-white hover:bg-slate-50/70 border border-slate-200/90 hover:border-blue-500/50 transition-all cursor-pointer flex flex-col justify-between text-left shadow-2xs hover:shadow-md"
                     >
                       <div>
                         <div className="flex items-center justify-between gap-1.5 mb-2">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-steel-slate/40 text-ghost-white group-hover:text-neon-emerald border border-steel-slate/40 transition-colors">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 text-slate-700 group-hover:text-blue-600 border border-slate-200 transition-colors">
                             {tender.badge}
                           </span>
-                          <span className="text-[10px] font-mono text-neon-emerald font-semibold">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                             {tender.matchScore}% Match
                           </span>
                         </div>
-                        <h4 className="text-xs font-bold text-ghost-white group-hover:text-neon-emerald transition-colors line-clamp-1">
+                        <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
                           {tender.title}
                         </h4>
-                        <p className="text-[11px] text-muted-silver mt-1 line-clamp-2 leading-relaxed">
+                        <p className="text-[11px] text-slate-600 mt-1 line-clamp-2 leading-relaxed">
                           {tender.scopeSummary}
                         </p>
-                        <div className="mt-3 pt-2.5 border-t border-steel-slate/20 flex items-center justify-between text-[11px] text-muted-silver">
-                          <span>Est. Value: <strong className="text-ghost-white font-semibold">₹{(tender.budgetInr / 100000).toFixed(1)}L</strong></span>
-                          <span>OEM: <strong className="text-neon-emerald font-semibold">{tender.bestOEM}</strong></span>
+                        <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600">
+                          <span>Est. Value: <strong className="text-slate-900 font-semibold">₹{(tender.budgetInr / 100000).toFixed(1)}L</strong></span>
+                          <span>OEM: <strong className="text-blue-600 font-semibold">{tender.bestOEM}</strong></span>
                         </div>
                       </div>
-                      <div className="mt-3 pt-2 flex items-center justify-between border-t border-steel-slate/20">
-                        <span className="text-[10px] text-muted-silver font-mono truncate max-w-[170px]">{tender.nitNumber}</span>
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-neon-emerald group-hover:translate-x-0.5 transition-transform">
+                      <div className="mt-3 pt-2 flex items-center justify-between border-t border-slate-100">
+                        <span className="text-[10px] text-slate-500 font-mono truncate max-w-[170px]">{tender.nitNumber}</span>
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 group-hover:translate-x-0.5 transition-transform">
                           Inspect <ArrowRight size={12} />
                         </span>
                       </div>
@@ -1027,22 +1027,26 @@ export default function UserRFPAnalyzerPage() {
           </motion.div>
 
           {/* Quick Demo Tender Switcher Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs">
-            <span className="text-slate-400 font-mono text-[11px] flex items-center gap-1.5">
-              <Sparkles size={13} className="text-neon-emerald" /> Quick Switch Verified PSU Benchmarks:
+          <div className="flex flex-wrap items-center justify-between gap-2.5 p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-xs">
+            <span className="text-slate-700 font-mono text-[11px] font-semibold flex items-center gap-1.5">
+              <Sparkles size={14} className="text-blue-600" />
+              <span>Quick Switch Verified PSU Benchmarks:</span>
             </span>
             <div className="flex flex-wrap items-center gap-1.5">
               {DEMO_TENDERS.map((t) => (
                 <button
                   key={t.id}
                   onClick={() => handleLoadDemoTender(t)}
-                  className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-all ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
                     fileName === t.filename
-                      ? 'bg-neon-emerald text-slate-900 font-bold shadow-xs'
-                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700'
+                      ? 'bg-blue-600 text-white shadow-xs border border-blue-600'
+                      : 'bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200'
                   }`}
                 >
-                  {t.badge}: {t.title.split(' ')[0]}
+                  <span className={fileName === t.filename ? 'opacity-85 text-blue-100' : 'text-slate-500'}>
+                    {t.badge}:
+                  </span>
+                  <span className="font-bold">{t.title.split(' ')[0]}</span>
                 </button>
               ))}
             </div>
@@ -3110,22 +3114,22 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
       </div>
 
       {/* ── Statutory Bid Deliverables Export Toolbar ── */}
-      <div className="p-4 rounded-xl bg-slate-900 text-white dark:bg-black/60 border border-slate-800 shadow-md">
+      <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
           <div className="flex items-center gap-2.5">
-            <span className="p-1.5 rounded-lg bg-blue-500/20 text-blue-400">
+            <span className="p-2 rounded-lg bg-blue-50 text-blue-600">
               <Download size={16} />
             </span>
             <div>
-              <h5 className="text-xs sm:text-sm font-bold text-white tracking-tight">
+              <h5 className="text-xs sm:text-sm font-bold text-slate-900 tracking-tight">
                 Statutory Bid Dossier Deliverables
               </h5>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-500">
                 1-click client-side statutory exports formatted to Indian PSU / GeM submission templates
               </p>
             </div>
           </div>
-          <span className="self-start sm:self-auto px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+          <span className="self-start sm:self-auto px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-50 text-blue-700 border border-blue-200">
             GFR 170 &amp; Form F-4 Ready
           </span>
         </div>
@@ -3134,46 +3138,52 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
           {/* Deliverable 1: Form F-4 Deviation Schedule */}
           <button
             onClick={() => exportFormF4Deviations(result)}
-            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-blue-500/50 transition-all text-left group cursor-pointer"
+            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-50 hover:bg-blue-50/40 border border-slate-200 hover:border-blue-400/80 transition-all text-left group cursor-pointer shadow-2xs"
           >
-            <div className="flex items-center gap-2 min-w-0">
-              <FileSpreadsheet size={16} className="text-emerald-400 shrink-0 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                <FileSpreadsheet size={16} className="group-hover:scale-110 transition-transform" />
+              </div>
               <div className="min-w-0">
-                <span className="text-xs font-semibold text-slate-100 block truncate">Form F-4 Deviations</span>
-                <span className="text-[10px] text-slate-400 block">NIL Deviation CSV Schedule</span>
+                <span className="text-xs font-semibold text-slate-900 group-hover:text-blue-600 block truncate">Form F-4 Deviations</span>
+                <span className="text-[10px] text-slate-500 block">NIL Deviation CSV Schedule</span>
               </div>
             </div>
-            <Download size={13} className="text-slate-400 group-hover:text-white shrink-0" />
+            <Download size={13} className="text-slate-400 group-hover:text-blue-600 shrink-0" />
           </button>
 
           {/* Deliverable 2: Rule 170 GFR EMD Affidavit */}
           <button
             onClick={() => exportRule170Affidavit(result)}
-            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-blue-500/50 transition-all text-left group cursor-pointer"
+            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-50 hover:bg-blue-50/40 border border-slate-200 hover:border-blue-400/80 transition-all text-left group cursor-pointer shadow-2xs"
           >
-            <div className="flex items-center gap-2 min-w-0">
-              <ShieldCheck size={16} className="text-cyan-400 shrink-0 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                <ShieldCheck size={16} className="group-hover:scale-110 transition-transform" />
+              </div>
               <div className="min-w-0">
-                <span className="text-xs font-semibold text-slate-100 block truncate">Rule 170 GFR Affidavit</span>
-                <span className="text-[10px] text-slate-400 block">MSME NIC 27320 Waiver Letter</span>
+                <span className="text-xs font-semibold text-slate-900 group-hover:text-blue-600 block truncate">Rule 170 GFR Affidavit</span>
+                <span className="text-[10px] text-slate-500 block">MSME NIC 27320 Waiver Letter</span>
               </div>
             </div>
-            <Download size={13} className="text-slate-400 group-hover:text-white shrink-0" />
+            <Download size={13} className="text-slate-400 group-hover:text-blue-600 shrink-0" />
           </button>
 
           {/* Deliverable 3: Priced BOQ Schedule */}
           <button
             onClick={() => exportPricedBOQ(result)}
-            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-blue-500/50 transition-all text-left group cursor-pointer"
+            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-50 hover:bg-blue-50/40 border border-slate-200 hover:border-blue-400/80 transition-all text-left group cursor-pointer shadow-2xs"
           >
-            <div className="flex items-center gap-2 min-w-0">
-              <FileText size={16} className="text-amber-400 shrink-0 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                <FileText size={16} className="group-hover:scale-110 transition-transform" />
+              </div>
               <div className="min-w-0">
-                <span className="text-xs font-semibold text-slate-100 block truncate">Priced BOQ Schedule</span>
-                <span className="text-[10px] text-slate-400 block">Bill of Quantities CSV</span>
+                <span className="text-xs font-semibold text-slate-900 group-hover:text-blue-600 block truncate">Priced BOQ Schedule</span>
+                <span className="text-[10px] text-slate-500 block">Bill of Quantities CSV</span>
               </div>
             </div>
-            <Download size={13} className="text-slate-400 group-hover:text-white shrink-0" />
+            <Download size={13} className="text-slate-400 group-hover:text-blue-600 shrink-0" />
           </button>
         </div>
       </div>
