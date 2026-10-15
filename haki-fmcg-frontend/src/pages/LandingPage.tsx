@@ -478,10 +478,9 @@ export default function LandingPage() {
 
       {/* ── Hero Section ── */}
       <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="mb-4 sm:mb-5">
-          <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/90 text-[#2563EB] text-xs sm:text-sm font-semibold tracking-wide font-mono shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
-            Autonomous Tender Intelligence • Engineered to Win
+        <div className="mb-3 sm:mb-4">
+          <span className="text-[#2563EB] text-[10.5px] sm:text-xs md:text-sm font-bold tracking-[0.13em] sm:tracking-[0.16em] uppercase font-mono leading-relaxed block">
+            THE AI PROCUREMENT & TENDER ENGINE FOR ELECTRICALS & INDUSTRIAL GOODS
           </span>
         </div>
 
