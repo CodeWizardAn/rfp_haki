@@ -39,6 +39,92 @@ const CONNECTIONS = [
   [1, 4], [4, 5], [5, 6], [6, 7], // bottom row
 ];
 
+interface ConnectionGeometry {
+  path: string;
+  particlePos: { x: number; y: number };
+}
+
+function computeConnection(
+  from: typeof STAGES[0],
+  to: typeof STAGES[0],
+  progress: number
+): ConnectionGeometry {
+  const NODE_W = 120;
+  const NODE_H = 80;
+  const COL_W = 160;
+  const ROW_H = 120;
+  const PAD_X = 10;
+  const PAD_Y = 10;
+
+  const fLeft = from.col * COL_W + PAD_X;
+  const fTop = from.row * ROW_H + PAD_Y;
+  const fRight = fLeft + NODE_W;
+  const fBottom = fTop + NODE_H;
+  const fCenterY = fTop + NODE_H / 2;
+  const fCenterX = fLeft + NODE_W / 2;
+
+  const tLeft = to.col * COL_W + PAD_X;
+  const tTop = to.row * ROW_H + PAD_Y;
+  const tCenterY = tTop + NODE_H / 2;
+  const tCenterX = tLeft + NODE_W / 2;
+
+  const t = Math.max(0, Math.min(1, progress / 100));
+
+  // Case 1: Straight horizontal (same row)
+  if (from.row === to.row && to.col > from.col) {
+    const endY = to.id === 'bid_generation' && from.id === 'vector_search' ? tCenterY - 10 : tCenterY;
+    const startY = fCenterY;
+    return {
+      path: `M ${fRight} ${startY} L ${tLeft} ${endY}`,
+      particlePos: {
+        x: fRight + (tLeft - fRight) * t,
+        y: startY + (endY - startY) * t,
+      },
+    };
+  }
+
+  // Case 2: Vertical downwards (col 1: pdf_extraction -> spec_matching)
+  if (from.col === to.col && to.row > from.row) {
+    const startX = fCenterX;
+    const startY = fBottom;
+    const endX = tCenterX;
+    const endY = tTop;
+    return {
+      path: `M ${startX} ${startY} L ${endX} ${endY}`,
+      particlePos: {
+        x: startX + (endX - startX) * t,
+        y: startY + (endY - startY) * t,
+      },
+    };
+  }
+
+  // Case 3: Smooth S-Curve going up from compliance (row 1, col 3) to bid_generation (row 0, col 4)
+  if (to.row < from.row && to.col > from.col) {
+    const startX = fRight;
+    const startY = fCenterY;
+    const endX = tLeft;
+    const endY = to.id === 'bid_generation' ? tCenterY + 10 : tCenterY;
+    const midX = (startX + endX) / 2;
+    const path = `M ${startX} ${startY} C ${midX} ${startY}, ${midX} ${endY}, ${endX} ${endY}`;
+
+    // Cubic bezier interpolation: P0=(startX, startY), P1=(midX, startY), P2=(midX, endY), P3=(endX, endY)
+    const u = 1 - t;
+    const px = u * u * u * startX + 3 * u * u * t * midX + 3 * u * t * t * midX + t * t * t * endX;
+    const py = u * u * u * startY + 3 * u * u * t * startY + 3 * u * t * t * endY + t * t * t * endY;
+
+    return {
+      path,
+      particlePos: { x: px, y: py },
+    };
+  }
+
+  // Fallback
+  return {
+    path: `M ${fRight} ${fCenterY} L ${tLeft} ${tCenterY}`,
+    particlePos: { x: fRight + (tLeft - fRight) * t, y: fCenterY },
+  };
+}
+
 type StageStatus = 'idle' | 'running' | 'success' | 'error' | 'skipped';
 
 interface PipelineRun {
@@ -55,11 +141,11 @@ interface PipelineRun {
 
 /* ───── node color helpers ───── */
 const nodeColors: Record<StageStatus, { bg: string; border: string; text: string; glow: string }> = {
-  idle: { bg: 'bg-steel-slate/20', border: 'border-steel-slate/30', text: 'text-muted-silver/60', glow: '' },
-  running: { bg: 'bg-electric-cyan/10', border: 'border-electric-cyan/50', text: 'text-electric-cyan', glow: 'shadow-[0_0_20px_rgba(0,212,255,0.25)]' },
-  success: { bg: 'bg-neon-emerald/10', border: 'border-neon-emerald/50', text: 'text-neon-emerald', glow: '' },
-  error: { bg: 'bg-coral-flame/10', border: 'border-coral-flame/50', text: 'text-coral-flame', glow: '' },
-  skipped: { bg: 'bg-amber-glow/5', border: 'border-amber-glow/20', text: 'text-amber-glow/50', glow: '' },
+  idle: { bg: 'bg-white/95 dark:bg-[#0F172A]/90', border: 'border-slate-300 dark:border-steel-slate/40', text: 'text-slate-500 dark:text-muted-silver/70', glow: 'shadow-xs' },
+  running: { bg: 'bg-blue-50/95 dark:bg-electric-cyan/15', border: 'border-[#2563EB] dark:border-electric-cyan', text: 'text-[#2563EB] dark:text-electric-cyan', glow: 'shadow-[0_0_20px_rgba(37,99,235,0.25)] ring-2 ring-blue-500/20' },
+  success: { bg: 'bg-emerald-50/95 dark:bg-neon-emerald/15', border: 'border-emerald-500 dark:border-neon-emerald/70', text: 'text-emerald-700 dark:text-neon-emerald', glow: 'shadow-[0_0_15px_rgba(16,185,129,0.18)]' },
+  error: { bg: 'bg-rose-50/95 dark:bg-coral-flame/15', border: 'border-rose-500 dark:border-coral-flame/70', text: 'text-rose-700 dark:text-coral-flame', glow: 'shadow-[0_0_15px_rgba(244,63,94,0.2)]' },
+  skipped: { bg: 'bg-amber-50/95 dark:bg-amber-glow/10', border: 'border-amber-300 dark:border-amber-glow/30', text: 'text-amber-700 dark:text-amber-glow/60', glow: '' },
 };
 
 const statusBadgeColor = (s: string) =>
@@ -192,26 +278,13 @@ export default function PipelinePage() {
     return () => clearInterval(t);
   }, [selectedRun.status]);
 
-  // Auto-advance running pipeline stages in demo/preview mode
+  // Auto-advance running pipeline stages in demo/preview mode with realistic dual-track DAG flow
   useEffect(() => {
     if (selectedRun.status !== 'running') return;
-
-    const stageOrder = [
-      'rfp_intake',
-      'pdf_extraction',
-      'term_matching',
-      'vector_search',
-      'spec_matching',
-      'pricing',
-      'compliance',
-      'bid_generation',
-    ];
 
     const timer = setTimeout(() => {
       setSelectedRun((prev) => {
         if (prev.status !== 'running') return prev;
-
-        const runningIdx = stageOrder.findIndex((s) => prev.stages[s]?.status === 'running');
 
         const durations: Record<string, string> = {
           rfp_intake: '0.4s',
@@ -236,32 +309,52 @@ export default function PipelinePage() {
         };
 
         const newStages = { ...prev.stages };
-        const currentStageKey = runningIdx !== -1 ? stageOrder[runningIdx] : null;
+        const st = (id: string) => newStages[id]?.status || 'idle';
 
-        if (currentStageKey) {
-          newStages[currentStageKey] = {
-            status: 'success',
-            duration: durations[currentStageKey] || '2.0s',
-            items: itemCounts[currentStageKey] || 1,
-          };
+        const dur = (id: string) => durations[id] ?? '2.0s';
+        const cnt = (id: string) => itemCounts[id] ?? 1;
+
+        // Dual-track workflow steps:
+        // 1. If intake is running -> complete intake, start extraction
+        if (st('rfp_intake') === 'running') {
+          newStages.rfp_intake = { status: 'success', duration: dur('rfp_intake'), items: cnt('rfp_intake') };
+          newStages.pdf_extraction = { status: 'running', duration: '—' };
         }
-
-        const nextStageIdx = runningIdx !== -1 ? runningIdx + 1 : 0;
-
-        if (nextStageIdx < stageOrder.length) {
-          const nextStageKey = stageOrder[nextStageIdx]!;
-          newStages[nextStageKey] = {
-            status: 'running',
-            duration: '—',
-          };
-          const updated: PipelineRun = {
-            ...prev,
-            stages: newStages,
-          };
-          setLocalRuns((runs) => runs.map((r) => (r.id === prev.id ? updated : r)));
-          return updated;
-        } else {
-          // All 8 stages finished
+        // 2. If extraction is running -> complete extraction, fork parallel: start term_matching AND spec_matching
+        else if (st('pdf_extraction') === 'running') {
+          newStages.pdf_extraction = { status: 'success', duration: dur('pdf_extraction'), items: cnt('pdf_extraction') };
+          newStages.term_matching = { status: 'running', duration: '—' };
+          newStages.spec_matching = { status: 'running', duration: '—' };
+        }
+        // 3. If term_matching OR spec_matching is running -> complete them, start vector_search AND pricing
+        else if (st('term_matching') === 'running' || st('spec_matching') === 'running') {
+          if (st('term_matching') === 'running') {
+            newStages.term_matching = { status: 'success', duration: dur('term_matching'), items: cnt('term_matching') };
+            newStages.vector_search = { status: 'running', duration: '—' };
+          }
+          if (st('spec_matching') === 'running') {
+            newStages.spec_matching = { status: 'success', duration: dur('spec_matching'), items: cnt('spec_matching') };
+            newStages.pricing = { status: 'running', duration: '—' };
+          }
+        }
+        // 4. If vector_search OR pricing is running -> complete them, start compliance
+        else if (st('vector_search') === 'running' || st('pricing') === 'running') {
+          if (st('vector_search') === 'running') {
+            newStages.vector_search = { status: 'success', duration: dur('vector_search'), items: cnt('vector_search') };
+          }
+          if (st('pricing') === 'running') {
+            newStages.pricing = { status: 'success', duration: dur('pricing'), items: cnt('pricing') };
+            newStages.compliance = { status: 'running', duration: '—' };
+          }
+        }
+        // 5. If compliance is running -> complete compliance, start bid_generation
+        else if (st('compliance') === 'running') {
+          newStages.compliance = { status: 'success', duration: dur('compliance'), items: cnt('compliance') };
+          newStages.bid_generation = { status: 'running', duration: '—' };
+        }
+        // 6. If bid_generation is running -> complete bid_generation & complete run!
+        else if (st('bid_generation') === 'running') {
+          newStages.bid_generation = { status: 'success', duration: dur('bid_generation'), items: cnt('bid_generation') };
           toast.success(`Pipeline ${prev.id} successfully completed all 8 stages!`);
           const completed: PipelineRun = {
             ...prev,
@@ -272,8 +365,19 @@ export default function PipelinePage() {
           setLocalRuns((runs) => runs.map((r) => (r.id === prev.id ? completed : r)));
           return completed;
         }
+        // Fallback: if nothing is running but run status is 'running', start rfp_intake
+        else {
+          newStages.rfp_intake = { status: 'running', duration: '—' };
+        }
+
+        const updated: PipelineRun = {
+          ...prev,
+          stages: newStages,
+        };
+        setLocalRuns((runs) => runs.map((r) => (r.id === prev.id ? updated : r)));
+        return updated;
       });
-    }, 2400);
+    }, 1800);
 
     return () => clearTimeout(timer);
   }, [selectedRun.status, selectedRun.stages, selectedRun.id]);
@@ -358,38 +462,100 @@ export default function PipelinePage() {
         {/* SVG Flow */}
         <div ref={canvasRef} className="relative py-6 px-4 overflow-x-auto">
           <div className="min-w-[800px] relative" style={{ height: 260 }}>
-            {/* SVG Connections */}
+            {/* SVG Connections with Arrow Markers & Edge-to-Edge Geometry */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
+              <defs>
+                <marker
+                  id="arrow-idle"
+                  viewBox="0 0 10 10"
+                  refX="8"
+                  refY="5"
+                  markerWidth="6"
+                  markerHeight="6"
+                  orient="auto"
+                >
+                  <path d="M 0 2 L 7 5 L 0 8 z" fill="#94A3B8" />
+                </marker>
+                <marker
+                  id="arrow-active"
+                  viewBox="0 0 10 10"
+                  refX="8"
+                  refY="5"
+                  markerWidth="6"
+                  markerHeight="6"
+                  orient="auto"
+                >
+                  <path d="M 0 2 L 7 5 L 0 8 z" fill="#2563EB" />
+                </marker>
+                <marker
+                  id="arrow-success"
+                  viewBox="0 0 10 10"
+                  refX="8"
+                  refY="5"
+                  markerWidth="6"
+                  markerHeight="6"
+                  orient="auto"
+                >
+                  <path d="M 0 2 L 7 5 L 0 8 z" fill="#10B981" />
+                </marker>
+              </defs>
+
               {CONNECTIONS.map(([fromIdx, toIdx], ci) => {
                 const from = STAGES[fromIdx!]!;
                 const to = STAGES[toIdx!]!;
-                const x1 = from.col * 160 + 70;
-                const y1 = from.row * 120 + 50;
-                const x2 = to.col * 160 + 70;
-                const y2 = to.row * 120 + 50;
 
                 const fromStatus = selectedRun.stages[from.id]?.status || 'idle';
                 const toStatus = selectedRun.stages[to.id]?.status || 'idle';
-                const isActive = fromStatus === 'success' && (toStatus === 'running' || toStatus === 'success');
+                const isRunning = fromStatus === 'success' && toStatus === 'running';
+                const isSuccess = fromStatus === 'success' && toStatus === 'success';
+
+                const geom = computeConnection(from, to, particlePos);
+
+                const strokeColor = isRunning ? '#2563EB' : isSuccess ? '#10B981' : '#94A3B8';
+                const strokeWidth = isRunning ? 2.5 : isSuccess ? 2 : 1.5;
+                const markerId = isRunning ? 'arrow-active' : isSuccess ? 'arrow-success' : 'arrow-idle';
 
                 return (
                   <g key={ci}>
-                    <line
-                      x1={x1} y1={y1} x2={x2} y2={y2}
-                      stroke={isActive ? '#00D4FF' : '#1E2642'}
-                      strokeWidth={2}
-                      strokeDasharray={isActive ? undefined : '4 4'}
-                      opacity={isActive ? 0.6 : 0.3}
-                    />
-                    {/* Flowing particle */}
-                    {isActive && selectedRun.status === 'running' && toStatus === 'running' && (
-                      <circle
-                        cx={x1 + (x2 - x1) * (particlePos / 100)}
-                        cy={y1 + (y2 - y1) * (particlePos / 100)}
-                        r={3}
-                        fill="#00D4FF"
-                        opacity={0.8}
+                    {/* Background line glow when running */}
+                    {isRunning && (
+                      <path
+                        d={geom.path}
+                        fill="none"
+                        stroke="#2563EB"
+                        strokeWidth={6}
+                        opacity={0.2}
                       />
+                    )}
+
+                    {/* Main connector path */}
+                    <path
+                      d={geom.path}
+                      fill="none"
+                      stroke={strokeColor}
+                      strokeWidth={strokeWidth}
+                      strokeDasharray={!isRunning && !isSuccess ? '4 4' : undefined}
+                      opacity={isRunning || isSuccess ? 0.95 : 0.6}
+                      markerEnd={`url(#${markerId})`}
+                    />
+
+                    {/* Flowing animated particle */}
+                    {isRunning && selectedRun.status === 'running' && (
+                      <g>
+                        <circle
+                          cx={geom.particlePos.x}
+                          cy={geom.particlePos.y}
+                          r={4}
+                          fill="#2563EB"
+                        />
+                        <circle
+                          cx={geom.particlePos.x}
+                          cy={geom.particlePos.y}
+                          r={7}
+                          fill="#2563EB"
+                          opacity={0.35}
+                        />
+                      </g>
                     )}
                   </g>
                 );
