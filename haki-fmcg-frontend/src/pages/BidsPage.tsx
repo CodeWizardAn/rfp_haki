@@ -38,14 +38,30 @@ interface Bid {
 }
 
 const mockBids: Bid[] = [
+  // DRAFT
   { id: 'B-4418', rfpId: 'RFP-2026-4418', vendor: 'Haki FMCG Procurement', amount: 4850000, status: 'draft', deadline: '2026-03-15', items: 5, createdAt: '2026-10-16', approvalLevel: 1, maxApproval: 4, probability: 78 },
-  { id: 'B-0087', rfpId: 'RFP-2026-0001', vendor: 'Havells India', amount: 5860000, status: 'approved', deadline: '2026-02-15', items: 5, createdAt: '2026-02-05', approvalLevel: 4, maxApproval: 4, probability: 85 },
-  { id: 'B-0088', rfpId: 'RFP-2026-0001', vendor: 'Polycab India', amount: 5640000, status: 'submitted', deadline: '2026-02-15', items: 4, createdAt: '2026-02-05', approvalLevel: 1, maxApproval: 4, probability: 72 },
-  { id: 'B-0089', rfpId: 'RFP-2026-0002', vendor: 'KEI Industries', amount: 5920000, status: 'under_review', deadline: '2026-02-20', items: 3, createdAt: '2026-02-06', approvalLevel: 2, maxApproval: 4, probability: 60 },
   { id: 'B-0090', rfpId: 'RFP-2026-0003', vendor: 'Finolex Cables', amount: 3200000, status: 'draft', deadline: '2026-02-25', items: 6, createdAt: '2026-02-07', approvalLevel: 0, maxApproval: 4, probability: 45 },
   { id: 'B-0091', rfpId: 'RFP-2026-0003', vendor: 'RR Kabel', amount: 2800000, status: 'draft', deadline: '2026-02-25', items: 4, createdAt: '2026-02-07', approvalLevel: 0, maxApproval: 4, probability: 40 },
+
+  // SUBMITTED
+  { id: 'B-0088', rfpId: 'RFP-2026-0001', vendor: 'Polycab India', amount: 5640000, status: 'submitted', deadline: '2026-02-15', items: 4, createdAt: '2026-02-05', approvalLevel: 1, maxApproval: 4, probability: 72 },
+  { id: 'B-0092', rfpId: 'RFP-2026-0004', vendor: 'Schneider Electric', amount: 6400000, status: 'submitted', deadline: '2026-03-01', items: 5, createdAt: '2026-02-10', approvalLevel: 2, maxApproval: 4, probability: 68 },
+
+  // UNDER REVIEW
+  { id: 'B-0089', rfpId: 'RFP-2026-0002', vendor: 'KEI Industries', amount: 5920000, status: 'under_review', deadline: '2026-02-20', items: 3, createdAt: '2026-02-06', approvalLevel: 2, maxApproval: 4, probability: 60 },
+  { id: 'B-0093', rfpId: 'RFP-2026-0005', vendor: 'ABB India', amount: 8250000, status: 'under_review', deadline: '2026-03-05', items: 7, createdAt: '2026-02-11', approvalLevel: 3, maxApproval: 4, probability: 65 },
+
+  // APPROVED
+  { id: 'B-0087', rfpId: 'RFP-2026-0001', vendor: 'Havells India', amount: 5860000, status: 'approved', deadline: '2026-02-15', items: 5, createdAt: '2026-02-05', approvalLevel: 4, maxApproval: 4, probability: 85 },
+  { id: 'B-0094', rfpId: 'RFP-2026-0006', vendor: 'Siemens Energy', amount: 7500000, status: 'approved', deadline: '2026-02-28', items: 6, createdAt: '2026-02-12', approvalLevel: 4, maxApproval: 4, probability: 88 },
+
+  // WON
   { id: 'B-0085', rfpId: 'RFP-2025-0098', vendor: 'Havells India', amount: 12400000, status: 'won', deadline: '2026-01-20', items: 8, createdAt: '2026-01-10', approvalLevel: 4, maxApproval: 4, probability: 100 },
+  { id: 'B-0095', rfpId: 'RFP-2025-0095', vendor: 'Larsen & Toubro', amount: 21000000, status: 'won', deadline: '2026-01-10', items: 12, createdAt: '2025-12-28', approvalLevel: 4, maxApproval: 4, probability: 100 },
+
+  // LOST
   { id: 'B-0084', rfpId: 'RFP-2025-0097', vendor: 'Polycab India', amount: 9100000, status: 'lost', deadline: '2026-01-15', items: 6, createdAt: '2026-01-05', approvalLevel: 4, maxApproval: 4, probability: 0 },
+  { id: 'B-0096', rfpId: 'RFP-2025-0092', vendor: 'KEC International', amount: 4500000, status: 'lost', deadline: '2025-12-20', items: 4, createdAt: '2025-12-05', approvalLevel: 4, maxApproval: 4, probability: 0 },
 ];
 
 const columns: { id: BidStatus; label: string; color: string }[] = [
@@ -167,85 +183,116 @@ export default function BidsPage() {
         ))}
       </div>
 
-      {/* Kanban Board */}
+      {/* Kanban Board with proper column lanes */}
       {viewMode === 'board' && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 overflow-x-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5 items-start">
           {columns.map((col) => {
             const colBids = allBids.filter((b) => b.status === col.id);
+            const colTotal = colBids.reduce((sum, b) => sum + b.amount, 0);
+
             return (
-              <div key={col.id} className="min-w-[200px]">
-                <div className="flex items-center gap-2 mb-3 px-1">
-                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: col.color }} />
-                  <span className="text-xs font-semibold text-ghost-white uppercase tracking-wider">{col.label}</span>
-                  <Badge variant="soft" color="cyan" size="sm">{colBids.length}</Badge>
+              <div
+                key={col.id}
+                className="flex flex-col rounded-2xl bg-slate-100/70 dark:bg-steel-slate/[0.08] border border-slate-200/80 dark:border-steel-slate/20 p-2.5 min-h-[580px] shadow-sm transition-all"
+              >
+                {/* Column Lane Header */}
+                <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-200/70 dark:border-steel-slate/15 px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full shadow-sm" style={{ backgroundColor: col.color }} />
+                    <span className="text-xs font-bold text-slate-800 dark:text-ghost-white tracking-wider uppercase">
+                      {col.label}
+                    </span>
+                    <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-slate-200/90 dark:bg-steel-slate/30 text-slate-700 dark:text-slate-300">
+                      {colBids.length}
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-muted-silver">
+                    {formatCompactCurrency(colTotal)}
+                  </span>
                 </div>
-                <div className="space-y-2">
+
+                {/* Cards Container with smooth scroll and clean spacing */}
+                <div className="space-y-2.5 flex-1 overflow-y-auto max-h-[calc(100vh-320px)] pr-0.5 custom-scrollbar">
                   {colBids.map((bid) => (
                     <motion.div
                       key={bid.id}
-                      whileHover={{ y: -3, scale: 1.01 }}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={{ y: -2, scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
                       onClick={() => navigate(`/bids/${bid.id}/preview`)}
                       className="cursor-pointer group"
                     >
-                      <Card variant="glass" className="!p-3 relative overflow-hidden transition-all duration-200 group-hover:border-electric-cyan/40 group-hover:shadow-[0_4px_20px_rgba(0,212,255,0.12)]">
-                        <div className="absolute top-0 left-0 right-0 h-0.5" style={{ backgroundColor: col.color }} />
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-mono font-bold text-electric-cyan group-hover:underline flex items-center gap-1">
+                      <div className="p-3 rounded-xl bg-white dark:bg-[#121833]/90 border border-slate-200/90 dark:border-steel-slate/25 hover:border-blue-500/60 dark:hover:border-electric-cyan/50 shadow-sm hover:shadow-md transition-all relative overflow-hidden">
+                        {/* Status bar on top */}
+                        <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: col.color }} />
+
+                        <div className="flex items-center justify-between mb-1.5 pt-0.5">
+                          <span className="text-xs font-mono font-bold text-blue-600 dark:text-electric-cyan group-hover:underline flex items-center gap-1">
                             {bid.id}
-                            <Eye size={11} className="opacity-0 group-hover:opacity-100 transition-opacity text-electric-cyan" />
+                            <Eye size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                           </span>
                           <Badge variant="soft" color={statusBadgeColor(bid.status)} size="sm">
                             {bid.status.replace('_', ' ')}
                           </Badge>
                         </div>
-                        <p className="text-xs font-semibold text-ghost-white/90">{bid.rfpId}</p>
-                        <div className="flex items-center gap-1.5 mt-1">
-                          <Building2 size={10} className="text-muted-silver" />
-                          <span className="text-xs text-ghost-white">{bid.vendor}</span>
+
+                        <p className="text-xs font-bold text-slate-900 dark:text-ghost-white line-clamp-1">{bid.rfpId}</p>
+
+                        <div className="flex items-center gap-1.5 mt-1 text-slate-600 dark:text-muted-silver">
+                          <Building2 size={11} className="shrink-0" />
+                          <span className="text-xs truncate">{bid.vendor}</span>
                         </div>
-                        <p className="text-sm font-bold text-ghost-white mt-2">{formatCompactCurrency(bid.amount)}</p>
+
+                        <div className="flex items-baseline justify-between mt-2.5 pt-2 border-t border-slate-100 dark:border-steel-slate/15">
+                          <span className="text-sm font-extrabold text-slate-900 dark:text-ghost-white">
+                            {formatCompactCurrency(bid.amount)}
+                          </span>
+                          <span className="text-[10px] font-semibold text-slate-500 dark:text-muted-silver">
+                            {bid.items} items
+                          </span>
+                        </div>
+
                         {/* Probability indicator */}
                         <div className="mt-2">
-                          <div className="w-full h-1 rounded-full bg-steel-slate/30">
+                          <div className="flex items-center justify-between text-[10px] mb-1">
+                            <span className="text-slate-500 dark:text-muted-silver">Win Probability</span>
+                            <span className="font-bold text-slate-700 dark:text-slate-200">{bid.probability}%</span>
+                          </div>
+                          <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-steel-slate/30 overflow-hidden">
                             <div
-                              className="h-full rounded-full"
+                              className="h-full rounded-full transition-all duration-300"
                               style={{
                                 width: `${bid.probability}%`,
-                                backgroundColor: bid.probability >= 70 ? '#00E68A' : bid.probability >= 40 ? '#FFB224' : '#FF4757',
+                                backgroundColor: bid.probability >= 70 ? '#10B981' : bid.probability >= 40 ? '#F59E0B' : '#EF4444',
                               }}
                             />
                           </div>
-                          <p className="text-[10px] text-muted-silver mt-0.5">{bid.probability}% probability</p>
                         </div>
-                        {/* Approval progress */}
-                        <div className="flex gap-0.5 mt-2">
-                          {Array.from({ length: bid.maxApproval }).map((_, i) => (
-                            <div
-                              key={i}
-                              className={`flex-1 h-1 rounded-full ${
-                                i < bid.approvalLevel ? 'bg-neon-emerald' : 'bg-steel-slate/30'
-                              }`}
-                            />
-                          ))}
-                        </div>
-                        <div className="flex items-center justify-between mt-2 pt-1 border-t border-steel-slate/15 text-[10px] text-muted-silver">
-                          <span className="flex items-center gap-1"><Clock size={9} /> {bid.deadline}</span>
+
+                        {/* Card footer with deadline and action */}
+                        <div className="flex items-center justify-between mt-2.5 pt-1.5 border-t border-slate-100 dark:border-steel-slate/15 text-[10px] text-slate-500 dark:text-muted-silver">
+                          <span className="flex items-center gap-1"><Clock size={10} /> {bid.deadline}</span>
                           <button
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDownloadBid(bid);
                             }}
-                            className="p-1 hover:text-electric-cyan transition-colors"
-                            title="Download Bid proposal CSV"
+                            className="p-1 rounded hover:bg-slate-100 dark:hover:bg-steel-slate/20 hover:text-blue-600 dark:hover:text-electric-cyan transition-colors"
+                            title="Download proposal CSV"
                           >
                             <Download size={11} />
                           </button>
                         </div>
-                      </Card>
+                      </div>
                     </motion.div>
                   ))}
+
+                  {/* Empty placeholder if column has no bids */}
+                  {colBids.length === 0 && (
+                    <div className="h-32 border-2 border-dashed border-slate-200 dark:border-steel-slate/20 rounded-xl flex items-center justify-center text-xs text-slate-400 dark:text-muted-silver/40">
+                      No bids in {col.label}
+                    </div>
+                  )}
                 </div>
               </div>
             );
