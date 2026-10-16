@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   AlertTriangle,
@@ -128,7 +128,13 @@ export function KnockoutClauseRadar({
   tenderName = 'Tender Specification',
   onGenerateAffidavit,
 }: KnockoutClauseRadarProps) {
-  const [items] = useState<GatekeeperItem[]>(customItems || DEFAULT_GATEKEEPERS);
+  const [items, setItems] = useState<GatekeeperItem[]>(customItems || DEFAULT_GATEKEEPERS);
+
+  useEffect(() => {
+    if (customItems && customItems.length > 0) {
+      setItems(customItems);
+    }
+  }, [customItems]);
   const [filter, setFilter] = useState<'ALL' | 'RISKS' | 'ACTIONS' | 'CLEARED'>('ALL');
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [selectedCitation, setSelectedCitation] = useState<ClauseCitation | null>(null);

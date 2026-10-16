@@ -724,8 +724,8 @@ export default function PipelinePage() {
         )}
       </AnimatePresence>
 
-      {/* ── Pipeline Statistics ── */}
-      <PipelineStatsPanel />
+      {/* ── Pipeline Statistics (Dynamic) ── */}
+      <PipelineStatsPanel runs={allRuns} />
 
       {/* ── Error Recovery ── */}
       <PipelineErrorRecovery
