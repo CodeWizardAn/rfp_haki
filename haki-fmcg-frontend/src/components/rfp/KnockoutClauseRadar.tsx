@@ -4,7 +4,6 @@ import {
   AlertTriangle,
   CheckCircle2,
   XCircle,
-  FileText,
   ChevronDown,
   ChevronUp,
   Info,
@@ -151,132 +150,112 @@ export function KnockoutClauseRadar({
   });
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_2px_16px_rgba(0,0,0,0.04)] overflow-hidden font-sans">
+    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden font-sans shadow-xs">
       {/* ── Top Header Banner ── */}
-      <div className="p-5 sm:p-6 bg-gradient-to-r from-slate-50/90 via-white to-slate-50/50 border-b border-slate-100">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
-              Knockout Clause &amp; Buried Disqualifiers Radar
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed max-w-2xl">
-              Scans commercial, statutory, and pre-qualification traps buried across pages 1 to 90+.
-              Prevents sudden disqualification before engineering effort is committed.
-            </p>
-          </div>
-
-          {/* Quick Score Metrics */}
-          <div className="flex items-center gap-2 self-start md:self-auto flex-shrink-0">
-            <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center min-w-[70px]">
-              <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Passed</span>
-              <span className="text-sm font-extrabold text-emerald-600">{passedCount} / {items.length}</span>
-            </div>
-            <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center min-w-[70px]">
-              <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Actions</span>
-              <span className={`text-sm font-extrabold ${actionCount > 0 ? 'text-amber-600' : 'text-slate-400'}`}>{actionCount}</span>
-            </div>
-            <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center min-w-[70px]">
-              <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Risks</span>
-              <span className={`text-sm font-extrabold ${riskCount > 0 ? 'text-rose-600' : 'text-slate-400'}`}>
-                {riskCount}
-              </span>
-            </div>
-          </div>
+      <div className="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900">
+            Knockout Clause &amp; Disqualification Radar
+          </h3>
+          <p className="text-sm text-slate-500 mt-1">
+            Pre-qualification audit against statutory and financial traps buried in tender documentation.
+          </p>
         </div>
 
-        {/* Filter Navigation */}
-        <div className="flex flex-wrap items-center gap-1.5 mt-5 pt-3 border-t border-slate-100">
-          <div className="bg-slate-100/80 p-1 rounded-xl inline-flex gap-1 border border-slate-200/60">
-            <button
-              onClick={() => setFilter('ALL')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                filter === 'ALL'
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
-              }`}
-            >
-              All Gatekeepers ({items.length})
-            </button>
-            <button
-              onClick={() => setFilter('RISKS')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                filter === 'RISKS'
-                  ? 'bg-white text-rose-700 shadow-xs'
-                  : 'text-slate-600 hover:text-rose-700 hover:bg-white/60'
-              }`}
-            >
-              Knockout Risks ({riskCount})
-            </button>
-            <button
-              onClick={() => setFilter('ACTIONS')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                filter === 'ACTIONS'
-                  ? 'bg-white text-amber-800 shadow-xs'
-                  : 'text-slate-600 hover:text-amber-800 hover:bg-white/60'
-              }`}
-            >
-              Action Required ({actionCount})
-            </button>
-            <button
-              onClick={() => setFilter('CLEARED')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                filter === 'CLEARED'
-                  ? 'bg-white text-emerald-700 shadow-xs'
-                  : 'text-slate-600 hover:text-emerald-700 hover:bg-white/60'
-              }`}
-            >
-              Cleared ({passedCount})
-            </button>
+        {/* Status Counts */}
+        <div className="flex items-center gap-4 text-sm font-medium">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+            <span className="text-slate-600">Passed:</span>
+            <span className="font-semibold text-slate-900">{passedCount}/{items.length}</span>
           </div>
+          {actionCount > 0 && (
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+              <span className="text-slate-600">Action:</span>
+              <span className="font-semibold text-amber-700">{actionCount}</span>
+            </div>
+          )}
+          {riskCount > 0 && (
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+              <span className="text-slate-600">Risk:</span>
+              <span className="font-semibold text-rose-700">{riskCount}</span>
+            </div>
+          )}
         </div>
+      </div>
+
+      {/* ── Filter Tabs ── */}
+      <div className="px-6 py-3 border-b border-slate-100 bg-slate-50/50 flex items-center gap-2">
+        {(['ALL', 'RISKS', 'ACTIONS', 'CLEARED'] as const).map((tab) => {
+          const labels = {
+            ALL: `All Criteria (${items.length})`,
+            RISKS: `Risks (${riskCount})`,
+            ACTIONS: `Action Needed (${actionCount})`,
+            CLEARED: `Cleared (${passedCount})`,
+          };
+          const isActive = filter === tab;
+          return (
+            <button
+              key={tab}
+              onClick={() => setFilter(tab)}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                isActive
+                  ? 'bg-white text-slate-900 shadow-xs border border-slate-200'
+                  : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              {labels[tab]}
+            </button>
+          );
+        })}
       </div>
 
       {/* ── Gatekeeper List Items ── */}
       <div className="divide-y divide-slate-100">
         {filteredItems.map((item) => {
           const isExpanded = expandedId === item.id;
-          const statusPill =
+          const statusBadge =
             item.status === 'PASS'
-              ? 'bg-emerald-50 text-emerald-700 border-emerald-200/90'
+              ? 'bg-emerald-50 text-emerald-700'
               : item.status === 'ACTION_REQUIRED'
-                ? 'bg-amber-50 text-amber-800 border-amber-200/90'
-                : 'bg-rose-50 text-rose-700 border-rose-200/90';
+                ? 'bg-amber-50 text-amber-800'
+                : 'bg-rose-50 text-rose-700';
 
           return (
             <div
               key={item.id}
-              className={`transition-colors ${
-                isExpanded ? 'bg-slate-50/50' : 'bg-white hover:bg-slate-50/40'
-              }`}
+              className={`transition-colors ${isExpanded ? 'bg-slate-50/60' : 'bg-white hover:bg-slate-50/40'}`}
             >
               {/* Item Header Row */}
               <div
                 onClick={() => setExpandedId(isExpanded ? null : item.id)}
-                className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer select-none"
+                className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer select-none"
               >
-                <div className="flex items-start gap-3.5">
-                  <div className="mt-0.5 flex-shrink-0">
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex-shrink-0">
                     {item.status === 'PASS' ? (
-                      <CheckCircle2 size={18} className="text-emerald-600 stroke-[2.2]" />
+                      <CheckCircle2 size={19} className="text-emerald-600" />
                     ) : item.status === 'ACTION_REQUIRED' ? (
-                      <AlertTriangle size={18} className="text-amber-500 stroke-[2.2]" />
+                      <AlertTriangle size={19} className="text-amber-500" />
                     ) : (
-                      <XCircle size={18} className="text-rose-600 stroke-[2.2]" />
+                      <XCircle size={19} className="text-rose-600" />
                     )}
                   </div>
 
                   <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[11px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200/60 uppercase tracking-wider">
+                    <div className="flex items-center gap-2.5">
+                      <h4 className="text-base font-semibold text-slate-900">{item.title}</h4>
+                      <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
                         {item.category}
                       </span>
-                      <h4 className="text-sm font-bold text-slate-900 tracking-tight">{item.title}</h4>
                     </div>
-                    <p className="text-xs text-slate-500 mt-1 leading-normal">{item.shortDesc}</p>
+                    <p className="text-sm text-slate-600 mt-1 leading-relaxed">{item.shortDesc}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2.5 self-end sm:self-auto flex-shrink-0">
+                <div className="flex items-center gap-3 self-end sm:self-auto flex-shrink-0">
                   <ClauseBadge
                     page={item.page}
                     clause={item.clauseRef}
@@ -284,12 +263,12 @@ export function KnockoutClauseRadar({
                     documentName={tenderName}
                   />
 
-                  <span className={`px-2.5 py-1 rounded-full text-xs font-semibold border ${statusPill}`}>
+                  <span className={`px-3 py-1 rounded-md text-xs font-medium ${statusBadge}`}>
                     {item.statusLabel}
                   </span>
 
-                  <div className="w-6 h-6 rounded-md flex items-center justify-center text-slate-400 hover:text-slate-600">
-                    {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  <div className="text-slate-400">
+                    {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                   </div>
                 </div>
               </div>
@@ -302,60 +281,59 @@ export function KnockoutClauseRadar({
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="overflow-hidden border-t border-slate-100"
+                    className="overflow-hidden border-t border-slate-100 bg-slate-50/50"
                   >
-                    <div className="px-5 pb-5 pt-3 space-y-3.5 text-xs bg-slate-50/70">
+                    <div className="p-6 space-y-4 text-sm">
                       {/* Verbatim Tender Clause Excerpt */}
-                      <div className="bg-white rounded-xl p-4 border border-slate-200/90 shadow-2xs">
+                      <div className="bg-white rounded-lg p-5 border border-slate-200">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-bold text-slate-600 uppercase text-[11px] tracking-wider flex items-center gap-1.5">
-                            <FileText size={13} className="text-blue-600" />
-                            Verbatim Tender Clause ({item.clauseRef} • Page {item.page})
+                          <span className="font-semibold text-slate-700 text-xs">
+                            Clause Excerpt ({item.clauseRef} • Page {item.page})
                           </span>
                           <button
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedCitation({
-                                page: item.page,
-                                clause: item.clauseRef,
-                                excerpt: item.tenderClauseText,
-                                documentName: tenderName,
+                                 page: item.page,
+                                 clause: item.clauseRef,
+                                 excerpt: item.tenderClauseText,
+                                 documentName: tenderName,
                               });
                             }}
-                            className="text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
+                            className="text-xs font-medium text-blue-600 hover:text-blue-800 flex items-center gap-1"
                           >
-                            Trace in Document <ExternalLink size={12} />
+                            View Source <ExternalLink size={12} />
                           </button>
                         </div>
-                        <p className="text-slate-700 leading-relaxed italic border-l-2 border-blue-500 pl-3">
+                        <p className="text-slate-800 leading-relaxed italic border-l-2 border-blue-500 pl-3">
                           &ldquo;{item.tenderClauseText}&rdquo;
                         </p>
                       </div>
 
-                      {/* Two Column Analysis: Disqualification Trap vs Recommended Action */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="p-4 rounded-xl bg-rose-50/70 border border-rose-200/80 space-y-1">
-                          <span className="font-bold text-rose-800 uppercase text-[10px] tracking-wider block">
-                            ⚠️ Disqualification Pitfall
+                      {/* Two Column Analysis */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="p-4 rounded-lg bg-rose-50/60 border border-rose-100">
+                          <span className="font-semibold text-rose-800 text-xs block mb-1">
+                            Disqualification Risk
                           </span>
-                          <p className="text-rose-900/90 leading-relaxed text-xs">{item.disqualificationRisk}</p>
+                          <p className="text-rose-900 leading-relaxed text-xs">{item.disqualificationRisk}</p>
                         </div>
 
-                        <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200/80 space-y-1">
-                          <span className="font-bold text-emerald-800 uppercase text-[10px] tracking-wider block">
-                            ✓ Recommended Compliance Action
+                        <div className="p-4 rounded-lg bg-emerald-50/60 border border-emerald-100">
+                          <span className="font-semibold text-emerald-800 text-xs block mb-1">
+                            Required Action
                           </span>
-                          <p className="text-emerald-900/90 leading-relaxed text-xs">{item.actionRequired}</p>
+                          <p className="text-emerald-900 leading-relaxed text-xs">{item.actionRequired}</p>
                         </div>
                       </div>
 
-                      {/* Current Vendor Position & CTA */}
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-white border border-slate-200/90 gap-3">
-                        <div className="flex items-center gap-2.5">
-                          <Info size={16} className="text-blue-600 flex-shrink-0" />
-                          <span className="text-slate-700 font-medium text-xs">
-                            <strong className="text-slate-900">Current Position:</strong> {item.vendorState}
+                      {/* Vendor State Note */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-white border border-slate-200 gap-3">
+                        <div className="flex items-center gap-2">
+                          <Info size={16} className="text-slate-400 flex-shrink-0" />
+                          <span className="text-slate-700 text-xs">
+                            <strong className="text-slate-900 font-medium">Current Evaluation:</strong> {item.vendorState}
                           </span>
                         </div>
 
@@ -363,9 +341,9 @@ export function KnockoutClauseRadar({
                           <button
                             type="button"
                             onClick={onGenerateAffidavit}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors shadow-xs self-start sm:self-auto flex-shrink-0"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs transition-colors self-start sm:self-auto"
                           >
-                            Auto-Draft Affidavit
+                            Draft Affidavit
                             <ArrowRight size={13} />
                           </button>
                         )}

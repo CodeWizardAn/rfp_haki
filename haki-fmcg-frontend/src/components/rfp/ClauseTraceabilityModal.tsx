@@ -195,12 +195,11 @@ export function ClauseBadge({
           e.stopPropagation();
           setModalOpen(true);
         }}
-        title={`Click to view source clause on Page ${page}${clause ? ` (${clause})` : ''}`}
-        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold font-sans border transition-all cursor-pointer bg-blue-50/90 hover:bg-blue-100 text-blue-700 border-blue-200/90 hover:border-blue-300 shadow-2xs ${className}`}
+        title={`Source: Page ${page}${clause ? ` (${clause})` : ''}`}
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 ${className}`}
       >
-        <FileText size={12} className="text-blue-600 flex-shrink-0" />
-        <span>Pg {page}</span>
-        {clause && <span className="opacity-80 font-mono">• {clause}</span>}
+        <span className="font-semibold text-slate-900">Page {page}</span>
+        {clause && <span className="text-slate-500">• {clause}</span>}
       </button>
 
       <ClauseTraceabilityModal
