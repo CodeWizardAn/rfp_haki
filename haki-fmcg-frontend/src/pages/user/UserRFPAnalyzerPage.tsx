@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -741,10 +741,6 @@ export default function UserRFPAnalyzerPage() {
     toast.success(`Loaded verified benchmark: ${tender.title}!`);
   }, [stopTimer]);
 
-  const top5OEMs = useMemo(
-    () => (result?.oem_summary?.oem_rankings ?? []).filter((o) => o.appearances > 0).slice(0, 5),
-    [result],
-  );
 
   const currentStepIdx = progressSteps.findIndex((s) => s.key === analysisStep);
 
