@@ -8,8 +8,7 @@ import {
   UploadCloud, FileText, CheckCircle2, Globe, Wifi, RefreshCw,
   Download, AlertTriangle, ArrowRight, Search,
 } from 'lucide-react';
-import { Button, Card, CardHeader, CardTitle, Input, Select, TextArea, Badge } from '@/components/ui';
-import { formatCompactCurrency } from '@/utils/formatters';
+import { Button, Card, CardHeader, CardTitle, Input, Badge } from '@/components/ui';
 
 /* ───── Portal definitions ───── */
 const PORTALS = [
@@ -35,9 +34,6 @@ export default function RFPUploadPage() {
   const [processImmediately, setProcessImmediately] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [title, setTitle] = useState('');
-  const [priority, setPriority] = useState('high');
-  const [deadline, setDeadline] = useState('');
-  const [budget, setBudget] = useState('');
   const [tags, setTags] = useState('');
   const [activeMode, setActiveMode] = useState<'portals' | 'upload'>('upload');
   const [portalStatuses, setPortalStatuses] = useState<Record<string, 'idle' | 'scraping' | 'done' | 'error'>>({});
@@ -56,6 +52,10 @@ export default function RFPUploadPage() {
   });
 
   const handleUploadAndProcess = async () => {
+    if (!title.trim()) {
+      toast.error('Please enter an RFP Title (mandatory).');
+      return;
+    }
     if (files.length === 0) {
       toast.error('Please select or drop an RFP document first.');
       return;
@@ -78,30 +78,30 @@ export default function RFPUploadPage() {
         include_win_loss: true,
       });
 
-      // Parse user-specified budget (handling commas)
-      const parsedBudget = typeof budget === 'string' && budget.trim() !== ''
-        ? Number(budget.replace(/[^0-9.]/g, '')) || result.rfp_summary?.total_value || 4285600
-        : Number(budget) || result.rfp_summary?.total_value || 4285600;
+      const finalTitle = title.trim();
+      const finalTags = tags.trim() ? tags.split(',').map((t) => t.trim()).filter(Boolean) : [];
 
-      const finalTitle = title.trim() || result.rfp_summary?.title || file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-      const finalDeadline = deadline || result.rfp_summary?.deadline || result.rfp_summary?.end_date || new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
-
-      // Mirror user inputs onto result object so report displays exactly what user provided
-      if (result && result.rfp_summary) {
+      // Mirror user title & tags onto result object so reports display exactly what user provided
+      if (result) {
+        if (!result.rfp_summary) result.rfp_summary = {};
         result.rfp_summary.title = finalTitle;
-        result.rfp_summary.deadline = finalDeadline;
-        if (parsedBudget) {
-          result.rfp_summary.estimated_budget_inr = parsedBudget;
-        }
+        result.rfp_summary.boq_title = finalTitle;
+        if (finalTags.length > 0) result.rfp_summary.tags = finalTags;
+        if (!result.extracted_fields) result.extracted_fields = {};
+        result.extracted_fields.title = finalTitle;
+        if (!result.sales_metadata) result.sales_metadata = {};
+        result.sales_metadata.rfp_title = finalTitle;
+        (result as any).title = finalTitle;
       }
 
       // Save dynamic tender to real-time database
       const dynamicRfp = {
         rfpId: result?.rfp_summary?.bid_number || result?.rfp_summary?.tender_reference || `RFP-${Date.now().toString().slice(-4)}`,
         title: finalTitle,
-        deadline: finalDeadline,
-        priority: priority || 'high',
-        budget: parsedBudget,
+        tags: finalTags,
+        deadline: result?.rfp_summary?.deadline || result?.rfp_summary?.end_date || new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+        priority: 'high',
+        budget: result?.rfp_summary?.estimated_budget_inr || result?.rfp_summary?.total_value || 4285600,
         status: 'analyzed',
         progress: 100,
         vendorsMatched: result?.oem_summary?.oem_rankings?.length || 4,
@@ -119,7 +119,7 @@ export default function RFPUploadPage() {
 
       toast.success('RFP analyzed successfully! Opening intelligence report...', { id: toastId });
       const targetRoute = window.location.pathname.startsWith('/user') ? '/user/rfp-analyzer' : '/rfp-analyzer';
-      navigate(targetRoute, { state: { directResult: result, fileName: file.name } });
+      navigate(targetRoute, { state: { directResult: result, fileName: file.name, rfpTitle: finalTitle } });
     } catch (err: any) {
       const msg = err?.response?.data?.detail || err?.response?.data?.message || err?.message || 'Failed to analyze RFP.';
       toast.error(msg, { id: toastId });
@@ -129,18 +129,20 @@ export default function RFPUploadPage() {
   };
 
   const handleSaveDraft = () => {
-    const file = files[0];
-    const draftTitle = title.trim() || (file ? file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ') : 'Draft Tender RFP');
-    const parsedBudget = typeof budget === 'string' && budget.trim() !== ''
-      ? Number(budget.replace(/[^0-9.]/g, '')) || 25000000
-      : Number(budget) || 25000000;
+    if (!title.trim()) {
+      toast.error('Please enter an RFP Title (mandatory).');
+      return;
+    }
+    const finalTitle = title.trim();
+    const finalTags = tags.trim() ? tags.split(',').map((t) => t.trim()).filter(Boolean) : [];
 
     const draftRfp = {
       rfpId: `DRAFT-${Date.now().toString().slice(-4)}`,
-      title: draftTitle,
-      deadline: deadline || new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
-      priority: priority || 'medium',
-      budget: parsedBudget,
+      title: finalTitle,
+      tags: finalTags,
+      deadline: new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+      priority: 'medium',
+      budget: 25000000,
       status: 'draft',
       progress: 25,
       vendorsMatched: 0,
@@ -205,7 +207,6 @@ export default function RFPUploadPage() {
     const sampleFile = new File([dummyPdfContent], 'NIT-2026-Bokaro-Substation-Cables.pdf', { type: 'application/pdf' });
     setFiles([sampleFile]);
     setTitle('NIT-2026 Bokaro Steel Substation Cable Procurement');
-    setBudget('4285600');
     setTags('HT Cables, 33kV, Armoured XLPE, Bokaro Substation');
     toast.success('Loaded sample tender: NIT-2026 Bokaro Substation Cables!');
   };
@@ -499,63 +500,40 @@ export default function RFPUploadPage() {
             </Card>
 
             {/* Metadata Form */}
-            <Card variant="glass" className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card variant="glass" className="p-6 space-y-4">
+              <div>
                 <Input
-                  label="Title"
-                  placeholder="RFP Title"
+                  label="Title *"
+                  placeholder="Enter RFP Title (Mandatory)"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                />
-                <Select
-                  label="Priority"
-                  placeholder="Select priority"
-                  value={priority}
-                  onChange={(val) => setPriority(val)}
-                  options={[
-                    { value: 'critical', label: 'Critical' },
-                    { value: 'high', label: 'High' },
-                    { value: 'medium', label: 'Medium' },
-                    { value: 'low', label: 'Low' },
-                  ]}
-                />
-                <Input
-                  label="Deadline"
-                  type="date"
-                  value={deadline}
-                  onChange={(e) => setDeadline(e.target.value)}
-                />
-                <Input
-                  label="Budget (₹)"
-                  placeholder={formatCompactCurrency(25000000)}
-                  value={budget}
-                  onChange={(e) => setBudget(e.target.value)}
+                  required
                 />
               </div>
 
-              <div className="mt-4">
-                <TextArea
+              <div>
+                <Input
                   label="Tags"
-                  placeholder="Enter tags (comma-separated)"
+                  placeholder="Enter tags (comma-separated, e.g. HT Cables, 33kV, Armoured XLPE)"
                   value={tags}
                   onChange={(e) => setTags(e.target.value)}
                 />
               </div>
 
-              <div className="mt-4 flex items-center gap-2">
+              <div className="pt-1 flex items-center gap-2">
                 <input
                   id="processNow"
                   type="checkbox"
                   checked={processImmediately}
                   onChange={(e) => setProcessImmediately(e.target.checked)}
-                  className="w-4 h-4 rounded border-steel-slate/60 bg-deep-navy text-electric-cyan"
+                  className="w-4 h-4 rounded border-steel-slate/60 bg-deep-navy text-electric-cyan cursor-pointer"
                 />
-                <label htmlFor="processNow" className="text-sm text-muted-silver">
+                <label htmlFor="processNow" className="text-sm text-slate-700 cursor-pointer">
                   Process immediately after upload
                 </label>
               </div>
 
-              <div className="mt-6 flex items-center justify-end gap-3">
+              <div className="pt-2 flex items-center justify-end gap-3 border-t border-slate-100">
                 <Button variant="secondary" type="button" onClick={handleSaveDraft}>
                   Save Draft
                 </Button>

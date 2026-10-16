@@ -491,9 +491,20 @@ export default function UserRFPAnalyzerPage() {
 
   // ── Load a specific saved analysis when navigated here with an analysisId ──
   useEffect(() => {
-    const stateObj = location.state as { analysisId?: string; directResult?: any; fileName?: string } | null;
+    const stateObj = location.state as { analysisId?: string; directResult?: any; fileName?: string; rfpTitle?: string } | null;
     if (stateObj?.directResult) {
-      setResult(stateObj.directResult);
+      const res = stateObj.directResult;
+      if (stateObj.rfpTitle) {
+        if (!res.rfp_summary) res.rfp_summary = {};
+        res.rfp_summary.title = stateObj.rfpTitle;
+        res.rfp_summary.boq_title = stateObj.rfpTitle;
+        if (!res.extracted_fields) res.extracted_fields = {};
+        res.extracted_fields.title = stateObj.rfpTitle;
+        if (!res.sales_metadata) res.sales_metadata = {};
+        res.sales_metadata.rfp_title = stateObj.rfpTitle;
+        res.title = stateObj.rfpTitle;
+      }
+      setResult(res);
       if (stateObj.fileName) setFileName(stateObj.fileName);
       setInputMode('upload');
       setAnalysisStep('complete');
@@ -1203,9 +1214,9 @@ export default function UserRFPAnalyzerPage() {
                 <FileText size={20} className="text-neon-emerald" />
               </div>
               <div>
-                <p className="text-sm font-medium text-ghost-white">{fileName}</p>
+                <p className="text-sm font-semibold text-slate-900">{result.rfp_summary?.title || (location.state as any)?.rfpTitle || fileName}</p>
                 <p className="text-xs text-muted-silver">
-                  Analysis completed · {result.detected_application} application detected
+                  {fileName} · Analysis completed · {result.detected_application} application detected
                 </p>
               </div>
             </div>
@@ -1266,7 +1277,7 @@ export default function UserRFPAnalyzerPage() {
             const extracted = result.extracted_fields || {};
             const detailsList = [
               ['Bid / Tender Ref', rfp.bid_number || rfp.tender_reference || sales.bid_number || (result.filename ? `NIT-${result.filename.replace(/\.pdf$/i, '')}` : null)],
-              ['Tender / BOQ Title', rfp.boq_title || rfp.title || sales.rfp_title || (result.filename ? `Supply of Cables — ${result.filename}` : null)],
+              ['Tender / BOQ Title', rfp.title || rfp.boq_title || sales.rfp_title || (result.filename ? `Supply of Cables — ${result.filename}` : null)],
               ['Issuing Authority / Client', rfp.organization || rfp.authority || rfp.department || rfp.ministry || sales.issuing_authority || extracted.issuing_authority || 'Distribution Infrastructure Authority'],
               ['Submission Deadline', rfp.bid_end_date || rfp.deadline || sales.due_date || extracted.submission_deadline],
               ['Estimated Budget / Value', rfp.estimated_budget_inr ? `₹${Number(rfp.estimated_budget_inr).toLocaleString('en-IN')}` : (sales.estimated_value ? `₹${Number(sales.estimated_value).toLocaleString('en-IN')}` : (extracted.estimated_value ? `₹${Number(extracted.estimated_value).toLocaleString('en-IN')}` : null))],
