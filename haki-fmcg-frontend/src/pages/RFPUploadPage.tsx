@@ -291,7 +291,6 @@ export default function RFPUploadPage() {
                       <div className="text-center">
                         <span className="text-2xl block mb-2">{portal.icon}</span>
                         <p className="text-sm font-medium text-ghost-white">{portal.name}</p>
-                        <p className="text-xs text-muted-silver mt-0.5">Port {portal.port}</p>
                         <Badge variant="soft" color={portal.color as any} size="sm" className="mt-2">
                           {portal.rfpCount} RFPs available
                         </Badge>

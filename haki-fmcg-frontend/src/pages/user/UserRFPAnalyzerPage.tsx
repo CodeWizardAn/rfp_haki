@@ -832,7 +832,6 @@ export default function UserRFPAnalyzerPage() {
                         <span className="text-2xl">{portal.icon}</span>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-semibold text-ghost-white truncate">{portal.name}</p>
-                          <p className="text-[10px] text-muted-silver">Port {portal.port}</p>
                         </div>
                         <div className="flex items-center gap-1">
                           <span className="w-2 h-2 rounded-full bg-neon-emerald animate-pulse" />

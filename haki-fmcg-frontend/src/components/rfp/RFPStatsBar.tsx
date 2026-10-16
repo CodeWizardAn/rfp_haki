@@ -5,7 +5,6 @@ import {
   CheckCircle2,
   TrendingUp,
 } from 'lucide-react';
-import { Card } from '@/components/ui';
 
 interface StatCard {
   label: string;
@@ -60,14 +59,14 @@ function MiniSparkline({ data, color }: { data: number[]; color: string }) {
   const max = Math.max(...data);
   const min = Math.min(...data);
   const range = max - min || 1;
-  const w = 80;
-  const h = 24;
+  const w = 92;
+  const h = 28;
   const points = data.map((v, i) => `${(i / (data.length - 1)) * w},${h - ((v - min) / range) * h}`).join(' ');
 
   const strokeColor =
-    color === 'text-electric-cyan' ? '#00D4FF' :
-    color === 'text-amber-glow' ? '#FFB224' :
-    color === 'text-neon-emerald' ? '#00E68A' :
+    color === 'text-electric-cyan' ? '#2563EB' :
+    color === 'text-amber-glow' ? '#D97706' :
+    color === 'text-neon-emerald' ? '#059669' :
     '#7C3AED';
 
   return (
@@ -76,7 +75,7 @@ function MiniSparkline({ data, color }: { data: number[]; color: string }) {
         points={points}
         fill="none"
         stroke={strokeColor}
-        strokeWidth="1.5"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -94,23 +93,27 @@ export default function RFPStatsBar() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.05 }}
         >
-          <Card variant="glass">
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className={stat.color}>{stat.icon}</span>
-                  <span className="text-xs text-muted-silver">{stat.label}</span>
+          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-xs transition-all">
+            <div className="flex items-start justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className={`p-1.5 rounded-lg bg-slate-50 border border-slate-100 ${stat.color}`}>
+                    {stat.icon}
+                  </span>
+                  <span className="text-xs font-semibold text-slate-700">{stat.label}</span>
                 </div>
-                <p className="text-xl font-bold text-ghost-white">{stat.value}</p>
-                <span className={`text-[10px] font-medium ${
-                  stat.changeType === 'up' ? 'text-neon-emerald' : 'text-neon-emerald'
-                }`}>
-                  {stat.change}
-                </span>
+                <p className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight pt-1">{stat.value}</p>
+                <div className="pt-0.5">
+                  <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-md inline-flex items-center gap-0.5">
+                    {stat.change}
+                  </span>
+                </div>
               </div>
-              <MiniSparkline data={stat.sparkline} color={stat.color} />
+              <div className="pt-2">
+                <MiniSparkline data={stat.sparkline} color={stat.color} />
+              </div>
             </div>
-          </Card>
+          </div>
         </motion.div>
       ))}
     </div>

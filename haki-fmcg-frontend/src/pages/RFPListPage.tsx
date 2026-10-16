@@ -405,32 +405,41 @@ export default function RFPListPage() {
       </AnimatePresence>
 
       {/* Portal Overview Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        {PORTALS.map((portal) => (
-          <Card
-            key={portal.id}
-            variant="glass"
-            className={`p-3 cursor-pointer transition-all hover:scale-[1.02] ${
-              portalFilter === portal.id ? 'ring-2 ring-electric-cyan/50' : ''
-            }`}
-            onClick={() => setPortalFilter(portalFilter === portal.id ? 'all' : portal.id)}
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg">{portal.icon}</span>
-              <span className="text-xs font-medium text-ghost-white truncate">{portal.name}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                <Badge variant="soft" color={portal.color as any} size="sm">{portal.rfps.length} RFPs</Badge>
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
+        {PORTALS.map((portal) => {
+          const isSelected = portalFilter === portal.id;
+          return (
+            <div
+              key={portal.id}
+              className={`p-4 sm:p-4.5 rounded-2xl bg-white border transition-all cursor-pointer flex flex-col justify-between gap-3 shadow-2xs hover:shadow-xs ${
+                isSelected
+                  ? 'border-blue-500 ring-2 ring-blue-500/20 bg-blue-50/20'
+                  : 'border-slate-200/90 hover:border-slate-300 hover:bg-slate-50/60'
+              }`}
+              onClick={() => setPortalFilter(isSelected ? 'all' : portal.id)}
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="text-xl shrink-0">{portal.icon}</span>
+                <span className="text-sm font-semibold text-slate-900 truncate">{portal.name}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-neon-emerald animate-pulse" />
-                <span className="text-[10px] text-neon-emerald">Live</span>
+              <div className="flex items-center justify-between gap-2 pt-1">
+                <span className={`text-xs font-semibold px-2.5 py-1 rounded-lg ${
+                  portal.color === 'cyan' ? 'bg-blue-50 text-blue-700' :
+                  portal.color === 'emerald' ? 'bg-emerald-50 text-emerald-700' :
+                  portal.color === 'amber' ? 'bg-amber-50 text-amber-700' :
+                  portal.color === 'violet' ? 'bg-purple-50 text-purple-700' :
+                  'bg-rose-50 text-rose-700'
+                }`}>
+                  {portal.rfps.length} RFPs
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-xs font-semibold text-emerald-600">Live</span>
+                </div>
               </div>
             </div>
-            <p className="text-[10px] text-muted-silver mt-1.5">Port {portal.port}</p>
-          </Card>
-        ))}
+          );
+        })}
       </div>
 
       {/* Stats Bar */}
