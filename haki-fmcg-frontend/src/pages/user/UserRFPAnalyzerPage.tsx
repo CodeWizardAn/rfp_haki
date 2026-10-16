@@ -1157,28 +1157,42 @@ export default function UserRFPAnalyzerPage() {
           </motion.div>
 
           {/* Quick Demo Tender Switcher Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-2.5 p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-xs">
-            <span className="text-slate-700 font-mono text-[11px] font-semibold flex items-center gap-1.5">
-              <Sparkles size={14} className="text-blue-600" />
-              <span>Quick Switch Verified PSU Benchmarks:</span>
-            </span>
-            <div className="flex flex-wrap items-center gap-1.5">
-              {DEMO_TENDERS.map((t) => (
-                <button
-                  key={t.id}
-                  onClick={() => handleLoadDemoTender(t)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    fileName === t.filename
-                      ? 'bg-blue-600 text-white shadow-xs border border-blue-600'
-                      : 'bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200'
-                  }`}
-                >
-                  <span className={fileName === t.filename ? 'opacity-85 text-blue-100' : 'text-slate-500'}>
-                    {t.badge}:
-                  </span>
-                  <span className="font-bold">{t.title.split(' ')[0]}</span>
-                </button>
-              ))}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 sm:px-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+            <div className="flex items-center gap-2 text-xs font-semibold text-slate-800">
+              <span className="w-2 h-2 rounded-full bg-blue-600" />
+              <span>Benchmark Tenders</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {DEMO_TENDERS.map((t) => {
+                const isActive = fileName === t.filename;
+                const agency = t.title.split(' ')[0];
+                const subtitle =
+                  t.id === 'pgcil-33kv'
+                    ? '33kV Substation'
+                    : t.id === 'ntpc-solar'
+                    ? 'Solar BoP'
+                    : 'Campus Modernization';
+
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => handleLoadDemoTender(t)}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer flex items-center gap-1.5 ${
+                      isActive
+                        ? 'bg-blue-600 text-white font-semibold shadow-xs ring-2 ring-blue-600/25'
+                        : 'bg-slate-50 hover:bg-slate-100/90 text-slate-700 hover:text-slate-900 border border-slate-200/80 hover:border-slate-300'
+                    }`}
+                  >
+                    <span className={isActive ? 'text-white font-bold' : 'text-slate-900 font-bold'}>
+                      {agency}
+                    </span>
+                    <span className={isActive ? 'text-blue-200' : 'text-slate-400'}>·</span>
+                    <span className={isActive ? 'text-blue-100 font-normal' : 'text-slate-600 font-normal'}>
+                      {subtitle}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
