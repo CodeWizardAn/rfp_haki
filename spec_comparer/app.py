@@ -1121,6 +1121,14 @@ class SpecMatcher:
         
         top_products = df.loc[selected_indices]
         
+        def _first_valid(*vals):
+            for v in vals:
+                if v is not None and not (isinstance(v, float) and math.isnan(v)):
+                    sv = str(v).strip()
+                    if sv and sv.lower() not in ['nan', 'none']:
+                        return v
+            return None
+
         results = []
         for _, row in top_products.iterrows():
             product = {
@@ -1129,16 +1137,16 @@ class SpecMatcher:
                 'product_code': row.get('Product_Code', ''),
                 'product_name': row.get('Product_Name', ''),
                 'match_score': round(row['match_score'], 1),
-                'conductor_size': row.get('Conductor_Size_sqmm'),
-                'cores': row.get('No_of_Cores'),
-                'voltage_rating': row.get('Voltage_Rating'),
-                'insulation_type': row.get('Insulation_Type'),
-                'conductor_material': row.get('Conductor_Material'),
+                'conductor_size': _first_valid(row.get('Conductor_Size_sqmm'), row.get('Conductor_Size_Range')),
+                'cores': _first_valid(row.get('No_of_Cores'), row.get('Cores_Category')),
+                'voltage_rating': _first_valid(row.get('Voltage_Rating'), row.get('Voltage_Normalized')),
+                'insulation_type': _first_valid(row.get('Insulation_Type'), row.get('Insulation_Type_Normalized')),
+                'conductor_material': _first_valid(row.get('Conductor_Material'), row.get('Conductor_Material_Normalized')),
                 'current_rating': row.get('Current_Rating_Amps'),
-                'standard': row.get('Standard'),
+                'standard': _first_valid(row.get('Standard'), row.get('Compliance_Level')),
                 'price_per_meter': row.get('Price_Per_Meter_INR'),
                 'price_per_100m': row.get('Price_Per_100m_INR'),
-                'fire_rating': row.get('Fire_Rating'),
+                'fire_rating': _first_valid(row.get('Fire_Rating'), row.get('Fire_Rating_Extracted')),
                 'is_armoured': row.get('Is_Armoured'),
                 'warranty_years': row.get('Warranty_Years'),
                 'overall_quality_score': row.get('Overall_Quality_Score'),
@@ -1358,26 +1366,33 @@ class SpecMatcher:
         if requirement.get('voltage'):
             total_fields += 1
             product_voltage = str(product_row.get('Voltage_Rating', ''))
-            if 'Voltage_Normalized' in product_row and pd.notna(product_row['Voltage_Normalized']):
+            
+            def _extract_numeric_volts(v):
+                if v is None or pd.isna(v):
+                    return None
+                s = str(v).lower().replace(' ', '')
+                m = re.search(r'(\d+\.?\d*)', s)
+                if not m:
+                    return None
+                val = float(m.group(1))
+                if 'kv' in s and val < 100:
+                    val *= 1000
+                return val
+
+            req_v = _extract_numeric_volts(requirement['voltage'])
+            prod_v = _extract_numeric_volts(product_row.get('Voltage_Rating')) or _extract_numeric_volts(product_row.get('Voltage_Normalized'))
+
+            if req_v is not None and prod_v is not None:
+                if prod_v >= req_v or abs(prod_v - req_v) / req_v < 0.05:
+                    score += SCORING_WEIGHTS['Voltage_Rating']
+                    matched_fields += 1
+                elif prod_v >= req_v * 0.9:
+                    score += SCORING_WEIGHTS['Voltage_Rating'] * 0.7
+            elif 'Voltage_Normalized' in product_row and pd.notna(product_row['Voltage_Normalized']):
                 req_voltage_norm = self._normalize_voltage(requirement['voltage'])
                 if product_row['Voltage_Normalized'] == req_voltage_norm:
                     score += SCORING_WEIGHTS['Voltage_Rating']
                     matched_fields += 1
-            else:
-                req_voltage = requirement['voltage']
-                volt_match = re.search(r'(\d+)', product_voltage)
-                if volt_match:
-                    try:
-                        prod_volt = float(volt_match.group(1))
-                        if 'kv' in product_voltage.lower():
-                            prod_volt *= 1000
-                        if prod_volt >= req_voltage:
-                            score += SCORING_WEIGHTS['Voltage_Rating']
-                            matched_fields += 1
-                        elif prod_volt >= req_voltage * 0.9:
-                            score += SCORING_WEIGHTS['Voltage_Rating'] * 0.7
-                    except:
-                        pass
         
         # Conductor material match
         if requirement.get('conductor_material'):
@@ -1500,13 +1515,34 @@ class SpecMatcher:
     def _normalize_voltage(self, voltage) -> str:
         """Normalize voltage to standard format"""
         try:
-            volt_map = {
-                '230': '230V', '220': '230V', '400': '400V', '415': '400V',
-                '660': '660V', '1000': '1000V', '1100': '1100V+', '3300': '1100V+',
-                '6600': '1100V+', '11000': '1100V+'
-            }
-            volt_str = str(voltage).replace('V', '').replace('v', '').strip()
-            return volt_map.get(volt_str, 'Unknown')
+            if not voltage or pd.isna(voltage):
+                return 'Unknown'
+            s = str(voltage).lower().replace(' ', '')
+            m = re.search(r'(\d+\.?\d*)', s)
+            if not m:
+                return 'Unknown'
+            val = float(m.group(1))
+            if 'kv' in s and val < 100:
+                val *= 1000
+            
+            if val <= 250:
+                return '230V'
+            elif val <= 440:
+                return '415V'
+            elif val <= 660:
+                return '660V'
+            elif val <= 1100:
+                return '1100V'
+            elif val <= 3300:
+                return '3.3kV'
+            elif val <= 6600:
+                return '6.6kV'
+            elif val <= 11000:
+                return '11kV'
+            elif val <= 33000:
+                return '33kV'
+            else:
+                return '>33kV'
         except:
             return 'Unknown'
     

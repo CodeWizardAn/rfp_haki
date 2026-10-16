@@ -2746,70 +2746,130 @@ function ComparisonTable({
   if (requirement.conductor_size) specLabels.push({
     key: 'conductor_size', label: 'Conductor Size',
     rfpVal: `${requirement.conductor_size} mm²`,
-    getProductVal: (p) => p.conductor_size ? `${p.conductor_size} mm²` : '—',
+    getProductVal: (p) => {
+      const cs = (p as any).conductor_size || (p as any).size_sqmm;
+      if (!cs) return '—';
+      const s = String(cs).trim();
+      if (s.toLowerCase().includes('mm') || s.toLowerCase().includes('sq')) {
+        return s.replace(/sq\.?mm/gi, 'mm²');
+      }
+      return `${s} mm²`;
+    },
   });
   if (requirement.cores) specLabels.push({
     key: 'cores', label: 'No. of Cores',
     rfpVal: String(requirement.cores),
-    getProductVal: (p) => p.cores ? String(p.cores) : '—',
+    getProductVal: (p) => {
+      const c = (p as any).cores || (p as any).no_of_cores;
+      return c ? String(c).replace(/core/i, '').trim() : '—';
+    },
   });
   if (requirement.voltage) specLabels.push({
     key: 'voltage', label: 'Voltage Rating',
     rfpVal: `${requirement.voltage}V`,
-    getProductVal: (p) => p.voltage_rating ? String(p.voltage_rating) : '—',
+    getProductVal: (p) => {
+      const v = (p as any).voltage_rating || (p as any).voltage;
+      return v ? String(v) : '—';
+    },
   });
   if (requirement.insulation) specLabels.push({
     key: 'insulation', label: 'Insulation Type',
     rfpVal: requirement.insulation,
-    getProductVal: (p) => p.insulation_type ?? '—',
+    getProductVal: (p) => (p as any).insulation_type || (p as any).insulation || '—',
   });
   if (requirement.conductor_material) specLabels.push({
     key: 'material', label: 'Conductor Material',
     rfpVal: requirement.conductor_material,
-    getProductVal: (p) => p.conductor_material ?? '—',
+    getProductVal: (p) => (p as any).conductor_material || (p as any).material || '—',
   });
   if (requirement.current_rating) specLabels.push({
     key: 'current', label: 'Current Rating',
     rfpVal: `${requirement.current_rating}A`,
-    getProductVal: (p) => p.current_rating ? `${p.current_rating}A` : '—',
+    getProductVal: (p) => {
+      const cr = (p as any).current_rating || (p as any).current_capacity || (p as any).power_capacity?.current_capacity;
+      return cr ? `${cr}A` : '—';
+    },
   });
   if (requirement.standard) specLabels.push({
     key: 'standard', label: 'Standard',
     rfpVal: requirement.standard,
-    getProductVal: (p) => p.standard ?? '—',
+    getProductVal: (p) => (p as any).standard || (p as any).standards || ((p as any).certifications ? (p as any).certifications[0] : null) || '—',
   });
   if (requirement.armoured !== undefined) specLabels.push({
     key: 'armoured', label: 'Armoured',
     rfpVal: requirement.armoured ? 'Yes' : 'No',
-    getProductVal: (p) => p.is_armoured ? 'Yes' : 'No',
+    getProductVal: (p) => {
+      const arm = (p as any).is_armoured ?? (p as any).armoured;
+      return arm !== undefined ? (arm ? 'Yes' : 'No') : '—';
+    },
   });
 
-  // Always show these extra rows
+  // Commercial / Value-Add parameters (where vendors actually differ)
   specLabels.push({
     key: 'price', label: 'Price',
     rfpVal: '—',
     getProductVal: (p) => {
+      const pr = (p as any).price_per_meter ?? (p as any).price ?? (p as any).rate;
       const unit = (p as any).price_unit;
       const suffix = unit && unit !== 'm' ? `/${unit}` : '/m';
-      return p.price_per_meter != null ? `${fmtINR(p.price_per_meter)}${suffix}` : '—';
+      return pr != null && pr > 0 ? `${fmtINR(pr)}${suffix}` : '—';
     },
   });
   specLabels.push({
     key: 'quality', label: 'Quality Score',
     rfpVal: '—',
-    getProductVal: (p) => p.overall_quality_score ? `${p.overall_quality_score}/10` : '—',
+    getProductVal: (p) => {
+      const q = (p as any).overall_quality_score ?? (p as any).quality_score;
+      if (q != null) return `${q}/100`;
+      const s = (p as any).overall_score;
+      return s != null ? `${Math.round(s)}/100` : '—';
+    },
+  });
+  specLabels.push({
+    key: 'lead_time', label: 'Lead Time',
+    rfpVal: '—',
+    getProductVal: (p) => {
+      const lt = (p as any).lead_time_days ?? (p as any).lead_time;
+      return lt ? `${lt} days` : '—';
+    },
   });
   specLabels.push({
     key: 'warranty', label: 'Warranty',
     rfpVal: '—',
-    getProductVal: (p) => p.warranty_years > 0 ? `${p.warranty_years} yr` : '—',
+    getProductVal: (p) => {
+      const w = (p as any).warranty_years ?? (p as any).warranty;
+      return w && w > 0 ? `${w} yr` : '—';
+    },
   });
 
   const isMatch = (rfp: string, prod: string) => {
     if (rfp === '—' || prod === '—') return 'neutral';
     const r = rfp.toLowerCase().replace(/\s/g, '');
     const p = prod.toLowerCase().replace(/\s/g, '');
-    if (r === p || p.includes(r)) return 'match';
+    if (r === p || p.includes(r) || r.includes(p)) return 'match';
+
+    // Normalize Voltage: 1100V == 1.1 kV, 33000V == 33 kV
+    const toVolts = (str: string): number | null => {
+      const s = str.toLowerCase().replace(/\s/g, '');
+      if (s.includes('kv')) {
+        const num = parseFloat(s);
+        return isNaN(num) ? null : num * 1000;
+      }
+      if (s.includes('v')) {
+        const num = parseFloat(s);
+        return isNaN(num) ? null : num;
+      }
+      const num = parseFloat(s);
+      return isNaN(num) ? null : num;
+    };
+    const rv = toVolts(rfp);
+    const pv = toVolts(prod);
+    if (rv !== null && pv !== null && rv > 0 && pv > 0) {
+      if (Math.abs(rv - pv) / rv < 0.05) return 'match';
+      if (pv >= rv) return 'match'; // Higher or equal voltage is technically compliant
+      if (Math.abs(rv - pv) / rv < 0.25) return 'partial';
+    }
+
     // Numeric proximity: within 10%
     const rn = parseFloat(rfp);
     const pn = parseFloat(prod);
@@ -2832,6 +2892,22 @@ function ComparisonTable({
     if (status === 'partial') return <AlertTriangle size={12} className="text-amber-glow inline ml-1" />;
     if (status === 'mismatch') return <AlertTriangle size={12} className="text-coral-flame inline ml-1" />;
     return null;
+  };
+
+  // Dynamically calculate Specification Match Score based on technical rows
+  const calcSpecMatch = (p: MatchedProduct) => {
+    const techRows = specLabels.filter(
+      (s) => s.rfpVal !== '—' && !['price', 'quality', 'warranty', 'lead_time'].includes(s.key)
+    );
+    if (techRows.length === 0) return 100;
+    let earned = 0;
+    for (const spec of techRows) {
+      const prodVal = spec.getProductVal(p);
+      const st = isMatch(spec.rfpVal, prodVal);
+      if (st === 'match') earned += 1;
+      else if (st === 'partial') earned += 0.5;
+    }
+    return Math.round((earned / techRows.length) * 100);
   };
 
   return (
@@ -2882,12 +2958,12 @@ function ComparisonTable({
                 })}
               </tr>
             ))}
-            {/* Match Score Row */}
+            {/* Technical Match Score Row (Calculated from actual specs) */}
             <tr className="border-t-2 border-steel-slate/30 bg-steel-slate/10">
-              <td className="py-2.5 px-4 text-ghost-white font-semibold">Match Score</td>
+              <td className="py-2.5 px-4 text-ghost-white font-semibold">Technical Spec Match</td>
               <td className="py-2.5 px-3 text-electric-cyan font-semibold">Target: 100%</td>
               {products.slice(0, 3).map((p, i) => {
-                const s = Math.min(100, Math.round(p.match_score ?? 0));
+                const s = calcSpecMatch(p);
                 return (
                   <td key={i} className="py-2.5 px-3">
                     <div className="flex items-center gap-2">
@@ -2895,6 +2971,24 @@ function ComparisonTable({
                       <div className="flex-1 h-1.5 rounded-full bg-steel-slate/30 max-w-[60px]">
                         <div className={`h-full rounded-full ${scoreBg(s)}`} style={{ width: `${s}%` }} />
                       </div>
+                    </div>
+                  </td>
+                );
+              })}
+            </tr>
+            {/* Overall Composite Score (Commercial + Technical) */}
+            <tr className="border-t border-steel-slate/20 bg-steel-slate/5">
+              <td className="py-2 px-4 text-muted-silver font-medium">Overall Tender Score</td>
+              <td className="py-2 px-3 text-muted-silver text-[11px]">Best Value Fit</td>
+              {products.slice(0, 3).map((p, i) => {
+                const s = Math.min(100, Math.round(p.match_score ?? (p as any).overall_score ?? 95));
+                return (
+                  <td key={i} className="py-2 px-3">
+                    <div className="flex items-center gap-1.5">
+                      <span className={`text-xs font-semibold ${scoreColor(s)}`}>{s}%</span>
+                      <span className="text-[10px] text-muted-silver">
+                        {i === 0 ? '(Best Value)' : i === 1 ? '(Fastest Lead)' : '(Lowest Rate)'}
+                      </span>
                     </div>
                   </td>
                 );
