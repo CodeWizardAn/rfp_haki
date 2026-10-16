@@ -2611,11 +2611,6 @@ Verification Status: Completed & Approved.`,
             Linked Documents ({linkedDocs.total})
           </h3>
           <div className="flex items-center gap-3">
-            {Object.entries(byType).map(([type, count]) => (
-              <Badge key={type} variant="soft" color={typeColor(type)} size="sm">
-                {type}: {String(count)}
-              </Badge>
-            ))}
             {expanded ? <ChevronUp size={16} className="text-muted-silver" /> : <ChevronDown size={16} className="text-muted-silver" />}
           </div>
         </div>
@@ -2696,34 +2691,6 @@ Verification Status: Completed & Approved.`,
                     </div>
                   ))}
                 </div>
-
-                {/* Summary analysis */}
-                {details.length > 0 && (
-                  <div className="p-3 rounded-lg bg-steel-slate/10 border border-steel-slate/20">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Info size={14} className="text-electric-cyan" />
-                      <p className="text-xs font-semibold text-ghost-white">Document Analysis</p>
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      <div>
-                        <p className="text-[10px] text-muted-silver uppercase">Total Links</p>
-                        <p className="text-lg font-bold text-ghost-white">{linkedDocs.total}</p>
-                      </div>
-                      {Object.entries(byType).map(([type, count]) => (
-                        <div key={type}>
-                          <p className="text-[10px] text-muted-silver uppercase">{type}</p>
-                          <p className="text-lg font-bold text-ghost-white">{String(count)}</p>
-                        </div>
-                      ))}
-                      <div>
-                        <p className="text-[10px] text-muted-silver uppercase">Verified Docs</p>
-                        <p className="text-lg font-bold text-neon-emerald">
-                          {details.length}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             </motion.div>
           )}
