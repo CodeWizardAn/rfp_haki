@@ -1020,10 +1020,10 @@ export default function LandingPage() {
             </p>
             <div className="pt-2">
               <Link
-                to={isAuthenticated ? (user?.role === 'admin' ? '/compliance/audit' : '/user/history') : '/login?redirect=/compliance/audit'}
+                to={isAuthenticated ? (user?.role === 'admin' ? '/compliance' : '/user/history') : '/login?redirect=/compliance'}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:underline"
               >
-                Inspect compliance audit trail →
+                Inspect compliance dashboard →
               </Link>
             </div>
           </div>

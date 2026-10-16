@@ -10,7 +10,6 @@ import {
   Building2,
   BarChart3,
   ShieldCheck,
-  ClipboardList,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -54,7 +53,6 @@ const navSections: { title?: string; items: NavItem[] }[] = [
     items: [
       { label: 'Analytics', path: '/analytics', icon: <BarChart3 size={20} /> },
       { label: 'Compliance', path: '/compliance', icon: <ShieldCheck size={20} /> },
-      { label: 'Audit Trail', path: '/compliance/audit', icon: <ClipboardList size={20} /> },
     ],
   },
   {
@@ -119,7 +117,6 @@ export function Sidebar() {
                 (item.path === '/analytics' && currentPath.startsWith('/user/analytics')) ||
                 (item.path === '/bids' && (currentPath.startsWith('/user/bids') || currentPath.startsWith('/user/my-bids') || currentPath.startsWith('/user/bid-generator') || currentPath.startsWith('/user/quotes'))) ||
                 (item.path === '/vendors' && currentPath.startsWith('/user/vendors')) ||
-                (item.path === '/compliance/audit' && currentPath.startsWith('/user/history')) ||
                 (item.path === '/settings' && (currentPath.startsWith('/user/settings') || currentPath.startsWith('/user/profile') || currentPath.startsWith('/user/company-profile')));
 
               return (
