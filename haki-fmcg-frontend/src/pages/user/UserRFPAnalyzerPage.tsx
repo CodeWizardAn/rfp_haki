@@ -3187,76 +3187,63 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
       </div>
 
       {/* ── Statutory Bid Deliverables Export Toolbar ── */}
-      <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-          <div className="flex items-center gap-2.5">
-            <span className="p-2 rounded-lg bg-blue-50 text-blue-600">
-              <Download size={16} />
-            </span>
-            <div>
-              <h5 className="text-xs sm:text-sm font-bold text-slate-900 tracking-tight">
-                Statutory Bid Dossier Deliverables
-              </h5>
-              <p className="text-[11px] text-slate-500">
-                1-click client-side statutory exports formatted to Indian PSU / GeM submission templates
-              </p>
-            </div>
+      <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+            <Download size={18} />
           </div>
-          <span className="self-start sm:self-auto px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-50 text-blue-700 border border-blue-200">
-            GFR 170 &amp; Form F-4 Ready
-          </span>
+          <h5 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+            Statutory Bid Dossier Deliverables
+          </h5>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Deliverable 1: Form F-4 Deviation Schedule */}
           <button
             onClick={() => exportFormF4Deviations(result)}
-            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-50 hover:bg-blue-50/40 border border-slate-200 hover:border-blue-400/80 transition-all text-left group cursor-pointer shadow-2xs"
+            className="flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-blue-400/80 hover:shadow-sm transition-all text-left group cursor-pointer"
           >
-            <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex items-center gap-3 min-w-0">
               <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                <FileSpreadsheet size={16} className="group-hover:scale-110 transition-transform" />
+                <FileSpreadsheet size={17} className="group-hover:scale-110 transition-transform" />
               </div>
-              <div className="min-w-0">
-                <span className="text-xs font-semibold text-slate-900 group-hover:text-blue-600 block truncate">Form F-4 Deviations</span>
-                <span className="text-[10px] text-slate-500 block">NIL Deviation CSV Schedule</span>
-              </div>
+              <span className="text-sm font-semibold text-slate-800 group-hover:text-blue-600 truncate">
+                Form F-4 Deviations
+              </span>
             </div>
-            <Download size={13} className="text-slate-400 group-hover:text-blue-600 shrink-0" />
+            <Download size={15} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-y-0.5 transition-all shrink-0" />
           </button>
 
           {/* Deliverable 2: Rule 170 GFR EMD Affidavit */}
           <button
             onClick={() => exportRule170Affidavit(result)}
-            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-50 hover:bg-blue-50/40 border border-slate-200 hover:border-blue-400/80 transition-all text-left group cursor-pointer shadow-2xs"
+            className="flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-blue-400/80 hover:shadow-sm transition-all text-left group cursor-pointer"
           >
-            <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex items-center gap-3 min-w-0">
               <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                <ShieldCheck size={16} className="group-hover:scale-110 transition-transform" />
+                <ShieldCheck size={17} className="group-hover:scale-110 transition-transform" />
               </div>
-              <div className="min-w-0">
-                <span className="text-xs font-semibold text-slate-900 group-hover:text-blue-600 block truncate">Rule 170 GFR Affidavit</span>
-                <span className="text-[10px] text-slate-500 block">MSME NIC 27320 Waiver Letter</span>
-              </div>
+              <span className="text-sm font-semibold text-slate-800 group-hover:text-blue-600 truncate">
+                Rule 170 GFR Affidavit
+              </span>
             </div>
-            <Download size={13} className="text-slate-400 group-hover:text-blue-600 shrink-0" />
+            <Download size={15} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-y-0.5 transition-all shrink-0" />
           </button>
 
           {/* Deliverable 3: Priced BOQ Schedule */}
           <button
             onClick={() => exportPricedBOQ(result)}
-            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-50 hover:bg-blue-50/40 border border-slate-200 hover:border-blue-400/80 transition-all text-left group cursor-pointer shadow-2xs"
+            className="flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-blue-400/80 hover:shadow-sm transition-all text-left group cursor-pointer"
           >
-            <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex items-center gap-3 min-w-0">
               <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-                <FileText size={16} className="group-hover:scale-110 transition-transform" />
+                <FileText size={17} className="group-hover:scale-110 transition-transform" />
               </div>
-              <div className="min-w-0">
-                <span className="text-xs font-semibold text-slate-900 group-hover:text-blue-600 block truncate">Priced BOQ Schedule</span>
-                <span className="text-[10px] text-slate-500 block">Bill of Quantities CSV</span>
-              </div>
+              <span className="text-sm font-semibold text-slate-800 group-hover:text-blue-600 truncate">
+                Priced BOQ Schedule
+              </span>
             </div>
-            <Download size={13} className="text-slate-400 group-hover:text-blue-600 shrink-0" />
+            <Download size={15} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-y-0.5 transition-all shrink-0" />
           </button>
         </div>
       </div>
