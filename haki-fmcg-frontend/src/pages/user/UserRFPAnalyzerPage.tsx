@@ -37,7 +37,6 @@ import {
   Send,
   Save,
   Database,
-  ArrowRight,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Card, CardHeader, CardTitle, Badge, Button, Modal } from '@/components/ui';
@@ -984,61 +983,6 @@ export default function UserRFPAnalyzerPage() {
                       Run Live Mock Analysis
                     </Button>
                   </div>
-                </div>
-              </div>
-
-              {/* ── 1-Click Pre-analyzed Tender Benchmarks ── */}
-              <div className="pt-2">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-3.5">
-                  <div>
-                    <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                      <Sparkles size={15} className="text-blue-600" />
-                      1-Click Pre-verified PSU / GeM Tenders:
-                    </h3>
-                    <p className="text-xs text-slate-600 mt-0.5">
-                      Inspect instant deep-dive analysis, OEM catalog matching &amp; statutory bid dossiers without uploading
-                    </p>
-                  </div>
-                  <span className="self-start sm:self-auto text-[10px] font-mono font-bold text-blue-700 px-2.5 py-0.5 rounded bg-blue-50 border border-blue-200">
-                    Instant Demo Data
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-                  {DEMO_TENDERS.map((tender) => (
-                    <div
-                      key={tender.id}
-                      onClick={() => handleLoadDemoTender(tender)}
-                      className="group p-4 rounded-xl bg-white hover:bg-slate-50/70 border border-slate-200/90 hover:border-blue-500/50 transition-all cursor-pointer flex flex-col justify-between text-left shadow-2xs hover:shadow-md"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between gap-1.5 mb-2">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 text-slate-700 group-hover:text-blue-600 border border-slate-200 transition-colors">
-                            {tender.badge}
-                          </span>
-                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                            {tender.matchScore}% Match
-                          </span>
-                        </div>
-                        <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
-                          {tender.title}
-                        </h4>
-                        <p className="text-[11px] text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-                          {tender.scopeSummary}
-                        </p>
-                        <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600">
-                          <span>Est. Value: <strong className="text-slate-900 font-semibold">₹{(tender.budgetInr / 100000).toFixed(1)}L</strong></span>
-                          <span>OEM: <strong className="text-blue-600 font-semibold">{tender.bestOEM}</strong></span>
-                        </div>
-                      </div>
-                      <div className="mt-3 pt-2 flex items-center justify-between border-t border-slate-100">
-                        <span className="text-[10px] text-slate-500 font-mono truncate max-w-[170px]">{tender.nitNumber}</span>
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 group-hover:translate-x-0.5 transition-transform">
-                          Inspect <ArrowRight size={12} />
-                        </span>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </motion.div>
