@@ -16,44 +16,10 @@ interface StatCard {
   sparkline: number[];
 }
 
-const stats: StatCard[] = [
-  {
-    label: 'Total RFPs',
-    value: '247',
-    change: '+12.3%',
-    changeType: 'up',
-    icon: <FileText size={16} />,
-    color: 'text-electric-cyan',
-    sparkline: [20, 25, 22, 30, 28, 35, 32, 38, 42, 47],
-  },
-  {
-    label: 'Avg Processing',
-    value: '3.2 min',
-    change: '-18.5%',
-    changeType: 'down',
-    icon: <Clock size={16} />,
-    color: 'text-amber-glow',
-    sparkline: [5.2, 4.8, 4.5, 4.1, 3.8, 3.6, 3.5, 3.4, 3.2, 3.2],
-  },
-  {
-    label: 'Success Rate',
-    value: '94.2%',
-    change: '+2.1%',
-    changeType: 'up',
-    icon: <CheckCircle2 size={16} />,
-    color: 'text-neon-emerald',
-    sparkline: [88, 89, 90, 91, 90, 92, 93, 93, 94, 94],
-  },
-  {
-    label: 'This Month',
-    value: '38',
-    change: '+8 vs prev',
-    changeType: 'up',
-    icon: <TrendingUp size={16} />,
-    color: 'text-violet-pulse',
-    sparkline: [4, 6, 3, 5, 7, 4, 6, 8, 5, 7],
-  },
-];
+interface RFPStatsBarProps {
+  totalRFPs?: number;
+  analyzedCount?: number;
+}
 
 function MiniSparkline({ data, color }: { data: number[]; color: string }) {
   const max = Math.max(...data);
@@ -83,7 +49,50 @@ function MiniSparkline({ data, color }: { data: number[]; color: string }) {
   );
 }
 
-export default function RFPStatsBar() {
+export default function RFPStatsBar({ totalRFPs = 23, analyzedCount = 13 }: RFPStatsBarProps) {
+  const dynamicTotal = totalRFPs;
+  const successPct = dynamicTotal > 0 ? ((analyzedCount / dynamicTotal) * 100).toFixed(1) : '94.2';
+  const thisMonthCount = Math.min(dynamicTotal, Math.max(1, Math.round(dynamicTotal * 0.78)));
+
+  const stats: StatCard[] = [
+    {
+      label: 'Total RFPs',
+      value: dynamicTotal.toString(),
+      change: '+12.3%',
+      changeType: 'up',
+      icon: <FileText size={16} />,
+      color: 'text-electric-cyan',
+      sparkline: [20, 25, 22, 30, 28, 35, 32, 38, 42, dynamicTotal],
+    },
+    {
+      label: 'Avg Processing',
+      value: '3.2 min',
+      change: '-18.5%',
+      changeType: 'down',
+      icon: <Clock size={16} />,
+      color: 'text-amber-glow',
+      sparkline: [5.2, 4.8, 4.5, 4.1, 3.8, 3.6, 3.5, 3.4, 3.2, 3.2],
+    },
+    {
+      label: 'Success Rate',
+      value: `${successPct}%`,
+      change: '+2.1%',
+      changeType: 'up',
+      icon: <CheckCircle2 size={16} />,
+      color: 'text-neon-emerald',
+      sparkline: [88, 89, 90, 91, 90, 92, 93, 93, 94, 94],
+    },
+    {
+      label: 'This Month',
+      value: thisMonthCount.toString(),
+      change: '+8 vs prev',
+      changeType: 'up',
+      icon: <TrendingUp size={16} />,
+      color: 'text-violet-pulse',
+      sparkline: [4, 6, 3, 5, 7, 4, 6, 8, 5, thisMonthCount],
+    },
+  ];
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {stats.map((stat, i) => (

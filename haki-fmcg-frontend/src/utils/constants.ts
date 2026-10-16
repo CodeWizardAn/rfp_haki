@@ -4,7 +4,10 @@ import type { RFPStatus, BidStatus, Priority, PipelineStage, AgentType, VendorTi
 
 export const RFP_STATUS_COLORS: Record<RFPStatus, { bg: string; text: string; dot: string }> = {
   draft: { bg: 'bg-steel-slate/50', text: 'text-muted-silver', dot: 'bg-muted-silver' },
+  scraped: { bg: 'bg-steel-slate/50', text: 'text-muted-silver', dot: 'bg-muted-silver' },
   extracting: { bg: 'bg-electric-cyan-dim', text: 'text-electric-cyan', dot: 'bg-electric-cyan' },
+  analyzing: { bg: 'bg-amber-dim', text: 'text-amber-glow', dot: 'bg-amber-glow' },
+  analyzed: { bg: 'bg-emerald-dim', text: 'text-neon-emerald', dot: 'bg-neon-emerald' },
   matching: { bg: 'bg-violet-dim', text: 'text-violet-pulse', dot: 'bg-violet-pulse' },
   pricing: { bg: 'bg-amber-dim', text: 'text-amber-glow', dot: 'bg-amber-glow' },
   review: { bg: 'bg-rose-pink/15', text: 'text-rose-pink', dot: 'bg-rose-pink' },

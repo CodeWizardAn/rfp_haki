@@ -7,7 +7,10 @@
 
 export type RFPStatus =
   | 'draft'
+  | 'scraped'
   | 'extracting'
+  | 'analyzing'
+  | 'analyzed'
   | 'matching'
   | 'pricing'
   | 'review'
