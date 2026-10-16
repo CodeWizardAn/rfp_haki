@@ -3373,41 +3373,6 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
         </div>
       </div>
 
-      {/* ── Key Tactical Metrics Grid ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-lg bg-white border border-slate-200">
-          <span className="text-xs font-medium text-slate-500 block">Requirements Fit</span>
-          <span className="text-base font-semibold text-slate-900 mt-1 block">
-            {totalMatched} / {totalMatched + totalUnmatched || 4} Compliant
-          </span>
-          <span className="text-xs text-emerald-600 mt-0.5 block font-medium">100% Technical Match</span>
-        </div>
-
-        <div className="p-4 rounded-lg bg-white border border-slate-200">
-          <span className="text-xs font-medium text-slate-500 block">Primary OEM</span>
-          <span className="text-base font-semibold text-slate-900 mt-1 block truncate">
-            {bestOEM}
-          </span>
-          <span className="text-xs text-emerald-600 mt-0.5 block font-medium">{Number(topScore).toFixed(1)}% Compatibility</span>
-        </div>
-
-        <div className="p-4 rounded-lg bg-white border border-slate-200">
-          <span className="text-xs font-medium text-slate-500 block">Catalog Depth</span>
-          <span className="text-base font-semibold text-slate-900 mt-1 block">
-            {(database_info.total_products || 693).toLocaleString()} SKUs
-          </span>
-          <span className="text-xs text-slate-500 mt-0.5 block">5 OEM Repositories</span>
-        </div>
-
-        <div className="p-4 rounded-lg bg-white border border-slate-200">
-          <span className="text-xs font-medium text-slate-500 block">Estimated Value</span>
-          <span className="text-base font-semibold text-emerald-600 mt-1 block">
-            {estimatedValueStr}
-          </span>
-          <span className="text-xs text-slate-500 mt-0.5 block">{result.boq?.total_items || 4} BOQ Items</span>
-        </div>
-      </div>
-
       {/* ── 3-Pillar Strategy Cards ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Pillar 1 */}
