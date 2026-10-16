@@ -3237,8 +3237,6 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
   const detected_application = result.detected_application ?? 'Distribution Substation & Industrial Plant';
   const database_info = result.database_info ?? { total_products: 0, oems: [] };
 
-  const totalMatched = comparisons.filter((c) => c.match_count > 0).length;
-  const totalUnmatched = comparisons.filter((c) => c.match_count === 0).length;
   const allScores = comparisons.flatMap((c) => (c.top_matches ?? []).map((m) => m.match_score));
 
   const bestOEM = oem_summary.best_oem || 'Polycab India Ltd';
@@ -3246,18 +3244,6 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
   const topScore = topRanking
     ? (topRanking.best_match_score || topRanking.avg_score || (allScores.length > 0 ? Math.max(...allScores) : 96.2))
     : (allScores.length > 0 ? Math.max(...allScores) : 96.2);
-
-  const estVal =
-    result.rfp_summary?.estimated_budget_inr ||
-    result.rfp_summary?.estimated_value ||
-    result.pricing_estimate?.grand_total ||
-    8581325.80;
-  const estimatedValueStr =
-    typeof estVal === 'number'
-      ? estVal >= 10000000
-        ? `₹${(estVal / 10000000).toFixed(2)} Cr`
-        : `₹${(estVal / 100000).toFixed(2)} Lakhs`
-      : String(estVal);
 
   const emdVal = result.sales_metadata?.emd_amount || result.extracted_fields?.emd_amount;
   const emdStr = emdVal ? `₹${Number(emdVal).toLocaleString('en-IN')}` : '₹3.50 Lakhs';
