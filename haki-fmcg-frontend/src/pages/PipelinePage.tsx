@@ -357,7 +357,32 @@ export default function PipelinePage() {
         // 6. If bid_generation is running -> complete bid_generation & complete run!
         else if (st('bid_generation') === 'running') {
           newStages.bid_generation = { status: 'success', duration: dur('bid_generation'), items: cnt('bid_generation') };
-          toast.success(`Pipeline ${prev.id} successfully completed all 8 stages!`);
+          const bidNumber = prev.rfpId.replace(/\D/g, '') || String(Math.floor(1000 + Math.random() * 9000));
+          const bidId = `B-${bidNumber}`;
+
+          try {
+            const saved = localStorage.getItem('haki_custom_bids');
+            const existingBids: any[] = saved ? JSON.parse(saved) : [];
+            const generatedBid = {
+              id: bidId,
+              rfpId: prev.rfpId,
+              vendor: 'Haki FMCG Procurement',
+              amount: 4850000,
+              status: 'draft',
+              deadline: new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+              items: 5,
+              createdAt: new Date().toISOString().slice(0, 10),
+              approvalLevel: 1,
+              maxApproval: 4,
+              probability: 78,
+            };
+            const filtered = existingBids.filter((b) => b.id !== bidId && b.rfpId !== prev.rfpId);
+            localStorage.setItem('haki_custom_bids', JSON.stringify([generatedBid, ...filtered]));
+          } catch {
+            // ignore
+          }
+
+          toast.success(`Pipeline ${prev.id} successfully completed! Generated bid ${bidId} added to Bids Management.`);
           const completed: PipelineRun = {
             ...prev,
             status: 'completed',
@@ -704,6 +729,15 @@ export default function PipelinePage() {
                   >
                     Open in Bids Management →
                   </Button>
+                  {selectedStage === 'bid_generation' && (
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => navigate(`/bids/B-${selectedRun.rfpId.replace(/\D/g, '') || '4418'}/preview`)}
+                    >
+                      Preview Dossier →
+                    </Button>
+                  )}
                   <Button
                     variant="secondary"
                     size="sm"

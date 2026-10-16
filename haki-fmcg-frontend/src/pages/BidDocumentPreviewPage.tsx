@@ -81,7 +81,20 @@ function formatINR(n: number) {
 
 export default function BidDocumentPreviewPage() {
   const { id } = useParams();
-  const [sections, setSections] = useState(initialSections);
+  const bidId = id || 'B-4418';
+  const rfpRef = bidId.startsWith('B-') ? `RFP-2026-${bidId.replace('B-', '')}` : 'RFP-2026-4418';
+
+  const [sections, setSections] = useState(() => {
+    return initialSections.map((s) => {
+      if (s.id === 'cover') {
+        return {
+          ...s,
+          content: `Haki Procurement Intelligence\nBid Response Document\n\n${bidId}\nDate: October 16, 2026\n\nPrepared by: Haki FMCG Procurement\nRFP Reference: ${rfpRef}\nSubject: Supply of LT Power Cables & Industrial Hardware`,
+        };
+      }
+      return s;
+    });
+  });
   const [template, setTemplate] = useState('standard');
   const [previewMode, setPreviewMode] = useState(true);
 
@@ -98,12 +111,12 @@ export default function BidDocumentPreviewPage() {
   };
 
   const handleEmail = () => {
-    window.open('mailto:?subject=Bid Proposal BID-2026-001 (LT Power Cables)&body=Attached is the commercial bid proposal generated via HAKI procurement engine.');
+    window.open(`mailto:?subject=Bid Proposal ${bidId} (${rfpRef})&body=Attached is the commercial bid proposal generated via HAKI procurement engine.`);
     toast.success('Email draft opened in your mail client!');
   };
 
   const handleExportPDF = () => {
-    toast.loading('Preparing PDF document for BID-2026-001...', { duration: 1500 });
+    toast.loading(`Preparing PDF document for ${bidId}...`, { duration: 1500 });
     setTimeout(() => {
       window.print();
     }, 800);
@@ -114,12 +127,12 @@ export default function BidDocumentPreviewPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <Link to={id ? `/bids/${id}` : '/bids'} className="p-2 rounded-lg hover:bg-steel-slate/15 transition-colors">
+          <Link to="/bids" className="p-2 rounded-lg hover:bg-steel-slate/15 transition-colors">
             <ArrowLeft size={18} className="text-muted-silver" />
           </Link>
           <div>
             <h1 className="text-h1 text-ghost-white">Bid Document Preview</h1>
-            <p className="text-body text-muted-silver">BID-2026-001 — LT Power Cables Supply</p>
+            <p className="text-body text-muted-silver">{bidId} — {rfpRef} Proposal Dossier</p>
           </div>
         </div>
         <div className="flex gap-2">

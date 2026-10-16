@@ -38,6 +38,7 @@ interface Bid {
 }
 
 const mockBids: Bid[] = [
+  { id: 'B-4418', rfpId: 'RFP-2026-4418', vendor: 'Haki FMCG Procurement', amount: 4850000, status: 'draft', deadline: '2026-03-15', items: 5, createdAt: '2026-10-16', approvalLevel: 1, maxApproval: 4, probability: 78 },
   { id: 'B-0087', rfpId: 'RFP-2026-0001', vendor: 'Havells India', amount: 5860000, status: 'approved', deadline: '2026-02-15', items: 5, createdAt: '2026-02-05', approvalLevel: 4, maxApproval: 4, probability: 85 },
   { id: 'B-0088', rfpId: 'RFP-2026-0001', vendor: 'Polycab India', amount: 5640000, status: 'submitted', deadline: '2026-02-15', items: 4, createdAt: '2026-02-05', approvalLevel: 1, maxApproval: 4, probability: 72 },
   { id: 'B-0089', rfpId: 'RFP-2026-0002', vendor: 'KEI Industries', amount: 5920000, status: 'under_review', deadline: '2026-02-20', items: 3, createdAt: '2026-02-06', approvalLevel: 2, maxApproval: 4, probability: 60 },
@@ -68,7 +69,7 @@ export default function BidsPage() {
   /* ── Backend hooks ── */
   const { data: apiBids } = useBids();
 
-  /* Merge backend bids with mock fallback & localStorage custom bids */
+  /* Merge backend bids with mock fallback & localStorage custom bids, deduplicating by ID */
   const allBids: Bid[] = useMemo(() => {
     let customBids: Bid[] = [];
     try {
@@ -78,9 +79,17 @@ export default function BidsPage() {
       // ignore
     }
     const items = (apiBids as unknown as { data?: Bid[] })?.data;
-    if (items?.length) return [...customBids, ...items];
-    if (Array.isArray(apiBids) && apiBids.length) return [...customBids, ...(apiBids as unknown as Bid[])];
-    return [...customBids, ...mockBids];
+    const baseList = (items?.length ? items : Array.isArray(apiBids) && apiBids.length ? (apiBids as unknown as Bid[]) : mockBids);
+
+    const combined: Bid[] = [...customBids];
+    const seenIds = new Set(customBids.map((b) => b.id));
+    for (const b of baseList) {
+      if (!seenIds.has(b.id)) {
+        combined.push(b);
+        seenIds.add(b.id);
+      }
+    }
+    return combined;
   }, [apiBids]);
 
   const totalValue = allBids.reduce((s, b) => s + b.amount, 0);
@@ -172,16 +181,25 @@ export default function BidsPage() {
                 </div>
                 <div className="space-y-2">
                   {colBids.map((bid) => (
-                    <motion.div key={bid.id} whileHover={{ y: -2 }} className="cursor-pointer">
-                      <Card variant="glass" className="!p-3 relative overflow-hidden">
+                    <motion.div
+                      key={bid.id}
+                      whileHover={{ y: -3, scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => navigate(`/bids/${bid.id}/preview`)}
+                      className="cursor-pointer group"
+                    >
+                      <Card variant="glass" className="!p-3 relative overflow-hidden transition-all duration-200 group-hover:border-electric-cyan/40 group-hover:shadow-[0_4px_20px_rgba(0,212,255,0.12)]">
                         <div className="absolute top-0 left-0 right-0 h-0.5" style={{ backgroundColor: col.color }} />
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-mono text-electric-cyan">{bid.id}</span>
+                          <span className="text-xs font-mono font-bold text-electric-cyan group-hover:underline flex items-center gap-1">
+                            {bid.id}
+                            <Eye size={11} className="opacity-0 group-hover:opacity-100 transition-opacity text-electric-cyan" />
+                          </span>
                           <Badge variant="soft" color={statusBadgeColor(bid.status)} size="sm">
                             {bid.status.replace('_', ' ')}
                           </Badge>
                         </div>
-                        <p className="text-xs text-muted-silver">{bid.rfpId}</p>
+                        <p className="text-xs font-semibold text-ghost-white/90">{bid.rfpId}</p>
                         <div className="flex items-center gap-1.5 mt-1">
                           <Building2 size={10} className="text-muted-silver" />
                           <span className="text-xs text-ghost-white">{bid.vendor}</span>
@@ -211,8 +229,19 @@ export default function BidsPage() {
                             />
                           ))}
                         </div>
-                        <div className="flex items-center gap-1 mt-2 text-[10px] text-muted-silver">
-                          <Clock size={8} /> {bid.deadline}
+                        <div className="flex items-center justify-between mt-2 pt-1 border-t border-steel-slate/15 text-[10px] text-muted-silver">
+                          <span className="flex items-center gap-1"><Clock size={9} /> {bid.deadline}</span>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDownloadBid(bid);
+                            }}
+                            className="p-1 hover:text-electric-cyan transition-colors"
+                            title="Download Bid proposal CSV"
+                          >
+                            <Download size={11} />
+                          </button>
                         </div>
                       </Card>
                     </motion.div>
@@ -243,7 +272,7 @@ export default function BidsPage() {
               </thead>
               <tbody>
                 {allBids.map((bid) => (
-                  <tr key={bid.id} className="border-b border-steel-slate/15 hover:bg-steel-slate/10 transition-colors cursor-pointer" onClick={() => navigate(`/bids/${bid.id}`)}>
+                  <tr key={bid.id} className="border-b border-steel-slate/15 hover:bg-steel-slate/10 transition-colors cursor-pointer" onClick={() => navigate(`/bids/${bid.id}/preview`)}>
                     <td className="px-4 py-3 font-mono text-electric-cyan text-xs">{bid.id}</td>
                     <td className="px-4 py-3 text-muted-silver text-xs">{bid.rfpId}</td>
                     <td className="px-4 py-3 text-ghost-white">{bid.vendor}</td>
