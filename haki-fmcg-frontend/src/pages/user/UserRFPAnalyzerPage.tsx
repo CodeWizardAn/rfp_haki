@@ -3294,16 +3294,6 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
                 <strong className="font-semibold text-slate-900">Procurement &amp; Liquidity Blueprint:</strong> Pre-bid submission under Rule 170 GFR 2017 &amp; MSME PPP Order 2012 (Udyam NIC 27320) frees {emdStr} in liquid EMD deposits upfront. For commercial execution, lock a 15-day distributor forward price agreement on {hasHT ? '33 kV HT extrusion slots' : 'power distribution lines'} to insulate the 60-day delivery commitment against liquidated damages exposure.
               </p>
             </div>
-
-            {/* Statutory Reference Strip */}
-            <div className="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-[10px]">
-              <span className="font-semibold text-slate-500 uppercase tracking-wider mr-1">Statutory Governance:</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">Rule 170 GFR 2017 (EMD Waiver)</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">DPIIT MII-PPO (Class-I Local Supplier)</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">IEEMA PV-CBL Formula</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">IS 7098 Pt 1 &amp; 2 / IS 8130</span>
-              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">MoF OM F.9/4/2020 (PBG Cap)</span>
-            </div>
           </div>
         </div>
       </div>
@@ -3384,118 +3374,112 @@ function FinalAnalysisSection({ result }: { result: AnalysisResult }) {
       </div>
 
       {/* ── Key Tactical Metrics Grid ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Requirements Fit</span>
-          <span className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 block">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="p-4 rounded-lg bg-white border border-slate-200">
+          <span className="text-xs font-medium text-slate-500 block">Requirements Fit</span>
+          <span className="text-base font-semibold text-slate-900 mt-1 block">
             {totalMatched} / {totalMatched + totalUnmatched || 4} Compliant
           </span>
-          <span className="text-[10px] text-emerald-600 font-medium">100% Technical Match</span>
+          <span className="text-xs text-emerald-600 mt-0.5 block font-medium">100% Technical Match</span>
         </div>
 
-        <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Primary OEM</span>
-          <span className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 block truncate">
+        <div className="p-4 rounded-lg bg-white border border-slate-200">
+          <span className="text-xs font-medium text-slate-500 block">Primary OEM</span>
+          <span className="text-base font-semibold text-slate-900 mt-1 block truncate">
             {bestOEM}
           </span>
-          <span className="text-[10px] text-emerald-600 font-medium">{Number(topScore).toFixed(1)}% Peak Compatibility</span>
+          <span className="text-xs text-emerald-600 mt-0.5 block font-medium">{Number(topScore).toFixed(1)}% Compatibility</span>
         </div>
 
-        <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Catalog Depth</span>
-          <span className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 block">
-            {(database_info.total_products || 693).toLocaleString()} Skus
+        <div className="p-4 rounded-lg bg-white border border-slate-200">
+          <span className="text-xs font-medium text-slate-500 block">Catalog Depth</span>
+          <span className="text-base font-semibold text-slate-900 mt-1 block">
+            {(database_info.total_products || 693).toLocaleString()} SKUs
           </span>
-          <span className="text-[10px] text-slate-500">5 OEM Repositories</span>
+          <span className="text-xs text-slate-500 mt-0.5 block">5 OEM Repositories</span>
         </div>
 
-        <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Estimated Value</span>
-          <span className="text-sm sm:text-base font-extrabold text-emerald-600 mt-0.5 block">
+        <div className="p-4 rounded-lg bg-white border border-slate-200">
+          <span className="text-xs font-medium text-slate-500 block">Estimated Value</span>
+          <span className="text-base font-semibold text-emerald-600 mt-1 block">
             {estimatedValueStr}
           </span>
-          <span className="text-[10px] text-slate-500">{result.boq?.total_items || 4} Items in BOQ</span>
+          <span className="text-xs text-slate-500 mt-0.5 block">{result.boq?.total_items || 4} BOQ Items</span>
         </div>
       </div>
 
-      {/* ── Detailed 3-Pillar Deep Dive: Domain Solutions ── */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-        {/* Pillar 1: Technical & Engineering Fit */}
-        <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-2.5">
-              <Zap size={16} className="text-amber-500" />
-              <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                1. Technical Standards &amp; Knockout Defense
-              </h5>
-            </div>
-            <ul className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
-              <li className="flex items-start gap-1.5">
-                <span className="text-emerald-500 font-bold shrink-0">✓</span>
-                <span><strong>CPRI / ERDA Validity Shield:</strong> Attach pre-verified CPRI Type Test dossiers (170 kV impulse test &amp; 1-sec short-circuit withstand per IS 7098 Pt 2) with &lt; 5-year validity to bypass Technical Envelope A audit queries.</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-emerald-500 font-bold shrink-0">✓</span>
-                <span><strong>Form F-4 Deviation Defense:</strong> File NIL deviation on core parameters, while certifying Superior Class 2 compacted conductor stranding (IS 8130) to legally preempt competitor challenge petitions.</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-emerald-500 font-bold shrink-0">✓</span>
-                <span><strong>Thermal &amp; Soil Physics:</strong> Voltage drop across nominal run calculated at &le; 0.76% (statutory IEEE ceiling: 3.0%). De-rating verified for ground thermal resistivity g = 1.2 K·m/W at 30°C.</span>
-              </li>
-            </ul>
+      {/* ── 3-Pillar Strategy Cards ── */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Pillar 1 */}
+        <div className="p-5 rounded-lg bg-white border border-slate-200 space-y-3">
+          <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+            <Zap size={17} className="text-amber-500" />
+            <h5 className="text-sm font-semibold text-slate-900">
+              1. Technical Standards
+            </h5>
           </div>
+          <ul className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-500 font-bold">✓</span>
+              <span><strong>CPRI / ERDA Validity:</strong> Pre-verified type test reports (&lt; 5 years) attached to pass technical audit.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-500 font-bold">✓</span>
+              <span><strong>Form F-4 Deviation:</strong> Certified NIL deviation on core electrical parameters to preempt challenges.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-500 font-bold">✓</span>
+              <span><strong>Voltage &amp; Thermal Check:</strong> Voltage drop calculated at &le; 0.76% (under statutory 3.0% ceiling).</span>
+            </li>
+          </ul>
         </div>
 
-        {/* Pillar 2: Commercial & OEM Dynamics */}
-        <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-2.5">
-              <TrendingUp size={16} className="text-blue-600" />
-              <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                2. Commercial Game-Theory &amp; PVC Hedging
-              </h5>
-            </div>
-            <ul className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
-              <li className="flex items-start gap-1.5">
-                <span className="text-blue-600 font-bold shrink-0">✓</span>
-                <span><strong>IEEMA Circular Hedging Model:</strong> If PVC applies, billing tracks P = P₀[0.20 + 0.40(Al/Al₀) + 0.18(CC/CC₀) + 0.12(Fe/Fe₀) + 0.10(L/L₀)]. Base indices lock to the 1st of the month preceding bid submission.</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-blue-600 font-bold shrink-0">✓</span>
-                <span><strong>Firm-Price Forward Price Lock:</strong> If bid is firm price, secure a 15-day distributor price freeze with {bestOEM} and apply a 2.8% MCX forward hedging buffer on base metal to neutralize commodity price shock.</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-blue-600 font-bold shrink-0">✓</span>
-                <span><strong>Tier-1 Master Discount Arbitrage:</strong> Deploy {bestOEM} master distributor discount matrix (68–72% LT / 62–65% HT on list) to undercut regional intermediaries by ~4.2% while securing an 8.5–12.0% gross margin buffer.</span>
-              </li>
-            </ul>
+        {/* Pillar 2 */}
+        <div className="p-5 rounded-lg bg-white border border-slate-200 space-y-3">
+          <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+            <TrendingUp size={17} className="text-blue-600" />
+            <h5 className="text-sm font-semibold text-slate-900">
+              2. Commercial Pricing Strategy
+            </h5>
           </div>
+          <ul className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 font-bold">✓</span>
+              <span><strong>Commodity Price Lock:</strong> 15-day distributor price freeze with {bestOEM} protects against base metal swings.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 font-bold">✓</span>
+              <span><strong>Price Variation Tracking:</strong> IEEMA PV formula alignment ensures escalation costs can be claimed.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 font-bold">✓</span>
+              <span><strong>Discount Arbitrage:</strong> Tier-1 distributor list pricing secures an 8.5–12.0% gross profit buffer.</span>
+            </li>
+          </ul>
         </div>
 
-        {/* Pillar 3: Strategic Submission Advisory */}
-        <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-2.5">
-              <ListChecks size={16} className="text-emerald-600" />
-              <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                3. Statutory Exemptions &amp; Risk Defense
-              </h5>
-            </div>
-            <ul className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
-              <li className="flex items-start gap-1.5">
-                <span className="text-emerald-600 font-bold shrink-0">1.</span>
-                <span><strong>Rule 170 GFR EMD Exemption:</strong> Submit MSME Udyam Certificate under <strong>NIC Code 27320</strong> (Manufacture of wiring devices &amp; cables) to secure 100% EMD waiver ({emdStr}) as immediate working capital savings.</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-emerald-600 font-bold shrink-0">2.</span>
-                <span><strong>Make-in-India (MII) 60%+ Preference:</strong> Attach DPIIT Local Content Annexure proving &gt; 60% domestic value addition to gain statutory 20% margin of purchase preference (L1 + 20%) over non-local competitors.</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-emerald-600 font-bold shrink-0">3.</span>
-                <span><strong>Liquidated Damages (LD) Re-framing:</strong> Neutralize standard 0.5%/week LD clause (capped at 10%) by stipulating delivery milestone as <em>Material Inspection Clearance Certificate (MICC) / Factory Dispatch</em> rather than site delivery.</span>
-              </li>
-            </ul>
+        {/* Pillar 3 */}
+        <div className="p-5 rounded-lg bg-white border border-slate-200 space-y-3">
+          <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+            <ListChecks size={17} className="text-emerald-600" />
+            <h5 className="text-sm font-semibold text-slate-900">
+              3. Statutory &amp; Risk Defense
+            </h5>
           </div>
+          <ul className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-600 font-bold">✓</span>
+              <span><strong>Rule 170 EMD Waiver:</strong> MSME Udyam Certificate claims 100% waiver ({emdStr}) for upfront liquidity.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-600 font-bold">✓</span>
+              <span><strong>Make-in-India Preference:</strong> &gt; 60% domestic content declaration unlocks 20% purchase preference.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-600 font-bold">✓</span>
+              <span><strong>Delivery Terms Protection:</strong> Delivery milestone anchored to factory dispatch to neutralize penalty risk.</span>
+            </li>
+          </ul>
         </div>
       </div>
 
