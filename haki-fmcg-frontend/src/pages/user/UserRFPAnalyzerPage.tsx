@@ -1878,57 +1878,49 @@ export default function UserRFPAnalyzerPage() {
             </motion.div>
           )}
 
-          {/* ── Top 5 OEM Summary ── */}
+          {/* ── Recommended Anchor Manufacturer Banner ── */}
           {top5OEMs.length > 0 && (
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.36 }}>
-              <Card variant="glass">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Award size={18} className="text-amber-glow" />
-                    Top {top5OEMs.length} OEMs by Appearances
-                  </CardTitle>
-                </CardHeader>
-                <div className="px-4 pb-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-                    {top5OEMs.map((oem, idx) => (
-                      <div
-                        key={oem.oem}
-                        className={`p-4 rounded-xl border transition-all ${
-                          idx === 0
-                            ? 'border-amber-glow/40 bg-amber-glow/5'
-                            : 'border-steel-slate/20 bg-steel-slate/10'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2 mb-2">
-                          {idx === 0 && <Star size={14} className="text-amber-glow" />}
-                          <span className="text-xs font-bold text-muted-silver">#{idx + 1}</span>
-                        </div>
-                        <p className="text-sm font-semibold text-ghost-white truncate">{oem.oem}</p>
-                        <div className="mt-2 space-y-1 text-xs">
-                          <div className="flex justify-between">
-                            <span className="text-muted-silver">Appearances</span>
-                            <span className="text-ghost-white font-medium">{oem.appearances}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-muted-silver">Best Score</span>
-                            <span className={scoreColor(oem.best_match_score)}>{oem.best_match_score}%</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-muted-silver">Avg Price</span>
-                            <span className="text-ghost-white">{fmtINR(oem.avg_price)}{(oem as any).avg_price_unit ?? '/m'}</span>
-                          </div>
-                          {oem.max_warranty > 0 && (
-                            <div className="flex justify-between">
-                              <span className="text-muted-silver">Warranty</span>
-                              <span className="text-ghost-white">{oem.max_warranty}yr</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+              <div className="p-5 rounded-xl bg-white border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-5">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Award size={20} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+                        Recommended Anchor Supplier
+                      </span>
+                      <span className="text-xs text-slate-400">• Single-source optimization</span>
+                    </div>
+                    <h3 className="text-base font-semibold text-slate-900 mt-1">
+                      {top5OEMs[0]?.oem}
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
+                      Matches {top5OEMs[0]?.appearances} of {result.requirement_summary?.total || 4} tender items with a peak compliance score of{' '}
+                      <strong className="text-slate-700 font-semibold">{top5OEMs[0]?.best_match_score}%</strong>. Minimizes multi-vendor freight and unlocks tier-1 volume discounts.
+                    </p>
                   </div>
                 </div>
-              </Card>
+
+                {/* Other Qualified Brands */}
+                {top5OEMs.length > 1 && (
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-3 md:pt-0 border-t md:border-t-0 md:border-l border-slate-100 md:pl-5 shrink-0">
+                    <span className="text-xs font-medium text-slate-400">Alternative Brands:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {top5OEMs.slice(1, 4).map((alt) => (
+                        <div
+                          key={alt.oem}
+                          className="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200/80 text-xs flex items-center gap-2"
+                        >
+                          <span className="font-medium text-slate-800">{alt.oem}</span>
+                          <span className="text-slate-400 font-normal">({alt.best_match_score}%)</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </motion.div>
           )}
 
