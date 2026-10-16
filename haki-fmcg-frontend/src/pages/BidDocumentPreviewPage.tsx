@@ -201,9 +201,6 @@ export default function BidDocumentPreviewPage() {
               <Badge variant="soft" color="cyan" size="sm">
                 {bidId}
               </Badge>
-              <Badge variant="soft" color="emerald" size="sm">
-                Ready for Submission
-              </Badge>
             </div>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-muted-silver mt-0.5">
               RFP Reference: <span className="font-semibold text-slate-900 dark:text-ghost-white">{rfpRef}</span> — Commercial Proposal & Technical Dossier
@@ -257,14 +254,9 @@ export default function BidDocumentPreviewPage() {
         <div className="space-y-4">
           {/* Template Selector */}
           <Card variant="glass" className="p-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-ghost-white flex items-center gap-1.5">
-                <Layers size={14} className="text-electric-cyan" /> Select Template
-              </h3>
-              <Badge variant="soft" color="cyan" size="sm">
-                {TEMPLATES.find((t) => t.id === template)?.badge}
-              </Badge>
-            </div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-ghost-white flex items-center gap-1.5">
+              <Layers size={14} className="text-electric-cyan" /> Select Template
+            </h3>
 
             <div className="space-y-2">
               {TEMPLATES.map((t) => {
@@ -273,7 +265,7 @@ export default function BidDocumentPreviewPage() {
                   <button
                     key={t.id}
                     onClick={() => handleTemplateSelect(t.id)}
-                    className={`w-full text-left p-3 rounded-xl transition-all duration-200 border cursor-pointer ${
+                    className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all duration-200 border cursor-pointer ${
                       isSelected
                         ? 'bg-electric-cyan/15 border-electric-cyan text-slate-900 dark:text-ghost-white shadow-sm ring-1 ring-electric-cyan/50'
                         : 'bg-slate-50 dark:bg-steel-slate/10 border-slate-200 dark:border-steel-slate/20 hover:border-slate-300 dark:hover:border-steel-slate/40 text-slate-700 dark:text-muted-silver'
@@ -284,12 +276,6 @@ export default function BidDocumentPreviewPage() {
                         {t.name}
                       </span>
                       {isSelected && <Check size={14} className="text-blue-600 dark:text-electric-cyan" />}
-                    </div>
-                    <p className="text-[11px] text-slate-500 dark:text-muted-silver mt-1 leading-snug">
-                      {t.desc}
-                    </p>
-                    <div className="mt-2 text-[10px] font-mono text-slate-500 dark:text-slate-400">
-                      {t.activeSections.length} sections included
                     </div>
                   </button>
                 );
@@ -414,15 +400,6 @@ export default function BidDocumentPreviewPage() {
                         <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-electric-cyan" />
                         {section.title}
                       </h3>
-                      <span
-                        className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
-                          docTheme === 'paper'
-                            ? 'bg-slate-200 text-slate-700'
-                            : 'bg-slate-700 text-slate-300'
-                        }`}
-                      >
-                        Clause {section.id.toUpperCase()}
-                      </span>
                     </div>
 
                     {/* Section Body */}
