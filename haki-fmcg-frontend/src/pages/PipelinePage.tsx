@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   GitBranch,
@@ -210,6 +211,7 @@ function mapApiRun(r: ApiPipelineRun): PipelineRun {
 
 /* ═══════════════════════════════════════════════════ */
 export default function PipelinePage() {
+  const navigate = useNavigate();
   /* ── Backend hooks ── */
   const { data: apiRuns } = usePipelineRuns();
   const runPipelineMutation = useRunPipeline();
@@ -677,6 +679,40 @@ export default function PipelinePage() {
   rfp_id: selectedRun.rfpId,
 }, null, 2)}
               </pre>
+
+              {/* Direct Navigation & Action Banner */}
+              <div className="mt-4 pt-3.5 border-t border-slate-200/80 dark:border-steel-slate/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold text-slate-900 dark:text-ghost-white">
+                    {selectedStage === 'bid_generation'
+                      ? `Bid Package Assembled for ${selectedRun.rfpId}`
+                      : selectedStage === 'spec_matching' || selectedStage === 'pdf_extraction'
+                      ? `Specifications Extracted for ${selectedRun.rfpId}`
+                      : `${selectedStage.replace('_', ' ')} Stage Output Ready`}
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-muted-silver">
+                    {selectedStage === 'bid_generation'
+                      ? 'The complete bid package is ready. Open Bids to review pricing, GTP sheets, and download the dossier.'
+                      : 'Review the extracted clauses, matched SKUs, and compliance audit trail in the RFP Analyzer.'}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => navigate('/bids')}
+                  >
+                    Open in Bids Management →
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => navigate('/rfp-analyzer')}
+                  >
+                    Inspect in RFP Analyzer
+                  </Button>
+                </div>
+              </div>
             </Card>
           </motion.div>
         )}
