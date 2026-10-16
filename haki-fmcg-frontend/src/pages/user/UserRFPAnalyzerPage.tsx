@@ -2367,7 +2367,6 @@ function LinkedDocumentsSection({ linkedDocs }: { linkedDocs: AnalysisResult['li
   const [viewerData, setViewerData] = useState<any>(null);
 
   const details = linkedDocs.details ?? [];
-  const byType = linkedDocs.by_type ?? {};
 
   const fileIcon = (type: string) => {
     const t = (type || '').toLowerCase();
@@ -2378,14 +2377,6 @@ function LinkedDocumentsSection({ linkedDocs }: { linkedDocs: AnalysisResult['li
     if (t.includes('link') || t.includes('url') || t.includes('web'))
       return <Globe size={16} className="text-violet-pulse" />;
     return <Link2 size={16} className="text-amber-glow" />;
-  };
-
-  const typeColor = (type: string): 'emerald' | 'cyan' | 'violet' | 'amber' => {
-    const t = (type || '').toLowerCase();
-    if (t.includes('boq')) return 'emerald';
-    if (t.includes('spec')) return 'cyan';
-    if (t.includes('link') || t.includes('web')) return 'violet';
-    return 'amber';
   };
 
   const handleDownload = (url: string, name: string) => {
