@@ -3,10 +3,7 @@ import { motion } from 'framer-motion';
 import {
   TrendingUp,
   TrendingDown,
-  RefreshCw,
   Activity,
-  Zap,
-  Sparkles,
   ArrowUpRight,
   ArrowDownRight,
 } from 'lucide-react';
@@ -20,7 +17,6 @@ import {
   Tooltip,
 } from 'recharts';
 import api from '@/services/api';
-import toast from 'react-hot-toast';
 
 export type CommodityKey = 'copper' | 'aluminium' | 'steel' | 'pvc' | 'xlpe';
 
@@ -34,15 +30,10 @@ interface CommodityMeta {
   changeValue: number;
   changePercent: number;
   isUp: boolean;
-  dayLow: number;
-  dayHigh: number;
-  benchmark: string;
   category: string;
   usage: string;
   color: string;
   gradientId: string;
-  sparkline: number[];
-  impactNote: string;
 }
 
 const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
@@ -56,15 +47,10 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     changeValue: 15.45,
     changePercent: 1.82,
     isUp: true,
-    dayLow: 851.2,
-    dayHigh: 869.0,
-    benchmark: 'LME Spot: $9,240 / MT',
     category: 'Core Conductor',
     usage: 'Primary conductor for building wire & flexible cables',
-    color: '#D97706', // Warm amber / copper
+    color: '#D97706', // Copper Amber
     gradientId: 'copperGradient',
-    sparkline: [848, 852, 850, 856, 859, 861, 864.5],
-    impactNote: 'Every ₹10/kg delta moves 240mm² 3-core cable BOM by ~₹21.50/m.',
   },
   aluminium: {
     key: 'aluminium',
@@ -76,15 +62,10 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     changeValue: 1.8,
     changePercent: 0.75,
     isUp: true,
-    dayLow: 239.5,
-    dayHigh: 244.2,
-    benchmark: 'Nalco / Domestic Ref: ₹242,800/MT',
     category: 'Power Conductor',
     usage: 'Conductor for HT/LT power & aerial bunched distribution cables',
-    color: '#2563EB', // Royal blue
+    color: '#2563EB', // Royal Blue
     gradientId: 'aluminiumGradient',
-    sparkline: [238, 239, 241, 240, 242, 241.5, 242.8],
-    impactNote: 'Stable index: keeps margins tight on utility state tenders.',
   },
   steel: {
     key: 'steel',
@@ -96,15 +77,10 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     changeValue: -0.3,
     changePercent: -0.44,
     isUp: false,
-    dayLow: 67.8,
-    dayHigh: 69.1,
-    benchmark: 'Secondary Steel Index',
     category: 'Armouring & Shield',
     usage: 'Mechanical strip armouring & wire braiding protection',
     color: '#475569', // Slate
     gradientId: 'steelGradient',
-    sparkline: [70.2, 69.8, 69.4, 69.0, 68.6, 68.5, 68.4],
-    impactNote: 'Armour strips account for 12-16% of total mechanical cable weight.',
   },
   pvc: {
     key: 'pvc',
@@ -116,15 +92,10 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     changeValue: 0.3,
     changePercent: 0.34,
     isUp: true,
-    dayLow: 87.2,
-    dayHigh: 89.0,
-    benchmark: 'Domestic Polymer Index',
     category: 'Insulation & Sheath',
     usage: 'Flame-retardant & low-smoke insulation outer jacketing',
     color: '#059669', // Emerald
     gradientId: 'pvcGradient',
-    sparkline: [86.5, 87.0, 87.4, 87.2, 87.9, 88.0, 88.2],
-    impactNote: 'Raw material for flame-retardant outer sheathing compliance.',
   },
   xlpe: {
     key: 'xlpe',
@@ -136,15 +107,10 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     changeValue: -0.9,
     changePercent: -0.63,
     isUp: false,
-    dayLow: 140.2,
-    dayHigh: 143.0,
-    benchmark: 'CFR Nhava Sheva Parity',
     category: 'High-Dielectric Core',
     usage: 'Cross-linked polyethylene for 11kV - 33kV medium voltage cores',
     color: '#7C3AED', // Violet
     gradientId: 'xlpeGradient',
-    sparkline: [144.0, 143.5, 142.8, 143.0, 142.1, 141.8, 141.5],
-    impactNote: 'High dielectric strength compound critical for 11kV/33kV tenders.',
   },
 };
 
@@ -181,39 +147,29 @@ export function MetalMarketPrices() {
   const [selectedKey, setSelectedKey] = useState<CommodityKey>('copper');
   const [timeRange, setTimeRange] = useState<TimeRange>('1M');
   const [rates, setRates] = useState<Record<CommodityKey, CommodityMeta>>(COMMODITIES);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [lastRefreshed, setLastRefreshed] = useState<string>('Just now');
 
   const selected = rates[selectedKey];
 
-  const fetchLiveRates = async (silent = false) => {
-    setIsRefreshing(true);
-    try {
-      const res = await api.get('/pricing/commodity-rates');
-      if (res?.data?.rates) {
-        const r = res.data.rates;
-        setRates((prev) => ({
-          ...prev,
-          copper: { ...prev.copper, basePrice: r.copper_inr_per_kg || prev.copper.basePrice },
-          aluminium: { ...prev.aluminium, basePrice: r.aluminium_inr_per_kg || prev.aluminium.basePrice },
-          steel: { ...prev.steel, basePrice: r.steel_strip_inr_per_kg || prev.steel.basePrice },
-          pvc: { ...prev.pvc, basePrice: r.pvc_resin_inr_per_kg || prev.pvc.basePrice },
-          xlpe: { ...prev.xlpe, basePrice: r.xlpe_compound_inr_per_kg || prev.xlpe.basePrice },
-        }));
-        if (!silent) toast.success('Spot rates updated from MCX/LME benchmark');
-      }
-    } catch {
-      if (!silent) toast.success('Spot rates synced with latest trading session');
-    } finally {
-      setIsRefreshing(false);
-      setLastRefreshed(
-        new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
-      );
-    }
-  };
-
   useEffect(() => {
-    fetchLiveRates(true);
+    const fetchLiveRates = async () => {
+      try {
+        const res = await api.get('/pricing/commodity-rates');
+        if (res?.data?.rates) {
+          const r = res.data.rates;
+          setRates((prev) => ({
+            ...prev,
+            copper: { ...prev.copper, basePrice: r.copper_inr_per_kg || prev.copper.basePrice },
+            aluminium: { ...prev.aluminium, basePrice: r.aluminium_inr_per_kg || prev.aluminium.basePrice },
+            steel: { ...prev.steel, basePrice: r.steel_strip_inr_per_kg || prev.steel.basePrice },
+            pvc: { ...prev.pvc, basePrice: r.pvc_resin_inr_per_kg || prev.pvc.basePrice },
+            xlpe: { ...prev.xlpe, basePrice: r.xlpe_compound_inr_per_kg || prev.xlpe.basePrice },
+          }));
+        }
+      } catch {
+        // Fallback to initial benchmarks
+      }
+    };
+    fetchLiveRates();
   }, []);
 
   const chartData = useMemo(() => {
@@ -235,72 +191,28 @@ export function MetalMarketPrices() {
     return generateTrend(selected.basePrice, days, volatilityMap[selectedKey]);
   }, [selectedKey, timeRange, selected.basePrice]);
 
-  const stats = useMemo(() => {
-    if (!chartData.length) return { min: 0, max: 0, avg: 0, change: 0 };
-    const prices = chartData.map((p) => p.price);
-    const min = Math.min(...prices);
-    const max = Math.max(...prices);
-    const first = prices[0] ?? 0;
-    const last = prices[prices.length - 1] ?? 0;
-    const change = Number((last - first).toFixed(2));
-    const avg = prices.reduce((a, b) => a + b, 0) / prices.length;
-    return { min, max, avg: Number(avg.toFixed(2)), change };
-  }, [chartData]);
-
-  // Position of current price on the day range slider (0% - 100%)
-  const dayRangeProgress = useMemo(() => {
-    const range = selected.dayHigh - selected.dayLow;
-    if (range <= 0) return 50;
-    const progress = ((selected.basePrice - selected.dayLow) / range) * 100;
-    return Math.max(5, Math.min(95, progress));
-  }, [selected.basePrice, selected.dayLow, selected.dayHigh]);
-
   return (
     <div className="bg-white/95 rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden backdrop-blur-md">
-      {/* ── Top Header Bar ── */}
-      <div className="px-5 py-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-r from-slate-50/70 via-white to-slate-50/40">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200/70 flex items-center justify-center text-blue-600 shadow-xs">
-            <Activity size={20} />
-          </div>
-          <div>
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <h2 className="text-base font-bold text-slate-900 tracking-tight">
-                Raw Material & Metal Commodity Index
-              </h2>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                MCX / LME Live Spot
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Live benchmark rates driving FMCG electrical tender pricing, bill of materials & margin guardrails
-            </p>
-          </div>
+      {/* ── Header ── */}
+      <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3 bg-gradient-to-r from-slate-50/70 via-white to-slate-50/40">
+        <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200/70 flex items-center justify-center text-blue-600 shadow-xs">
+          <Activity size={20} />
         </div>
-
-        <div className="flex items-center gap-3 self-start sm:self-auto">
-          <div className="text-right hidden md:block">
-            <span className="text-[11px] text-slate-600 block">Trading Session</span>
-            <span className="text-xs font-mono font-medium text-slate-700">{lastRefreshed}</span>
-          </div>
-          <button
-            type="button"
-            onClick={() => fetchLiveRates(false)}
-            disabled={isRefreshing}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50/40 transition-all shadow-xs cursor-pointer disabled:opacity-60"
-          >
-            <RefreshCw size={13} className={isRefreshing ? 'animate-spin text-blue-600' : ''} />
-            <span>Sync Rates</span>
-          </button>
+        <div>
+          <h2 className="text-base font-bold text-slate-900 tracking-tight">
+            Raw Material & Metal Commodity Index
+          </h2>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Benchmark raw material spot rates powering wire & cable tender cost modeling
+          </p>
         </div>
       </div>
 
       {/* ── Main Split View ── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-100">
         {/* ── Left Watchlist (5 columns on desktop) ── */}
-        <div className="lg:col-span-5 p-4 space-y-2 bg-slate-50/40">
-          <div className="flex items-center justify-between px-1 mb-2">
+        <div className="lg:col-span-5 p-4 space-y-2 bg-slate-50/40 flex flex-col justify-between">
+          <div className="flex items-center justify-between px-1 mb-1">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Watchlist Commodities
             </span>
@@ -372,19 +284,10 @@ export function MetalMarketPrices() {
               );
             })}
           </div>
-
-          {/* Quick Info Box in Left Column */}
-          <div className="mt-3 p-3 rounded-xl bg-blue-50/60 border border-blue-100/90 text-xs text-slate-700 flex items-start gap-2.5">
-            <Sparkles size={16} className="text-blue-600 flex-shrink-0 mt-0.5" />
-            <p className="text-[11px] leading-relaxed">
-              <strong className="text-blue-900">Live Formula Pricing:</strong> Tender bids automatically link
-              raw material cost indices to safeguard gross margins during metal price surges.
-            </p>
-          </div>
         </div>
 
         {/* ── Right Interactive Terminal & Chart (7 columns on desktop) ── */}
-        <div className="lg:col-span-7 p-5 space-y-5 bg-white">
+        <div className="lg:col-span-7 p-5 space-y-4 bg-white flex flex-col justify-between">
           {/* Active Commodity Header & Price Banner */}
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div>
@@ -441,8 +344,8 @@ export function MetalMarketPrices() {
           </div>
 
           {/* Interactive Area Chart */}
-          <div className="rounded-xl border border-slate-100 bg-slate-50/30 p-2 pt-4">
-            <ResponsiveContainer width="100%" height={230}>
+          <div className="rounded-xl border border-slate-100 bg-slate-50/30 p-2 pt-4 flex-1 min-h-[260px]">
+            <ResponsiveContainer width="100%" height="100%" minHeight={260}>
               <AreaChart data={chartData} margin={{ top: 8, right: 12, left: -10, bottom: 0 }}>
                 <defs>
                   <linearGradient id={selected.gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -483,10 +386,6 @@ export function MetalMarketPrices() {
                             <span className="text-slate-400">Metric Ton:</span>
                             <span className="font-mono font-semibold">₹{metricTon}</span>
                           </div>
-                          <div className="pt-1.5 border-t border-slate-800 text-[10px] text-slate-400 flex justify-between gap-4">
-                            <span>Low: ₹{data.low}</span>
-                            <span>High: ₹{data.high}</span>
-                          </div>
                         </div>
                       );
                     }
@@ -504,67 +403,6 @@ export function MetalMarketPrices() {
                 />
               </AreaChart>
             </ResponsiveContainer>
-          </div>
-
-          {/* Key Period Range Statistics */}
-          <div className="grid grid-cols-4 gap-2 text-center py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-200/70 text-xs">
-            <div>
-              <span className="text-[10px] text-slate-600 block uppercase font-medium">Period Low</span>
-              <span className="font-mono font-bold text-slate-800">₹{stats.min.toFixed(2)}</span>
-            </div>
-            <div>
-              <span className="text-[10px] text-slate-600 block uppercase font-medium">Period High</span>
-              <span className="font-mono font-bold text-slate-800">₹{stats.max.toFixed(2)}</span>
-            </div>
-            <div>
-              <span className="text-[10px] text-slate-600 block uppercase font-medium">Period Avg</span>
-              <span className="font-mono font-bold text-slate-800">₹{stats.avg.toFixed(2)}</span>
-            </div>
-            <div>
-              <span className="text-[10px] text-slate-600 block uppercase font-medium">Period Delta</span>
-              <span className={`font-mono font-bold ${stats.change >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
-                {stats.change >= 0 ? '+' : ''}₹{stats.change.toFixed(2)}
-              </span>
-            </div>
-          </div>
-
-          {/* Day High / Low Range Slider Meter */}
-          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/70 space-y-2">
-            <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
-              <span className="text-slate-500 font-normal">
-                Day Low: <strong className="font-mono text-slate-800">₹{selected.dayLow.toFixed(2)}</strong>
-              </span>
-              <span className="text-xs font-mono font-bold text-blue-600">
-                Spot: ₹{selected.basePrice.toFixed(2)}
-              </span>
-              <span className="text-slate-500 font-normal">
-                Day High: <strong className="font-mono text-slate-800">₹{selected.dayHigh.toFixed(2)}</strong>
-              </span>
-            </div>
-
-            {/* Slider track with position thumb */}
-            <div className="relative w-full h-2 rounded-full bg-slate-200 overflow-hidden">
-              <div
-                className="h-full rounded-full transition-all duration-300"
-                style={{
-                  width: `${dayRangeProgress}%`,
-                  backgroundColor: selected.color,
-                }}
-              />
-            </div>
-            <div className="flex items-center justify-between text-[11px] text-slate-600">
-              <span>Metric Ton Equivalent: ₹{(selected.basePrice * 1000).toLocaleString('en-IN')}/MT</span>
-              <span>{selected.benchmark}</span>
-            </div>
-          </div>
-
-          {/* Tender Cost Impact & Guardrail Banner */}
-          <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-3">
-            <Zap size={18} className="text-amber-600 flex-shrink-0 mt-0.5" />
-            <div className="text-xs">
-              <p className="font-semibold text-amber-900">Tender Margin Guardrail & BOM Sensitivity</p>
-              <p className="text-amber-800/90 mt-0.5 leading-relaxed">{selected.impactNote}</p>
-            </div>
           </div>
         </div>
       </div>
