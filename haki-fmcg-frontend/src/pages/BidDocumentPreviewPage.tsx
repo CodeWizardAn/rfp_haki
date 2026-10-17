@@ -14,7 +14,6 @@ import {
   FileCheck2,
   Sun,
   Moon,
-  ShieldCheck,
   Check,
 } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
@@ -326,26 +325,7 @@ export default function BidDocumentPreviewPage() {
             </Reorder.Group>
           </Card>
 
-          {/* Bid Summary Meta */}
-          <Card variant="glass" className="p-4 space-y-2.5 text-xs">
-            <h4 className="font-bold text-slate-900 dark:text-ghost-white flex items-center gap-1.5">
-              <ShieldCheck size={14} className="text-emerald-500" /> Commercial Guarantee
-            </h4>
-            <div className="space-y-1 text-slate-600 dark:text-muted-silver">
-              <div className="flex justify-between">
-                <span>Total Value:</span>
-                <span className="font-bold font-mono text-slate-900 dark:text-ghost-white">{formatINR(grandTotal)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Bidder:</span>
-                <span className="font-medium text-slate-900 dark:text-ghost-white">Haki FMCG Procurement</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Target RFP:</span>
-                <span className="font-mono text-slate-900 dark:text-ghost-white">{rfpRef}</span>
-              </div>
-            </div>
-          </Card>
+
         </div>
 
         {/* ── Right Panel — Document Canvas ── */}
