@@ -1,13 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
-  TrendingUp,
-  TrendingDown,
-  Activity,
-  ArrowUpRight,
-  ArrowDownRight,
-} from 'lucide-react';
-import {
   ResponsiveContainer,
   AreaChart,
   Area,
@@ -23,8 +16,6 @@ export type CommodityKey = 'copper' | 'aluminium' | 'steel' | 'pvc' | 'xlpe';
 interface CommodityMeta {
   key: CommodityKey;
   name: string;
-  ticker: string;
-  exchange: string;
   unit: string;
   basePrice: number;
   changeValue: number;
@@ -40,8 +31,6 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
   copper: {
     key: 'copper',
     name: 'Electrolytic Copper',
-    ticker: 'CU-MCX',
-    exchange: 'MCX / LME Ref',
     unit: '₹/kg',
     basePrice: 864.5,
     changeValue: 15.45,
@@ -49,14 +38,12 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     isUp: true,
     category: 'Core Conductor',
     usage: 'Primary conductor for building wire & flexible cables',
-    color: '#D97706', // Copper Amber
+    color: '#D97706',
     gradientId: 'copperGradient',
   },
   aluminium: {
     key: 'aluminium',
     name: 'EC Grade Aluminium',
-    ticker: 'AL-EC-99.5',
-    exchange: 'MCX Spot',
     unit: '₹/kg',
     basePrice: 242.8,
     changeValue: 1.8,
@@ -64,14 +51,12 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     isUp: true,
     category: 'Power Conductor',
     usage: 'Conductor for HT/LT power & aerial bunched distribution cables',
-    color: '#2563EB', // Royal Blue
+    color: '#2563EB',
     gradientId: 'aluminiumGradient',
   },
   steel: {
     key: 'steel',
     name: 'Galvanized Steel Strip',
-    ticker: 'GI-STRIP-EN',
-    exchange: 'Domestic Billet',
     unit: '₹/kg',
     basePrice: 68.4,
     changeValue: -0.3,
@@ -79,14 +64,12 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     isUp: false,
     category: 'Armouring & Shield',
     usage: 'Mechanical strip armouring & wire braiding protection',
-    color: '#475569', // Slate
+    color: '#475569',
     gradientId: 'steelGradient',
   },
   pvc: {
     key: 'pvc',
     name: 'PVC Compound (FRLS)',
-    ticker: 'PVC-K67',
-    exchange: 'Petrochem Spot',
     unit: '₹/kg',
     basePrice: 88.2,
     changeValue: 0.3,
@@ -94,14 +77,12 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     isUp: true,
     category: 'Insulation & Sheath',
     usage: 'Flame-retardant & low-smoke insulation outer jacketing',
-    color: '#059669', // Emerald
+    color: '#059669',
     gradientId: 'pvcGradient',
   },
   xlpe: {
     key: 'xlpe',
     name: 'XLPE Compound (MV)',
-    ticker: 'XLPE-INS',
-    exchange: 'Import Parity CFR',
     unit: '₹/kg',
     basePrice: 141.5,
     changeValue: -0.9,
@@ -109,7 +90,7 @@ const COMMODITIES: Record<CommodityKey, CommodityMeta> = {
     isUp: false,
     category: 'High-Dielectric Core',
     usage: 'Cross-linked polyethylene for 11kV - 33kV medium voltage cores',
-    color: '#7C3AED', // Violet
+    color: '#7C3AED',
     gradientId: 'xlpeGradient',
   },
 };
@@ -194,18 +175,13 @@ export function MetalMarketPrices() {
   return (
     <div className="bg-white/95 rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden backdrop-blur-md">
       {/* ── Header ── */}
-      <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3 bg-gradient-to-r from-slate-50/70 via-white to-slate-50/40">
-        <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200/70 flex items-center justify-center text-blue-600 shadow-xs">
-          <Activity size={20} />
-        </div>
-        <div>
-          <h2 className="text-base font-bold text-slate-900 tracking-tight">
-            Raw Material & Metal Commodity Index
-          </h2>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Benchmark raw material spot rates powering wire & cable tender cost modeling
-          </p>
-        </div>
+      <div className="px-5 py-4 border-b border-slate-100 bg-gradient-to-r from-slate-50/70 via-white to-slate-50/40">
+        <h2 className="text-base font-bold text-slate-900 tracking-tight">
+          Raw Material & Metal Commodity Index
+        </h2>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Benchmark raw material spot rates powering wire & cable tender cost modeling
+        </p>
       </div>
 
       {/* ── Main Split View ── */}
@@ -231,7 +207,7 @@ export function MetalMarketPrices() {
                   onClick={() => setSelectedKey(key)}
                   className={`w-full p-3 rounded-xl text-left transition-all duration-200 border cursor-pointer relative flex items-center justify-between gap-3 ${
                     isSelected
-                      ? 'bg-white border-blue-500/80 shadow-sm ring-2 ring-blue-500/15'
+                      ? 'bg-white border-blue-500/80 shadow-sm ring-1 ring-blue-500/15'
                       : 'bg-white/80 hover:bg-white border-slate-200/80 hover:border-slate-300'
                   }`}
                 >
@@ -244,24 +220,9 @@ export function MetalMarketPrices() {
                     />
                   )}
 
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 text-white font-bold text-xs shadow-2xs"
-                      style={{ backgroundColor: item.color }}
-                    >
-                      {item.ticker.slice(0, 2)}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-slate-900 truncate">{item.name}</span>
-                      </div>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">
-                          {item.ticker}
-                        </span>
-                        <span className="text-[11px] text-slate-600 truncate">{item.category}</span>
-                      </div>
-                    </div>
+                  <div className="min-w-0">
+                    <span className="text-xs font-bold text-slate-900 block truncate">{item.name}</span>
+                    <span className="text-[11px] text-slate-500 mt-0.5 block truncate">{item.category}</span>
                   </div>
 
                   <div className="text-right flex-shrink-0">
@@ -269,15 +230,11 @@ export function MetalMarketPrices() {
                       ₹{item.basePrice.toFixed(2)}
                     </div>
                     <div
-                      className={`inline-flex items-center gap-0.5 text-xs font-semibold ${
+                      className={`text-xs font-semibold ${
                         item.isUp ? 'text-emerald-600' : 'text-rose-600'
                       }`}
                     >
-                      {item.isUp ? <ArrowUpRight size={13} /> : <ArrowDownRight size={13} />}
-                      <span>
-                        {item.isUp ? '+' : ''}
-                        {item.changePercent}%
-                      </span>
+                      {item.isUp ? '+' : ''}{item.changePercent}%
                     </div>
                   </div>
                 </button>
@@ -291,34 +248,21 @@ export function MetalMarketPrices() {
           {/* Active Commodity Header & Price Banner */}
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2">
-                <span
-                  className="w-2.5 h-2.5 rounded-full ring-2 ring-offset-1"
-                  style={{ backgroundColor: selected.color, borderColor: selected.color }}
-                />
-                <h3 className="text-lg font-bold text-slate-900">{selected.name}</h3>
-                <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-semibold">
-                  {selected.exchange}
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 mt-1">{selected.usage}</p>
+              <h3 className="text-lg font-bold text-slate-900">{selected.name}</h3>
+              <p className="text-xs text-slate-500 mt-0.5">{selected.usage}</p>
 
-              {/* Big Price Display */}
+              {/* Price Display */}
               <div className="flex items-baseline gap-3 mt-3">
                 <span className="text-3xl font-extrabold font-mono text-slate-900 tracking-tight">
                   ₹{selected.basePrice.toFixed(2)}
                 </span>
-                <span className="text-xs font-medium text-slate-600">per kg</span>
+                <span className="text-xs font-medium text-slate-500">per kg</span>
                 <span
-                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${
-                    selected.isUp
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                      : 'bg-rose-50 text-rose-700 border border-rose-200'
+                  className={`text-xs font-bold font-mono ${
+                    selected.isUp ? 'text-emerald-600' : 'text-rose-600'
                   }`}
                 >
-                  {selected.isUp ? <TrendingUp size={13} /> : <TrendingDown size={13} />}
-                  {selected.isUp ? '+' : ''}
-                  ₹{selected.changeValue.toFixed(2)} ({selected.isUp ? '+' : ''}
+                  {selected.isUp ? '+' : ''}₹{selected.changeValue.toFixed(2)} ({selected.isUp ? '+' : ''}
                   {selected.changePercent}%)
                 </span>
               </div>
@@ -372,7 +316,6 @@ export function MetalMarketPrices() {
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
                       const data = payload[0].payload;
-                      const metricTon = (data.price * 1000).toLocaleString('en-IN');
                       return (
                         <div className="p-3 rounded-xl bg-slate-900 text-white shadow-xl text-xs space-y-1.5 border border-slate-800">
                           <p className="font-semibold text-slate-200">{data.date}</p>
@@ -381,10 +324,6 @@ export function MetalMarketPrices() {
                             <span className="font-mono font-bold text-amber-400 text-sm">
                               ₹{data.price.toFixed(2)}/kg
                             </span>
-                          </div>
-                          <div className="flex items-center gap-2 text-[11px] text-slate-300">
-                            <span className="text-slate-400">Metric Ton:</span>
-                            <span className="font-mono font-semibold">₹{metricTon}</span>
                           </div>
                         </div>
                       );
