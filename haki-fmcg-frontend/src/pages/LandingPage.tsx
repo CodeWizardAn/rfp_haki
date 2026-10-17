@@ -10,7 +10,6 @@ import {
   X,
   FileCheck,
   TrendingUp,
-  Database,
   UploadCloud,
   FileSpreadsheet,
   Copy,
@@ -837,73 +836,23 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Right Window Snapshot */}
-          <div className="lg:col-span-7 order-1 lg:order-2">
-            <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
-              {/* Window Bar with Red, White, Green Controls */}
-              <div className="h-9 sm:h-10 bg-slate-100/90 border-b border-slate-200 px-3 sm:px-4 flex items-center justify-between">
-                <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
-                </div>
-                <div className="text-[11px] sm:text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
-                  <Database size={12} className="text-blue-600 flex-shrink-0" />
-                  <span className="truncate">haki-vector-catalog-650.index [Active: 650+ SKUs]</span>
-                </div>
-                <div className="w-6 sm:w-10 flex-shrink-0"></div>
-              </div>
-
-              {/* Realistic App Content */}
-              <div className="p-4 sm:p-6 bg-slate-50/50 space-y-3 sm:space-y-4">
-                <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-slate-200 text-xs">
-                  <Search size={14} className="text-slate-400 flex-shrink-0" />
-                  <span className="font-mono text-slate-900 font-medium truncate">3C 2.5 mm² XLPE Armoured Cu</span>
-                  <span className="ml-auto text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded flex-shrink-0">
-                    42ms
-                  </span>
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="bg-white p-3 sm:p-3.5 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900 text-xs">Polycab 3C x 2.5 sq mm Armoured XLPE Cable</span>
-                        <span className="px-1.5 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded flex-shrink-0">
-                          99.4% Match
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 mt-0.5">IS 7098 Pt 1 • 1100V • Electrolytic Copper</p>
-                    </div>
-                    <div className="flex items-center sm:flex-col justify-between sm:justify-start sm:text-right border-t sm:border-t-0 pt-1.5 sm:pt-0 border-slate-100">
-                      <div className="font-bold text-slate-900 text-xs">₹ 148.50 / m</div>
-                      <span className="text-[10px] font-semibold text-emerald-600">+18.2% margin</span>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-3 sm:p-3.5 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900 text-xs">Havells 3 Core 2.5 mm² Heavy Duty Armoured</span>
-                        <span className="px-1.5 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded flex-shrink-0">
-                          97.8% Match
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 mt-0.5">IS 1554 Pt 1 • 1100V • Copper Conductor</p>
-                    </div>
-                    <div className="flex items-center sm:flex-col justify-between sm:justify-start sm:text-right border-t sm:border-t-0 pt-1.5 sm:pt-0 border-slate-100">
-                      <div className="font-bold text-slate-900 text-xs">₹ 152.00 / m</div>
-                      <span className="text-[10px] font-semibold text-emerald-600">+16.5% margin</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs pt-1 text-slate-500 gap-1">
-                  <span>Cross-standard equivalence verified against BIS standard matrices</span>
-                  <span className="font-bold text-slate-700">Top 3 Candidates Selected</span>
-                </div>
-              </div>
-            </div>
+          {/* Right Illustration Snapshot */}
+          <div className="lg:col-span-7 order-1 lg:order-2 flex items-center justify-center relative select-none py-4">
+            {/* Ambient soft glow matching cable illustration tones */}
+            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-blue-400/20 via-indigo-300/15 to-emerald-300/15 blur-3xl pointer-events-none" />
+            <motion.div
+              initial={{ opacity: 0.8, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 w-full flex items-center justify-center"
+            >
+              <img
+                src="/landing-cable-illustration.png"
+                alt="4-Core Cable Cross-Section Engineering Standards and Conductor Mass Formulas"
+                className="w-full max-w-[440px] sm:max-w-[520px] lg:max-w-[580px] h-auto object-contain drop-shadow-[0_20px_45px_rgba(37,99,235,0.10)] transition-transform duration-500 hover:scale-[1.02]"
+              />
+            </motion.div>
           </div>
         </motion.div>
 
@@ -915,66 +864,23 @@ export default function LandingPage() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center"
         >
-          {/* Left Window Snapshot */}
-          <div className="lg:col-span-7">
-            <div className="rounded-xl overflow-hidden border border-slate-300/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-white">
-              {/* Window Bar with Red, White, Green Controls */}
-              <div className="h-9 sm:h-10 bg-slate-100/90 border-b border-slate-200 px-3 sm:px-4 flex items-center justify-between">
-                <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#EF4444] border border-red-500 inline-block"></span>
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FFFFFF] border border-slate-300 inline-block"></span>
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#10B981] border border-emerald-500 inline-block"></span>
-                </div>
-                <div className="text-[11px] sm:text-xs font-medium text-slate-500 font-mono flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
-                  <TrendingUp size={12} className="text-emerald-600 flex-shrink-0" />
-                  <span className="truncate">haki-pricing-margin-engine.live</span>
-                </div>
-                <div className="w-6 sm:w-10 flex-shrink-0"></div>
-              </div>
-
-              {/* Realistic App Content */}
-              <div className="p-4 sm:p-6 bg-slate-50/50 space-y-3 sm:space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
-                  <div className="bg-white p-3 rounded-lg border border-slate-200">
-                    <span className="text-[10px] uppercase font-bold text-slate-500 block">MCX Copper Spot</span>
-                    <span className="font-bold text-slate-900 text-sm">₹ 784.50 / kg</span>
-                    <span className="text-[10px] text-emerald-600 font-semibold block">+0.8% today</span>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg border border-slate-200">
-                    <span className="text-[10px] uppercase font-bold text-slate-500 block">MCX Aluminium</span>
-                    <span className="font-bold text-slate-900 text-sm">₹ 212.80 / kg</span>
-                    <span className="text-[10px] text-slate-500 font-semibold block">-0.2% today</span>
-                  </div>
-                  <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                    <span className="text-[10px] uppercase font-bold text-blue-700 block">Target Floor Margin</span>
-                    <span className="font-bold text-blue-900 text-sm">18.5% Protected</span>
-                    <span className="text-[10px] text-blue-600 font-semibold block">Risk Controlled</span>
-                  </div>
-                </div>
-
-                <div className="bg-white p-3.5 sm:p-4 rounded-lg border border-slate-200 space-y-2.5 sm:space-y-3">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-600 font-medium">Estimated Tender Cost Basis</span>
-                    <span className="font-mono font-bold text-slate-900">₹ 42,85,600</span>
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-600 font-medium">Recommended Bid Rate (Competitive L1)</span>
-                    <span className="font-mono font-bold text-[#2563EB]">₹ 51,20,000</span>
-                  </div>
-                  <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
-                    <span className="text-slate-900 font-bold">Projected Net Commercial Margin</span>
-                    <span className="font-mono font-extrabold text-emerald-600 text-xs sm:text-sm">₹ 8,34,400 (19.47%)</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs pt-1 text-slate-500 gap-1">
-                  <span>Automated volume discounting curves applied</span>
-                  <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded self-start sm:self-auto">
-                    Optimal Margin Score: 96/100
-                  </span>
-                </div>
-              </div>
-            </div>
+          {/* Left Illustration Snapshot */}
+          <div className="lg:col-span-7 flex items-center justify-center relative select-none py-4">
+            {/* Ambient soft glow matching pricing illustration tones */}
+            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-amber-400/20 via-blue-300/15 to-emerald-300/15 blur-3xl pointer-events-none" />
+            <motion.div
+              initial={{ opacity: 0.8, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 w-full flex items-center justify-center"
+            >
+              <img
+                src="/landing-pricing-illustration.png"
+                alt="Live IEEMA Metal Price Variation, LME/MCX Indices, and Margin Protection"
+                className="w-full max-w-[440px] sm:max-w-[520px] lg:max-w-[580px] h-auto object-contain drop-shadow-[0_20px_45px_rgba(217,119,6,0.10)] transition-transform duration-500 hover:scale-[1.02]"
+              />
+            </motion.div>
           </div>
 
           {/* Right Text Description */}
@@ -983,10 +889,10 @@ export default function LandingPage() {
               03 • PRICING & MARGIN INTELLIGENCE
             </span>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Commodity Cost & Margin Optimization Engine
+              Live Metal Indices & IEEMA Price Variation
             </h3>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-              Price bids with complete confidence. HAKI dynamically tracks copper and aluminium indices against manufacturer master price lists, automatically recommending winning L1 bid numbers while enforcing your mandatory margin floors.
+              Price bids with complete confidence. Saarthi tracks live LME and MCX indices for copper, aluminium, PVC, and steel against standard IEEMA price variation clauses—protecting margin floors while recommending winning L1 bid rates.
             </p>
             <div className="pt-2">
               <Link
