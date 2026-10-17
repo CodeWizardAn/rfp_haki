@@ -1552,14 +1552,14 @@ export default function LandingPage() {
               <div className="mt-6 mb-6">
                 <div className="flex items-baseline gap-1">
                   <span className="text-4xl font-black text-slate-900">
-                    {pricingCurrency === 'USD' ? '$199' : '₹14,999'}
+                    {pricingCurrency === 'USD' ? '$49' : '₹3,999'}
                   </span>
                   <span className="text-xs font-medium text-slate-500">/ month</span>
                 </div>
                 <span className="text-[11px] text-slate-400 block mt-1">
                   {pricingCurrency === 'USD'
-                    ? 'Billed annually or $249 month-to-month'
-                    : 'Billed annually or ₹18,000 month-to-month'}
+                    ? 'Billed annually or $59 month-to-month'
+                    : 'Billed annually or ₹4,999 month-to-month'}
                 </span>
               </div>
 
@@ -1568,7 +1568,7 @@ export default function LandingPage() {
               <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
-                  <span>Up to 15 RFPs analyzed / month</span>
+                  <span>Up to 50 RFPs analyzed / month</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
@@ -1617,14 +1617,14 @@ export default function LandingPage() {
               <div className="mt-6 mb-6">
                 <div className="flex items-baseline gap-1">
                   <span className="text-4xl font-black text-slate-900">
-                    {pricingCurrency === 'USD' ? '$499' : '₹39,999'}
+                    {pricingCurrency === 'USD' ? '$149' : '₹11,999'}
                   </span>
                   <span className="text-xs font-medium text-slate-500">/ month</span>
                 </div>
                 <span className="text-[11px] text-blue-600 font-medium block mt-1">
                   {pricingCurrency === 'USD'
-                    ? 'Billed annually or $599 month-to-month'
-                    : 'Billed annually or ₹46,000 month-to-month'}
+                    ? 'Billed annually or $179 month-to-month'
+                    : 'Billed annually or ₹14,499 month-to-month'}
                 </span>
               </div>
 
@@ -1633,7 +1633,7 @@ export default function LandingPage() {
               <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
-                  <span>Up to 60 RFPs analyzed / month</span>
+                  <span>Up to 200 RFPs analyzed / month</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
