@@ -67,13 +67,6 @@ const mockAlerts = [
   { id: 4, type: 'info', icon: <Clock size={14} />, message: 'Vendor "Polycab" updated 12 product prices', color: 'text-electric-cyan' },
 ];
 
-const systemOverview = [
-  { name: 'Core API', status: 'healthy', latency: 120 },
-  { name: 'PDF Extractor', status: 'healthy', latency: 210 },
-  { name: 'Spec Compare', status: 'warning', latency: 340 },
-  { name: 'Vendor Service', status: 'healthy', latency: 160 },
-  { name: 'Bid Engine', status: 'healthy', latency: 180 },
-];
 
 const stagger = {
   hidden: {},
@@ -357,37 +350,6 @@ export default function DashboardPage() {
             <MetalMarketPrices />
           </motion.div>
 
-          {/* System Overview Mini Map */}
-          <motion.div variants={fadeUp}>
-            <Card variant="glass">
-              <CardHeader>
-                <CardTitle>System Overview</CardTitle>
-              </CardHeader>
-              <div className="space-y-3">
-                {systemOverview.map((svc) => (
-                  <div key={svc.name} className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`w-2.5 h-2.5 rounded-full ${
-                          svc.status === 'healthy'
-                            ? 'bg-neon-emerald'
-                            : svc.status === 'warning'
-                              ? 'bg-amber-glow'
-                              : 'bg-coral-flame'
-                        }`}
-                      />
-                      <span className="text-sm text-ghost-white">{svc.name}</span>
-                    </div>
-                    <span className="text-xs text-muted-silver">{svc.latency} ms</span>
-                  </div>
-                ))}
-                <div className="mt-3 h-1.5 rounded-full bg-steel-slate/30 overflow-hidden">
-                  <div className="h-full gradient-pipeline" style={{ width: '78%' }} />
-                </div>
-                <p className="text-xs text-muted-silver">Data flow health across services</p>
-              </div>
-            </Card>
-          </motion.div>
 
           {/* Recent Activity */}
           <motion.div variants={fadeUp}>
