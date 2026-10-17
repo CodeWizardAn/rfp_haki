@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
-  Search, Upload, Download, Globe, CheckCircle2, Clock,
+  Search, Upload, Download, Globe, CheckCircle2,
   RefreshCw, Wifi, WifiOff,
 } from 'lucide-react';
 import { Button, Card, Input, Select, Badge } from '@/components/ui';
@@ -600,34 +600,21 @@ export default function RFPListPage() {
       <div className="space-y-4">
         {isLoading && <div className="text-center text-muted-silver py-8">Loading RFPs…</div>}
         {filteredCards.map((rfp) => (
-          <div key={rfp.rfpId} className="relative">
-            {/* Portal source indicator */}
-            <div className="absolute -top-2 left-4 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-deep-navy/90 border border-steel-slate/30">
-              <span className="text-xs">{PORTALS.find((p) => p.id === rfp.portalId)?.icon || '📄'}</span>
-              <span className="text-[10px] text-muted-silver">{rfp.portal}</span>
-              {rfp.scrapedAt && (
-                <>
-                  <span className="text-[10px] text-steel-slate/60">·</span>
-                  <Clock size={9} className="text-muted-silver/60" />
-                  <span className="text-[10px] text-muted-silver/60">{rfp.scrapedAt}</span>
-                </>
-              )}
-            </div>
-            <RFPCard
-              rfpId={rfp.rfpId}
-              title={rfp.title}
-              deadline={rfp.deadline}
-              priority={rfp.priority as any}
-              budget={rfp.budget}
-              status={rfp.status as any}
-              progress={rfp.progress}
-              vendorsMatched={rfp.vendorsMatched}
-              onView={() => navigate(`/rfps/${rfp.rfpId}`)}
-              onProcess={() => handleProcess(rfp)}
-              onDuplicate={() => handleDuplicate(rfp)}
-              onDelete={() => handleDelete(rfp.rfpId)}
-            />
-          </div>
+          <RFPCard
+            key={rfp.rfpId}
+            rfpId={rfp.rfpId}
+            title={rfp.title}
+            deadline={rfp.deadline}
+            priority={rfp.priority as any}
+            budget={rfp.budget}
+            status={rfp.status as any}
+            progress={rfp.progress}
+            vendorsMatched={rfp.vendorsMatched}
+            onView={() => navigate(`/rfps/${rfp.rfpId}`)}
+            onProcess={() => handleProcess(rfp)}
+            onDuplicate={() => handleDuplicate(rfp)}
+            onDelete={() => handleDelete(rfp.rfpId)}
+          />
         ))}
         {filteredCards.length === 0 && !isLoading && (
           <div className="text-center py-12 space-y-4">
