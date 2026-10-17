@@ -18,13 +18,6 @@ interface RFPCardProps {
   onDelete?: () => void;
 }
 
-const priorityTextColors: Record<Priority, string> = {
-  critical: 'text-red-600',
-  high: 'text-amber-700',
-  medium: 'text-blue-700',
-  low: 'text-slate-500',
-};
-
 function getDeadlineLabel(deadline?: string) {
   if (!deadline) return { text: 'No deadline set', isOverdue: false };
   const now = new Date();
@@ -40,9 +33,9 @@ export function RFPCard({
   rfpId,
   title,
   deadline,
-  priority,
+  priority: _priority,
   budget,
-  status,
+  status: _status,
   progress,
   vendorsMatched,
   onView,
@@ -51,25 +44,14 @@ export function RFPCard({
   onDelete,
 }: RFPCardProps) {
   const deadlineLabel = getDeadlineLabel(deadline);
-  const priorityColor = priorityTextColors[priority] || 'text-slate-500';
 
   return (
     <div className="group rounded-xl border border-slate-200/80 bg-white p-4 sm:p-5 hover:border-slate-300 hover:shadow-sm transition-all">
-      {/* Top Metadata Row: Plain text, zero box clutter */}
+      {/* Top Metadata Row: Tender ID & Deadline */}
       <div className="flex items-center justify-between text-xs mb-2">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="font-mono text-[11px] font-semibold text-slate-400 tracking-wider uppercase">
-            {rfpId}
-          </span>
-          <span className="text-slate-300">•</span>
-          <span className={cn('text-[11px] font-medium capitalize', priorityColor)}>
-            {priority} priority
-          </span>
-          <span className="text-slate-300">•</span>
-          <span className="text-[11px] text-slate-500 capitalize">
-            {status}
-          </span>
-        </div>
+        <span className="font-mono text-[11px] font-semibold text-slate-400 tracking-wider uppercase">
+          {rfpId}
+        </span>
 
         <div className="flex items-center gap-1 text-[11px] text-slate-400">
           <Clock size={11} className={deadlineLabel.isOverdue ? 'text-red-500' : 'text-slate-400'} />
