@@ -219,6 +219,7 @@ export default function LandingPage() {
   const [activeSpecIndex, setActiveSpecIndex] = useState(0);
   const [customSearch, setCustomSearch] = useState('');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [pricingCurrency, setPricingCurrency] = useState<'USD' | 'INR'>('USD');
 
   // Dynamic real-time spec matching
   const currentSpec = useMemo(() => {
@@ -1498,7 +1499,7 @@ export default function LandingPage() {
 
       {/* ── Enterprise Pricing Section ── */}
       <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto border-t border-black/[0.06]">
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <span className="text-[#2563EB] text-xs font-bold tracking-[0.2em] uppercase font-mono">
             PREDICTABLE ENTERPRISE PRICING
           </span>
@@ -1508,6 +1509,32 @@ export default function LandingPage() {
           <p className="text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-3 leading-relaxed">
             Eliminate costly manual bidding errors. Choose the plan tailored to your monthly tender volume and catalog requirements.
           </p>
+
+          {/* Currency Toggle */}
+          <div className="mt-5 inline-flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200">
+            <button
+              type="button"
+              onClick={() => setPricingCurrency('USD')}
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                pricingCurrency === 'USD'
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              USD ($)
+            </button>
+            <button
+              type="button"
+              onClick={() => setPricingCurrency('INR')}
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                pricingCurrency === 'INR'
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              INR (₹)
+            </button>
+          </div>
         </div>
 
         {/* Pricing Cards Grid */}
@@ -1524,10 +1551,16 @@ export default function LandingPage() {
 
               <div className="mt-6 mb-6">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-black text-slate-900">₹14,999</span>
+                  <span className="text-4xl font-black text-slate-900">
+                    {pricingCurrency === 'USD' ? '$199' : '₹14,999'}
+                  </span>
                   <span className="text-xs font-medium text-slate-500">/ month</span>
                 </div>
-                <span className="text-[11px] text-slate-400 block mt-1">Billed annually or ₹18,000 month-to-month</span>
+                <span className="text-[11px] text-slate-400 block mt-1">
+                  {pricingCurrency === 'USD'
+                    ? 'Billed annually or $249 month-to-month'
+                    : 'Billed annually or ₹18,000 month-to-month'}
+                </span>
               </div>
 
               <div className="w-full border-t border-slate-100 my-4" />
@@ -1583,10 +1616,16 @@ export default function LandingPage() {
 
               <div className="mt-6 mb-6">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-black text-slate-900">₹39,999</span>
+                  <span className="text-4xl font-black text-slate-900">
+                    {pricingCurrency === 'USD' ? '$499' : '₹39,999'}
+                  </span>
                   <span className="text-xs font-medium text-slate-500">/ month</span>
                 </div>
-                <span className="text-[11px] text-blue-600 font-medium block mt-1">Billed annually or ₹46,000 month-to-month</span>
+                <span className="text-[11px] text-blue-600 font-medium block mt-1">
+                  {pricingCurrency === 'USD'
+                    ? 'Billed annually or $599 month-to-month'
+                    : 'Billed annually or ₹46,000 month-to-month'}
+                </span>
               </div>
 
               <div className="w-full border-t border-slate-100 my-4" />
