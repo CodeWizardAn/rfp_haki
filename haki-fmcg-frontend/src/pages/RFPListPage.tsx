@@ -9,6 +9,7 @@ import { Button, Card, Input, Select, Badge } from '@/components/ui';
 import { RFPCard, RFPStatsBar } from '@/components/rfp';
 import { useRFPs, useDeleteRFP, useScrapePortals, usePortalScrapeStatus } from '@/hooks/useApi';
 import type { RFPStatus, Priority } from '@/types';
+import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
 /* ───── Portal definitions (mirrors e_procure_portals/portal_config.py) ───── */
@@ -291,6 +292,23 @@ export default function RFPListPage() {
     }
     return Math.max(1, Math.ceil(totalItems / 25));
   }, [apiData, totalItems]);
+
+  const pageNumbers = useMemo(() => {
+    if (totalPages <= 1) return [1];
+    const pages: (number | 'ellipsis')[] = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (page > 3) pages.push('ellipsis');
+      const start = Math.max(2, page - 1);
+      const end = Math.min(totalPages - 1, page + 1);
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (page < totalPages - 2) pages.push('ellipsis');
+      pages.push(totalPages);
+    }
+    return pages;
+  }, [page, totalPages]);
 
   const handleScrapeAll = () => {
     try {
@@ -680,13 +698,46 @@ export default function RFPListPage() {
             </span>
           )}
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))}>← Prev</Button>
-          <span className="text-ghost-white">{page}</span>
-          {page < totalPages && <span className="cursor-pointer" onClick={() => setPage(page + 1)}>{page + 1}</span>}
-          {totalPages > 3 && <span>...</span>}
-          {totalPages > 1 && <span className="cursor-pointer" onClick={() => setPage(totalPages)}>{totalPages}</span>}
-          <Button variant="ghost" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Next →</Button>
+        <div className="flex items-center gap-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={page <= 1}
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+          >
+            ← Prev
+          </Button>
+
+          {pageNumbers.map((p, idx) =>
+            p === 'ellipsis' ? (
+              <span key={`ellipsis-${idx}`} className="px-1.5 text-xs text-muted-silver select-none">
+                …
+              </span>
+            ) : (
+              <button
+                key={p}
+                type="button"
+                onClick={() => setPage(p)}
+                className={cn(
+                  'w-7 h-7 text-xs rounded-md transition-colors cursor-pointer flex items-center justify-center font-mono',
+                  page === p
+                    ? 'bg-slate-900 text-white font-semibold shadow-xs'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-medium'
+                )}
+              >
+                {p}
+              </button>
+            )
+          )}
+
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={page >= totalPages}
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+          >
+            Next →
+          </Button>
         </div>
       </div>
     </motion.div>
