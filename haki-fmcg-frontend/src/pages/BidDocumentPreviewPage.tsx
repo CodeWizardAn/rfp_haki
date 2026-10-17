@@ -15,7 +15,6 @@ import {
   Sun,
   Moon,
   ShieldCheck,
-  Building2,
   Check,
 } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
@@ -408,13 +407,17 @@ export default function BidDocumentPreviewPage() {
                       {section.id === 'cover' && (
                         <div className="text-center py-6 sm:py-8 space-y-4">
                           <div
-                            className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center shadow-md ${
+                            className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center shadow-md overflow-hidden p-2.5 ${
                               docTheme === 'paper'
-                                ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                                : 'bg-electric-cyan/15 text-electric-cyan border border-electric-cyan/30'
+                                ? 'bg-blue-50/80 border border-blue-200/80'
+                                : 'bg-white/10 border border-white/20'
                             }`}
                           >
-                            <Building2 size={32} />
+                            <img
+                              src="/haki-mascot.png"
+                              alt="Saarthi Logo"
+                              className="w-11 h-11 object-contain drop-shadow-sm"
+                            />
                           </div>
                           <div>
                             <h2
