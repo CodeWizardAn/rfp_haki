@@ -95,19 +95,19 @@ export default function BidDocumentPreviewPage() {
       id: 'cover',
       title: 'Cover Page',
       visible: true,
-      content: `Haki Procurement Intelligence\nBid Response & Commercial Proposal\n\nReference: ${bidId}\nDate of Submission: October 16, 2026\n\nPrepared for: Central Tender Procurement Authority\nRFP Reference: ${rfpRef}\nSubject: Supply of LT Power Cables & Industrial Distribution Hardware`,
+      content: `Saarthi\nBid Response & Commercial Proposal\n\nReference: ${bidId}\nDate of Submission: October 16, 2026\n\nPrepared for: Central Tender Procurement Authority\nRFP Reference: ${rfpRef}\nSubject: Supply of LT Power Cables & Industrial Distribution Hardware`,
     },
     {
       id: 'exec_summary',
       title: 'Executive Summary & Win Strategy',
       visible: false,
-      content: `Haki FMCG Procurement submits this comprehensive proposal engineered to deliver 100% statutory, technical, and logistical compliance for tender ${rfpRef}.\n\nStrategic Highlights:\n  • Zero-Lag Delivery: 60% dispatch within 6 weeks, balance 40% within 10 weeks of Purchase Order.\n  • Full Certification: NABL type-tested cable design, conforming to IS 1554 (Part 1), IS 694, and IEC 60502-1.\n  • Price Assurance: Firm landed prices inclusive of freight, packing, transit insurance, and GST.\n  • Warranty: 18-month comprehensive on-site replacement warranty backed by manufacturer undertaking.`,
+      content: `Saarthi Procurement submits this comprehensive proposal engineered to deliver 100% statutory, technical, and logistical compliance for tender ${rfpRef}.\n\nStrategic Highlights:\n  • Zero-Lag Delivery: 60% dispatch within 6 weeks, balance 40% within 10 weeks of Purchase Order.\n  • Full Certification: NABL type-tested cable design, conforming to IS 1554 (Part 1), IS 694, and IEC 60502-1.\n  • Price Assurance: Firm landed prices inclusive of freight, packing, transit insurance, and GST.\n  • Warranty: 18-month comprehensive on-site replacement warranty backed by manufacturer undertaking.`,
     },
     {
       id: 'scope',
       title: 'Scope of Supply & Bill of Quantities',
       visible: true,
-      content: `1. LT Power Cable, 240 sq mm, 3.5 Core XLPE — 15,000 meters\n2. LT Control Cable, 2.5 sq mm, 12 Core — 5,000 meters\n3. Jointing Kits (Heat Shrink) — 120 sets\n4. Cable Glands (Double Compression, Brass) — 240 sets\n\nDelivery Milestones:\n  • Phase 1 (60%): Within 6 weeks of PO issuance\n  • Phase 2 (40%): Within 10 weeks of PO issuance\n\nManufacturer: Haki FMCG Procurement Partner Works\nStandard Compliance: IS 1554 Part 1, IS 694, IEC 60502-1`,
+      content: `1. LT Power Cable, 240 sq mm, 3.5 Core XLPE — 15,000 meters\n2. LT Control Cable, 2.5 sq mm, 12 Core — 5,000 meters\n3. Jointing Kits (Heat Shrink) — 120 sets\n4. Cable Glands (Double Compression, Brass) — 240 sets\n\nDelivery Milestones:\n  • Phase 1 (60%): Within 6 weeks of PO issuance\n  • Phase 2 (40%): Within 10 weeks of PO issuance\n\nManufacturer: Saarthi Partner Works\nStandard Compliance: IS 1554 Part 1, IS 694, IEC 60502-1`,
     },
     {
       id: 'gtp',
@@ -170,7 +170,7 @@ export default function BidDocumentPreviewPage() {
 
   const handleEmail = () => {
     window.open(
-      `mailto:?subject=Bid Proposal ${bidId} (${rfpRef})&body=Attached is the commercial bid proposal generated via HAKI procurement engine for tender ${rfpRef}.`
+      `mailto:?subject=Bid Proposal ${bidId} (${rfpRef})&body=Attached is the commercial bid proposal generated via Saarthi procurement engine for tender ${rfpRef}.`
     );
     toast.success('Email client opened with draft proposal!');
   };
@@ -422,7 +422,7 @@ export default function BidDocumentPreviewPage() {
                                 docTheme === 'paper' ? 'text-slate-950' : 'text-white'
                               }`}
                             >
-                              Haki Procurement Intelligence
+                              Saarthi
                             </h2>
                             <p
                               className={`text-sm sm:text-base font-bold mt-1 ${
@@ -450,7 +450,7 @@ export default function BidDocumentPreviewPage() {
                             </div>
                             <div className="flex justify-between py-0.5">
                               <span className="font-semibold text-slate-500 dark:text-slate-400">Bidder Name:</span>
-                              <span className="font-bold">Haki FMCG Procurement Works Ltd</span>
+                              <span className="font-bold">Saarthi Works Ltd</span>
                             </div>
                             <div className="flex justify-between py-0.5">
                               <span className="font-semibold text-slate-500 dark:text-slate-400">Submission Date:</span>
