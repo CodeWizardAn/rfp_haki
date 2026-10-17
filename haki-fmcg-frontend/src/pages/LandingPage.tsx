@@ -1544,7 +1544,6 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">STARTER</span>
-                <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">SME Suppliers</span>
               </div>
               <h3 className="text-2xl font-extrabold text-slate-900 mt-3">Growth</h3>
               <p className="text-xs text-slate-500 mt-1">For growing electrical & FMCG distributors</p>
@@ -1609,7 +1608,6 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-blue-600 uppercase tracking-wider font-mono">PROFESSIONAL</span>
-                <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">Tier-1 EPC</span>
               </div>
               <h3 className="text-2xl font-extrabold text-slate-900 mt-3">Scale</h3>
               <p className="text-xs text-slate-500 mt-1">For high-throughput contractors & tender houses</p>
@@ -1674,7 +1672,6 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">ENTERPRISE</span>
-                <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">Discoms & OEMs</span>
               </div>
               <h3 className="text-2xl font-extrabold text-slate-900 mt-3">Custom</h3>
               <p className="text-xs text-slate-500 mt-1">For national manufacturers & utility bidders</p>
