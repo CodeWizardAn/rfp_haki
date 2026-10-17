@@ -353,28 +353,37 @@ export default function DashboardPage() {
 
           {/* Recent Activity */}
           <motion.div variants={fadeUp}>
-            <Card variant="glass">
-              <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-              </CardHeader>
-              <div className="space-y-1 max-h-[280px] overflow-y-auto pr-1">
+            <div className="bg-white/95 rounded-2xl border border-slate-200/90 shadow-sm p-5 backdrop-blur-md">
+              <div className="flex items-center justify-between pb-3 mb-2 border-b border-slate-100">
+                <div>
+                  <h3 className="text-base font-bold text-slate-900 tracking-tight">Recent Activity</h3>
+                  <p className="text-xs text-slate-500 mt-0.5">Audit log of latest procurement actions</p>
+                </div>
+                <span className="text-[11px] font-medium text-slate-600">Live stream</span>
+              </div>
+              <div className="divide-y divide-slate-100">
                 {[
-                  { text: 'RFP-2026-0143 uploaded by Admin', time: '2 min ago', icon: <Upload size={14} className="text-electric-cyan" /> },
-                  { text: 'Bid B-0087 approved — ₹12.4L', time: '18 min ago', icon: <CheckCircle2 size={14} className="text-neon-emerald" /> },
-                  { text: 'Vendor "Polycab" rated 4.5★ on delivery', time: '1 hour ago', icon: <Building2 size={14} className="text-teal-depth" /> },
-                  { text: '228 products matched for RFP-0142', time: '2 hours ago', icon: <Package size={14} className="text-violet-pulse" /> },
-                  { text: 'Pipeline completed for RFP-2026-0140', time: '3 hours ago', icon: <Activity size={14} className="text-neon-emerald" /> },
+                  { text: 'RFP-2026-0143 uploaded by Admin', time: '2 min ago', icon: <Upload size={14} className="text-blue-600" /> },
+                  { text: 'Bid B-0087 approved — ₹12.4L', time: '18 min ago', icon: <CheckCircle2 size={14} className="text-emerald-600" /> },
+                  { text: 'Vendor "Polycab" rated 4.5★ on delivery', time: '1 hour ago', icon: <Building2 size={14} className="text-teal-600" /> },
+                  { text: '228 products matched for RFP-0142', time: '2 hours ago', icon: <Package size={14} className="text-violet-600" /> },
+                  { text: 'Pipeline completed for RFP-2026-0140', time: '3 hours ago', icon: <Activity size={14} className="text-emerald-600" /> },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-steel-slate/15 transition-colors">
-                    <span className="w-7 h-7 rounded-full bg-steel-slate/30 flex items-center justify-center flex-shrink-0">
-                      {item.icon}
+                  <div
+                    key={i}
+                    className="flex items-center justify-between gap-4 py-3 px-2 rounded-lg hover:bg-slate-50/80 transition-colors"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="flex-shrink-0">{item.icon}</span>
+                      <p className="text-sm text-slate-800 font-medium truncate">{item.text}</p>
+                    </div>
+                    <span className="text-xs text-slate-600 font-mono whitespace-nowrap flex-shrink-0">
+                      {item.time}
                     </span>
-                    <p className="text-sm text-ghost-white flex-1">{item.text}</p>
-                    <span className="text-xs text-muted-silver whitespace-nowrap">{item.time}</span>
                   </div>
                 ))}
               </div>
-            </Card>
+            </div>
           </motion.div>
         </>
       )}
