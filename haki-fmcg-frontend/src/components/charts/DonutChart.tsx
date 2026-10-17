@@ -42,12 +42,15 @@ export function DonutChart({ title, data, centerLabel, centerValue, height = 250
             </Pie>
             <Tooltip
               contentStyle={{
-                background: 'rgba(18, 24, 51, 0.9)',
-                border: '1px solid rgba(0, 212, 255, 0.2)',
-                borderRadius: '12px',
-                color: '#E8ECF4',
-                fontSize: '13px',
+                background: '#0F172A',
+                border: '1px solid #334155',
+                borderRadius: '8px',
+                color: '#F8FAFC',
+                fontSize: '12px',
+                boxShadow: '0 8px 20px rgba(0, 0, 0, 0.35)',
               }}
+              itemStyle={{ color: '#FFFFFF', fontWeight: 600, fontSize: '12px' }}
+              labelStyle={{ color: '#94A3B8', fontWeight: 600, fontSize: '11px' }}
               formatter={(value: unknown) => formatCompactCurrency(Number(value))}
             />
           </PieChart>

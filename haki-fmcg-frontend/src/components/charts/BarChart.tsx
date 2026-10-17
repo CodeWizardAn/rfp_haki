@@ -36,12 +36,15 @@ export function BarChart({ title, data, bars, xDataKey = 'month', height = 250 }
           <YAxis tick={{ fill: '#8892B0', fontSize: 12 }} axisLine={false} tickLine={false} />
           <Tooltip
             contentStyle={{
-              background: 'rgba(18, 24, 51, 0.9)',
-              border: '1px solid rgba(0, 212, 255, 0.2)',
-              borderRadius: '12px',
-              color: '#E8ECF4',
-              fontSize: '13px',
+              background: '#0F172A',
+              border: '1px solid #334155',
+              borderRadius: '8px',
+              color: '#F8FAFC',
+              fontSize: '12px',
+              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.35)',
             }}
+            itemStyle={{ color: '#FFFFFF', fontWeight: 600, fontSize: '12px' }}
+            labelStyle={{ color: '#94A3B8', fontWeight: 600, fontSize: '11px' }}
           />
           <Legend
             wrapperStyle={{ fontSize: '12px', color: '#8892B0' }}

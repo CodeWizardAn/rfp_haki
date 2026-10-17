@@ -349,3 +349,46 @@ body {
   font-weight: 400;
   letter-spacing: 0.03em;
 }
+
+/* ============================================
+   RECHARTS TOOLTIP GLOBAL LEGIBILITY
+   Ensures chart tooltips have crisp white text and high contrast
+   ============================================ */
+.recharts-default-tooltip {
+  background-color: #0F172A !important;
+  border: 1px solid #334155 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3) !important;
+  padding: 8px 12px !important;
+}
+
+.recharts-tooltip-label {
+  color: #94A3B8 !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.recharts-tooltip-item-list {
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+}
+
+.recharts-tooltip-item {
+  color: #FFFFFF !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+.recharts-tooltip-item-name,
+.recharts-tooltip-item-separator,
+.recharts-tooltip-item-value,
+.recharts-tooltip-item-unit {
+  color: #FFFFFF !important;
+}
+

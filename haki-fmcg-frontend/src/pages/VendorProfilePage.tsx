@@ -98,8 +98,9 @@ const bidHistory = [
 ];
 
 const tooltipStyle = {
-  contentStyle: { background: 'rgba(18, 24, 51, 0.95)', border: '1px solid rgba(30, 38, 66, 0.5)', borderRadius: 12 },
-  labelStyle: { color: '#E8ECF4' },
+  contentStyle: { background: '#0F172A', border: '1px solid #334155', borderRadius: 8, fontSize: 12, color: '#F8FAFC' },
+  labelStyle: { color: '#94A3B8', fontWeight: 600, fontSize: 11 },
+  itemStyle: { color: '#FFFFFF', fontWeight: 600, fontSize: 12 },
 };
 
 type TabId = 'performance' | 'bids' | 'certifications' | 'audit';

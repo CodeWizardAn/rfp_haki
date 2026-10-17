@@ -53,8 +53,16 @@ const oemWinRate = [
 ];
 
 const tooltipStyle = {
-  contentStyle: { backgroundColor: '#121833', border: '1px solid #1E2642', borderRadius: '12px', fontSize: '12px' },
-  labelStyle: { color: '#E8ECF4' },
+  contentStyle: {
+    backgroundColor: '#0F172A',
+    border: '1px solid #334155',
+    borderRadius: '8px',
+    fontSize: '12px',
+    color: '#F8FAFC',
+    boxShadow: '0 8px 20px rgba(0, 0, 0, 0.35)',
+  },
+  labelStyle: { color: '#94A3B8', fontWeight: 600, fontSize: '11px' },
+  itemStyle: { color: '#FFFFFF', fontWeight: 600, fontSize: '12px' },
 };
 
 export default function AnalyticsPage() {
