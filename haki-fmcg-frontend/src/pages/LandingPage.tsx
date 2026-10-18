@@ -219,7 +219,7 @@ export default function LandingPage() {
   const [activeSpecIndex, setActiveSpecIndex] = useState(0);
   const [customSearch, setCustomSearch] = useState('');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-  const [pricingCurrency, setPricingCurrency] = useState<'USD' | 'INR'>('USD');
+  const [pricingCurrency, setPricingCurrency] = useState<'USD' | 'INR'>('INR');
 
   // Dynamic real-time spec matching
   const currentSpec = useMemo(() => {
@@ -1514,17 +1514,6 @@ export default function LandingPage() {
           <div className="mt-5 inline-flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200">
             <button
               type="button"
-              onClick={() => setPricingCurrency('USD')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                pricingCurrency === 'USD'
-                  ? 'bg-white text-slate-900 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-900'
-              }`}
-            >
-              USD ($)
-            </button>
-            <button
-              type="button"
               onClick={() => setPricingCurrency('INR')}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 pricingCurrency === 'INR'
@@ -1533,6 +1522,17 @@ export default function LandingPage() {
               }`}
             >
               INR (₹)
+            </button>
+            <button
+              type="button"
+              onClick={() => setPricingCurrency('USD')}
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                pricingCurrency === 'USD'
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              USD ($)
             </button>
           </div>
         </div>
